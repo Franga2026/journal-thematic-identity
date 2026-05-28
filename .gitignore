@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Opcional: ignorar JSON de producción si viven fuera del repo
+# src/data.json
+# src/openalex.json
