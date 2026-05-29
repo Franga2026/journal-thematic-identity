@@ -1,9 +1,6 @@
 /**
- * bootstrapData.js
- * 
  * Punto único de carga e inicialización de datos.
- * Se importa una sola vez desde main.jsx antes del render.
- * Todos los JSON se cargan aquí y se inyectan al dataProcessing store.
+ * Se importa una sola vez desde main.tsx antes del render.
  */
 import { initData } from '../utils/dataProcessing';
 
@@ -15,11 +12,12 @@ import AI from '../ai-data.json';
 import COAUTHORS from '../coauthor-profiles.json';
 import METRICS from '../institutional-metrics.json';
 import RES_METRICS from '../researcher-metrics.json';
+import WORK_CITATIONS from '../data/work-citations.json';
 
-initData({ DATA, OA, AW, OD, AI, COAUTHORS, METRICS, RES_METRICS });
+initData({ DATA, OA, AW, OD, AI, COAUTHORS, METRICS, RES_METRICS, CITATIONS: WORK_CITATIONS });
 
 if (import.meta.env.DEV) {
   console.log(
-    `[bootstrapData] Loaded: ${DATA.length} researchers, ${AW.length} works, ${Object.keys(OA.authors || {}).length} OA profiles`
+    `[initDataStore] ${DATA.length} investigadores, ${AW.length} publicaciones, ${Object.keys(OA.authors || {}).length} perfiles OpenAlex`
   );
 }

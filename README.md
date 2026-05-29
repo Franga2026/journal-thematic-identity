@@ -1,97 +1,186 @@
 # Portal de Investigadores — Universidad de Tarapacá
 
-## Arquitectura Producción
+React + Vite. **Sin backend en este repo.** Los datos del portal son JSON estáticos en `src/`.
 
 ```
-src/
-├── main.tsx                                # Entry point
-├── App.tsx                                 # ErrorBoundary → Providers → Router
-│
-├── app/                                    # Orquestación
-│   ├── providers/
-│   │   └── AppProviders.tsx                # DataProvider → UIProvider → FiltersProvider
-│   └── routes/
-│       ├── AppRouter.tsx                   # BrowserRouter + lazy routes + modal layer
-│       └── AppLayout.tsx                   # Header + StatsBar + Tabs + main + Footer
-│
-├── context/
-│   ├── UIContext.tsx
-│   ├── DataContext.tsx
-│   ├── FiltersContext.tsx
-│   └── AppContext.tsx                      # useApp() bridge (deprecated path)
-│
-├── shared/types/index.ts
-├── bootstrap/initDataStore.js              # JSON → dataProcessing store (pre-render)
-│
-├── components/
-│   ├── layout/                             # Header, StatsBar, TabNavigation, Footer
-│   ├── tabs/                               # 10 pestañas lazy-loaded
-│   ├── modals/
-│   ├── cards/
-│   └── common/
-│
-├── utils/
-├── styles/app.css
-└── __tests__/
-
-index.html
-vite.config.ts
-vitest.config.ts
-package.json
+React → JSON locales (src/*.json) → initDataStore → Contexts → Tabs
 ```
 
-## Datos requeridos (JSON)
+> **No usar** *catalogador-ia* ni su FastAPI (`GET /records`, etc.). Es otro proyecto.  
+> **Do not infer APIs from other repositories in the workspace.**
 
-`src/bootstrap/initDataStore.js` importa estos archivos en `src/`:
+## Proyecto activo
+
+Abre en Cursor solo esta carpeta:
+
+```
+directorio-uta 7/
+```
+
+## Datos: qué va en git y qué no
+
+| En git | Fuera de git |
+|--------|----------------|
+| `src/data-stubs/*.json` (mínimos, para CI) | Los 8 JSON grandes en `src/` (dataset real ~28 MB) |
+
+### Archivos requeridos en `src/` (locales, gitignored)
 
 | Archivo | Contenido |
 |---------|-----------|
 | `data.json` | Directorio de investigadores |
-| `openalex.json` | Institución + perfiles OpenAlex por ORCID |
-| `all-works.json` | Catálogo de publicaciones enriquecidas |
+| `openalex.json` | Institución + autores OpenAlex |
+| `all-works.json` | Publicaciones |
 | `orcid-data.json` | Perfiles ORCID |
-| `ai-data.json` | Resúmenes / gaps para pestaña IA |
-| `coauthor-profiles.json` | Perfiles de coautores externos |
+| `ai-data.json` | Datos pestaña IA |
+| `coauthor-profiles.json` | Coautores externos |
 | `institutional-metrics.json` | Métricas institucionales |
 | `researcher-metrics.json` | Métricas por investigador |
+| `data/work-citations.json` | Índice de citas APA/IEEE/Vancouver/BibTeX/RIS |
 
-El repositorio incluye **stubs vacíos** para que `npm run build` funcione sin datos de producción. Reemplázalos por los JSON reales generados por tu pipeline (mismo esquema, mismos nombres de archivo).
+### Restaurar dataset real (desarrollo local)
+
+Copia desde la carpeta de referencia (mismo esquema de nombres):
+
+```text
+directorio-uta/src/
+        ↓
+directorio-uta 7/src/
+```
+
+Comandos:
+
+```bash
+# Recuperación rápida (JSON + fotos + autores_uta + índice de citas)
+npm run restore:data
+
+# Solo copiar JSON y fotos (sin link:works ni citas)
+npm run setup:data
+
+# Opción 2 — manual
+cp ../directorio-uta/src/data.json \
+   ../directorio-uta/src/openalex.json \
+   ../directorio-uta/src/all-works.json \
+   ../directorio-uta/src/orcid-data.json \
+   ../directorio-uta/src/ai-data.json \
+   ../directorio-uta/src/coauthor-profiles.json \
+   ../directorio-uta/src/institutional-metrics.json \
+   ../directorio-uta/src/researcher-metrics.json \
+   src/
+
+# Verificar antes de build con datos reales
+npm run verify:data
+```
+
+### Fotos de perfil
+
+Las imágenes **no** van en `src/`: Vite las sirve desde:
+
+```text
+public/photos/     ← p. ej. 04892498-0.jpg (campo ph en data.json)
+```
+
+Se copian con `npm run setup:data` desde `directorio-uta/public/photos/` (173 archivos). Sin esta carpeta verás solo iniciales.
+
+Tras copiar, reinicia Vite. En consola deberías ver:
+
+```text
+[initDataStore] 367 investigadores, 9127 publicaciones, …
+```
 
 ## Setup
 
 ```bash
 npm ci
-npm run dev        # Desarrollo
-npm run test       # Tests
-npm run build      # Producción
-npx tsc --noEmit   # Typecheck (CI; strict mode off until TS migration in PR3+)
+npm run setup:data      # si aún no tienes los JSON en src/
+npm run verify:data     # obligatorio antes de build “real”
+npm run dev             # http://localhost:5173
+npm run test
+npm run build           # ejecuta verify:data automáticamente
 ```
 
-Variables opcionales (pestaña IA / informes): `VITE_ANTHROPIC_KEY` en `.env`.
+Solo comprobar que existen archivos (p. ej. tras copiar stubs en CI):
+
+```bash
+npm run verify:data:stubs
+```
+
+### Asistente IA (Claude)
+
+La API key **no** va en el frontend. Solo servidor: `ANTHROPIC_API_KEY` y opcional `ANTHROPIC_MODEL` (ver `.env.example`).
+
+| Entorno | Backend |
+|---------|---------|
+| `npm run dev` | Middleware Vite → `aiApiAdapter` |
+| **Vercel** | `api/ai/*.ts` → mismos handlers |
+| Cloudflare (opc.) | `workers/ai-api-worker.ts` — chat y summarize-work |
+
+El cliente usa siempre **`POST /api/ai/*`** (`src/api/aiApi.ts`).
+
+**Despliegue Vercel, variables, curl y Worker:** [docs/DEPLOY-AI.md](docs/DEPLOY-AI.md)
+
+UI: **Resumen IA** (obras), **Analizar con IA** (perfiles), análisis ODS/coautores, chat en pestaña **IA**.
+
+## Carga de datos
+
+`main.tsx` → `bootstrap/initDataStore.js` → `initData()` en `utils/dataProcessing.js`.
+
+## Arquitectura UI
+
+```
+App → ErrorBoundary → AppProviders → AppRouter
+```
+
+Rutas: `/perfiles`, `/unidades`, `/areas`, `/ods`, `/produccion`, `/ranking`, `/metricas`, `/informes`. Co-autores: desde la ficha del investigador (Co-autores principales). Resúmenes IA: en fichas de investigador, colaborador y publicaciones.
+
+### Co-autores / Colaborador internacional
+
+El modal de colaborador (`CoAuthorModal`) y las métricas de colaboración UTA dependen de obras en `all-works.json` con el campo `autores_uta` vinculado a investigadores UTA.
+
+Si un colaborador tiene colaboraciones detectadas, pero el modal muestra el **listado de publicaciones vacío**:
+
+> Este colaborador tiene colaboraciones detectadas, pero no hay obras enlazadas en all-works. Ejecute `npm run link:works` para regenerar vínculos.
+
+```bash
+npm run link:works
+```
+
+Luego reconstruir/verificar: `all-works.json` (`autores_uta`), `coauthor-profiles.json`, métricas de colaboración (`resolveCoAuthorProfile`) y el listado en `CoAuthorModal`.
+
+Referencia en código: `src/utils/coAuthorsTechnicalNote.ts`.
+
+### API vincular colaboradores
+
+En dev/preview, Vite expone:
+
+```http
+POST /api/collaborators/link
+Content-Type: application/json
+
+{ "orcid": "0000-0002-2222-2222", "fetchOpenAlex": true, "persist": false }
+```
+
+```http
+GET /api/collaborators/{orcid}/link?persist=1
+```
+
+Pipeline: `linkAutoresUta` → authorships (ORCID/nombre) → cruce coautor+UTA → OpenAlex DOIs.
+
+En el cliente: `linkCollaboratorWorks()` desde `src/api/collaboratorsApi.ts` (misma lógica; el modal usa este método).
+
+Con `persist: true` en dev, actualiza `src/all-works.json` en disco (equivalente a `npm run link:works` ampliado).
+
+### Citas bibliográficas
+
+```bash
+npm run index:citations
+# opcional: enriquecer metadatos faltantes vía Crossref
+npm run index:citations -- --crossref
+```
+
+Genera `src/data/work-citations.json` desde `all-works.json`. En la UI, cada `WorkCard` incluye **Citar** (APA 7, IEEE, Vancouver, BibTeX, RIS — copiar o descargar).
+
+Helper: `buildCitation(work, 'apa' | 'ieee' | 'vancouver' | 'bibtex' | 'ris')` en `src/utils/citation/`.
 
 ## Migración de contextos
 
-```jsx
-// Antes
-import { useApp } from '../../context/AppContext';
-
-// Después (menos re-renders)
-import { useUI } from '../../context/UIContext';
-import { useFilters } from '../../context/FiltersContext';
-import { useData } from '../../context/DataContext';
-```
-
-## URLs (React Router)
-
-| URL | Vista |
-|-----|-------|
-| `/perfiles` | Grid de investigadores |
-| `/unidades` | Departamentos |
-| `/areas` | Áreas de investigación |
-| `/ods` | Objetivos de Desarrollo Sostenible |
-| `/produccion` | Publicaciones con filtros |
-| `/colaboradores` | Redes de co-autoría |
-| `/ranking` | Rankings por métricas |
-| `/metricas` | Dashboard institucional |
-| `/ia` | Chat IA + Comparador + Redes |
-| `/informes` | Informes + exportación |
+Preferir `useUI()`, `useFilters()`, `useData()` frente a `useApp()`.

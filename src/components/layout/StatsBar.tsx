@@ -1,11 +1,13 @@
 import { useMemo } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { startTransition } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import { useData } from '../../context/DataContext';
 import { useFilters } from '../../context/FiltersContext';
 import { Counter } from '../common/UIComponents';
 
 export default function StatsBar() {
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigate();
   const { pathname } = useLocation();
   const currentTab = pathname.replace('/', '') || 'perfiles';
   const { DATA, INST, DEPTS, ORCID_COUNT } = useData();
@@ -17,7 +19,17 @@ export default function StatsBar() {
     { n: INST.works_count || 0, l: 'Producción', active: currentTab === 'produccion', fn: () => navigate('/produccion') },
     { n: INST.cited_by_count || 0, l: 'Citas', active: false, fn: () => {} },
     { n: INST.h_index || 0, l: 'H-index', active: false, fn: () => {} },
-    { n: ORCID_COUNT, l: 'ORCID', active: onlyOrcid, fn: () => { setOnlyOrcid(true); navigate('/perfiles'); } },
+    {
+      n: ORCID_COUNT,
+      l: 'ORCID',
+      active: onlyOrcid,
+      fn: () => {
+        startTransition(() => {
+          setOnlyOrcid(true);
+          navigate('/perfiles');
+        });
+      },
+    },
     { n: (INST.sdgs || []).length, l: 'ODS', active: currentTab === 'ods', fn: () => navigate('/ods') },
   ], [DATA.length, DEPTS.length, INST, ORCID_COUNT, currentTab, onlyOrcid, sdgFilter, navigate, setOnlyOrcid]);
 

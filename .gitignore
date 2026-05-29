@@ -2,9 +2,18 @@ node_modules
 dist
 .env
 .env.*
-!.env.example
+!.env.local.example
 .DS_Store
 
-# Opcional: ignorar JSON de producción si viven fuera del repo
-# src/data.json
-# src/openalex.json
+# Large local datasets (not source code — copy from directorio-uta/src/)
+src/data.json
+src/openalex.json
+src/all-works.json
+src/orcid-data.json
+src/ai-data.json
+src/coauthor-profiles.json
+src/institutional-metrics.json
+src/researcher-metrics.json
+
+# Profile photos (copy from directorio-uta/public/photos/)
+public/photos/

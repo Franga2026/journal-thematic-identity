@@ -5,11 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run verify:data && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "verify:data": "node scripts/verify-data.mjs",
+    "verify:data:stubs": "node scripts/verify-data.mjs --allow-stubs",
+    "setup:data": "node scripts/setup-data.mjs",
+    "restore:data": "node scripts/setup-data.mjs && npm run link:works && npm run index:citations",
+    "link:works": "node scripts/link-autores-uta.mjs",
+    "index:citations": "npx vite-node scripts/index-citations.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.100.0",
     "pptxgenjs": "^3.12.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

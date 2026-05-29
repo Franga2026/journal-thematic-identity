@@ -2,37 +2,83 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import {
   initData, getData, getInstitution, getDepartments, getDeptCounts,
   getOrcidCount, getAuthorOA, getOrcidProfile, enrichWork,
-  filterResearchers, filterWorks, getAW,
+  filterResearchers, filterWorks, getAW, buildWorkFacets,
+  getWorksForResearcher, linkAutoresUta,
 } from '../utils/dataProcessing';
 import type { Researcher, Work } from '../shared/types';
 
 const MOCK_RESEARCHERS: Researcher[] = [
-  { f: 'Ana', l: 'Silva', o: '0000-0001', dp: [{ d: 'Física' }], t: 'Profesora' },
-  { f: 'Luis', l: 'Rojas', o: '0000-0002', dp: [{ d: 'Química' }], t: 'Investigador' },
-  { f: 'Pedro', l: 'Mora', dp: [{ d: 'Física' }] },
-  { f: 'Carla', l: 'Díaz', o: '0000-0003', dp: [{ d: 'Biología' }, { d: 'Química' }], e: 'cdiaz@uta.cl' },
+  { id: '0000-0001', f: 'Ana', l: 'Silva', o: '0000-0001-0000-0001', dp: [{ d: 'Física' }], t: 'Profesora' },
+  { id: '0000-0002', f: 'Luis', l: 'Rojas', o: '0000-0002-0000-0002', dp: [{ d: 'Química' }], t: 'Investigador' },
+  { id: '0000-0004', f: 'Pedro', l: 'Mora', dp: [{ d: 'Física' }] },
+  { id: '0000-0003', f: 'Carla', l: 'Díaz', o: '0000-0003-0000-0003', dp: [{ d: 'Biología' }, { d: 'Química' }], e: 'cdiaz@uta.cl' },
 ];
 
 const MOCK_WORKS: Work[] = [
-  { t: 'Quantum effects in <b>nanostructures</b>', y: 2023, c: 15, s: 'Nature', tp: 'article', oa: true, field: 'Physics', qi: 'Q1', qc: '#dc2626', a: ['A. Silva', 'L. Rojas'], d: '10.1234/test1' },
-  { t: 'Chemical analysis methods', y: 2022, c: 5, s: 'Chem Rev', tp: 'article', oa: false, field: 'Chemistry', qi: 'Q2', a: ['L. Rojas'] },
-  { t: 'Biodiversity in Atacama', y: 2023, c: 0, s: 'Ecology', tp: 'article', oa: true, field: 'Biology', sdgs: ['Life on land'], a: ['C. Díaz'] },
-  { t: 'Machine learning review', y: 2021, c: 50, s: 'AI Journal', tp: 'review', oa: false, field: 'Computer Science', a: ['A. Silva'] },
+  {
+    t: 'Quantum effects in <b>nanostructures</b>',
+    y: 2023,
+    c: 15,
+    s: 'Nature',
+    tp: 'article',
+    oa: true,
+    field: 'Physics',
+    qi: 'Q1',
+    qc: '#dc2626',
+    a: ['Ana Silva', 'Luis Rojas'],
+    d: '10.1234/test1',
+    autores_uta: ['0000-0001', '0000-0001-0000-0001', '0000-0002'],
+  },
+  {
+    t: 'Chemical analysis methods',
+    y: 2022,
+    c: 5,
+    s: 'Chem Rev',
+    tp: 'article',
+    oa: false,
+    field: 'Chemistry',
+    qi: 'Q2',
+    a: ['Luis Rojas'],
+    autores_uta: ['0000-0002', '0000-0002-0000-0002'],
+  },
+  {
+    t: 'Biodiversity in Atacama',
+    y: 2023,
+    c: 0,
+    s: 'Ecology',
+    tp: 'article',
+    oa: true,
+    field: 'Biology',
+    sdgs: ['Life on land'],
+    a: ['Carla Díaz'],
+    autores_uta: ['0000-0003', '0000-0003-0000-0003'],
+  },
+  {
+    t: 'Machine learning review',
+    y: 2021,
+    c: 50,
+    s: 'AI Journal',
+    tp: 'review',
+    oa: false,
+    field: 'Computer Science',
+    a: ['Ana Silva'],
+    autores_uta: ['0000-0001', '0000-0001-0000-0001'],
+  },
 ];
 
 const MOCK_OA = {
   institution: { works_count: 500, cited_by_count: 3000, h_index: 25, sdgs: [{ name: 'Life on land', count: 10 }] },
   authors: {
-    '0000-0001': { works_count: 20, cited_by_count: 150, h_index: 8, works: [MOCK_WORKS[0], MOCK_WORKS[3]] },
-    '0000-0002': { works_count: 15, cited_by_count: 80, h_index: 5, works: [MOCK_WORKS[0], MOCK_WORKS[1]] },
-    '0000-0003': { works_count: 5, cited_by_count: 10, h_index: 2, works: [MOCK_WORKS[2]] },
+    '0000-0001-0000-0001': { works_count: 20, cited_by_count: 150, h_index: 8, works: [MOCK_WORKS[0], MOCK_WORKS[3]] },
+    '0000-0002-0000-0002': { works_count: 15, cited_by_count: 80, h_index: 5, works: [MOCK_WORKS[0], MOCK_WORKS[1]] },
+    '0000-0003-0000-0003': { works_count: 5, cited_by_count: 10, h_index: 2, works: [MOCK_WORKS[2]] },
   },
-  sdg_researchers: { 'Life on land': ['0000-0003'] },
+  sdg_researchers: { 'Life on land': ['0000-0003-0000-0003'] },
 };
 
 const MOCK_OD = {
   profiles: {
-    '0000-0001': { coAuthors: [{ name: 'External Collab', orcid: '0000-9999', count: 3, fields: ['Physics'] }], education: [{ degree: 'PhD', institution: 'MIT', endYear: 2010 }] },
+    '0000-0001-0000-0001': { coAuthors: [{ name: 'External Collab', orcid: '0000-9999', count: 3, fields: ['Physics'] }], education: [{ degree: 'PhD', institution: 'MIT', endYear: 2010 }] },
   },
 };
 
@@ -102,9 +148,11 @@ describe('dataProcessing', () => {
       expect(enriched.field).toBe('Chemistry');
     });
 
-    it('returns original work if no match', () => {
+    it('returns normalized work if no match in catalog', () => {
       const w: Work = { t: 'Nonexistent title xyz123' };
-      expect(enrichWork(w)).toBe(w);
+      const enriched = enrichWork(w);
+      expect(enriched.t).toBe('Nonexistent title xyz123');
+      expect(enriched.d).toBe('');
     });
 
     it('handles null input', () => {
@@ -194,6 +242,41 @@ describe('dataProcessing', () => {
     it('combines filters', () => {
       const results = filterWorks({ year: '2023', oa: true });
       expect(results).toHaveLength(2);
+    });
+
+    it('filters closed access via access param', () => {
+      const results = filterWorks({ access: 'closed' });
+      expect(results).toHaveLength(2);
+      expect(results.every((w) => !w.oa)).toBe(true);
+    });
+
+    it('filters by topic or field', () => {
+      expect(filterWorks({ topic: 'Physics' })).toHaveLength(1);
+      expect(filterWorks({ topic: 'Biology' })).toHaveLength(1);
+    });
+  });
+
+  describe('buildWorkFacets', () => {
+    it('aggregates facet counts', () => {
+      const facets = buildWorkFacets(MOCK_WORKS);
+      expect(facets.years.length).toBeGreaterThan(0);
+      expect(facets.types.some((t) => t.name === 'article')).toBe(true);
+      expect(facets.access.find((a) => a.name === 'open')?.count).toBe(2);
+    });
+  });
+
+  describe('getWorksForResearcher / autores_uta', () => {
+    it('returns works linked by RUT/id', () => {
+      const ana = MOCK_RESEARCHERS[0];
+      const works = getWorksForResearcher(ana);
+      expect(works.length).toBe(2);
+      expect(works.every((w) => w.autores_uta?.includes('0000-0001'))).toBe(true);
+    });
+
+    it('links works by author name when autores_uta is empty', () => {
+      const loose: Work[] = [{ t: 'Loose paper', y: 2020, a: ['Pedro Mora'] }];
+      linkAutoresUta(MOCK_RESEARCHERS, loose, MOCK_OA);
+      expect(loose[0].autores_uta).toContain('0000-0004');
     });
   });
 });

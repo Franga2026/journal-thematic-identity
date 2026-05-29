@@ -1,15 +1,14 @@
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import { useApp } from '../../context/AppContext';
-import { SDG_COLORS, SDG_ES } from '../../utils/constants';
+import { SDG_COLORS, SDG_ES, SDG_NAME_TO_NUMBER } from '../../utils/constants';
 
 export default function TabODS() {
-  const { INST, setSdgFilter, setOnlyOrcid, setTab, setDept, setPage } = useApp();
+  const { INST } = useApp();
+  const navigate = useTransitionNavigate();
 
-  const handleClick = (name) => {
-    setSdgFilter(name);
-    setOnlyOrcid(false);
-    setTab('perfiles');
-    setDept('');
-    setPage(0);
+  const handleClick = (name: string) => {
+    const num = SDG_NAME_TO_NUMBER[name as keyof typeof SDG_NAME_TO_NUMBER];
+    if (num) navigate(`/ods/${num}`);
   };
 
   return (

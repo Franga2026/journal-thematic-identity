@@ -1,0 +1,13 @@
+# Copiar a wrangler.toml y configurar secrets:
+#   wrangler secret put ANTHROPIC_API_KEY
+name = "directorio-uta-ai"
+main = "ai-api-worker.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# ANTHROPIC_MODEL = "claude-3-5-sonnet-latest"
+
+[[routes]]
+pattern = "tu-dominio.com/api/ai/*"
+zone_name = "tu-dominio.com"

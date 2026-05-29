@@ -9,6 +9,7 @@ export interface Department {
 }
 
 export interface Researcher {
+  id?: string;     // RUT / ID institucional UTA
   f: string;       // first name
   l: string;       // last name
   t?: string;      // title / position
@@ -40,7 +41,49 @@ export interface Work {
   pub?: string;    // publisher
   srcOA?: boolean; // source is OA journal
   cr_pub?: string; // crossref publisher
+  /** IDs UTA (RUT, id institucional u ORCID) de investigadores vinculados */
+  autores_uta?: string[];
+  /** Authorships estilo OpenAlex (si vienen enriquecidas en all-works.json) */
+  authorships?: Array<{
+    author?: { id?: string; display_name?: string; orcid?: string };
+    institutions?: Array<{ id?: string; display_name?: string; country_code?: string }>;
+    countries?: string[];
+  }>;
+  /** Alias / campos OpenAlex enriquecidos */
+  title?: string;
+  cited_by_count?: number;
+  doi?: string;
+  doi_url?: string;
+  url?: string;
+  pdf_url?: string;
+  openalex_id?: string;
+  open_access?: { oa_url?: string; is_oa?: boolean };
+  primary_location?: { pdf_url?: string; landing_page_url?: string };
+  /** Metadatos bibliográficos opcionales */
+  vol?: string | number;
+  volume?: string | number;
+  issue?: string | number;
+  num?: string | number;
+  pages?: string;
+  /** Citas pre-indexadas (runtime o embebidas) */
+  citations?: WorkCitations;
 }
+
+export interface WorkCitations {
+  apa: string;
+  ieee: string;
+  vancouver: string;
+  bibtex: string;
+  ris: string;
+  incomplete?: boolean;
+}
+
+export interface WorkCitationIndexEntry extends WorkCitations {
+  doi?: string;
+  updatedAt: string;
+}
+
+export type WorkCitationIndex = Record<string, WorkCitationIndexEntry>;
 
 // ─── OpenAlex Author Profile ───
 export interface AuthorOA {
@@ -69,9 +112,12 @@ export interface OpenAlexData {
 export interface CoAuthorRef {
   name: string;
   orcid?: string;
+  /** OpenAlex author URL o A-id (presente en orcid-data cuando no hay ORCID) */
+  oaId?: string;
   count: number;
   fields?: string[];
   h_index?: number;
+  institutions?: string[];
 }
 
 export interface Education {
@@ -89,6 +135,14 @@ export interface OrcidData {
   profiles?: Record<string, OrcidProfile>;
 }
 
+export type ResearcherMetricsScope = 'local_profile' | 'collaboration' | 'global_openalex';
+
+export interface GlobalOpenAlexMetrics {
+  works_count?: number;
+  cited_by_count?: number;
+  h_index?: number;
+}
+
 // ─── Co-Author Full Profile ───
 export interface CoAuthorProfile {
   name: string;
@@ -101,6 +155,12 @@ export interface CoAuthorProfile {
   fields?: string[];
   topics?: Array<{ name: string }>;
   works?: Work[];
+  /** Ámbito de las métricas mostradas en cabecera y listado */
+  metricsScope?: ResearcherMetricsScope;
+  /** Totales globales OpenAlex (no mezclar con producción UTA) */
+  global_openalex?: GlobalOpenAlexMetrics;
+  /** Ámbito del listado de publicaciones (puede diferir de metricsScope si hay fallback) */
+  publicationListScope?: ResearcherMetricsScope;
 }
 
 // ─── AI Data ───
@@ -221,7 +281,7 @@ export interface InstitutionalMetrics {
 }
 
 // ─── Context State Types ───
-export type TabKey = 'perfiles' | 'unidades' | 'areas' | 'ods' | 'produccion' | 'colaboradores' | 'ranking' | 'metricas' | 'ia' | 'informes';
+export type TabKey = 'perfiles' | 'unidades' | 'areas' | 'ods' | 'produccion' | 'descubridor' | 'ranking' | 'metricas' | 'informes' | 'fuentes';
 export type SearchType = 'concepto' | 'texto';
 export type RankKey = 'fwci' | 'hindex' | 'citas' | 'q1' | 'cpp' | 'oa';
 export type AITabKey = 'chat' | 'comparar' | 'redes' | 'tendencias' | 'oportunidades';
@@ -246,6 +306,9 @@ export interface UIState {
   // Modals
   selected: Researcher | null;
   openResearcher: (r: Researcher) => void;
+  openAlexAuthorId: string | null;
+  openOpenAlexResearcher: (authorIdOrUrl: string) => void;
+  resolveResearcherProfile: (profileId: string) => void;
   closeResearcher: () => void;
   modalTopic: string;
   setModalTopic: (t: string) => void;

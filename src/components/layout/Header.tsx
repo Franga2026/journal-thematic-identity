@@ -1,23 +1,134 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useMemo, type ChangeEvent } from 'react';
+import { startTransition } from 'react';
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import { useUI } from '../../context/UIContext';
 import { useFilters } from '../../context/FiltersContext';
+import { getSearchIntentMeta } from '../../utils/searchIntent';
 import type { SearchType } from '../../shared/types';
 
 export default function Header() {
-  const navigate = useNavigate();
-  const { search, setSearch, searchType, setSearchType, resetPage } = useUI();
+  const navigate = useTransitionNavigate();
+  const {
+    search,
+    setSearch,
+    searchType,
+    setSearchType,
+    resetPage,
+    setDescubridorQuartile,
+    setDescubridorAccess,
+  } = useUI();
   const { setOnlyOrcid, setSdgFilter } = useFilters();
 
-  const handleSearch = useCallback(
-    (e) => {
-      setSearch(e.target.value);
-      setOnlyOrcid(false);
-      setSdgFilter('');
-      resetPage();
-      navigate('/perfiles');
+  const intentMeta = useMemo(() => getSearchIntentMeta(search), [search]);
+
+  const clearDescubridorPresets = useCallback(() => {
+    setDescubridorQuartile('');
+    setDescubridorAccess('');
+  }, [setDescubridorQuartile, setDescubridorAccess]);
+
+  const applySearch = useCallback(
+    (value: string) => {
+      const meta = getSearchIntentMeta(value);
+      startTransition(() => {
+        setSearch(value);
+        setOnlyOrcid(false);
+        setSdgFilter('');
+        resetPage();
+        clearDescubridorPresets();
+        navigate(meta.route);
+      });
     },
-    [setSearch, setOnlyOrcid, setSdgFilter, resetPage, navigate]
+    [setSearch, setOnlyOrcid, setSdgFilter, resetPage, clearDescubridorPresets, navigate],
+  );
+
+  const handleSearch = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      applySearch(e.target.value);
+    },
+    [applySearch],
+  );
+
+  const searchChips = useMemo(
+    () => [
+      {
+        label: '🔬 Investigadores UTA',
+        action: () => {
+          startTransition(() => {
+            setSearch('');
+            setOnlyOrcid(false);
+            setSdgFilter('');
+            resetPage();
+            clearDescubridorPresets();
+            navigate('/perfiles');
+          });
+        },
+      },
+      {
+        label: '📊 Publicaciones Q1',
+        action: () => {
+          startTransition(() => {
+            setSearch('');
+            setOnlyOrcid(false);
+            setSdgFilter('');
+            resetPage();
+            setDescubridorQuartile('Q1');
+            setDescubridorAccess('');
+            navigate('/descubridor');
+          });
+        },
+      },
+      {
+        label: '🔓 Open Access',
+        action: () => {
+          startTransition(() => {
+            setSearch('');
+            setOnlyOrcid(false);
+            setSdgFilter('');
+            resetPage();
+            setDescubridorQuartile('');
+            setDescubridorAccess('open');
+            navigate('/descubridor');
+          });
+        },
+      },
+      {
+        label: '🌱 ODS',
+        action: () => {
+          startTransition(() => {
+            clearDescubridorPresets();
+            navigate('/ods');
+          });
+        },
+      },
+      {
+        label: '📈 Ranking',
+        action: () => {
+          startTransition(() => {
+            clearDescubridorPresets();
+            navigate('/ranking');
+          });
+        },
+      },
+      {
+        label: '📚 Fuentes KBART',
+        action: () => {
+          startTransition(() => {
+            clearDescubridorPresets();
+            navigate('/fuentes');
+          });
+        },
+      },
+    ],
+    [
+      navigate,
+      setSearch,
+      setOnlyOrcid,
+      setSdgFilter,
+      resetPage,
+      clearDescubridorPresets,
+      setDescubridorQuartile,
+      setDescubridorAccess,
+    ],
   );
 
   return (
@@ -47,14 +158,38 @@ export default function Header() {
           <div className="search-bar">
             <input
               className="search-bar__input"
-              placeholder="Buscar por nombre, ORCID o email..."
+              placeholder="Buscar publicaciones, investigadores, revistas o DOI..."
               value={search}
               onChange={handleSearch}
-              aria-label="Buscar investigadores"
+              aria-label="Buscar en el portal UTA"
+              aria-describedby="search-intent-hint"
             />
-            <button className="search-bar__btn" aria-label="Buscar">
+            <button
+              type="button"
+              className="search-bar__btn"
+              aria-label="Buscar"
+              onClick={() => applySearch(search)}
+            >
               Buscar
             </button>
+          </div>
+          {search.trim() && (
+            <p id="search-intent-hint" className="search-hint" aria-live="polite">
+              <span className="search-hint__badge">{intentMeta.label}</span>
+              {intentMeta.hint}
+            </p>
+          )}
+          <div className="search-chips" role="group" aria-label="Atajos de búsqueda">
+            {searchChips.map((chip) => (
+              <button
+                key={chip.label}
+                type="button"
+                className="search-chips__btn"
+                onClick={chip.action}
+              >
+                {chip.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>

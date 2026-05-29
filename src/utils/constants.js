@@ -24,6 +24,34 @@ export const SDG_COLORS = {
   'Partnerships for the goals': '#19486A',
 };
 
+/** Número OpenAlex SDG1–SDG17 por nombre en inglés (dataset local) */
+export const SDG_NAME_TO_NUMBER = {
+  'No poverty': 1,
+  'Zero hunger': 2,
+  'Good health and well-being': 3,
+  'Quality education': 4,
+  'Gender equality': 5,
+  'Clean water and sanitation': 6,
+  'Affordable and clean energy': 7,
+  'Decent work and economic growth': 8,
+  'Industry, innovation and infrastructure': 9,
+  'Reduced inequalities': 10,
+  'Sustainable cities and communities': 11,
+  'Responsible consumption and production': 12,
+  'Climate action': 13,
+  'Life below water': 14,
+  'Life on land': 15,
+  'Peace, justice, and strong institutions': 16,
+  'Partnerships for the goals': 17,
+};
+
+export const SDG_NUMBER_TO_NAME = Object.fromEntries(
+  Object.entries(SDG_NAME_TO_NUMBER).map(([name, num]) => [String(num), name])
+);
+
+/** Países iberoamericanos para filtro OpenAlex */
+export const IBEROAMERICA_COUNTRY_CODES = 'CL|AR|BR|MX|ES|CO|PE|VE|UY|PY|EC';
+
 export const SDG_ES = {
   'No poverty': 'Fin de la pobreza',
   'Zero hunger': 'Hambre cero',
@@ -66,11 +94,10 @@ export const TABS = [
   { key: 'areas', label: 'Áreas' },
   { key: 'ods', label: 'ODS' },
   { key: 'produccion', label: 'Producción' },
-  { key: 'colaboradores', label: 'Colaboradores' },
   { key: 'ranking', label: 'Ranking' },
   { key: 'metricas', label: 'Métricas' },
-  { key: 'ia', label: 'IA' },
   { key: 'informes', label: 'Informes' },
+  { key: 'fuentes', label: 'Fuentes' },
 ];
 
 export const AI_TABS = [

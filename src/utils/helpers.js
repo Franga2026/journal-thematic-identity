@@ -1,4 +1,4 @@
-import { COLORS } from './constants';
+import { COLORS } from './constants.js';
 
 /**
  * Simple string hash for deterministic color assignment
@@ -53,6 +53,24 @@ export function stripTags(s) {
  */
 export function cleanOrcid(o) {
   return (o || '').replace(/https?:\/\/orcid\.org\//i, '').trim();
+}
+
+/** Normaliza nombres de autor para emparejar con investigadores UTA */
+export function normalizeAuthorName(name) {
+  return (name || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Identificador principal del investigador en autores_uta (RUT o ORCID) */
+export function getResearcherUtaId(person) {
+  if (!person) return '';
+  const id = (person.id || '').trim();
+  if (id) return id;
+  return cleanOrcid(person.o);
 }
 
 /**

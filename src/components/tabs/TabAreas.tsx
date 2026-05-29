@@ -1,29 +1,28 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import { useApp } from '../../context/AppContext';
 import { getAW } from '../../utils/dataProcessing';
-import { COLORS } from '../../utils/constants';
-import { Donut } from '../common/UIComponents';
+import { groupWorksByArea } from '../../utils/areaGrouping';
+import AreaCardsGrid from '../areas/AreaCardsGrid';
 
 export default function TabAreas() {
-  const { setSdgFilter, setAreaFilter, setOnlyOrcid, setTab, setDept, setPage } = useApp();
+  const { setSdgFilter, setAreaFilter, setOnlyOrcid, setDept, setPage } = useApp();
+  const navigate = useTransitionNavigate();
   const AW = getAW();
 
-  const fieldList = useMemo(() => {
-    const fc: Record<string, number> = {};
-    (AW || []).forEach((w) => { if (w.field) fc[w.field] = (fc[w.field] || 0) + 1; });
-    return Object.entries(fc).sort((a, b) => b[1] - a[1]);
-  }, [AW]);
+  const areas = useMemo(() => groupWorksByArea(AW || []), [AW]);
 
-  const maxCount = Math.max(...fieldList.map((f) => f[1]), 1);
-
-  const handleClick = (name) => {
-    setAreaFilter(name);
-    setSdgFilter('');
-    setOnlyOrcid(false);
-    setTab('perfiles');
-    setDept('');
-    setPage(0);
-  };
+  const handleClick = useCallback(
+    (name: string) => {
+      setAreaFilter(name);
+      setSdgFilter('');
+      setOnlyOrcid(false);
+      setDept('');
+      setPage(0);
+      navigate('/perfiles');
+    },
+    [setAreaFilter, setSdgFilter, setOnlyOrcid, setDept, setPage, navigate]
+  );
 
   return (
     <>
@@ -31,31 +30,7 @@ export default function TabAreas() {
       <p style={{ fontSize: 13, color: '#666', margin: '0 0 16px' }}>
         Datos reales de OpenAlex · {(AW || []).length.toLocaleString()} publicaciones
       </p>
-      <div className="grid grid--areas">
-        {fieldList.map(([name, count], i) => {
-          const pct = Math.round((count / maxCount) * 100);
-          return (
-            <div
-              key={i}
-              className="card"
-              onClick={() => handleClick(name)}
-              style={{ padding: '16px 18px', display: 'flex', alignItems: 'center', gap: 14, cursor: 'pointer' }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => e.key === 'Enter' && handleClick(name)}
-            >
-              <Donut pct={pct} color={COLORS[i % COLORS.length]} />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 600 }}>{name}</div>
-                <div style={{ fontSize: 22, fontWeight: 700, color: COLORS[i % COLORS.length] }}>
-                  {count.toLocaleString()}
-                </div>
-                <div style={{ fontSize: 10, color: '#888' }}>publicaciones →</div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <AreaCardsGrid areas={areas} onAreaClick={handleClick} />
     </>
   );
 }

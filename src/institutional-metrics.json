@@ -1,7 +1,1702 @@
 {
-  "researcher_distributions": {},
-  "trends": [],
-  "field_distribution": [],
-  "open_access": {},
-  "rankings": {}
+  "metadata": {
+    "institution": "Universidad de Tarapacá",
+    "generated": "2026-05-26T22:18:21.880Z",
+    "methodology": "Based on Elsevier Research Metrics Guidebook (SciVal)",
+    "sources": [
+      "OpenAlex",
+      "Crossref",
+      "Unpaywall",
+      "ORCID"
+    ],
+    "total_works": 9127,
+    "total_researchers": 164
+  },
+  "scholarly_output": 9127,
+  "citation_count": 116550,
+  "citations_per_publication": 12.77,
+  "citation_distribution": {
+    "min": 0,
+    "max": 1478,
+    "mean": 12.77,
+    "median": 3,
+    "p25": 0,
+    "p75": 12,
+    "std": 39.91
+  },
+  "cited_publications": {
+    "count": 6467,
+    "pct": 70.9
+  },
+  "fwci": 1,
+  "h_index": 120,
+  "g_index": 195,
+  "top_citation_percentiles": {
+    "top1pct": 1.4,
+    "top5pct": 5.7,
+    "top10pct": 10.7,
+    "top25pct": 26.2,
+    "top1": 127,
+    "top5": 522,
+    "top10": 975,
+    "top25": 2392,
+    "total": 9126
+  },
+  "top_journal_percentiles": {
+    "q1_count": 2015,
+    "q1q2_count": 2490,
+    "with_quartile": 5490,
+    "q1_pct": 36.7,
+    "q1q2_pct": 45.4,
+    "q1_of_total": 22.1
+  },
+  "collaboration": {
+    "total": 9127,
+    "international": {
+      "count": 5324,
+      "pct": 58.3,
+      "impact": 16.4
+    },
+    "national": {
+      "count": 0,
+      "pct": 0,
+      "impact": 0
+    },
+    "institutional": {
+      "count": 2665,
+      "pct": 29.2,
+      "impact": 9.2
+    },
+    "single_author": {
+      "count": 1138,
+      "pct": 12.5,
+      "impact": 4.17
+    }
+  },
+  "open_access": {
+    "gold": {
+      "count": 3948,
+      "pct": 43.3
+    },
+    "green": {
+      "count": 1151,
+      "pct": 12.6
+    },
+    "hybrid": {
+      "count": 943,
+      "pct": 10.3
+    },
+    "bronze": {
+      "count": 314,
+      "pct": 3.4
+    },
+    "closed": {
+      "count": 2771,
+      "pct": 30.4
+    },
+    "unknown": {
+      "count": 0,
+      "pct": 0
+    },
+    "total": 9127,
+    "oa_rate": 69.6
+  },
+  "field_distribution": [
+    {
+      "field": "Physics and Astronomy",
+      "output": 1887,
+      "citations": 21462,
+      "cpp": 11.37,
+      "oa_pct": 84,
+      "q1_pct": 64.4
+    },
+    {
+      "field": "Social Sciences",
+      "output": 1465,
+      "citations": 7323,
+      "cpp": 5,
+      "oa_pct": 76.8,
+      "q1_pct": 2.6
+    },
+    {
+      "field": "Medicine",
+      "output": 619,
+      "citations": 7931,
+      "cpp": 12.81,
+      "oa_pct": 70.6,
+      "q1_pct": 9.4
+    },
+    {
+      "field": "Environmental Science",
+      "output": 591,
+      "citations": 12390,
+      "cpp": 20.96,
+      "oa_pct": 63.1,
+      "q1_pct": 18.1
+    },
+    {
+      "field": "Engineering",
+      "output": 578,
+      "citations": 6934,
+      "cpp": 12,
+      "oa_pct": 48.6,
+      "q1_pct": 21.3
+    },
+    {
+      "field": "Arts and Humanities",
+      "output": 483,
+      "citations": 3542,
+      "cpp": 7.33,
+      "oa_pct": 80.1,
+      "q1_pct": 1.4
+    },
+    {
+      "field": "Biochemistry, Genetics and Molecular Biology",
+      "output": 468,
+      "citations": 12621,
+      "cpp": 26.97,
+      "oa_pct": 72.2,
+      "q1_pct": 12.8
+    },
+    {
+      "field": "Materials Science",
+      "output": 364,
+      "citations": 4076,
+      "cpp": 11.2,
+      "oa_pct": 36.8,
+      "q1_pct": 24.7
+    },
+    {
+      "field": "Agricultural and Biological Sciences",
+      "output": 353,
+      "citations": 6029,
+      "cpp": 17.08,
+      "oa_pct": 70.3,
+      "q1_pct": 9.1
+    },
+    {
+      "field": "Psychology",
+      "output": 348,
+      "citations": 6060,
+      "cpp": 17.41,
+      "oa_pct": 71.6,
+      "q1_pct": 4.6
+    },
+    {
+      "field": "Mathematics",
+      "output": 341,
+      "citations": 6559,
+      "cpp": 19.23,
+      "oa_pct": 51.6,
+      "q1_pct": 6.2
+    },
+    {
+      "field": "Computer Science",
+      "output": 308,
+      "citations": 2210,
+      "cpp": 7.18,
+      "oa_pct": 55.8,
+      "q1_pct": 5.8
+    },
+    {
+      "field": "Energy",
+      "output": 252,
+      "citations": 6374,
+      "cpp": 25.29,
+      "oa_pct": 27.4,
+      "q1_pct": 55.6
+    },
+    {
+      "field": "Earth and Planetary Sciences",
+      "output": 250,
+      "citations": 4648,
+      "cpp": 18.59,
+      "oa_pct": 66.4,
+      "q1_pct": 4.4
+    },
+    {
+      "field": "Business, Management and Accounting",
+      "output": 150,
+      "citations": 884,
+      "cpp": 5.89,
+      "oa_pct": 68,
+      "q1_pct": 6.7
+    },
+    {
+      "field": "Unknown",
+      "output": 136,
+      "citations": 7,
+      "cpp": 0.05,
+      "oa_pct": 97.8,
+      "q1_pct": 0
+    },
+    {
+      "field": "Health Professions",
+      "output": 130,
+      "citations": 1626,
+      "cpp": 12.51,
+      "oa_pct": 84.6,
+      "q1_pct": 2.3
+    },
+    {
+      "field": "Economics, Econometrics and Finance",
+      "output": 103,
+      "citations": 290,
+      "cpp": 2.82,
+      "oa_pct": 73.8,
+      "q1_pct": 4.9
+    },
+    {
+      "field": "Chemistry",
+      "output": 98,
+      "citations": 1878,
+      "cpp": 19.16,
+      "oa_pct": 40.8,
+      "q1_pct": 38.8
+    },
+    {
+      "field": "Neuroscience",
+      "output": 62,
+      "citations": 1723,
+      "cpp": 27.79,
+      "oa_pct": 66.1,
+      "q1_pct": 3.2
+    },
+    {
+      "field": "Decision Sciences",
+      "output": 42,
+      "citations": 251,
+      "cpp": 5.98,
+      "oa_pct": 73.8,
+      "q1_pct": 2.4
+    },
+    {
+      "field": "Dentistry",
+      "output": 28,
+      "citations": 118,
+      "cpp": 4.21,
+      "oa_pct": 92.9,
+      "q1_pct": 3.6
+    },
+    {
+      "field": "Immunology and Microbiology",
+      "output": 28,
+      "citations": 620,
+      "cpp": 22.14,
+      "oa_pct": 82.1,
+      "q1_pct": 7.1
+    },
+    {
+      "field": "Chemical Engineering",
+      "output": 23,
+      "citations": 769,
+      "cpp": 33.43,
+      "oa_pct": 43.5,
+      "q1_pct": 39.1
+    },
+    {
+      "field": "Pharmacology, Toxicology and Pharmaceutics",
+      "output": 10,
+      "citations": 145,
+      "cpp": 14.5,
+      "oa_pct": 40,
+      "q1_pct": 30
+    },
+    {
+      "field": "Nursing",
+      "output": 9,
+      "citations": 65,
+      "cpp": 7.22,
+      "oa_pct": 100,
+      "q1_pct": 44.4
+    },
+    {
+      "field": "Veterinary",
+      "output": 1,
+      "citations": 15,
+      "cpp": 15,
+      "oa_pct": 100,
+      "q1_pct": 100
+    }
+  ],
+  "sdg_alignment": [
+    {
+      "sdg": "Affordable and clean energy",
+      "publications": 525,
+      "citations": 7923
+    },
+    {
+      "sdg": "Reduced inequalities",
+      "publications": 509,
+      "citations": 7989
+    },
+    {
+      "sdg": "Life below water",
+      "publications": 488,
+      "citations": 9726
+    },
+    {
+      "sdg": "Good health and well-being",
+      "publications": 443,
+      "citations": 8896
+    },
+    {
+      "sdg": "Life in Land",
+      "publications": 320,
+      "citations": 4776
+    },
+    {
+      "sdg": "Clean water and sanitation",
+      "publications": 311,
+      "citations": 10193
+    },
+    {
+      "sdg": "Quality Education",
+      "publications": 308,
+      "citations": 1898
+    },
+    {
+      "sdg": "Zero hunger",
+      "publications": 245,
+      "citations": 4985
+    },
+    {
+      "sdg": "Gender equality",
+      "publications": 237,
+      "citations": 1973
+    },
+    {
+      "sdg": "Sustainable cities and communities",
+      "publications": 231,
+      "citations": 3258
+    },
+    {
+      "sdg": "Peace, Justice and strong institutions",
+      "publications": 200,
+      "citations": 1594
+    },
+    {
+      "sdg": "Climate action",
+      "publications": 197,
+      "citations": 2276
+    },
+    {
+      "sdg": "Decent work and economic growth",
+      "publications": 138,
+      "citations": 890
+    },
+    {
+      "sdg": "Industry, innovation and infrastructure",
+      "publications": 107,
+      "citations": 1986
+    },
+    {
+      "sdg": "Responsible consumption and production",
+      "publications": 91,
+      "citations": 2460
+    },
+    {
+      "sdg": "Partnerships for the goals",
+      "publications": 86,
+      "citations": 1308
+    },
+    {
+      "sdg": "No poverty",
+      "publications": 42,
+      "citations": 450
+    }
+  ],
+  "trends": [
+    {
+      "year": 1984,
+      "output": 10,
+      "citations": 33,
+      "cpp": 3.3,
+      "oa_count": 7,
+      "oa_pct": 70,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 50,
+      "field_count": 5
+    },
+    {
+      "year": 1985,
+      "output": 2,
+      "citations": 99,
+      "cpp": 49.5,
+      "oa_count": 1,
+      "oa_pct": 50,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 100,
+      "field_count": 2
+    },
+    {
+      "year": 1986,
+      "output": 8,
+      "citations": 68,
+      "cpp": 8.5,
+      "oa_count": 5,
+      "oa_pct": 62.5,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 37.5,
+      "field_count": 5
+    },
+    {
+      "year": 1987,
+      "output": 3,
+      "citations": 4,
+      "cpp": 1.33,
+      "oa_count": 0,
+      "oa_pct": 0,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 33.3,
+      "field_count": 2
+    },
+    {
+      "year": 1988,
+      "output": 6,
+      "citations": 57,
+      "cpp": 9.5,
+      "oa_count": 0,
+      "oa_pct": 0,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 50,
+      "field_count": 6
+    },
+    {
+      "year": 1989,
+      "output": 3,
+      "citations": 31,
+      "cpp": 10.33,
+      "oa_count": 1,
+      "oa_pct": 33.3,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 66.7,
+      "field_count": 3
+    },
+    {
+      "year": 1990,
+      "output": 6,
+      "citations": 29,
+      "cpp": 4.83,
+      "oa_count": 1,
+      "oa_pct": 16.7,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 50,
+      "field_count": 6
+    },
+    {
+      "year": 1991,
+      "output": 8,
+      "citations": 115,
+      "cpp": 14.38,
+      "oa_count": 1,
+      "oa_pct": 12.5,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 75,
+      "field_count": 4
+    },
+    {
+      "year": 1992,
+      "output": 10,
+      "citations": 37,
+      "cpp": 3.7,
+      "oa_count": 3,
+      "oa_pct": 30,
+      "q1_count": 1,
+      "q1_pct": 10,
+      "cited_pct": 70,
+      "field_count": 7
+    },
+    {
+      "year": 1993,
+      "output": 10,
+      "citations": 14,
+      "cpp": 1.4,
+      "oa_count": 1,
+      "oa_pct": 10,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 60,
+      "field_count": 6
+    },
+    {
+      "year": 1994,
+      "output": 6,
+      "citations": 111,
+      "cpp": 18.5,
+      "oa_count": 2,
+      "oa_pct": 33.3,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 83.3,
+      "field_count": 5
+    },
+    {
+      "year": 1995,
+      "output": 5,
+      "citations": 184,
+      "cpp": 36.8,
+      "oa_count": 0,
+      "oa_pct": 0,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 60,
+      "field_count": 5
+    },
+    {
+      "year": 1996,
+      "output": 5,
+      "citations": 66,
+      "cpp": 13.2,
+      "oa_count": 0,
+      "oa_pct": 0,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 60,
+      "field_count": 3
+    },
+    {
+      "year": 1997,
+      "output": 16,
+      "citations": 288,
+      "cpp": 18,
+      "oa_count": 4,
+      "oa_pct": 25,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 68.8,
+      "field_count": 9
+    },
+    {
+      "year": 1998,
+      "output": 25,
+      "citations": 187,
+      "cpp": 7.48,
+      "oa_count": 10,
+      "oa_pct": 40,
+      "q1_count": 1,
+      "q1_pct": 4,
+      "cited_pct": 48,
+      "field_count": 11
+    },
+    {
+      "year": 1999,
+      "output": 31,
+      "citations": 303,
+      "cpp": 9.77,
+      "oa_count": 12,
+      "oa_pct": 38.7,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 41.9,
+      "field_count": 13
+    },
+    {
+      "year": 2000,
+      "output": 29,
+      "citations": 410,
+      "cpp": 14.14,
+      "oa_count": 13,
+      "oa_pct": 44.8,
+      "q1_count": 1,
+      "q1_pct": 3.4,
+      "cited_pct": 72.4,
+      "field_count": 11
+    },
+    {
+      "year": 2001,
+      "output": 29,
+      "citations": 611,
+      "cpp": 21.07,
+      "oa_count": 18,
+      "oa_pct": 62.1,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 75.9,
+      "field_count": 12
+    },
+    {
+      "year": 2002,
+      "output": 44,
+      "citations": 356,
+      "cpp": 8.09,
+      "oa_count": 20,
+      "oa_pct": 45.5,
+      "q1_count": 2,
+      "q1_pct": 4.5,
+      "cited_pct": 65.9,
+      "field_count": 11
+    },
+    {
+      "year": 2003,
+      "output": 43,
+      "citations": 838,
+      "cpp": 19.49,
+      "oa_count": 27,
+      "oa_pct": 62.8,
+      "q1_count": 2,
+      "q1_pct": 4.7,
+      "cited_pct": 74.4,
+      "field_count": 14
+    },
+    {
+      "year": 2004,
+      "output": 67,
+      "citations": 980,
+      "cpp": 14.63,
+      "oa_count": 48,
+      "oa_pct": 71.6,
+      "q1_count": 0,
+      "q1_pct": 0,
+      "cited_pct": 73.1,
+      "field_count": 16
+    },
+    {
+      "year": 2005,
+      "output": 77,
+      "citations": 1607,
+      "cpp": 20.87,
+      "oa_count": 40,
+      "oa_pct": 51.9,
+      "q1_count": 4,
+      "q1_pct": 5.2,
+      "cited_pct": 74,
+      "field_count": 17
+    },
+    {
+      "year": 2006,
+      "output": 83,
+      "citations": 1749,
+      "cpp": 21.07,
+      "oa_count": 48,
+      "oa_pct": 57.8,
+      "q1_count": 6,
+      "q1_pct": 7.2,
+      "cited_pct": 73.5,
+      "field_count": 18
+    },
+    {
+      "year": 2007,
+      "output": 103,
+      "citations": 2732,
+      "cpp": 26.52,
+      "oa_count": 71,
+      "oa_pct": 68.9,
+      "q1_count": 7,
+      "q1_pct": 6.8,
+      "cited_pct": 77.7,
+      "field_count": 20
+    },
+    {
+      "year": 2008,
+      "output": 118,
+      "citations": 2465,
+      "cpp": 20.89,
+      "oa_count": 80,
+      "oa_pct": 67.8,
+      "q1_count": 6,
+      "q1_pct": 5.1,
+      "cited_pct": 75.4,
+      "field_count": 17
+    },
+    {
+      "year": 2009,
+      "output": 116,
+      "citations": 2362,
+      "cpp": 20.36,
+      "oa_count": 80,
+      "oa_pct": 69,
+      "q1_count": 6,
+      "q1_pct": 5.2,
+      "cited_pct": 82.8,
+      "field_count": 19
+    },
+    {
+      "year": 2010,
+      "output": 126,
+      "citations": 1790,
+      "cpp": 14.21,
+      "oa_count": 98,
+      "oa_pct": 77.8,
+      "q1_count": 6,
+      "q1_pct": 4.8,
+      "cited_pct": 84.9,
+      "field_count": 17
+    },
+    {
+      "year": 2011,
+      "output": 180,
+      "citations": 3382,
+      "cpp": 18.79,
+      "oa_count": 138,
+      "oa_pct": 76.7,
+      "q1_count": 18,
+      "q1_pct": 10,
+      "cited_pct": 84.4,
+      "field_count": 19
+    },
+    {
+      "year": 2012,
+      "output": 176,
+      "citations": 4515,
+      "cpp": 25.65,
+      "oa_count": 128,
+      "oa_pct": 72.7,
+      "q1_count": 7,
+      "q1_pct": 4,
+      "cited_pct": 81.3,
+      "field_count": 21
+    },
+    {
+      "year": 2013,
+      "output": 222,
+      "citations": 3040,
+      "cpp": 13.69,
+      "oa_count": 165,
+      "oa_pct": 74.3,
+      "q1_count": 1,
+      "q1_pct": 0.5,
+      "cited_pct": 83.8,
+      "field_count": 21
+    },
+    {
+      "year": 2014,
+      "output": 265,
+      "citations": 6222,
+      "cpp": 23.48,
+      "oa_count": 172,
+      "oa_pct": 64.9,
+      "q1_count": 7,
+      "q1_pct": 2.6,
+      "cited_pct": 81.5,
+      "field_count": 22
+    },
+    {
+      "year": 2015,
+      "output": 309,
+      "citations": 4701,
+      "cpp": 15.21,
+      "oa_count": 197,
+      "oa_pct": 63.8,
+      "q1_count": 13,
+      "q1_pct": 4.2,
+      "cited_pct": 75.7,
+      "field_count": 22
+    },
+    {
+      "year": 2016,
+      "output": 266,
+      "citations": 5335,
+      "cpp": 20.06,
+      "oa_count": 182,
+      "oa_pct": 68.4,
+      "q1_count": 21,
+      "q1_pct": 7.9,
+      "cited_pct": 81.2,
+      "field_count": 21
+    },
+    {
+      "year": 2017,
+      "output": 280,
+      "citations": 5719,
+      "cpp": 20.43,
+      "oa_count": 187,
+      "oa_pct": 66.8,
+      "q1_count": 9,
+      "q1_pct": 3.2,
+      "cited_pct": 81.4,
+      "field_count": 21
+    },
+    {
+      "year": 2018,
+      "output": 330,
+      "citations": 5424,
+      "cpp": 16.44,
+      "oa_count": 249,
+      "oa_pct": 75.5,
+      "q1_count": 24,
+      "q1_pct": 7.3,
+      "cited_pct": 80,
+      "field_count": 21
+    },
+    {
+      "year": 2019,
+      "output": 352,
+      "citations": 5125,
+      "cpp": 14.56,
+      "oa_count": 231,
+      "oa_pct": 65.6,
+      "q1_count": 22,
+      "q1_pct": 6.3,
+      "cited_pct": 82.4,
+      "field_count": 20
+    },
+    {
+      "year": 2020,
+      "output": 522,
+      "citations": 9186,
+      "cpp": 17.6,
+      "oa_count": 383,
+      "oa_pct": 73.4,
+      "q1_count": 70,
+      "q1_pct": 13.4,
+      "cited_pct": 79.1,
+      "field_count": 22
+    },
+    {
+      "year": 2021,
+      "output": 684,
+      "citations": 13357,
+      "cpp": 19.53,
+      "oa_count": 503,
+      "oa_pct": 73.5,
+      "q1_count": 164,
+      "q1_pct": 24,
+      "cited_pct": 80.7,
+      "field_count": 23
+    },
+    {
+      "year": 2022,
+      "output": 709,
+      "citations": 12669,
+      "cpp": 17.87,
+      "oa_count": 477,
+      "oa_pct": 67.3,
+      "q1_count": 182,
+      "q1_pct": 25.7,
+      "cited_pct": 83.8,
+      "field_count": 23
+    },
+    {
+      "year": 2023,
+      "output": 925,
+      "citations": 9988,
+      "cpp": 10.8,
+      "oa_count": 685,
+      "oa_pct": 74.1,
+      "q1_count": 346,
+      "q1_pct": 37.4,
+      "cited_pct": 78.9,
+      "field_count": 24
+    },
+    {
+      "year": 2024,
+      "output": 1172,
+      "citations": 7431,
+      "cpp": 6.34,
+      "oa_count": 879,
+      "oa_pct": 75,
+      "q1_count": 454,
+      "q1_pct": 38.7,
+      "cited_pct": 70.1,
+      "field_count": 25
+    },
+    {
+      "year": 2025,
+      "output": 1259,
+      "citations": 2829,
+      "cpp": 2.25,
+      "oa_count": 861,
+      "oa_pct": 68.4,
+      "q1_count": 459,
+      "q1_pct": 36.5,
+      "cited_pct": 51.2,
+      "field_count": 25
+    },
+    {
+      "year": 2026,
+      "output": 485,
+      "citations": 85,
+      "cpp": 0.18,
+      "oa_count": 316,
+      "oa_pct": 65.2,
+      "q1_count": 176,
+      "q1_pct": 36.3,
+      "cited_pct": 11.3,
+      "field_count": 24
+    }
+  ],
+  "crossref_enrichment": {
+    "with_funder": 2737,
+    "with_license": 5635,
+    "with_abstract": 3569,
+    "with_references": 5768,
+    "avg_references": 63.2,
+    "top_funders": [
+      {
+        "name": "National Natural Science Foundation of China",
+        "count": 3355
+      },
+      {
+        "name": "Narodowe Centrum Nauki",
+        "count": 602
+      },
+      {
+        "name": "Deutsche Forschungsgemeinschaft",
+        "count": 571
+      },
+      {
+        "name": "Fondo Nacional de Desarrollo Científico y Tecnológico",
+        "count": 524
+      },
+      {
+        "name": "Chinese Academy of Sciences",
+        "count": 496
+      },
+      {
+        "name": "National Key Research and Development Program of China",
+        "count": 429
+      },
+      {
+        "name": "U.S. Department of Energy",
+        "count": 427
+      },
+      {
+        "name": "Horizon 2020 Framework Programme",
+        "count": 396
+      },
+      {
+        "name": "Agencia Nacional de Investigación y Desarrollo",
+        "count": 385
+      },
+      {
+        "name": "Nemzeti Kutatási Fejlesztési és Innovációs Hivatal",
+        "count": 381
+      },
+      {
+        "name": "National Research Foundation of Korea",
+        "count": 369
+      },
+      {
+        "name": "Vetenskapsrådet",
+        "count": 363
+      },
+      {
+        "name": "Japan Society for the Promotion of Science",
+        "count": 286
+      },
+      {
+        "name": "European Research Council",
+        "count": 285
+      },
+      {
+        "name": "National Science Foundation",
+        "count": 285
+      },
+      {
+        "name": "Ministerio de Ciencia e Innovación",
+        "count": 269
+      },
+      {
+        "name": "Knut och Alice Wallenbergs Stiftelse",
+        "count": 259
+      },
+      {
+        "name": "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
+        "count": 241
+      },
+      {
+        "name": "Israel Science Foundation",
+        "count": 225
+      },
+      {
+        "name": "FONDECYT",
+        "count": 220
+      }
+    ],
+    "license_distribution": [
+      {
+        "license": "CC-BY",
+        "count": 2307
+      },
+      {
+        "license": "Elsevier",
+        "count": 1386
+      },
+      {
+        "license": "Otro",
+        "count": 873
+      },
+      {
+        "license": "Springer",
+        "count": 625
+      },
+      {
+        "license": "CC-BY-NC-ND",
+        "count": 165
+      },
+      {
+        "license": "CC-BY-NC",
+        "count": 139
+      },
+      {
+        "license": "CC-BY-NC-SA",
+        "count": 107
+      },
+      {
+        "license": "CC-BY-SA",
+        "count": 20
+      },
+      {
+        "license": "CC-BY-ND",
+        "count": 9
+      },
+      {
+        "license": "CC",
+        "count": 4
+      }
+    ]
+  },
+  "publication_types": [
+    {
+      "type": "article",
+      "count": 8021,
+      "pct": 87.9
+    },
+    {
+      "type": "preprint",
+      "count": 352,
+      "pct": 3.9
+    },
+    {
+      "type": "review",
+      "count": 266,
+      "pct": 2.9
+    },
+    {
+      "type": "book-chapter",
+      "count": 259,
+      "pct": 2.8
+    },
+    {
+      "type": "other",
+      "count": 68,
+      "pct": 0.7
+    },
+    {
+      "type": "dataset",
+      "count": 51,
+      "pct": 0.6
+    },
+    {
+      "type": "erratum",
+      "count": 30,
+      "pct": 0.3
+    },
+    {
+      "type": "letter",
+      "count": 21,
+      "pct": 0.2
+    },
+    {
+      "type": "editorial",
+      "count": 19,
+      "pct": 0.2
+    },
+    {
+      "type": "book",
+      "count": 16,
+      "pct": 0.2
+    },
+    {
+      "type": "peer-review",
+      "count": 12,
+      "pct": 0.1
+    },
+    {
+      "type": "report",
+      "count": 5,
+      "pct": 0.1
+    },
+    {
+      "type": "paratext",
+      "count": 5,
+      "pct": 0.1
+    },
+    {
+      "type": "dissertation",
+      "count": 2,
+      "pct": 0
+    }
+  ],
+  "source_diversity": {
+    "unique_sources": 2262,
+    "sources_per_100_works": 24.8
+  },
+  "researcher_distributions": {
+    "h_index": {
+      "min": 0,
+      "max": 47,
+      "mean": 9.24,
+      "median": 7,
+      "p25": 3,
+      "p75": 12,
+      "std": 8.78
+    },
+    "citations_per_pub": {
+      "min": 0,
+      "max": 45.14,
+      "mean": 8.39,
+      "median": 5.8,
+      "p25": 2.58,
+      "p75": 10.68,
+      "std": 8.88
+    },
+    "fwci": {
+      "min": 0,
+      "max": 4.309,
+      "mean": 0.92,
+      "median": 0.75,
+      "p25": 0.416,
+      "p75": 1.247,
+      "std": 0.71
+    },
+    "scholarly_output": {
+      "min": 1,
+      "max": 393,
+      "mean": 50.44,
+      "median": 30,
+      "p25": 12,
+      "p75": 58,
+      "std": 63.97
+    },
+    "oa_rate": {
+      "min": 15.2,
+      "max": 100,
+      "mean": 62.87,
+      "median": 62.8,
+      "p25": 50,
+      "p75": 76.7,
+      "std": 20.26
+    },
+    "q1_pct": {
+      "min": 0,
+      "max": 100,
+      "mean": 13.48,
+      "median": 0,
+      "p25": 0,
+      "p75": 20,
+      "std": 22.33
+    }
+  },
+  "rankings": {
+    "by_h_index": [
+      {
+        "name": "Francisco Rothhammer Engel",
+        "h_index": 47,
+        "output": 275
+      },
+      {
+        "name": "Gloria Calaf Sarrat",
+        "h_index": 40,
+        "output": 186
+      },
+      {
+        "name": "Calogero Santoro Vargas",
+        "h_index": 38,
+        "output": 246
+      },
+      {
+        "name": "Bernardo Arriaza Torres",
+        "h_index": 35,
+        "output": 202
+      },
+      {
+        "name": "Alexander Neaman",
+        "h_index": 34,
+        "output": 192
+      },
+      {
+        "name": "Yurilev Chalco Cano",
+        "h_index": 34,
+        "output": 127
+      },
+      {
+        "name": "David Laroze Navarrete",
+        "h_index": 32,
+        "output": 393
+      },
+      {
+        "name": "Heriberto Román Flores",
+        "h_index": 30,
+        "output": 104
+      },
+      {
+        "name": "Saravanan Rajendran",
+        "h_index": 30,
+        "output": 99
+      },
+      {
+        "name": "Alejandra Caqueo Urizar",
+        "h_index": 28,
+        "output": 185
+      },
+      {
+        "name": "Barbara Rojas Ayala",
+        "h_index": 27,
+        "output": 106
+      },
+      {
+        "name": "Lalitha Gnanasekaran",
+        "h_index": 27,
+        "output": 111
+      },
+      {
+        "name": "Marko Antonio Rojas Medar",
+        "h_index": 24,
+        "output": 224
+      },
+      {
+        "name": "Sonia Kabana",
+        "h_index": 22,
+        "output": 142
+      },
+      {
+        "name": "Oscar German Espinoza Díaz",
+        "h_index": 20,
+        "output": 172
+      },
+      {
+        "name": "Macarena Fuentes Guajardo",
+        "h_index": 20,
+        "output": 63
+      },
+      {
+        "name": "Manuel Prieto Montt",
+        "h_index": 19,
+        "output": 72
+      },
+      {
+        "name": "Liliana Pedraja Rejas",
+        "h_index": 19,
+        "output": 222
+      },
+      {
+        "name": "Laura Perez Fuentes",
+        "h_index": 19,
+        "output": 138
+      },
+      {
+        "name": "Mauro Bologna",
+        "h_index": 19,
+        "output": 123
+      }
+    ],
+    "by_fwci": [
+      {
+        "name": "Gonzalo Quintana Zunino",
+        "fwci": 3.129,
+        "output": 64
+      },
+      {
+        "name": "Adriana Aranguiz Acuña",
+        "fwci": 3.005,
+        "output": 38
+      },
+      {
+        "name": "Francisco Rothhammer Engel",
+        "fwci": 2.411,
+        "output": 275
+      },
+      {
+        "name": "Oscar German Espinoza Díaz",
+        "fwci": 2.352,
+        "output": 172
+      },
+      {
+        "name": "Marcos Carmona Halty",
+        "fwci": 2.277,
+        "output": 30
+      },
+      {
+        "name": "Manuel Prieto Montt",
+        "fwci": 2.265,
+        "output": 72
+      },
+      {
+        "name": "Saravanan Rajendran",
+        "fwci": 2.073,
+        "output": 99
+      },
+      {
+        "name": "Julio Labraña Vargas",
+        "fwci": 2.052,
+        "output": 86
+      },
+      {
+        "name": "Roberto Dufraix Tapia",
+        "fwci": 2.021,
+        "output": 12
+      },
+      {
+        "name": "Macarena Fuentes Guajardo",
+        "fwci": 1.975,
+        "output": 63
+      },
+      {
+        "name": "Bernardo Arriaza Torres",
+        "fwci": 1.814,
+        "output": 202
+      },
+      {
+        "name": "Carolina Guzman Valenzuela",
+        "fwci": 1.789,
+        "output": 75
+      },
+      {
+        "name": "Shalini Thakur",
+        "fwci": 1.782,
+        "output": 33
+      },
+      {
+        "name": "Patricio Muñoz Torres",
+        "fwci": 1.695,
+        "output": 23
+      },
+      {
+        "name": "Katherine Acosta García",
+        "fwci": 1.679,
+        "output": 25
+      },
+      {
+        "name": "Calogero Santoro Vargas",
+        "fwci": 1.647,
+        "output": 246
+      },
+      {
+        "name": "Nanette Liberona Concha",
+        "fwci": 1.607,
+        "output": 30
+      },
+      {
+        "name": "Alejandro Cuadra Peralta",
+        "fwci": 1.6,
+        "output": 36
+      },
+      {
+        "name": "Alejandra Caqueo Urizar",
+        "fwci": 1.568,
+        "output": 185
+      },
+      {
+        "name": "Felipe Lara Obreque",
+        "fwci": 1.555,
+        "output": 58
+      }
+    ],
+    "by_citations": [
+      {
+        "name": "Francisco Rothhammer Engel",
+        "citations": 12384,
+        "output": 275
+      },
+      {
+        "name": "Gloria Calaf Sarrat",
+        "citations": 5818,
+        "output": 186
+      },
+      {
+        "name": "Bernardo Arriaza Torres",
+        "citations": 5051,
+        "output": 202
+      },
+      {
+        "name": "Barbara Rojas Ayala",
+        "citations": 4785,
+        "output": 106
+      },
+      {
+        "name": "Calogero Santoro Vargas",
+        "citations": 4771,
+        "output": 246
+      },
+      {
+        "name": "David Laroze Navarrete",
+        "citations": 4684,
+        "output": 393
+      },
+      {
+        "name": "Alexander Neaman",
+        "citations": 3957,
+        "output": 192
+      },
+      {
+        "name": "Yurilev Chalco Cano",
+        "citations": 3756,
+        "output": 127
+      },
+      {
+        "name": "Saravanan Rajendran",
+        "citations": 3489,
+        "output": 99
+      },
+      {
+        "name": "Heriberto Román Flores",
+        "citations": 3388,
+        "output": 104
+      },
+      {
+        "name": "Lalitha Gnanasekaran",
+        "citations": 2586,
+        "output": 111
+      },
+      {
+        "name": "Marko Antonio Rojas Medar",
+        "citations": 2569,
+        "output": 224
+      },
+      {
+        "name": "Alejandra Caqueo Urizar",
+        "citations": 2492,
+        "output": 185
+      },
+      {
+        "name": "Macarena Fuentes Guajardo",
+        "citations": 2454,
+        "output": 63
+      },
+      {
+        "name": "Mauro Bologna",
+        "citations": 2122,
+        "output": 123
+      },
+      {
+        "name": "Sonia Kabana",
+        "citations": 1769,
+        "output": 142
+      },
+      {
+        "name": "Oscar German Espinoza Díaz",
+        "citations": 1641,
+        "output": 172
+      },
+      {
+        "name": "Oliver Meseguer Ruiz",
+        "citations": 1444,
+        "output": 87
+      },
+      {
+        "name": "Liliana Pedraja Rejas",
+        "citations": 1347,
+        "output": 222
+      },
+      {
+        "name": "Laura Perez Fuentes",
+        "citations": 1347,
+        "output": 138
+      }
+    ],
+    "by_q1_pct": [
+      {
+        "name": "Atul Sagade",
+        "q1_pct": 92.6,
+        "q1": 25
+      },
+      {
+        "name": "Lalitha Gnanasekaran",
+        "q1_pct": 89.3,
+        "q1": 67
+      },
+      {
+        "name": "Saravanan Rajendran",
+        "q1_pct": 72.9,
+        "q1": 35
+      },
+      {
+        "name": "Barbara Rojas Ayala",
+        "q1_pct": 71.4,
+        "q1": 45
+      },
+      {
+        "name": "Patricio Muñoz Torres",
+        "q1_pct": 66.7,
+        "q1": 6
+      },
+      {
+        "name": "Nicolas Neill Herrera",
+        "q1_pct": 65.7,
+        "q1": 23
+      },
+      {
+        "name": "Gloria Calaf Sarrat",
+        "q1_pct": 58.6,
+        "q1": 58
+      },
+      {
+        "name": "César Ayala Núñez",
+        "q1_pct": 53.6,
+        "q1": 15
+      },
+      {
+        "name": "Giovanni Otalora Patiño",
+        "q1_pct": 51.4,
+        "q1": 19
+      },
+      {
+        "name": "Alexander Neaman",
+        "q1_pct": 48.1,
+        "q1": 26
+      },
+      {
+        "name": "Laura Perez Fuentes",
+        "q1_pct": 44.4,
+        "q1": 40
+      },
+      {
+        "name": "Fernando R. Mellado Humire",
+        "q1_pct": 41.7,
+        "q1": 5
+      },
+      {
+        "name": "Daniel Moraga Muñoz",
+        "q1_pct": 40.9,
+        "q1": 9
+      },
+      {
+        "name": "Adriana Aranguiz Acuña",
+        "q1_pct": 40,
+        "q1": 4
+      },
+      {
+        "name": "Andres Mauricio Velez Pereira",
+        "q1_pct": 38.9,
+        "q1": 7
+      },
+      {
+        "name": "Sonia Kabana",
+        "q1_pct": 38.1,
+        "q1": 24
+      },
+      {
+        "name": "Macarena Fuentes Guajardo",
+        "q1_pct": 37.5,
+        "q1": 12
+      },
+      {
+        "name": "Ana María Cabanas Plana",
+        "q1_pct": 36.4,
+        "q1": 4
+      },
+      {
+        "name": "Yuliia Tiutiunnyk",
+        "q1_pct": 33.3,
+        "q1": 4
+      },
+      {
+        "name": "Giuliani Coluccio Piñones",
+        "q1_pct": 33.3,
+        "q1": 2
+      }
+    ],
+    "by_interdisciplinarity": [
+      {
+        "name": "David Laroze Navarrete",
+        "fields": 15,
+        "output": 393
+      },
+      {
+        "name": "Francisco Rothhammer Engel",
+        "fields": 13,
+        "output": 275
+      },
+      {
+        "name": "Juan Flores Araya",
+        "fields": 13,
+        "output": 136
+      },
+      {
+        "name": "Bernardo Arriaza Torres",
+        "fields": 12,
+        "output": 202
+      },
+      {
+        "name": "Mauro Bologna",
+        "fields": 12,
+        "output": 123
+      },
+      {
+        "name": "Calogero Santoro Vargas",
+        "fields": 11,
+        "output": 246
+      },
+      {
+        "name": "Liliana Pedraja Rejas",
+        "fields": 11,
+        "output": 222
+      },
+      {
+        "name": "Laura Perez Fuentes",
+        "fields": 11,
+        "output": 138
+      },
+      {
+        "name": "Gloria Calaf Sarrat",
+        "fields": 10,
+        "output": 186
+      },
+      {
+        "name": "Saravanan Rajendran",
+        "fields": 10,
+        "output": 99
+      },
+      {
+        "name": "Lalitha Gnanasekaran",
+        "fields": 10,
+        "output": 111
+      },
+      {
+        "name": "Omar Espinoza Navarro",
+        "fields": 10,
+        "output": 66
+      },
+      {
+        "name": "Alexander Neaman",
+        "fields": 9,
+        "output": 192
+      },
+      {
+        "name": "Heriberto Román Flores",
+        "fields": 9,
+        "output": 104
+      },
+      {
+        "name": "Macarena Fuentes Guajardo",
+        "fields": 9,
+        "output": 63
+      },
+      {
+        "name": "Rodrigo Ferrer Urbina",
+        "fields": 9,
+        "output": 75
+      },
+      {
+        "name": "Ernesto Ponce López",
+        "fields": 9,
+        "output": 42
+      },
+      {
+        "name": "Oliver Meseguer Ruiz",
+        "fields": 8,
+        "output": 87
+      },
+      {
+        "name": "Francisco Ganga Contreras",
+        "fields": 8,
+        "output": 314
+      },
+      {
+        "name": "Daniel Moraga Muñoz",
+        "fields": 8,
+        "output": 55
+      }
+    ]
+  }
 }

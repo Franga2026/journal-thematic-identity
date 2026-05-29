@@ -1,16 +1,18 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { TABS } from '../../utils/constants';
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 
 export default function TabNavigation() {
-  const navigate = useNavigate();
+  const navigate = useTransitionNavigate();
   const { pathname } = useLocation();
-  const currentTab = pathname.replace('/', '') || 'perfiles';
+  const currentTab = pathname.replace('/', '').split('/')[0] || 'perfiles';
 
   return (
     <nav className="tab-nav" role="tablist" aria-label="Secciones del directorio">
       {TABS.map(({ key, label }) => (
         <button
           key={key}
+          type="button"
           role="tab"
           aria-selected={currentTab === key}
           aria-controls={`panel-${key}`}

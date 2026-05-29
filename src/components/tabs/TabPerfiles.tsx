@@ -1,8 +1,10 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, type SyntheticEvent } from 'react';
+import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
 import { useApp } from '../../context/AppContext';
 import { getAuthorOA } from '../../utils/dataProcessing';
 import type { Researcher } from '../../shared/types';
-import { getColor, getInitials, shortDept } from '../../utils/helpers';
+import { getColor, getInitials, shortDept, cleanOrcid } from '../../utils/helpers';
+import { getOrcidRecordUrl } from '../../utils/researcherProfile';
 import { SDG_ES } from '../../utils/constants';
 import { Pagination, EmptyState } from '../common/UIComponents';
 
@@ -16,38 +18,73 @@ const ResearcherCard = memo(function ResearcherCard({ researcher, areaFilter, on
   const r = researcher;
   const c = getColor((r.f || '') + (r.l || ''));
   const oa = getAuthorOA(r);
+  const fullName = `${r.f || ''} ${r.l || ''}`.trim() || 'Sin nombre';
+  const position = r.t?.trim() || 'Sin cargo';
+  const deptName = (r.dp || [])[0]?.d;
+  const discipline = deptName ? shortDept(deptName) : 'Sin unidad';
+  const orcidId = cleanOrcid(r.o);
+  const hasOrcid = Boolean(orcidId);
+  const orcidUrl = getOrcidRecordUrl(r.o);
+  const hIndex = oa?.h_index ?? 0;
+  const pubCount = areaFilter
+    ? (oa?.works || []).filter((w) => w.field === areaFilter).length
+    : (oa?.works?.length ?? oa?.works_count ?? 0);
+
+  const handlePhotoError = (e: SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    img.style.display = 'none';
+    const fallback = img.nextElementSibling as HTMLElement | null;
+    if (fallback) fallback.style.display = 'flex';
+  };
 
   return (
     <div className="card card--elevated researcher-card" onClick={() => onClick(r)}>
-      {r.ph ? (
-        <img
-          src={`/photos/${r.ph}`}
-          alt={`${r.f} ${r.l}`}
-          className="researcher-card__avatar"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-          loading="lazy"
-        />
-      ) : (
-        <div className="researcher-card__avatar-placeholder" style={{ background: c }}>
-          {getInitials(r.f, r.l)}
-        </div>
-      )}
-      <div style={{ minWidth: 0, flex: 1 }}>
-        <div className="researcher-card__name">{r.f} {r.l}</div>
-        {r.t && <div className="researcher-card__title">{r.t}</div>}
-        <div className="researcher-card__meta">
-          {(r.dp || [])[0]?.d && (
-            <span className="chip chip--dept">{shortDept(r.dp[0].d)}</span>
+      <div className="researcher-card__avatar-slot" aria-hidden>
+        {r.ph ? (
+          <>
+            <img
+              src={`/photos/${r.ph}`}
+              alt=""
+              className="researcher-card__avatar"
+              onError={handlePhotoError}
+              loading="lazy"
+            />
+            <div
+              className="researcher-card__avatar-placeholder researcher-card__avatar-placeholder--fallback"
+              style={{ background: c, display: 'none' }}
+            >
+              {getInitials(r.f, r.l)}
+            </div>
+          </>
+        ) : (
+          <div className="researcher-card__avatar-placeholder" style={{ background: c }}>
+            {getInitials(r.f, r.l)}
+          </div>
+        )}
+      </div>
+
+      <div className="researcher-card__body">
+        <div className="researcher-card__name" title={fullName}>{fullName}</div>
+        <div className="researcher-card__title" title={position}>{position}</div>
+        <div className="researcher-card__dept" title={deptName || discipline}>{discipline}</div>
+        <div className="researcher-card__footer">
+          {hasOrcid && orcidUrl ? (
+            <a
+              href={orcidUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="chip chip--orcid researcher-card__orcid-link"
+              title={`Ver ficha ORCID ${orcidId}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              ORCID
+            </a>
+          ) : (
+            <span className="chip chip--no-orcid">No ORCID</span>
           )}
-          {r.o && <span className="chip chip--orcid">● ORCID</span>}
-          {oa && (
-            <span style={{ fontSize: 9, color: '#888' }}>
-              h={oa.h_index} ·{' '}
-              {areaFilter
-                ? `${(oa.works || []).filter((w) => w.field === areaFilter).length} en ${areaFilter}`
-                : `${(oa.works || []).length || oa.works_count} pub`}
-            </span>
-          )}
+          <span className="researcher-card__metrics">
+            h={hIndex} · {pubCount} pub
+          </span>
         </div>
       </div>
     </div>
@@ -55,12 +92,18 @@ const ResearcherCard = memo(function ResearcherCard({ researcher, areaFilter, on
 });
 
 export default function TabPerfiles() {
+  const { openLocalResearcherProfile } = useOpenResearcherProfile();
   const {
     search, dept, setDept, onlyOrcid, sdgFilter, areaFilter,
     setSdgFilter, setAreaFilter, setOnlyOrcid,
     filtered, pageData, page, setPage, totalPages,
-    DEPTS, deptCounts, goPerfiles, openResearcher, resetPage,
+    DEPTS, deptCounts, goPerfiles, resetPage,
   } = useApp();
+
+  const openResearcherProfile = useCallback(
+    (r: Researcher) => openLocalResearcherProfile(r),
+    [openLocalResearcherProfile]
+  );
 
   const handleDeptChange = useCallback(
     (e) => { setDept(e.target.value); resetPage(); },
@@ -69,9 +112,11 @@ export default function TabPerfiles() {
 
   const clearFilters = useCallback(() => {
     goPerfiles();
+    setDept('');
     setSdgFilter('');
     setAreaFilter('');
-  }, [goPerfiles, setSdgFilter, setAreaFilter]);
+    setOnlyOrcid(false);
+  }, [goPerfiles, setDept, setSdgFilter, setAreaFilter, setOnlyOrcid]);
 
   const title = areaFilter
     ? `Área: ${areaFilter}`
@@ -79,12 +124,14 @@ export default function TabPerfiles() {
     ? `ODS: ${SDG_ES[sdgFilter] || sdgFilter}`
     : onlyOrcid
     ? 'Investigadores con ORCID'
+    : dept
+    ? dept
     : 'Perfiles';
 
   return (
     <>
       {/* Intro text when no filters are active */}
-      {!search && !dept && !onlyOrcid && !sdgFilter && (
+      {!search && !dept && !onlyOrcid && !sdgFilter && !areaFilter && (
         <div className="info-box">
           La <strong style={{ color: 'var(--blue-700)' }}>Universidad de Tarapacá</strong> pone a
           disposición de la comunidad académica el perfil de sus investigadores. Datos enriquecidos
@@ -108,7 +155,7 @@ export default function TabPerfiles() {
           </span>
         </h2>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-          {(onlyOrcid || sdgFilter || areaFilter) && (
+          {(onlyOrcid || sdgFilter || areaFilter || dept) && (
             <button className="btn btn--ghost" onClick={clearFilters} style={{ fontSize: 12, padding: '5px 12px' }}>
               ✕ Limpiar
             </button>
@@ -138,7 +185,7 @@ export default function TabPerfiles() {
               key={r.o || `${r.f}-${r.l}-${i}`}
               researcher={r}
               areaFilter={areaFilter}
-              onClick={openResearcher}
+              onClick={openResearcherProfile}
             />
           ))}
         </div>

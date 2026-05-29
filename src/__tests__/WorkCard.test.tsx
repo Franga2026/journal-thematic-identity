@@ -89,8 +89,10 @@ describe('WorkCard', () => {
     expect(container.innerHTML).toBe('');
   });
 
-  it('handles work without title', () => {
+  it('shows disabled Acceder when no URL at all', () => {
     render(<WorkCard w={{ c: 5 } as Work} />);
+    const btn = screen.getByRole('button', { name: /Acceder/i }) as HTMLButtonElement;
+    expect(btn.disabled).toBe(true);
     expect(screen.getByText('Sin título')).toBeDefined();
   });
 

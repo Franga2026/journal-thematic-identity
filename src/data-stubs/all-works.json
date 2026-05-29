@@ -1,0 +1,38 @@
+[
+  {
+    "t": "Quantum effects in nanostructures",
+    "y": 2023,
+    "c": 15,
+    "s": "Nature Physics",
+    "tp": "article",
+    "oa": true,
+    "ou": "https://example.org/paper.pdf",
+    "a": ["Ana Silva", "Luis Rojas"],
+    "field": "Physics",
+    "d": "10.1234/stub-1",
+    "autores_uta": ["0000-0001", "0000-0001-0000-0001", "0000-0002"]
+  },
+  {
+    "t": "Chemical analysis methods",
+    "y": 2022,
+    "c": 5,
+    "s": "Chem Rev",
+    "tp": "article",
+    "oa": false,
+    "a": ["Luis Rojas"],
+    "field": "Chemistry",
+    "autores_uta": ["0000-0002", "0000-0002-0000-0002"]
+  },
+  {
+    "t": "Biodiversity in Atacama",
+    "y": 2023,
+    "c": 0,
+    "s": "Ecology",
+    "tp": "article",
+    "oa": true,
+    "field": "Biology",
+    "sdgs": ["Life on land"],
+    "a": ["Carla Díaz"],
+    "autores_uta": ["0000-0003", "0000-0003-0000-0003"]
+  }
+]

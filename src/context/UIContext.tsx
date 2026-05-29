@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useCallback, type ReactNode, type Dispatch, type SetStateAction } from 'react';
 import type { Researcher, CoAuthorProfile, TabKey, SearchType, AITabKey, MetricKey, ChatMessage } from '../shared/types';
+import { getData } from '../utils/dataProcessing';
+import { findResearcherByProfileId, isOpenAlexAuthorId } from '../utils/researcherProfile';
 
 interface UIState {
   tab: TabKey;
@@ -11,8 +13,18 @@ interface UIState {
   page: number;
   setPage: (p: number) => void;
   resetPage: () => void;
+  /** Filtros del Descubridor sincronizados desde Header / chips */
+  descubridorQuartile: string;
+  setDescubridorQuartile: (q: string) => void;
+  descubridorAccess: '' | 'open' | 'closed';
+  setDescubridorAccess: (a: '' | 'open' | 'closed') => void;
   selected: Researcher | null;
   openResearcher: (r: Researcher) => void;
+  /** ORCID, RUT o OpenAlex A-id para ficha externa (fetch en ResearcherModal) */
+  openAlexAuthorId: string | null;
+  openOpenAlexResearcher: (authorIdOrUrl: string) => void;
+  /** Abre ficha UTA o dispara fetch OpenAlex según profileId en URL */
+  resolveResearcherProfile: (profileId: string) => void;
   closeResearcher: () => void;
   modalTopic: string;
   setModalTopic: (t: string) => void;
@@ -49,8 +61,11 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [search, setSearch] = useState('');
   const [searchType, setSearchType] = useState<SearchType>('texto');
   const [page, setPage] = useState(0);
+  const [descubridorQuartile, setDescubridorQuartile] = useState('');
+  const [descubridorAccess, setDescubridorAccess] = useState<'' | 'open' | 'closed'>('');
 
   const [selected, setSelected] = useState<Researcher | null>(null);
+  const [openAlexAuthorId, setOpenAlexAuthorId] = useState<string | null>(null);
   const [modalTopic, setModalTopic] = useState('');
   const [viewCoAuthor, setViewCoAuthor] = useState<CoAuthorProfile | null>(null);
   const [metricDetail, setMetricDetail] = useState<MetricKey | null>(null);
@@ -67,10 +82,47 @@ export function UIProvider({ children }: { children: ReactNode }) {
 
   const resetPage = useCallback(() => setPage(0), []);
   const openResearcher = useCallback((r: Researcher) => {
-    setSelected(r); setModalTopic(''); setReportText(''); setMetricDetail(null);
+    setOpenAlexAuthorId(null);
+    setSelected(r);
+    setModalTopic('');
+    setReportText('');
+    setMetricDetail(null);
+  }, []);
+  const openOpenAlexResearcher = useCallback((authorIdOrUrl: string) => {
+    setSelected(null);
+    setOpenAlexAuthorId(authorIdOrUrl.trim());
+    setModalTopic('');
+    setReportText('');
+    setMetricDetail(null);
+  }, []);
+
+  const resolveResearcherProfile = useCallback((profileId: string) => {
+    const key = profileId.trim();
+    setModalTopic('');
+    setReportText('');
+    setMetricDetail(null);
+
+    if (isOpenAlexAuthorId(key)) {
+      setSelected(null);
+      setOpenAlexAuthorId(key.toUpperCase());
+      return;
+    }
+
+    const local = findResearcherByProfileId(getData(), key);
+    if (local) {
+      setOpenAlexAuthorId(null);
+      setSelected(local);
+      return;
+    }
+    setSelected(null);
+    setOpenAlexAuthorId(key);
   }, []);
   const closeResearcher = useCallback(() => {
-    setSelected(null); setModalTopic(''); setReportText(''); setMetricDetail(null);
+    setSelected(null);
+    setOpenAlexAuthorId(null);
+    setModalTopic('');
+    setReportText('');
+    setMetricDetail(null);
   }, []);
   const goPerfiles = useCallback(() => { setTab('perfiles'); setPage(0); }, []);
   const goOrcid = useCallback(() => { setTab('perfiles'); setPage(0); }, []);
@@ -78,7 +130,9 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const value: UIState = {
     tab, setTab, search, setSearch, searchType, setSearchType,
     page, setPage, resetPage,
-    selected, openResearcher, closeResearcher,
+    descubridorQuartile, setDescubridorQuartile,
+    descubridorAccess, setDescubridorAccess,
+    selected, openResearcher, openAlexAuthorId, openOpenAlexResearcher, resolveResearcherProfile, closeResearcher,
     modalTopic, setModalTopic, viewCoAuthor, setViewCoAuthor,
     metricDetail, setMetricDetail, reportText, setReportText,
     reportLoading, setReportLoading,

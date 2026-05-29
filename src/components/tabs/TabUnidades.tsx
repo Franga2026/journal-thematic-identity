@@ -1,15 +1,30 @@
+import { useCallback } from 'react';
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import { useApp } from '../../context/AppContext';
 
 export default function TabUnidades() {
-  const { DEPTS, deptCounts, setDept, setTab, setOnlyOrcid, setSdgFilter, resetPage } = useApp();
+  const {
+    DEPTS,
+    deptCounts,
+    setDept,
+    setOnlyOrcid,
+    setSdgFilter,
+    setAreaFilter,
+    resetPage,
+  } = useApp();
+  const navigate = useTransitionNavigate();
 
-  const handleClick = (d) => {
-    setDept(d);
-    setTab('perfiles');
-    setOnlyOrcid(false);
-    setSdgFilter('');
-    resetPage();
-  };
+  const handleClick = useCallback(
+    (unitName: string) => {
+      setDept(unitName);
+      setOnlyOrcid(false);
+      setSdgFilter('');
+      setAreaFilter('');
+      resetPage();
+      navigate('/perfiles');
+    },
+    [setDept, setOnlyOrcid, setSdgFilter, setAreaFilter, resetPage, navigate]
+  );
 
   return (
     <>

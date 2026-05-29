@@ -14,6 +14,9 @@ interface FiltersState {
   workYear: string;           setWorkYear: (y: string) => void;
   workType: string;           setWorkType: (t: string) => void;
   workOA: boolean;            setWorkOA: (o: boolean) => void;
+  workAccess: '' | 'open' | 'closed';
+  setWorkAccess: (a: '' | 'open' | 'closed') => void;
+  workTopic: string;          setWorkTopic: (t: string) => void;
   workField: string;          setWorkField: (f: string) => void;
   workSdg: string;            setWorkSdg: (s: string) => void;
   workPage: number;           setWorkPage: (p: number) => void;
@@ -37,6 +40,8 @@ export function FiltersProvider({ children }: { children: ReactNode }) {
   const [workYear, setWorkYear] = useState('');
   const [workType, setWorkType] = useState('');
   const [workOA, setWorkOA] = useState(false);
+  const [workAccess, setWorkAccess] = useState<'' | 'open' | 'closed'>('');
+  const [workTopic, setWorkTopic] = useState('');
   const [workField, setWorkField] = useState('');
   const [workSdg, setWorkSdg] = useState('');
   const [workPage, setWorkPage] = useState(0);
@@ -60,6 +65,7 @@ export function FiltersProvider({ children }: { children: ReactNode }) {
     rankBy, setRankBy,
     workSearch, setWorkSearch, workYear, setWorkYear,
     workType, setWorkType, workOA, setWorkOA,
+    workAccess, setWorkAccess, workTopic, setWorkTopic,
     workField, setWorkField, workSdg, setWorkSdg,
     workPage, setWorkPage, cSearch, setCSearch,
     filtered, totalPages, pageData,

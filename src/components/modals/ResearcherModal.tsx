@@ -1,10 +1,31 @@
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
+import { startTransition } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
+import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
 import { useApp } from '../../context/AppContext';
-import { getAuthorOA, getOrcidProfile, enrichWork, getAW, getMetrics, getResMetrics, getData, getAI, getCoAuthorProfile, getAuthorsOA } from '../../utils/dataProcessing';
+import {
+  getAuthorOA,
+  getOrcidProfile,
+  getMetrics,
+  getResMetrics,
+  getData,
+  getAI,
+  getAuthorsOA,
+  getResearcherOpenAlexUrl,
+} from '../../utils/dataProcessing';
+import { getOrcidRecordUrl, shouldSyncProfileRoute } from '../../utils/researcherProfile';
+import { getCoAuthorClickTarget, isCoAuthorClickable } from '../../utils/coAuthorProfileResolver';
+import type { CoAuthorRef } from '../../shared/types';
 import { cleanOrcid, getColor, getInitials } from '../../utils/helpers';
 import { SDG_ES } from '../../utils/constants';
 import { downloadMetricReport } from '../../utils/reportGenerator';
-import WorkCard from '../cards/WorkCard';
+import ResearcherAreasSection from '../researcher/ResearcherAreasSection';
+import ResearcherPublicationsSection from '../researcher/ResearcherPublicationsSection';
+import OpenAlexResearcherProfile from './OpenAlexResearcherProfile';
+import AISummaryButton from '../ai/AISummaryButton';
+import { analyzeResearcher } from '../../api/aiApi';
+import type { ResearcherAnalysisStructured } from '../../services/ai/types';
 import type { MetricKey } from '../../shared/types';
 
 // ─── Metric definitions factory ───
@@ -62,20 +83,73 @@ const METHOD_NOTES = {
 };
 
 export default function ResearcherModal() {
-  const { selected, closeResearcher, modalTopic, setModalTopic, metricDetail, setMetricDetail,
-    reportText, setReportText, reportLoading, setReportLoading, setViewCoAuthor, openResearcher } = useApp();
+  const navigate = useTransitionNavigate();
+  const location = useLocation();
+  const { openLocalResearcherProfile } = useOpenResearcherProfile();
+  const {
+    selected,
+    openAlexAuthorId,
+    closeResearcher,
+    modalTopic,
+    setModalTopic,
+    metricDetail,
+    setMetricDetail,
+    setViewCoAuthor,
+    openResearcher,
+  } = useApp();
+
+  const openCoAuthor = useCallback(
+    (ref: CoAuthorRef) => {
+      const target = getCoAuthorClickTarget(ref, getData());
+      if (!target) return;
+      if (target.kind === 'uta') {
+        openLocalResearcherProfile(target.researcher);
+        return;
+      }
+      setViewCoAuthor(target.profile);
+    },
+    [openLocalResearcherProfile, setViewCoAuthor]
+  );
+
+  const handleCloseProfile = useCallback(() => {
+    startTransition(() => {
+      closeResearcher();
+      if (/^\/perfiles\/[^/]+/.test(location.pathname)) {
+        navigate('/perfiles');
+      }
+    });
+  }, [closeResearcher, navigate, location.pathname]);
+
+  if (openAlexAuthorId) {
+    return (
+      <OpenAlexResearcherProfile
+        authorId={openAlexAuthorId}
+        onClose={handleCloseProfile}
+        onUtaMatch={(r) => {
+          startTransition(() => {
+            openResearcher(r);
+            if (shouldSyncProfileRoute(location.pathname)) {
+              const orcid = (r.o || '').replace(/https?:\/\/orcid\.org\//i, '').trim();
+              if (orcid) navigate(`/perfiles/${orcid}`);
+              else if (r.id) navigate(`/perfiles/${encodeURIComponent(r.id)}`);
+            }
+          });
+        }}
+      />
+    );
+  }
 
   if (!selected) return null;
 
   const oa = getAuthorOA(selected);
+  const orcidUrl = getOrcidRecordUrl(selected.o);
+  const openAlexUrl = getResearcherOpenAlexUrl(selected);
   const op = getOrcidProfile(selected);
   const c = getColor((selected.f || '') + (selected.l || ''));
   const AI = getAI();
   const METRICS = getMetrics();
   const RES_METRICS = getResMetrics();
-  const AW = getAW();
   const DATA = getData();
-  const COAUTHORS = getCoAuthorProfile;
 
   const aiSummary = (AI?.summaries || {})[cleanOrcid(selected.o)];
   const affinityList = (AI?.affinity || {})[cleanOrcid(selected.o)] || [];
@@ -87,7 +161,7 @@ export default function ResearcherModal() {
   const MDEFS = useMemo(() => oa ? buildMetricDefs(oa, rm, rdist, METRICS) : {}, [oa, rm, rdist, METRICS]);
 
   return (
-    <div className="modal-overlay" onClick={closeResearcher}>
+    <div className="modal-overlay" onClick={handleCloseProfile}>
       <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 960 }}>
 
         {/* ── Header ── */}
@@ -106,9 +180,51 @@ export default function ResearcherModal() {
               {selected.t && <div style={{ fontSize: 14, color: '#e2e8f0', marginBottom: 4 }}>{selected.t}</div>}
               {(selected.dp || [])[0] && <div style={{ fontSize: 13, color: '#cbd5e1', marginBottom: 6 }}>{(selected.dp || [])[0]?.d}{(selected.dp || [])[0]?.j && (' — ' + (selected.dp || [])[0]?.j)}</div>}
               {selected.e && <div style={{ fontSize: 13, color: '#cbd5e1', marginBottom: 8 }}>✉ {selected.e}</div>}
-              {selected.o && <span style={{ display: 'inline-block', background: '#a6ce39', color: '#fff', padding: '4px 10px', borderRadius: 6, fontSize: 13, fontWeight: 600 }}>ORCID: {cleanOrcid(selected.o)}</span>}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 4 }}>
+                {orcidUrl && (
+                  <a
+                    href={orcidUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-block',
+                      background: '#a6ce39',
+                      color: '#fff',
+                      padding: '4px 10px',
+                      borderRadius: 6,
+                      fontSize: 13,
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                    }}
+                    title="Abrir ficha en orcid.org"
+                  >
+                    ORCID: {cleanOrcid(selected.o)}
+                  </a>
+                )}
+                {openAlexUrl && (
+                  <a
+                    href={openAlexUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-block',
+                      background: 'rgba(255,255,255,0.15)',
+                      color: '#fff',
+                      padding: '4px 10px',
+                      borderRadius: 6,
+                      fontSize: 13,
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                      border: '1px solid rgba(255,255,255,0.35)',
+                    }}
+                    title="Ver autor en OpenAlex"
+                  >
+                    OpenAlex
+                  </a>
+                )}
+              </div>
             </div>
-            <button onClick={closeResearcher} className="modal__close" aria-label="Cerrar">×</button>
+            <button onClick={handleCloseProfile} className="modal__close" aria-label="Cerrar">×</button>
           </div>
         </div>
 
@@ -197,30 +313,39 @@ export default function ResearcherModal() {
               </div>
             )}
 
-            {/* AI Report Generator */}
-            <AIReportButton selected={selected} oa={oa} rm={rm} METRICS={METRICS} RES_METRICS={RES_METRICS}
-              reportLoading={reportLoading} setReportLoading={setReportLoading} reportText={reportText} setReportText={setReportText} />
-
-            {/* Report Display */}
-            {reportText && (
-              <div className="card card--elevated" style={{ marginBottom: 16, overflow: 'hidden' }}>
-                <div style={{ background: 'linear-gradient(135deg,#0f172a,#1e3a8a)', padding: '16px 20px', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div>
-                    <div style={{ fontSize: 16, fontWeight: 700 }}>📋 Reporte Bibliométrico — {selected.f} {selected.l}</div>
-                    <div style={{ fontSize: 11, opacity: 0.7 }}>Generado con IA · {new Date().toLocaleDateString('es-CL')}</div>
-                  </div>
-                  <button onClick={() => setReportText('')} className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', fontSize: 11 }}>Cerrar</button>
+            <AISummaryButton
+              label="Analizar con IA"
+              panelTitle={`Análisis IA — ${selected.f} ${selected.l}`}
+              fetchAnalysis={() =>
+                analyzeResearcher({
+                  orcid: cleanOrcid(selected.o),
+                  researcherId: selected.id,
+                })
+              }
+              renderStructured={(data: ResearcherAnalysisStructured) => (
+                <div className="ai-researcher-analysis">
+                  {[
+                    ['Líneas de investigación', data.lineas_investigacion],
+                    ['Fortalezas científicas', data.fortalezas_cientificas],
+                    ['ODS principales', data.ods_principales],
+                    ['Colaboraciones destacadas', data.colaboraciones_destacadas],
+                    ['Publicaciones clave', data.publicaciones_clave],
+                    ['Oportunidades de colaboración', data.oportunidades_colaboracion],
+                  ].map(([title, items]) =>
+                    items?.length ? (
+                      <div key={String(title)} className="ai-panel__section">
+                        <div className="ai-panel__heading">{title}</div>
+                        <ul className="ai-panel__list">
+                          {items.map((item, i) => (
+                            <li key={i}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null
+                  )}
                 </div>
-                <div style={{ padding: '20px 24px', fontSize: 13, color: '#1e293b', lineHeight: 1.8 }}>
-                  {reportText.split('\n').map((line, i) => {
-                    if (line.startsWith('## ')) return <h3 key={i} style={{ fontSize: 15, fontWeight: 700, color: '#1e3a8a', marginTop: i > 0 ? 20 : 0, marginBottom: 8, paddingBottom: 6, borderBottom: '2px solid #e2e8f0' }}>{line.replace('## ', '')}</h3>;
-                    if (line.startsWith('- ')) return <div key={i} style={{ paddingLeft: 16, marginBottom: 4, position: 'relative' }}><span style={{ position: 'absolute', left: 4, color: '#3b82f6' }}>•</span>{line.replace('- ', '')}</div>;
-                    if (line.trim() === '') return <div key={i} style={{ height: 8 }} />;
-                    return <p key={i} style={{ margin: '0 0 6px' }}>{line}</p>;
-                  })}
-                </div>
-              </div>
-            )}
+              )}
+            />
           </>}
 
           {/* ── Education ── */}
@@ -237,33 +362,27 @@ export default function ResearcherModal() {
           <h2 className="section-title">Colaboración e Interdisciplina</h2>
 
           <div className="card card--elevated" style={{ borderLeft: '5px solid #f59e0b', padding: 20, marginBottom: 24 }}>
-            {oa?.works && (
-              <div style={{ marginBottom: 14 }}>
-                <div style={{ fontWeight: 700, color: '#334155', fontSize: 13, marginBottom: 6 }}>Áreas Temáticas:</div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                  <span onClick={() => setModalTopic('')} className={`badge badge--clickable ${!modalTopic ? 'badge--cites' : ''}`} style={!modalTopic ? { background: '#1e3a8a', color: '#fff', borderColor: '#1e3a8a' } : {}}>
-                    Todas ({(oa.works || []).length})
-                  </span>
-                  {[...new Set((oa.works || []).map(w => w.field).filter(Boolean))].map((f, i) => (
-                    <span key={i} onClick={() => setModalTopic(String(f))} className={`badge badge--clickable ${modalTopic === f ? 'badge--cites' : ''}`}
-                      style={modalTopic === f ? { background: '#1e3a8a', color: '#fff', borderColor: '#1e3a8a' } : { background: '#eff6ff', color: '#1e40af', borderColor: '#bfdbfe' }}>
-                      {f} ({(oa.works || []).filter(w => w.field === f).length})
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
             {op?.coAuthors?.length > 0 && (
               <div>
-                <div style={{ fontWeight: 700, color: '#334155', fontSize: 13, marginBottom: 6 }}>Co-autores Principales:</div>
+                <div style={{ fontWeight: 700, color: '#334155', fontSize: 13, marginBottom: 6 }}>
+                  Co-autores Principales <span style={{ fontWeight: 400, color: '#64748b' }}>(clic para abrir ficha)</span>
+                </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                   {op.coAuthors.slice(0, 12).map((ca, i) => {
-                    const hasProfile = ca.orcid && getCoAuthorProfile(ca.orcid);
+                    const clickable = isCoAuthorClickable(ca, DATA);
                     return (
-                      <span key={i} onClick={e => { e.stopPropagation(); if (hasProfile) setViewCoAuthor(hasProfile); }}
-                        className="badge badge--clickable" style={{ background: hasProfile ? '#1e3a8a' : '#e2e8f0', color: hasProfile ? '#fff' : '#334155' }}>
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (clickable) openCoAuthor(ca);
+                        }}
+                        className={`coauthor-chip ${clickable ? 'coauthor-chip--linked' : ''}`}
+                        disabled={!clickable}
+                      >
                         {ca.name} ({ca.count})
-                      </span>
+                      </button>
                     );
                   })}
                 </div>
@@ -286,19 +405,23 @@ export default function ResearcherModal() {
             </div>
           )}
 
-          {/* ── Publications ── */}
+          {/* ── Research areas (misma UI que /areas, datos del investigador) ── */}
+          <h2 className="section-title">Áreas de Investigación</h2>
+          <div style={{ marginBottom: 24 }}>
+            <ResearcherAreasSection
+              researcher={selected}
+              activeArea={modalTopic}
+              onAreaClick={setModalTopic}
+            />
+          </div>
+
+          {/* ── Publications (all-works.json vía autores_uta) ── */}
           <h2 className="section-title">Producción Científica</h2>
-          {oa && (oa.works || []).length > 0 ? (
-            <div style={{ maxHeight: 500, overflowY: 'auto' }}>
-              {(oa.works || []).filter(w => !modalTopic || w.field === modalTopic).map((w, i) => (
-                <WorkCard key={i} w={enrichWork(w)} compact />
-              ))}
-            </div>
-          ) : (
-            <div style={{ padding: 20, background: '#fff', borderRadius: 10, border: '1px solid var(--border)', color: 'var(--gray-500)', fontSize: 13 }}>
-              Sin datos de OpenAlex para este investigador.
-            </div>
-          )}
+          <ResearcherPublicationsSection
+            researcher={selected}
+            modalTopic={modalTopic}
+            onTopicChange={setModalTopic}
+          />
         </div>
       </div>
     </div>
@@ -421,40 +544,3 @@ function MetricDetailPanel({ metricKey, md, oa, selected, METRICS, RES_METRICS }
   );
 }
 
-// ─── AI Report Button sub-component ───
-function AIReportButton({ selected, oa, rm, METRICS, RES_METRICS, reportLoading, setReportLoading, reportText, setReportText }) {
-  const qp = rm.quartile_profile || {};
-
-  const generateReport = async () => {
-    if (reportLoading) return;
-    setReportLoading(true); setReportText('');
-    const prompt = `Genera un reporte bibliométrico profesional en español para este investigador de la Universidad de Tarapacá.
-DATOS: Nombre: ${selected.f} ${selected.l} | Cargo: ${selected.t || 'Académico/a'} | Unidad: ${(selected.dp || [])[0]?.d || 'N/E'} | ORCID: ${selected.o || 'N/D'}
-INDICADORES: Pubs: ${oa?.works_count || rm.scholarly_output || 0} | Citas: ${oa?.cited_by_count || rm.citation_count || 0} | h-index: ${oa?.h_index || rm.h_index || 0} | FNCI: ${rm.fwci || 0} (Mundo=1.0, UTA=${METRICS.fwci || 1}) | OA: ${rm.oa_rate || 0}% | Q1: ${qp.q1 || 0} (${qp.q1_pct || 0}%) | Campos: ${(rm.fields || []).join(', ')}
-ESTRUCTURA: ## Resumen Ejecutivo (3 líneas) ## Análisis de Impacto ## Perfil de Publicación ## Áreas de Investigación ## Fortalezas (3-4) ## Oportunidades de Mejora (2-3) ## Proyección
-Sé preciso con los números. FNCI 1.0 = promedio mundial.`;
-
-    try {
-      const key = import.meta.env.VITE_ANTHROPIC_KEY;
-      if (!key) { setReportText('⚠️ Configura VITE_ANTHROPIC_KEY en .env'); setReportLoading(false); return; }
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-        body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 2000, messages: [{ role: 'user', content: prompt }] }),
-      });
-      const d = await res.json();
-      setReportText(d.content?.[0]?.text || 'Error generando reporte');
-    } catch (e) { setReportText('Error: ' + e.message); }
-    setReportLoading(false);
-  };
-
-  return (
-    <button onClick={generateReport} disabled={reportLoading} className="btn btn--xl" style={{ background: reportLoading ? '#94a3b8' : 'linear-gradient(135deg,#1e3a8a,#3b82f6)', color: '#fff', marginBottom: 16, cursor: reportLoading ? 'wait' : 'pointer' }}>
-      {reportLoading ? (
-        <><span className="loading__spinner" style={{ width: 16, height: 16, borderWidth: 2 }} /> Generando reporte con IA...</>
-      ) : (
-        <>📋 Generar Reporte Bibliométrico con IA</>
-      )}
-    </button>
-  );
-}

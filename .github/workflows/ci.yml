@@ -22,6 +22,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install dataset stubs for CI
+        run: VERIFY_CI_STUBS=1 node scripts/install-ci-stubs.mjs
+
+      - name: Verify dataset files exist
+        run: npm run verify:data:stubs
+
       - name: TypeScript check
         run: npx tsc --noEmit
 
@@ -29,7 +35,7 @@ jobs:
         run: npx vitest run --reporter=verbose
 
       - name: Build
-        run: npm run build
+        run: npm run verify:data:stubs && vite build
 
       - name: Check bundle size
         run: |
