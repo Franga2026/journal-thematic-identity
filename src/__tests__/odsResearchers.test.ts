@@ -6,6 +6,7 @@ import {
   buildUtaResearchersForSdg,
 } from '../utils/odsResearchers';
 import type { Researcher, Work } from '../shared/types';
+import { utaLink } from './utaLinkFixtures';
 
 const RESEARCHERS: Researcher[] = [
   { id: '111', f: 'Ana', l: 'Silva', o: '0000-0001-1111-1111' },
@@ -16,14 +17,14 @@ const WORKS: Work[] = [
   {
     t: 'Paper 1',
     sdgs: ['Life on land'],
-    autores_uta: ['111', '0000-0001-1111-1111'],
+    autores_uta: [utaLink('111', '0000-0001-1111-1111', 'Ana Silva', 0)],
   },
   {
     t: 'Paper 2',
     sdgs: ['Life on land'],
-    autores_uta: ['222'],
+    autores_uta: [utaLink('222', '', 'Luis Rojas', 0)],
   },
-  { t: 'Paper 3', sdgs: ['Climate action'], autores_uta: ['111'] },
+  { t: 'Paper 3', sdgs: ['Climate action'], autores_uta: [utaLink('111', '0000-0001-1111-1111', 'Ana Silva', 0)] },
 ];
 
 describe('odsResearchers', () => {
@@ -34,7 +35,7 @@ describe('odsResearchers', () => {
 
   it('collectAutoresUtaIds returns unique ids', () => {
     const ids = collectAutoresUtaIds(WORKS.slice(0, 2));
-    expect(ids.size).toBe(3);
+    expect(ids.size).toBe(2);
     expect(ids.has('111')).toBe(true);
     expect(ids.has('222')).toBe(true);
   });

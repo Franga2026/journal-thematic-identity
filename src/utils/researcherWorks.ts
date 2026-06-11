@@ -1,32 +1,22 @@
 import type { Researcher, Work } from '../shared/types';
-import { getAW, enrichWork, getWorksForResearcher } from './dataProcessing';
-import { cleanOrcid, getResearcherUtaId } from './helpers';
+import { getAW, getWorksForResearcher } from './dataProcessing';
+import { getResearcherUtaId } from './helpers';
+import { workHasResearcher } from './utaAuthorLinks';
 
 export { getResearcherUtaId, getWorksForResearcher };
 
-/** Obras enriquecidas para UI de ficha / producción */
+/** Obras vinculadas al investigador (enriquecimiento en ProductionWorkList). */
 export function getEnrichedWorksForResearcher(researcher: Researcher): Work[] {
-  return getWorksForResearcher(researcher).map((w) => enrichWork(w) as Work);
+  return getWorksForResearcher(researcher);
 }
 
 /** Filtra obras globales vinculadas al investigador vía autores_uta */
 export function filterWorksByResearcher(researcher: Researcher, allWorks: Work[] = getAW()): Work[] {
-  const utaId = getResearcherUtaId(researcher);
-  if (!utaId) return [];
-  const orcid = cleanOrcid(researcher.o);
-  return allWorks.filter((work) => {
-    const linked = work.autores_uta;
-    if (!linked?.length) return false;
-    return linked.includes(utaId) || Boolean(orcid && linked.includes(orcid));
-  });
+  if (!getResearcherUtaId(researcher)) return [];
+  return allWorks.filter((work) => workHasResearcher(work, researcher));
 }
 
 export function researcherHasLinkedWorks(researcher: Researcher): boolean {
-  const utaId = getResearcherUtaId(researcher);
-  if (!utaId) return false;
-  const orcid = cleanOrcid(researcher.o);
-  return getAW().some((w) => {
-    const linked = w.autores_uta;
-    return linked?.includes(utaId) || Boolean(orcid && linked?.includes(orcid));
-  });
+  if (!getResearcherUtaId(researcher)) return false;
+  return getAW().some((work) => workHasResearcher(work, researcher));
 }

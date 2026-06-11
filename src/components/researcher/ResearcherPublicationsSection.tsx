@@ -9,12 +9,14 @@ interface ResearcherPublicationsSectionProps {
   researcher: Researcher;
   modalTopic: string;
   onTopicChange: (topic: string) => void;
+  onOpenResearcher?: (profileId: string) => void;
 }
 
 export default function ResearcherPublicationsSection({
   researcher,
   modalTopic,
   onTopicChange,
+  onOpenResearcher,
 }: ResearcherPublicationsSectionProps) {
   const utaId = getResearcherUtaId(researcher);
 
@@ -102,7 +104,11 @@ export default function ResearcherPublicationsSection({
 
       <div className="researcher-pubs__list">
         {publicacionesFiltradas.length > 0 ? (
-          <ProductionWorkList works={publicacionesFiltradas as Work[]} />
+          <ProductionWorkList
+            works={publicacionesFiltradas as Work[]}
+            onOpenResearcher={onOpenResearcher}
+            currentResearcher={researcher}
+          />
         ) : (
           <EmptyState
             icon="📄"

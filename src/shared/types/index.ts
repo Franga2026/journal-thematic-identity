@@ -20,6 +20,17 @@ export interface Researcher {
 }
 
 // ─── Works / Publications ───
+/** Vínculo autor UTA confirmado vía ORCID→author.id (OpenAlex) */
+export interface UtaAuthorLink {
+  /** OpenAlex author id normalizado (A…) */
+  author_id: string;
+  orcid: string;
+  rut: string;
+  /** display_name exacto del authorship al vincular */
+  name: string;
+  author_index: number;
+}
+
 export interface Work {
   t?: string;      // title (may contain HTML)
   y?: number;      // year
@@ -37,12 +48,14 @@ export interface Work {
   sdgs?: string[];
   qi?: string;     // quartile indicator (Q1, Q2, etc.)
   qc?: string;     // quartile color
-  impact?: number;
+  impact?: number; // OpenAlex work.fwci (field-weighted citation impact)
+  /** Alias explícito de OpenAlex fwci; si presente, tiene prioridad sobre impact */
+  fwci?: number | null;
   pub?: string;    // publisher
   srcOA?: boolean; // source is OA journal
   cr_pub?: string; // crossref publisher
-  /** IDs UTA (RUT, id institucional u ORCID) de investigadores vinculados */
-  autores_uta?: string[];
+  /** Vínculos UTA confirmados por ORCID en authorships OpenAlex */
+  autores_uta?: UtaAuthorLink[];
   /** Authorships estilo OpenAlex (si vienen enriquecidas en all-works.json) */
   authorships?: Array<{
     author?: { id?: string; display_name?: string; orcid?: string };
@@ -85,6 +98,29 @@ export interface WorkCitationIndexEntry extends WorkCitations {
 
 export type WorkCitationIndex = Record<string, WorkCitationIndexEntry>;
 
+// ─── Datasets (from datasets.json) ───
+export interface DatasetRecord {
+  openalex_id: string;
+  doi: string | null;
+  title: string;
+  year: number | undefined;
+  authors: string[];
+  /** Repositorio — primary_location.source.display_name (OpenAlex) */
+  repo: string | null;
+  /** true solo si open_access.is_oa o primary_location.is_oa === true */
+  is_oa: boolean;
+  /** landing_page_url o DOI normalizado */
+  access_url: string | null;
+  citas: number;
+  license: string | null;
+  /** @deprecated usar repo */
+  repository?: string | null;
+  /** @deprecated usar access_url */
+  landing_page_url?: string | null;
+  /** @deprecated usar citas */
+  cited_by_count?: number;
+}
+
 // ─── OpenAlex Author Profile ───
 export interface AuthorOA {
   works_count: number;
@@ -122,8 +158,11 @@ export interface CoAuthorRef {
 
 export interface Education {
   degree?: string;
-  institution: string;
-  endYear?: number;
+  institution?: string;
+  department?: string;
+  title?: string;
+  startYear?: string | number;
+  endYear?: string | number;
 }
 
 export interface OrcidProfile {
@@ -182,6 +221,7 @@ export interface QuartileProfile {
   q3?: number;
   q4?: number;
   q1_pct?: number;
+  q1q2_pct?: number;
   with_quartile?: number;
 }
 
@@ -285,7 +325,7 @@ export type TabKey = 'perfiles' | 'unidades' | 'areas' | 'ods' | 'produccion' | 
 export type SearchType = 'concepto' | 'texto';
 export type RankKey = 'fwci' | 'hindex' | 'citas' | 'q1' | 'cpp' | 'oa';
 export type AITabKey = 'chat' | 'comparar' | 'redes' | 'tendencias' | 'oportunidades';
-export type MetricKey = 'h_index' | 'fwci' | 'cpp' | 'output' | 'cites' | 'oa_rate' | 'q1_pct';
+export type MetricKey = 'h_index' | 'fwci' | 'cpp' | 'output' | 'cites' | 'oa_rate' | 'datasets';
 
 export interface ChatMessage {
   r: 'user' | 'ai';
@@ -381,5 +421,4 @@ export interface DataState {
   INST: InstitutionOA;
   DEPTS: string[];
   deptCounts: Record<string, number>;
-  ORCID_COUNT: number;
 }

@@ -1,7 +1,11 @@
 import type { CoAuthorProfile, Researcher, Work } from '../shared/types';
+import { fwciIsEligible } from '../shared/metrics/fwci';
 import { SDG_NAME_TO_NUMBER } from './constants';
+import { getAuthorsOA } from './dataProcessing';
 import { cleanOrcid, stripTags } from './helpers';
 import { findResearcherByProfileId } from './researcherProfile';
+import { getWorkOpenAlexFwci } from './workMetrics';
+import { getUtaLinks } from './utaAuthorLinks';
 
 export type CoAuthorModalTab = 'resumen' | 'publicaciones' | 'colaboracion' | 'impacto' | 'red';
 
@@ -23,9 +27,8 @@ export function getCoAuthorOpenAlexAuthorUrl(profile: CoAuthorProfile): string |
 export function countUtaCoauthorsFromWorks(works: Work[]): number {
   const ids = new Set<string>();
   works.forEach((w) => {
-    (w.autores_uta || []).forEach((id) => {
-      const t = (id || '').trim();
-      if (t) ids.add(t);
+    getUtaLinks(w).forEach((link) => {
+      if (link.rut.trim()) ids.add(link.rut.trim());
     });
   });
   return ids.size;
@@ -43,9 +46,8 @@ export function listUtaCollaboratorsFromWorks(
 ): UtaCollaboratorLink[] {
   const ids = new Set<string>();
   works.forEach((w) => {
-    (w.autores_uta || []).forEach((id) => {
-      const t = (id || '').trim();
-      if (t) ids.add(t);
+    getUtaLinks(w).forEach((link) => {
+      if (link.rut.trim()) ids.add(link.rut.trim());
     });
   });
   const out: UtaCollaboratorLink[] = [];
@@ -101,4 +103,136 @@ export function formatDoiLink(doi?: string): string | null {
 
 export function workTitlePlain(w: Work): string {
   return stripTags(w.t) || 'Sin título';
+}
+
+export interface CoAuthorKpiCard {
+  key: string;
+  label: string;
+  display: string;
+  positive?: boolean;
+  /** KPI Datasets con N > 0: expandible para listar obras type=dataset. */
+  expandable?: boolean;
+}
+
+function lookupOpenAlexAuthorMetrics(orcid?: string) {
+  const key = cleanOrcid(orcid);
+  if (!key) return null;
+  const a = getAuthorsOA()[key];
+  if (!a) return null;
+  return {
+    fwci: typeof a.fwci === 'number' ? a.fwci : null,
+    datasetsCount: typeof a.datasetsCount === 'number' ? a.datasetsCount : null,
+    oaRate: typeof a.oaRate === 'number' ? a.oaRate : null,
+  };
+}
+
+function meanFwciFromWorks(works: Work[]): number | null {
+  const values: number[] = [];
+  works.forEach((w) => {
+    if (!fwciIsEligible(w)) return;
+    const fwci = getWorkOpenAlexFwci(w);
+    if (fwci !== null) values.push(fwci);
+  });
+  if (!values.length) return null;
+  return values.reduce((sum, v) => sum + v, 0) / values.length;
+}
+
+function oaRateFromWorks(works: Work[]): number | null {
+  const known = works.filter((w) => w.oa === true || w.oa === false);
+  if (!known.length) return null;
+  return known.filter((w) => w.oa === true).length / known.length;
+}
+
+export interface BuildCoAuthorKpiOptions {
+  /** Conteo OpenAlex type=dataset del colaborador (0 es válido). */
+  datasetsCount?: number;
+  datasetsLoading?: boolean;
+}
+
+/** KPIs del modal de coautor. Datasets siempre visible cuando hay conteo OpenAlex (incl. 0). */
+export function buildCoAuthorKpiCards(
+  profile: CoAuthorProfile,
+  utaCoauthorCount: number,
+  options: BuildCoAuthorKpiOptions = {},
+): CoAuthorKpiCard[] {
+  const cards: CoAuthorKpiCard[] = [];
+  const works = profile.works || [];
+  const oaMetrics = lookupOpenAlexAuthorMetrics(profile.orcid);
+  const { datasetsCount, datasetsLoading } = options;
+
+  if (typeof profile.works_count === 'number' && profile.works_count > 0) {
+    cards.push({
+      key: 'pubs',
+      label: 'Publicaciones',
+      display: profile.works_count.toLocaleString(),
+    });
+  }
+
+  if (datasetsLoading) {
+    cards.push({ key: 'datasets', label: 'Datasets', display: '…', expandable: false });
+  } else {
+    const dsCount = typeof datasetsCount === 'number' ? datasetsCount : 0;
+    cards.push({
+      key: 'datasets',
+      label: 'Datasets',
+      display: dsCount.toLocaleString(),
+      expandable: dsCount > 0,
+    });
+  }
+
+  if (typeof profile.cited_by_count === 'number' && profile.cited_by_count > 0) {
+    cards.push({
+      key: 'cites',
+      label: 'Citas',
+      display: profile.cited_by_count.toLocaleString(),
+    });
+  }
+
+  if (
+    typeof profile.works_count === 'number'
+    && profile.works_count > 0
+    && typeof profile.cited_by_count === 'number'
+  ) {
+    cards.push({
+      key: 'cpp',
+      label: 'Citas/pub',
+      display: (profile.cited_by_count / profile.works_count).toFixed(1),
+    });
+  }
+
+  if (typeof profile.h_index === 'number' && profile.h_index > 0) {
+    cards.push({
+      key: 'h_index',
+      label: 'H-index',
+      display: String(profile.h_index),
+    });
+  }
+
+  const fwci = oaMetrics?.fwci ?? meanFwciFromWorks(works);
+  if (typeof fwci === 'number') {
+    cards.push({
+      key: 'fwci',
+      label: 'FWCI',
+      display: fwci.toFixed(2),
+      positive: fwci >= 1,
+    });
+  }
+
+  const oaRate = oaMetrics?.oaRate ?? oaRateFromWorks(works);
+  if (typeof oaRate === 'number') {
+    cards.push({
+      key: 'oa',
+      label: 'Acceso abierto',
+      display: `${Math.round(oaRate * 100)}%`,
+    });
+  }
+
+  cards.push({
+    key: 'uta',
+    label: 'Coautores UTA',
+    display: utaCoauthorCount.toLocaleString(),
+    expandable: utaCoauthorCount > 0,
+  });
+
+  return cards;
 }

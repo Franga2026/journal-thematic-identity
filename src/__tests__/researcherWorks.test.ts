@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import { initData } from '../utils/dataProcessing';
 import { filterWorksByResearcher, getEnrichedWorksForResearcher } from '../utils/researcherWorks';
 import type { Researcher, Work } from '../shared/types';
+import { utaLink } from './utaLinkFixtures';
 
 const RESEARCHER: Researcher = {
   id: '0000-0001',
@@ -11,9 +12,9 @@ const RESEARCHER: Researcher = {
 };
 
 const WORKS: Work[] = [
-  { t: 'Paper A', y: 2023, autores_uta: ['0000-0001'] },
-  { t: 'Paper B', y: 2022, autores_uta: ['0000-0002'] },
-  { t: 'Paper C', y: 2021, autores_uta: ['0000-0001-0000-0001'] },
+  { t: 'Paper A', y: 2023, autores_uta: [utaLink('0000-0001', '0000-0001-0000-0001', 'Ana Silva', 0)] },
+  { t: 'Paper B', y: 2022, autores_uta: [utaLink('0000-0002', '0000-0002-0000-0002', 'Luis Rojas', 0)] },
+  { t: 'Paper C', y: 2021, autores_uta: [utaLink('0000-0001', '0000-0001-0000-0001', 'Ana Silva', 0)] },
 ];
 
 beforeAll(() => {

@@ -9,6 +9,7 @@ interface AISummaryButtonProps<T = unknown> {
   label?: string;
   panelTitle?: string;
   compact?: boolean;
+  ghost?: boolean;
   disabled?: boolean;
   fetchAnalysis: AiFetchFn<T>;
   renderStructured?: (data: T) => ReactNode;
@@ -19,6 +20,7 @@ export default function AISummaryButton<T>({
   label = 'Resumen IA',
   panelTitle = 'Análisis IA',
   compact = false,
+  ghost = false,
   disabled = false,
   fetchAnalysis,
   renderStructured,
@@ -49,14 +51,14 @@ export default function AISummaryButton<T>({
     <div className={`ai-summary-btn-wrap ${className}`}>
       <button
         type="button"
-        className="btn ai-summary-btn"
+        className={`btn ai-summary-btn${ghost ? ' ai-summary-btn--ghost' : ''}`}
         disabled={disabled || loading}
         title="Análisis con Claude (servidor)"
         onClick={(e) => {
           e.stopPropagation();
           void run();
         }}
-        style={{
+        style={ghost ? undefined : {
           background: loading ? '#94a3b8' : 'linear-gradient(135deg,#6A4C93,#1e3a8a)',
           color: '#fff',
           padding: compact ? '3px 10px' : '5px 14px',
@@ -64,7 +66,7 @@ export default function AISummaryButton<T>({
           border: 'none',
         }}
       >
-        {loading ? '… IA' : `✨ ${label}`}
+        {loading ? '… IA' : ghost ? label : `✨ ${label}`}
       </button>
 
       {showPanel && (

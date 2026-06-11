@@ -1,13 +1,26 @@
-import type { Work } from '../../shared/types';
-import ProductionWorkItem from './ProductionWorkItem';
+import { useMemo } from 'react';
+import type { Researcher, Work } from '../../shared/types';
+import { enrichWork } from '../../utils/dataProcessing';
+import WorkCard from '../cards/WorkCard';
 import { EmptyState } from '../common/UIComponents';
 
 interface ProductionWorkListProps {
   works: Work[];
+  onOpenResearcher?: (profileId: string) => void;
+  currentResearcher?: Researcher | null;
 }
 
-export default function ProductionWorkList({ works }: ProductionWorkListProps) {
-  if (!works.length) {
+export default function ProductionWorkList({
+  works,
+  onOpenResearcher,
+  currentResearcher,
+}: ProductionWorkListProps) {
+  const enrichedWorks = useMemo(
+    () => works.map((work) => enrichWork(work) as Work),
+    [works],
+  );
+
+  if (!enrichedWorks.length) {
     return (
       <EmptyState
         icon="📄"
@@ -19,8 +32,14 @@ export default function ProductionWorkList({ works }: ProductionWorkListProps) {
 
   return (
     <div className="production-work-list" role="list">
-      {works.map((w, i) => (
-        <ProductionWorkItem key={`${w.d || ''}-${w.y || ''}-${i}`} work={w} />
+      {enrichedWorks.map((w, i) => (
+        <WorkCard
+          key={`${w.d || ''}-${w.y || ''}-${i}`}
+          w={w}
+          variant="production"
+          onOpenResearcher={onOpenResearcher}
+          currentResearcher={currentResearcher}
+        />
       ))}
     </div>
   );

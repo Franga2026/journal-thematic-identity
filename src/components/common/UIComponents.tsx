@@ -1,22 +1,4 @@
-import { useState, useEffect, memo, type ReactNode, type CSSProperties } from 'react';
-
-// ─── Counter ───
-interface CounterProps { end: number; }
-export const Counter = memo(function Counter({ end }: CounterProps) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!end) return;
-    let current = 0;
-    const step = end / 90;
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= end) { setVal(end); clearInterval(timer); }
-      else setVal(Math.floor(current));
-    }, 16);
-    return () => clearInterval(timer);
-  }, [end]);
-  return <>{val.toLocaleString()}</>;
-});
+import { memo, type ReactNode, type CSSProperties } from 'react';
 
 // ─── Donut ───
 interface DonutProps { pct: number; color: string; size?: number; stroke?: number; }

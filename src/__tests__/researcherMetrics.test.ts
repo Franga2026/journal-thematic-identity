@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import type { Work } from '../shared/types';
+import { utaLink } from './utaLinkFixtures';
+import { getUtaLinks } from '../utils/utaAuthorLinks';
 import { initData } from '../utils/dataProcessing';
 import {
   buildResearcherMetrics,
@@ -16,7 +18,7 @@ const MOCK_WORKS: Work[] = [
     c: 50,
     field: 'Genetics',
     d: '10.1234/a',
-    autores_uta: ['uta-1'],
+    autores_uta: [utaLink('uta-1', '0000-0001-0000-0001', 'Ana UTA', 0)],
     a: ['Ana UTA', 'Andres Ruiz-Linares'],
   },
   {
@@ -24,19 +26,8 @@ const MOCK_WORKS: Work[] = [
     c: 30,
     field: 'Genetics',
     d: '10.1234/b',
-    autores_uta: ['uta-1'],
-    authorships: [
-      {
-        author: { display_name: 'Ana UTA', orcid: 'https://orcid.org/0000-0001-0000-0001' },
-      },
-      {
-        author: {
-          display_name: 'Andrés Ruiz-Linares',
-          orcid: 'https://orcid.org/0000-0001-8372-1011',
-          id: 'https://openalex.org/A123',
-        },
-      },
-    ],
+    autores_uta: [utaLink('uta-1', '0000-0001-0000-0001', 'Ana UTA', 0)],
+    a: ['Ana UTA', 'Andres Ruiz-Linares'],
   },
   {
     t: 'Global only',
@@ -48,7 +39,7 @@ const MOCK_WORKS: Work[] = [
     t: 'Joint paper A',
     c: 50,
     d: '10.1234/a',
-    autores_uta: ['uta-1'],
+    autores_uta: [utaLink('uta-1', '0000-0001-0000-0001', 'Ana UTA', 0)],
     a: ['Ana UTA', 'Andres Ruiz-Linares'],
   },
 ];
@@ -82,13 +73,13 @@ describe('researcherMetrics', () => {
     const profile = { name: 'Andrés Ruiz-Linares', orcid: '0000-0001-8372-1011' };
     const works = collectCollaborationWorksForCoAuthor(profile, MOCK_WORKS);
     expect(works.length).toBe(2);
-    expect(works.every((w) => (w.autores_uta || []).length > 0)).toBe(true);
+    expect(works.every((w) => getUtaLinks(w).length > 0)).toBe(true);
   });
 
   it('buildResearcherMetrics computes h-index from local citations', () => {
     const metrics = buildResearcherMetrics({
       scope: 'collaboration',
-      publications: MOCK_WORKS.filter((w) => (w.autores_uta || []).length),
+      publications: MOCK_WORKS.filter((w) => getUtaLinks(w).length),
     });
     expect(metrics.publicationsCount).toBe(2);
     expect(metrics.citationsCount).toBe(80);

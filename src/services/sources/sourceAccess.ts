@@ -114,3 +114,14 @@ export function getAccessStats(): { titles: number; issns: number; loaded: boole
     loaded: true,
   };
 }
+
+export interface SourceInfo {
+  access: SourceAccessLevel;
+  publisher: string | null;
+}
+
+/** Acceso institucional y editorial asociados a una fuente (título de revista). */
+export function getSourceInfo(sourceTitle?: string): SourceInfo {
+  const access = getSourceAccess(sourceTitle);
+  return { access, publisher: null };
+}

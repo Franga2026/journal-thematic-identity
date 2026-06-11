@@ -33,7 +33,7 @@ export function downloadMetricReport({ metricKey, md, numV, dist, pctile, vsMedi
 
   const getMethodNote = () => {
     if (metricKey === 'cpp') return 'CPP no incorpora normalización por disciplina, puede verse influenciado por diferencias entre áreas científicas. Se recomienda interpretar junto con FNCI y percentiles.';
-    if (metricKey === 'fwci') return 'FNCI normaliza por campo, año y tipo documental. Un valor de 1.0 es el promedio mundial exacto. Se recomienda complementar con h-index y CPP.';
+    if (metricKey === 'fwci') return 'FNCI normaliza por campo, año y tipo documental. Un valor de 1.0 es el promedio mundial exacto. El FWCI excluye las obras del año en curso por ventana de citación incompleta; el indicador no es interpretable hasta acumular citas. Las citas absolutas y el conteo de obras sí incluyen el año en curso. Se recomienda complementar con h-index y CPP.';
     if (metricKey === 'h_index') return 'El h-index favorece carreras largas, áreas con alta densidad de citación. Para comparar impacto entre disciplinas, use FNCI.';
     return 'Este indicador debe interpretarse en conjunto con otras métricas bibliométricas para una evaluación integral.';
   };

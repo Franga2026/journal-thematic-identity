@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import { createSdgApiMiddleware } from './src/server/sdgApiMiddleware';
 import { createCollaboratorsApiMiddleware } from './src/server/collaboratorsApiMiddleware';
 import { createAiApiMiddleware } from './src/server/aiApiMiddleware';
+import { createReportApiMiddleware } from './src/server/reportApiAdapter';
 
 export default defineConfig({
   plugins: [
@@ -14,11 +15,13 @@ export default defineConfig({
         server.middlewares.use(createSdgApiMiddleware());
         server.middlewares.use(createCollaboratorsApiMiddleware());
         server.middlewares.use(createAiApiMiddleware());
+        server.middlewares.use(createReportApiMiddleware());
       },
       configurePreviewServer(server) {
         server.middlewares.use(createSdgApiMiddleware());
         server.middlewares.use(createCollaboratorsApiMiddleware());
         server.middlewares.use(createAiApiMiddleware());
+        server.middlewares.use(createReportApiMiddleware());
       },
     },
   ],

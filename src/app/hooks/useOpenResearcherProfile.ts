@@ -34,7 +34,9 @@ export function useOpenResearcherProfile() {
   const openOpenAlexProfile = useCallback(
     (author: OpenAlexAuthorSummary) => {
       const profileId = author.orcid?.trim() || author.openAlexId || author.id;
-      openOpenAlexResearcher(profileId);
+      // Pasamos también el objeto completo: la ficha externa se pinta con estos
+      // datos (de la fila del ranking) sin depender de la API de OpenAlex.
+      openOpenAlexResearcher(profileId, author);
       if (shouldSyncProfileRoute(location.pathname)) {
         navigate(getOpenAlexAuthorProfilePath(author));
       }

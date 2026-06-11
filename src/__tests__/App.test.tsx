@@ -45,7 +45,7 @@ describe('App', () => {
 
   it('renders the search input', () => {
     render(<App />);
-    expect(screen.getByPlaceholderText(/buscar por nombre/i)).toBeDefined();
+    expect(screen.getByPlaceholderText(/buscar publicaciones/i)).toBeDefined();
   });
 
   it('renders tab navigation', () => {

@@ -7,6 +7,7 @@ import {
   getWorksForResearcher,
 } from '../../utils/dataProcessing';
 import { cleanOrcid } from '../../utils/helpers';
+import { getUtaLinks } from '../../utils/utaAuthorLinks';
 import type { Work, Researcher } from '../../shared/types';
 import { askClaude, ClaudeConfigError, ClaudeRateLimitError, ClaudeTimeoutError } from './claudeClient';
 import {
@@ -160,9 +161,9 @@ export async function handleAnalyzeCoauthor(
   const utaNames = [
     ...new Set(
       works.flatMap((w) =>
-        (w.autores_uta || []).map((id) => {
-          const r = DATA.find((x) => x.id === id || cleanOrcid(x.o) === id);
-          return r ? `${r.f || ''} ${r.l || ''}`.trim() : id;
+        getUtaLinks(w).map((link) => {
+          const r = DATA.find((x) => (x.id || '').trim() === link.rut);
+          return r ? `${r.f || ''} ${r.l || ''}`.trim() : link.name;
         })
       )
     ),

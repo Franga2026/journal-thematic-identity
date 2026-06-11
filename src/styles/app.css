@@ -3,6 +3,8 @@
    Production-Ready Stylesheet
    ═══════════════════════════════════════════════ */
 
+@import './researcher-modal-celeste.css';
+
 /* ─── CSS Variables ─── */
 :root {
   /* Primary */

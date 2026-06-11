@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { getMetrics, getResMetrics, getAW } from '../../utils/dataProcessing';
+import { getMetrics, getAW } from '../../utils/dataProcessing';
 import { COLORS } from '../../utils/constants';
 import { BarChart } from '../common/UIComponents';
 
@@ -174,7 +174,7 @@ export default function TabMetricas() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: 12, fontSize: 11, opacity: 0.85 }}>
           <div><strong>FNCI</strong>: Citas recibidas vs esperadas por campo, año y tipo documental. Mundo = 1.0</div>
           <div><strong>Top Percentiles</strong>: Publicaciones en el top 1/5/10/25% más citado globalmente</div>
-          <div><strong>Top Journal</strong>: Publicaciones en revistas Q1/Q2 según CiteScore</div>
+          <div><strong>Top Journal</strong>: Publicaciones en revistas Q1/Q2 según SJR (Scimago)</div>
           <div><strong>Cited Pubs</strong>: % de producción con al menos 1 cita</div>
           <div><strong>h-index</strong>: h papers con ≥h citas cada uno</div>
           <div><strong>Collaboration</strong>: Co-autoría internacional, nacional, institucional</div>

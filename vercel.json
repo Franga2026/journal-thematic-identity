@@ -14,6 +14,10 @@
     "api/ai/*.ts": {
       "maxDuration": 60,
       "includeFiles": "src/**"
+    },
+    "api/report/*.ts": {
+      "maxDuration": 60,
+      "includeFiles": "src/**"
     }
   }
 }

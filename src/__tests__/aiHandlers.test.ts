@@ -28,7 +28,7 @@ describe('aiHandlers', () => {
         },
         institution: {},
       },
-      AW: [{ t: 'Paper UTA', y: 2023, autores_uta: ['1'], sdgs: ['SDG3'] }],
+      AW: [{ t: 'Paper UTA', y: 2023, autores_uta: [{ author_id: 'A1', rut: '1', orcid: '0000-0001-0000-0001', name: 'Ana', author_index: 0 }], sdgs: ['SDG3'] }],
       OD: {},
       AI: {},
       COAUTHORS: {},

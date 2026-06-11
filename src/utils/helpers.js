@@ -65,6 +65,39 @@ export function normalizeAuthorName(name) {
     .trim();
 }
 
+/**
+ * Empareja un nombre de autor de publicación con un investigador del catálogo UTA.
+ * Tolera apellidos compuestos truncados (p. ej. "Bernardo Arriaza" vs "Bernardo Arriaza Torres").
+ */
+export function matchAuthorNameToResearcher(authorName, catalog) {
+  const norm = normalizeAuthorName(authorName);
+  if (!norm || !catalog?.length) return null;
+
+  for (const researcher of catalog) {
+    const full = normalizeAuthorName(`${researcher.f || ''} ${researcher.l || ''}`);
+    if (!full) continue;
+    if (norm === full) return researcher;
+
+    const last = normalizeAuthorName(researcher.l || '');
+    if (last.length >= 3 && norm.includes(last)) return researcher;
+
+    const lastParts = last.split(' ').filter(Boolean);
+    const primaryLast = lastParts[0] || '';
+    if (primaryLast.length >= 3) {
+      const authorParts = norm.split(' ').filter(Boolean);
+      const authorLast = authorParts[authorParts.length - 1] || '';
+      if (authorLast === primaryLast) {
+        const first = normalizeAuthorName(researcher.f || '');
+        if (!first || authorParts[0] === first || norm.startsWith(`${first} `)) {
+          return researcher;
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
 /** Identificador principal del investigador en autores_uta (RUT o ORCID) */
 export function getResearcherUtaId(person) {
   if (!person) return '';

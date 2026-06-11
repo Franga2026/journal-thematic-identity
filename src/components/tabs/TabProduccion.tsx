@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
-import { getAW, getInstitution, enrichWork, filterWorks } from '../../utils/dataProcessing';
+import { getAW, getInstitution, filterWorks } from '../../utils/dataProcessing';
 import { WORKS_PAGE_SIZE } from '../../utils/constants';
 import { Pagination } from '../common/UIComponents';
 import ProductionSearchBar from '../production/ProductionSearchBar';
@@ -48,7 +48,7 @@ export default function TabProduccion() {
 
   const totalPages = Math.max(1, Math.ceil(fw.length / WORKS_PAGE_SIZE));
   const pageData = useMemo(
-    () => fw.slice(workPage * WORKS_PAGE_SIZE, (workPage + 1) * WORKS_PAGE_SIZE).map(enrichWork),
+    () => fw.slice(workPage * WORKS_PAGE_SIZE, (workPage + 1) * WORKS_PAGE_SIZE),
     [fw, workPage]
   );
 

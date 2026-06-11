@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import { startTransition } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
@@ -11,75 +11,267 @@ import {
   getResMetrics,
   getData,
   getAI,
-  getAuthorsOA,
   getResearcherOpenAlexUrl,
+  getMetricPercentile,
+  getDatasetsForAuthor,
 } from '../../utils/dataProcessing';
-import { getOrcidRecordUrl, shouldSyncProfileRoute } from '../../utils/researcherProfile';
+import { getOrcidRecordUrl, shouldSyncProfileRoute, getProfileRoutePath } from '../../utils/researcherProfile';
 import { getCoAuthorClickTarget, isCoAuthorClickable } from '../../utils/coAuthorProfileResolver';
-import type { CoAuthorRef } from '../../shared/types';
-import { cleanOrcid, getColor, getInitials } from '../../utils/helpers';
-import { SDG_ES } from '../../utils/constants';
+import type { CoAuthorRef, MetricKey, Researcher } from '../../shared/types';
+import { cleanOrcid, getInitials } from '../../utils/helpers';
 import { downloadMetricReport } from '../../utils/reportGenerator';
+import { buildProvenanceNote, KPI_PROVENANCE } from '../../utils/provenance';
+import {
+  fwciKpiSublabel,
+  fwciKpiTooltip,
+  OPENALEX_METRICS_UNIVERSE_NOTE,
+} from '../../utils/fwciKpiDisplay';
+import {
+  quartileSummaryLine,
+  QUARTILE_NO_DATA,
+} from '../../utils/quartileDisplay';
+import {
+  formatOrcidEducationLine,
+  normalizeOrcidEducation,
+} from '../../utils/orcidEducationDisplay';
+import { downloadReportBlob, ReportApiError, requestReport } from '../../api/reportApi';
 import ResearcherAreasSection from '../researcher/ResearcherAreasSection';
 import ResearcherPublicationsSection from '../researcher/ResearcherPublicationsSection';
 import OpenAlexResearcherProfile from './OpenAlexResearcherProfile';
 import AISummaryButton from '../ai/AISummaryButton';
+import WorkCard from '../cards/WorkCard';
 import { analyzeResearcher } from '../../api/aiApi';
 import type { ResearcherAnalysisStructured } from '../../services/ai/types';
-import type { MetricKey } from '../../shared/types';
 
-// ─── Metric definitions factory ───
-function buildMetricDefs(oa, rm, rdist, METRICS) {
-  const qp = rm.quartile_profile || {};
-  const oaRate = rm.oa_rate || 0;
-  const utaFNCI = METRICS.fwci || 0.941;
+const NO_DATA = '—';
+const NO_DATA_COLOR = '#94a3b8';
+
+function IconFileText({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+    </svg>
+  );
+}
+
+function IconCheck({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+
+function IconSchool({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+      <path d="M6 12v5c0 1 2 3 6 3s6-2 6-3v-5" />
+    </svg>
+  );
+}
+
+function IconMail({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>
+  );
+}
+
+function IconSparkles({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+      <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
+      <path d="M19 13l1 3 3 1-3 1-1 3-1-3-3-1 3-1 1-3z" />
+    </svg>
+  );
+}
+
+function formatMetricDisplay(val: number | string | null | undefined): string {
+  if (val === null || val === undefined) return NO_DATA;
+  if (typeof val === 'number') return val.toLocaleString();
+  return val;
+}
+
+function cppFromOa(oa: { works_count?: number; cited_by_count?: number }): number | null {
+  if (!oa.works_count) return null;
+  return +((oa.cited_by_count || 0) / oa.works_count).toFixed(2);
+}
+
+function datasetsDisplay(oa: {
+  datasetsCount?: number | null;
+  datasetsFetchedAt?: string | null;
+}): number | null {
+  if (!oa.datasetsFetchedAt) return null;
+  return oa.datasetsCount ?? 0;
+}
+
+function buildDistinctionLabels(mq: {
+  above_world_avg?: boolean;
+  highly_cited?: boolean;
+  interdisciplinary?: boolean;
+  productive?: boolean;
+}): string[] {
+  const labels: string[] = [];
+  if (mq.above_world_avg) labels.push('Impacto sobre promedio mundial');
+  if (mq.highly_cited) labels.push('Altamente citado');
+  if (mq.interdisciplinary) labels.push('Interdisciplinario');
+  if (mq.productive) labels.push('Productivo');
+  return labels;
+}
+
+type OaAuthor = NonNullable<ReturnType<typeof getAuthorOA>>;
+type Rdist = Record<string, { min?: number; max?: number; mean?: number; median?: number; p75?: number; std?: number } | null | undefined>;
+
+function buildMetricDefs(oa: OaAuthor, rdist: Rdist) {
+  const oaRate = oa.oaRate ?? null;
+  const utaFWCI = rdist.fwci?.mean ?? null;
+  const utaFWCILabel = utaFWCI !== null ? utaFWCI : NO_DATA;
+  const fwciNLabel = oa.fwciN ?? NO_DATA;
 
   return {
-    h_index: { name: 'h-index', val: oa.h_index || rm.h_index || 0, dist: rdist.h_index, color: '#1e5a78',
+    h_index: {
+      name: 'h-index',
+      val: oa.h_index ?? null,
+      numVal: oa.h_index ?? null,
+      dist: rdist.h_index,
+      color: '#1e5a78',
       desc: 'El h-index indica un balance entre productividad e impacto de citación. Un h-index de N significa N publicaciones con al menos N citas cada una.',
       calc: 'Se ordenan las publicaciones por citas (descendente). El h-index es el mayor valor h tal que h publicaciones tienen ≥h citas.',
-      interpret: v => v >= 20 ? 'Excelente trayectoria con producción e impacto sostenido.' : v >= 10 ? 'Trayectoria consolidada.' : v >= 5 ? 'Investigador en desarrollo.' : 'Etapa temprana o producción aún no ampliamente citada.' },
-    fwci: { name: 'FNCI', val: rm.fwci || 0, dist: rdist.fwci, color: rm.fwci >= 1 ? '#22c55e' : '#ef4444',
-      desc: `Mide impacto de citación vs promedio mundial por disciplina, año y tipo. FNCI = 1.0 = promedio mundial. UTA = ${utaFNCI}.`,
-      calc: `FNCI = (1/N) × Σ(citas_i / citas_esperadas_i). Mundo = 1.0. UTA = ${utaFNCI}.`,
-      interpret: v => {
+      interpret: (v: number | null) =>
+        v === null
+          ? 'Sin dato de h-index disponible en OpenAlex.'
+          : v >= 20
+            ? 'Excelente trayectoria con producción e impacto sostenido.'
+            : v >= 10
+              ? 'Trayectoria consolidada.'
+              : v >= 5
+                ? 'Investigador en desarrollo.'
+                : 'Etapa temprana o producción aún no ampliamente citada.',
+    },
+    fwci: {
+      name: 'FWCI',
+      val: oa.fwci ?? null,
+      numVal: oa.fwci ?? null,
+      dist: rdist.fwci,
+      color: oa.fwci === null ? NO_DATA_COLOR : oa.fwci >= 1 ? '#15803D' : '#ef4444',
+      desc: `Media de los FWCI por obra (OpenAlex). 1,0 = promedio mundial. Promedio UTA = ${utaFWCILabel}. Basado en N=${fwciNLabel} obras. El FWCI de OpenAlex tiende a ser más alto que en Scopus/WoS por diferencias metodológicas.`,
+      calc: `FWCI = (1/N) × Σ(fwci_i por obra). Mundo = 1,0. Promedio UTA = ${utaFWCILabel}.`,
+      interpret: (v: number | null) => {
+        if (v === null) return 'Sin dato de FWCI disponible en OpenAlex para este autor.';
         const pW = ((v - 1) * 100).toFixed(1);
-        if (v === 0) return '⚠️ FNCI = 0: Sin citas esperadas calculables.';
-        if (v >= 2) return `🏆 Excelente: FNCI ${v} — +${pW}% vs mundo. Más del doble del promedio.`;
-        if (v >= 1) return `🟢 Sobre promedio mundial: FNCI ${v} — +${pW}% vs mundo.`;
-        if (v >= 0.8) return `🟡 Ligeramente bajo: FNCI ${v} — ${pW}% vs mundo. Margen de mejora.`;
-        return `🔴 Bajo promedio: FNCI ${v} — ${pW}% vs mundo.`;
-      } },
-    cpp: { name: 'Citas/Pub', val: oa.works_count > 0 ? +((oa.cited_by_count || 0) / oa.works_count).toFixed(2) : 0, dist: rdist.citations_per_pub, color: '#7c3aed',
+        if (v === 0) return '⚠️ FWCI = 0: Sin citas esperadas calculables.';
+        if (v >= 2) return `🏆 Excelente: FWCI ${v} — +${pW}% vs mundo. Más del doble del promedio.`;
+        if (v >= 1) return `🟢 Sobre promedio mundial: FWCI ${v} — +${pW}% vs mundo.`;
+        if (v >= 0.8) return `🟡 Ligeramente bajo: FWCI ${v} — ${pW}% vs mundo. Margen de mejora.`;
+        return `🔴 Bajo promedio: FWCI ${v} — ${pW}% vs mundo.`;
+      },
+    },
+    cpp: {
+      name: 'Citas/Pub',
+      val: cppFromOa(oa),
+      numVal: cppFromOa(oa),
+      dist: rdist.citations_per_pub,
+      color: '#7c3aed',
       desc: 'Promedio de citas por publicación. No normaliza por disciplina.',
       calc: 'CPP = Total de citas ÷ Total de publicaciones',
-      interpret: v => v >= 20 ? 'Muy alto promedio de citas.' : v >= 10 ? 'Buena visibilidad.' : v >= 5 ? 'Promedio moderado.' : 'Promedio bajo — puede reflejar publicaciones recientes.' },
-    output: { name: 'Scholarly Output', val: oa.works_count || rm.scholarly_output || 0, dist: rdist.scholarly_output, color: '#1e3a8a',
-      desc: "Total de publicaciones indexadas. 'Power Metric' que aumenta con tamaño.",
-      calc: 'Cuenta de publicaciones indexadas.',
-      interpret: v => v >= 100 ? 'Producción muy alta.' : v >= 50 ? 'Producción sustancial.' : v >= 20 ? 'Producción activa.' : 'Producción moderada.' },
-    cites: { name: 'Citation Count', val: oa.cited_by_count || rm.citation_count || 0, dist: null, color: '#dc2626',
+      interpret: (v: number | null) =>
+        v === null
+          ? 'Sin dato: no hay publicaciones indexadas en OpenAlex.'
+          : v >= 20
+            ? 'Muy alto promedio de citas.'
+            : v >= 10
+              ? 'Buena visibilidad.'
+              : v >= 5
+                ? 'Promedio moderado.'
+                : 'Promedio bajo — puede reflejar publicaciones recientes.',
+    },
+    output: {
+      name: 'Scholarly Output',
+      val: oa.publicationsCount ?? null,
+      numVal: oa.publicationsCount ?? null,
+      dist: rdist.scholarly_output,
+      color: '#1e3a8a',
+      desc: "Total de publicaciones indexadas, excluyendo datasets. 'Power Metric' que aumenta con tamaño.",
+      calc: 'works_count − datasetsCount (OpenAlex).',
+      interpret: (v: number | null) =>
+        v === null
+          ? 'Sin dato de producción en OpenAlex.'
+          : v >= 100
+            ? 'Producción muy alta.'
+            : v >= 50
+              ? 'Producción sustancial.'
+              : v >= 20
+                ? 'Producción activa.'
+                : 'Producción moderada.',
+    },
+    cites: {
+      name: 'Citation Count',
+      val: oa.cited_by_count ?? null,
+      numVal: oa.cited_by_count ?? null,
+      dist: null,
+      color: '#dc2626',
       desc: "Total de citas recibidas. 'Power Metric' de visibilidad acumulada.",
       calc: 'Suma de todas las citas recibidas.',
-      interpret: v => v >= 1000 ? 'Visibilidad excepcional.' : v >= 200 ? 'Buena visibilidad.' : v >= 50 ? 'Visibilidad en desarrollo.' : 'Visibilidad aún limitada.' },
-    oa_rate: { name: 'Open Access', val: oaRate + '%', dist: rdist.oa_rate, color: '#22c55e', numVal: oaRate,
+      interpret: (v: number | null) =>
+        v === null
+          ? 'Sin dato de citas en OpenAlex.'
+          : v >= 1000
+            ? 'Visibilidad excepcional.'
+            : v >= 200
+              ? 'Buena visibilidad.'
+              : v >= 50
+                ? 'Visibilidad en desarrollo.'
+                : 'Visibilidad aún limitada.',
+    },
+    oa_rate: {
+      name: 'Open Access',
+      val: oaRate === null ? NO_DATA : `${oaRate}%`,
+      numVal: oaRate,
+      dist: rdist.oa_rate,
+      color: oaRate === null ? NO_DATA_COLOR : '#15803D',
       desc: 'Porcentaje en acceso abierto (gold, green, hybrid, bronze).',
       calc: 'OA rate = Publicaciones OA ÷ Total × 100',
-      interpret: v => v >= 80 ? 'Excelente compromiso OA.' : v >= 50 ? 'Buena tasa OA.' : v >= 30 ? 'Tasa moderada.' : 'Baja tasa OA — oportunidad de mejora.' },
-    q1_pct: { name: '% en Q1', val: (qp.q1_pct || 0) + '%', dist: rdist.q1_pct, color: '#dc2626', numVal: qp.q1_pct || 0,
-      desc: 'Porcentaje en revistas del cuartil superior (Top 25%) según CiteScore.',
-      calc: 'Revistas en el top 25% de su categoría = Q1.',
-      interpret: v => v >= 60 ? 'Excelente: mayoría en revistas top.' : v >= 40 ? 'Muy buen perfil Q1.' : v >= 20 ? 'Presencia significativa en Q1.' : 'Oportunidad de orientar más publicaciones a Q1.' },
+      interpret: (v: number | null) =>
+        v === null
+          ? 'Sin dato de acceso abierto en OpenAlex.'
+          : v >= 80
+            ? 'Excelente compromiso OA.'
+            : v >= 50
+              ? 'Buena tasa OA.'
+              : v >= 30
+                ? 'Tasa moderada.'
+                : 'Baja tasa OA — oportunidad de mejora.',
+    },
+    datasets: {
+      name: 'Datasets',
+      val: datasetsDisplay(oa),
+      numVal: datasetsDisplay(oa),
+      dist: null,
+      color: '#0d9488',
+      desc: 'Obras tipo dataset en OpenAlex (origen principal: DataCite). Cobertura parcial.',
+      calc: 'Conteo de obras con type = dataset en OpenAlex.',
+      interpret: (v: number | null) =>
+        v === null
+          ? 'Sin dato: ejecute npm run enrich:datasets para calcular.'
+          : v === 0
+            ? 'Sin datasets registrados en OpenAlex para este autor.'
+            : `${v} dataset${v === 1 ? '' : 's'} indexado${v === 1 ? '' : 's'} en OpenAlex.`,
+    },
   };
 }
 
-// ─── Methodology notes ───
-const METHOD_NOTES = {
-  cpp: 'CPP no está normalizado por disciplina. Se recomienda interpretarlo con FNCI y percentiles.',
-  fwci: 'FNCI normaliza por campo, año y tipo. 1.0 = promedio mundial exacto.',
+const METHOD_NOTES: Partial<Record<MetricKey, string>> = {
+  cpp: 'CPP no está normalizado por disciplina. Se recomienda interpretarlo con FWCI y percentiles.',
+  fwci: 'FWCI normaliza por campo, año y tipo. 1.0 = promedio mundial exacto.',
   h_index: 'El h-index favorece carreras largas y no distingue entre disciplinas.',
   oa_rate: 'No normaliza por disciplina. Diferentes áreas tienen distintos patrones OA.',
-  q1_pct: 'No normaliza por disciplina. Diferentes áreas tienen distinta distribución de cuartiles.',
+  datasets: 'Conteo desde OpenAlex (type=dataset). Cobertura parcial según repositorio.',
 };
 
 export default function ResearcherModal() {
@@ -96,7 +288,52 @@ export default function ResearcherModal() {
     setMetricDetail,
     setViewCoAuthor,
     openResearcher,
+    resolveResearcherProfile,
   } = useApp();
+
+  const [datasetsExpanded, setDatasetsExpanded] = useState(false);
+  const [reportLoading, setReportLoading] = useState(false);
+
+  const METRICS = getMetrics();
+  const RES_METRICS = getResMetrics();
+  const DATA = getData();
+
+  const researcherOrcid = cleanOrcid(selected?.o);
+  const oa = selected ? getAuthorOA(selected) : null;
+  const rm = selected ? (RES_METRICS[researcherOrcid] || {}) : {};
+  const rdist = METRICS.researcher_distributions || {};
+
+  const authorDatasets = useMemo(
+    () => (researcherOrcid ? getDatasetsForAuthor(researcherOrcid) : []),
+    [researcherOrcid],
+  );
+  const datasetsCount = authorDatasets.length;
+
+  const sortedAuthorDatasets = useMemo(
+    () => [...authorDatasets].sort((a, b) => (b.year ?? 0) - (a.year ?? 0)),
+    [authorDatasets],
+  );
+
+  const MDEFS = useMemo(
+    () => (oa ? buildMetricDefs(oa, rdist) : {}),
+    [oa, rdist],
+  );
+
+  const provenanceNote = useMemo(() => {
+    if (!oa) return '';
+    return buildProvenanceNote({
+      fetchedAt: oa.fwciFetchedAt,
+      fwciN: oa.fwciN,
+      orcid: researcherOrcid,
+      quartileFetchedAt: oa.sjrQuartileFetchedAt,
+      withQuartile: oa.quartile_profile?.with_quartile,
+      datasetsFetchedAt: oa.datasetsFetchedAt,
+    });
+  }, [oa, researcherOrcid]);
+
+  useEffect(() => {
+    setDatasetsExpanded(false);
+  }, [selected?.id]);
 
   const openCoAuthor = useCallback(
     (ref: CoAuthorRef) => {
@@ -108,7 +345,7 @@ export default function ResearcherModal() {
       }
       setViewCoAuthor(target.profile);
     },
-    [openLocalResearcherProfile, setViewCoAuthor]
+    [openLocalResearcherProfile, setViewCoAuthor],
   );
 
   const handleCloseProfile = useCallback(() => {
@@ -119,6 +356,35 @@ export default function ResearcherModal() {
       }
     });
   }, [closeResearcher, navigate, location.pathname]);
+
+  const handleExecutiveReport = useCallback(async () => {
+    if (!selected?.o || reportLoading) return;
+    setReportLoading(true);
+    try {
+      const { blob, filename } = await requestReport(selected.o);
+      downloadReportBlob(blob, filename);
+    } catch (err) {
+      const message =
+        err instanceof ReportApiError ? err.message : 'No se pudo generar el informe ejecutivo';
+      window.alert(message);
+    } finally {
+      setReportLoading(false);
+    }
+  }, [selected?.o, reportLoading]);
+
+  const handleOpenResearcherFromWork = useCallback(
+    (profileId: string) => {
+      const rut = profileId.trim();
+      if (!rut) return;
+      startTransition(() => {
+        resolveResearcherProfile(rut);
+        if (shouldSyncProfileRoute(location.pathname)) {
+          navigate(getProfileRoutePath(rut));
+        }
+      });
+    },
+    [resolveResearcherProfile, navigate, location.pathname],
+  );
 
   if (openAlexAuthorId) {
     return (
@@ -141,61 +407,190 @@ export default function ResearcherModal() {
 
   if (!selected) return null;
 
-  const oa = getAuthorOA(selected);
   const orcidUrl = getOrcidRecordUrl(selected.o);
   const openAlexUrl = getResearcherOpenAlexUrl(selected);
   const op = getOrcidProfile(selected);
-  const c = getColor((selected.f || '') + (selected.l || ''));
   const AI = getAI();
-  const METRICS = getMetrics();
-  const RES_METRICS = getResMetrics();
-  const DATA = getData();
 
-  const aiSummary = (AI?.summaries || {})[cleanOrcid(selected.o)];
-  const affinityList = (AI?.affinity || {})[cleanOrcid(selected.o)] || [];
-  const rm = RES_METRICS[cleanOrcid(selected.o)] || {};
-  const qp = rm.quartile_profile || {};
+  const aiSummary = (AI?.summaries || {})[researcherOrcid];
+  const affinityList = (AI?.affinity || {})[researcherOrcid] || [];
+  const qp = oa?.quartile_profile || {};
+  const q1Line = quartileSummaryLine(qp, 'q1');
+  const q1q2Line = quartileSummaryLine(qp, 'q1q2');
   const mq = rm.metrics_quality || {};
-  const rdist = METRICS.researcher_distributions || {};
+  const educationLine = formatOrcidEducationLine(normalizeOrcidEducation(op?.education));
+  const distinctions = buildDistinctionLabels(mq);
+  const dept = (selected.dp || [])[0];
+  const roleLine =
+    selected.t && dept
+      ? `${selected.t} — ${dept.d}${dept.j ? ` · ${dept.j}` : ''}`
+      : selected.t || (dept ? `${dept.d}${dept.j ? ` · ${dept.j}` : ''}` : '');
+  const productivityTrend = rm.productivity_trend as Record<string, number> | undefined;
+  const trendYearCount = productivityTrend ? Object.keys(productivityTrend).length : 0;
 
-  const MDEFS = useMemo(() => oa ? buildMetricDefs(oa, rm, rdist, METRICS) : {}, [oa, rm, rdist, METRICS]);
+  const renderKpiCard = (k: string, label: string) => {
+    const md = MDEFS[k as MetricKey] || {};
+    const isDatasetsKpi = k === 'datasets';
+    const isFwci = k === 'fwci';
+    const displayVal =
+      k === 'cpp'
+        ? cppFromOa(oa!)
+        : isDatasetsKpi
+          ? datasetsCount > 0
+            ? datasetsCount
+            : datasetsDisplay(oa!)
+          : md.val;
+    const isNoData = displayVal === null || displayVal === undefined || displayVal === NO_DATA;
+    const datasetsClickable = isDatasetsKpi && datasetsCount > 0;
+    const kpiActive = isDatasetsKpi ? datasetsExpanded : metricDetail === k;
+    const cardTitle = isFwci ? fwciKpiTooltip(oa!.fwciN) : KPI_PROVENANCE[k as MetricKey];
+    const valueClass = [
+      'researcher-kpi__value',
+      isNoData ? 'researcher-kpi__value--muted' : '',
+      isFwci && !isNoData && typeof md.numVal === 'number' && md.numVal >= 1
+        ? 'researcher-kpi__value--fwci-ok'
+        : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+    const showAnalyze = !isDatasetsKpi || datasetsClickable;
+    const actionLabel = isDatasetsKpi
+      ? datasetsClickable
+        ? datasetsExpanded
+          ? '▲ Cerrar'
+          : '▼ Ver listado'
+        : ''
+      : kpiActive
+        ? '▲ Cerrar'
+        : '· Analizar';
+
+    const body = (
+      <>
+        <div className={valueClass}>{formatMetricDisplay(displayVal as number | string | null | undefined)}</div>
+        <div className="researcher-kpi__label">{label}</div>
+        {isDatasetsKpi && datasetsCount === 0 && (
+          <div className="researcher-kpi__sub">sin datasets</div>
+        )}
+        {isFwci && (
+          <div className="researcher-kpi__sub">{fwciKpiSublabel(oa!.fwci ?? null, oa!.fwciN)}</div>
+        )}
+        {showAnalyze && actionLabel && (
+          <div className="researcher-kpi__action">{actionLabel}</div>
+        )}
+      </>
+    );
+
+    const className = [
+      'researcher-kpi',
+      kpiActive ? 'researcher-kpi--active' : '',
+      isDatasetsKpi && !datasetsClickable ? 'researcher-kpi--static' : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+
+    const onClick = () => {
+      if (isDatasetsKpi) {
+        if (!datasetsClickable) return;
+        setDatasetsExpanded((open) => !open);
+        if (metricDetail === 'datasets') setMetricDetail(null);
+        return;
+      }
+      setMetricDetail(metricDetail === k ? null : (k as MetricKey));
+    };
+
+    if (datasetsClickable || !isDatasetsKpi) {
+      return (
+        <button
+          key={k}
+          type="button"
+          title={cardTitle}
+          className={className}
+          aria-expanded={kpiActive}
+          onClick={onClick}
+        >
+          {body}
+        </button>
+      );
+    }
+
+    return (
+      <div key={k} title={cardTitle} className={className}>
+        {body}
+      </div>
+    );
+  };
 
   return (
     <div className="modal-overlay" onClick={handleCloseProfile}>
-      <div className="modal" onClick={e => e.stopPropagation()} style={{ maxWidth: 960 }}>
+      <div
+        className="modal researcher-modal"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-labelledby="researcher-modal-title"
+      >
+        <header className="researcher-hero">
+          <div className="researcher-hero__toolbar">
+            <button
+              type="button"
+              onClick={handleExecutiveReport}
+              disabled={reportLoading || !selected.o}
+              className="researcher-hero__report"
+              title="Generar informe ejecutivo PDF (CRIS Victoria)"
+            >
+              <IconFileText className="ti-file-text" />
+              {reportLoading ? 'Generando…' : 'Reporte Ejecutivo'}
+            </button>
+            <button
+              type="button"
+              onClick={handleCloseProfile}
+              className="modal__close researcher-hero__close"
+              aria-label="Cerrar"
+            >
+              <span className="ti-x" aria-hidden>×</span>
+            </button>
+          </div>
 
-        {/* ── Header ── */}
-        <div className="researcher-modal__header">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+          <p className="researcher-hero__eyebrow">Universidad de Tarapacá</p>
+
+          <div className="researcher-hero__main">
             {selected.ph ? (
-              <img src={`/photos/${selected.ph}`} alt="" style={{ width: 85, height: 85, borderRadius: '50%', objectFit: 'cover', border: '3px solid #fff' }} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+              <img
+                src={`/photos/${selected.ph}`}
+                alt=""
+                className="researcher-hero__avatar-img"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
             ) : (
-              <div style={{ width: 85, height: 85, borderRadius: '50%', background: '#3b82f6', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 36, border: '4px solid #fff', flexShrink: 0 }}>
+              <div className="researcher-hero__avatar" aria-hidden>
                 {getInitials(selected.f, selected.l)}
               </div>
             )}
-            <div style={{ flex: 1, minWidth: 200 }}>
-              <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 1.2, color: '#93c5fd', fontWeight: 700, marginBottom: 4 }}>Universidad de Tarapacá</div>
-              <h2 style={{ margin: '0 0 4px', fontSize: 'clamp(18px,2.5vw,24px)', fontWeight: 700, color: '#fff' }}>{selected.f} {selected.l}</h2>
-              {selected.t && <div style={{ fontSize: 14, color: '#e2e8f0', marginBottom: 4 }}>{selected.t}</div>}
-              {(selected.dp || [])[0] && <div style={{ fontSize: 13, color: '#cbd5e1', marginBottom: 6 }}>{(selected.dp || [])[0]?.d}{(selected.dp || [])[0]?.j && (' — ' + (selected.dp || [])[0]?.j)}</div>}
-              {selected.e && <div style={{ fontSize: 13, color: '#cbd5e1', marginBottom: 8 }}>✉ {selected.e}</div>}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 4 }}>
+            <div className="researcher-hero__info">
+              <h2 id="researcher-modal-title" className="researcher-hero__name">
+                {selected.f} {selected.l}
+              </h2>
+              {roleLine && <p className="researcher-hero__role">{roleLine}</p>}
+              {educationLine && (
+                <p className="researcher-hero__meta-row">
+                  <IconSchool className="ti-school" />
+                  <span>{educationLine}</span>
+                </p>
+              )}
+              {selected.e && (
+                <p className="researcher-hero__meta-row">
+                  <IconMail className="ti-mail" />
+                  <span>{selected.e}</span>
+                </p>
+              )}
+              <div className="researcher-hero__chips">
                 {orcidUrl && (
                   <a
                     href={orcidUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-block',
-                      background: '#a6ce39',
-                      color: '#fff',
-                      padding: '4px 10px',
-                      borderRadius: 6,
-                      fontSize: 13,
-                      fontWeight: 600,
-                      textDecoration: 'none',
-                    }}
+                    className="researcher-hero__chip researcher-hero__chip--orcid"
                     title="Abrir ficha en orcid.org"
                   >
                     ORCID: {cleanOrcid(selected.o)}
@@ -206,17 +601,7 @@ export default function ResearcherModal() {
                     href={openAlexUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-block',
-                      background: 'rgba(255,255,255,0.15)',
-                      color: '#fff',
-                      padding: '4px 10px',
-                      borderRadius: 6,
-                      fontSize: 13,
-                      fontWeight: 600,
-                      textDecoration: 'none',
-                      border: '1px solid rgba(255,255,255,0.35)',
-                    }}
+                    className="researcher-hero__chip researcher-hero__chip--openalex"
                     title="Ver autor en OpenAlex"
                   >
                     OpenAlex
@@ -224,220 +609,382 @@ export default function ResearcherModal() {
                 )}
               </div>
             </div>
-            <button onClick={handleCloseProfile} className="modal__close" aria-label="Cerrar">×</button>
-          </div>
-        </div>
-
-        {/* ── Body ── */}
-        <div className="researcher-modal__body">
-
-          {/* AI Summary */}
-          {aiSummary && <div className="ai-summary">🤖 <strong>Resumen IA:</strong> {aiSummary}</div>}
-
-          {/* ── Metric Cards ── */}
-          {oa && <>
-            <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill,minmax(120px,1fr))', gap: 10, marginBottom: 16 }}>
-              {[{ k: 'output', l: 'Publicaciones' }, { k: 'cites', l: 'Citas Totales' }, { k: 'cpp', l: 'Citas/Pub' }, { k: 'h_index', l: 'h-index' }, { k: 'fwci', l: 'FNCI' }, { k: 'oa_rate', l: 'Open Access' }].map(({ k, l }, i) => {
-                const md = MDEFS[k] || {};
-                const displayVal = k === 'cpp' ? (oa.works_count > 0 ? +((oa.cited_by_count || 0) / oa.works_count).toFixed(2) : 0) : md.val;
-                return (
-                  <div key={i} onClick={() => setMetricDetail(metricDetail === k ? null : (k as MetricKey))}
-                    style={{ background: metricDetail === k ? '#eff6ff' : '#fff', border: `2px solid ${metricDetail === k ? (md.color || '#3b82f6') : '#e2e8f0'}`, borderRadius: 10, padding: '14px 10px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.2s', boxShadow: metricDetail === k ? '0 4px 16px rgba(30,58,138,0.1)' : '0 1px 3px rgba(0,0,0,0.05)' }}>
-                    <div style={{ fontSize: 22, fontWeight: 700, color: md.color || '#1e3a8a', lineHeight: 1 }}>{typeof displayVal === 'number' ? displayVal.toLocaleString() : displayVal}</div>
-                    <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.5, fontWeight: 600, marginTop: 4 }}>{l}</div>
-                    <div style={{ fontSize: 8, color: metricDetail === k ? md.color : '#cbd5e1', marginTop: 3 }}>{metricDetail === k ? '▲ Cerrar' : '▼ Analizar'}</div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* ── Expanded Metric Detail Panel ── */}
-            {metricDetail && MDEFS[metricDetail] && <MetricDetailPanel metricKey={metricDetail} md={MDEFS[metricDetail]} oa={oa} selected={selected} METRICS={METRICS} RES_METRICS={RES_METRICS} />}
-
-            {/* ── Publication Ecosystem ── */}
-            <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: '#1e3a8a', marginBottom: 10 }}>📚 Ecosistema de Publicación</div>
-              <div className="card card--elevated" style={{ padding: 14, marginBottom: 10 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 16, alignItems: 'start' }}>
-                  <div>
-                    <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 2 }}>Cuartiles de revistas</div>
-                    <div style={{ display: 'flex', height: 20, borderRadius: 4, overflow: 'hidden', marginBottom: 8 }}>
-                      {[{ q: 'Q1', c: '#dc2626', n: qp.q1 || 0 }, { q: 'Q2', c: '#f59e0b', n: qp.q2 || 0 }, { q: 'Q3', c: '#F97316', n: qp.q3 || 0 }, { q: 'Q4', c: '#888', n: qp.q4 || 0 }].map(({ q, c, n }) => {
-                        const pct = qp.with_quartile ? n / qp.with_quartile * 100 : 0;
-                        return pct > 0 ? <div key={q} style={{ width: pct + '%', background: c, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: '#fff' }}>{pct > 3 ? q : ''}</div> : null;
-                      })}
-                    </div>
-                    {[{ q: 'Q1', c: '#dc2626' }, { q: 'Q2', c: '#f59e0b' }, { q: 'Q3', c: '#F97316' }, { q: 'Q4', c: '#888' }].map(({ q, c }) => (
-                      <div key={q} style={{ fontSize: 9, color: '#64748b', lineHeight: 1.7 }}>
-                        <span style={{ display: 'inline-block', width: 8, height: 8, background: c, borderRadius: 2, marginRight: 4 }} />
-                        <strong>{q}:</strong> {qp[q.toLowerCase()] || 0} pub. ({qp.q1_pct && q === 'Q1' ? qp.q1_pct : qp.with_quartile ? ((qp[q.toLowerCase()] || 0) / qp.with_quartile * 100).toFixed(1) : 0}%)
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ background: '#f0fdf4', borderRadius: 10, padding: '12px 16px', textAlign: 'center', minWidth: 120, border: '1px solid #bbf7d0' }}>
-                    <div style={{ fontSize: 24, fontWeight: 800, color: '#16a34a' }}>{rm.oa_rate || 0}%</div>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: '#166534' }}>Open Access</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Profile badges */}
-              <div className="card card--elevated" style={{ padding: 12, marginTop: 10 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 6 }}>Perfil del investigador</div>
-                <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-                  {mq.above_world_avg && <span className="badge badge--sm badge--field">Impacto sobre promedio mundial</span>}
-                  {mq.highly_cited && <span className="badge badge--sm badge--impact">Altamente citado (&gt;50 citas)</span>}
-                  {mq.interdisciplinary && <span className="badge badge--sm" style={{ background: '#ede9fe', color: '#5b21b6' }}>Interdisciplinario (≥3 áreas)</span>}
-                  {mq.productive && <span className="badge badge--sm badge--cites">Productivo (≥20 pub.)</span>}
-                  {!mq.above_world_avg && !mq.highly_cited && <span className="badge badge--sm" style={{ background: '#f8fafc', color: '#888' }}>En desarrollo</span>}
-                </div>
-              </div>
-            </div>
-
-            {/* Productivity Trend */}
-            {rm.productivity_trend && (
-              <div className="card card--elevated" style={{ padding: 12, marginBottom: 16 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 8 }}>Publicaciones por año (últimos 5 años)</div>
-                <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 50 }}>
-                  {Object.entries(rm.productivity_trend as Record<string, number>).map(([yr, n], i) => {
-                    const mx = Math.max(...Object.values(rm.productivity_trend as Record<string, number>)) || 1;
-                    return (
-                      <div key={i} style={{ flex: 1, textAlign: 'center' }}>
-                        <div style={{ fontSize: 9, fontWeight: 700, color: '#1e3a8a' }}>{n}</div>
-                        <div style={{ height: Math.max(4, n / mx * 36), background: 'linear-gradient(#1e3a8a,#3b82f6)', borderRadius: '2px 2px 0 0', marginBottom: 2 }} />
-                        <div style={{ fontSize: 8, color: '#888' }}>{yr}</div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            <AISummaryButton
-              label="Analizar con IA"
-              panelTitle={`Análisis IA — ${selected.f} ${selected.l}`}
-              fetchAnalysis={() =>
-                analyzeResearcher({
-                  orcid: cleanOrcid(selected.o),
-                  researcherId: selected.id,
-                })
-              }
-              renderStructured={(data: ResearcherAnalysisStructured) => (
-                <div className="ai-researcher-analysis">
-                  {[
-                    ['Líneas de investigación', data.lineas_investigacion],
-                    ['Fortalezas científicas', data.fortalezas_cientificas],
-                    ['ODS principales', data.ods_principales],
-                    ['Colaboraciones destacadas', data.colaboraciones_destacadas],
-                    ['Publicaciones clave', data.publicaciones_clave],
-                    ['Oportunidades de colaboración', data.oportunidades_colaboracion],
-                  ].map(([title, items]) =>
-                    items?.length ? (
-                      <div key={String(title)} className="ai-panel__section">
-                        <div className="ai-panel__heading">{title}</div>
-                        <ul className="ai-panel__list">
-                          {items.map((item, i) => (
-                            <li key={i}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : null
-                  )}
-                </div>
-              )}
-            />
-          </>}
-
-          {/* ── Education ── */}
-          {op?.education?.length > 0 && (
-            <div style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#334155', marginBottom: 6 }}>🎓 Formación Académica</div>
-              {op.education.slice(0, 3).map((e, i) => (
-                <div key={i} style={{ fontSize: 13, color: '#475569', marginBottom: 3 }}>{e.degree || 'Grado'} — {e.institution} {e.endYear ? `(${e.endYear})` : ''}</div>
-              ))}
-            </div>
-          )}
-
-          {/* ── Collaboration Section ── */}
-          <h2 className="section-title">Colaboración e Interdisciplina</h2>
-
-          <div className="card card--elevated" style={{ borderLeft: '5px solid #f59e0b', padding: 20, marginBottom: 24 }}>
-            {op?.coAuthors?.length > 0 && (
-              <div>
-                <div style={{ fontWeight: 700, color: '#334155', fontSize: 13, marginBottom: 6 }}>
-                  Co-autores Principales <span style={{ fontWeight: 400, color: '#64748b' }}>(clic para abrir ficha)</span>
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                  {op.coAuthors.slice(0, 12).map((ca, i) => {
-                    const clickable = isCoAuthorClickable(ca, DATA);
-                    return (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          if (clickable) openCoAuthor(ca);
-                        }}
-                        className={`coauthor-chip ${clickable ? 'coauthor-chip--linked' : ''}`}
-                        disabled={!clickable}
-                      >
-                        {ca.name} ({ca.count})
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
           </div>
 
-          {/* ── Affinity Researchers ── */}
-          {affinityList.length > 0 && (
-            <div style={{ marginBottom: 24 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#6A4C93', marginBottom: 8 }}>🔮 Investigadores Afines (IA)</div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {affinityList.slice(0, 8).map((af, i) => (
-                  <span key={i} onClick={() => { const r2 = DATA.find(p => (p.o || '').trim() === af.orcid); if (r2) openResearcher(r2); }}
-                    className="badge badge--clickable" style={{ background: '#f3eef8', color: '#6A4C93', borderColor: '#e0d5ee' }}>
-                    {af.name} <strong>({af.score})</strong>
+          {distinctions.length > 0 && (
+            <>
+              <hr className="researcher-hero__divider" />
+              <div className="researcher-hero__distinctions">
+                {distinctions.map((label) => (
+                  <span key={label} className="researcher-hero__distinction">
+                    <IconCheck className="ti-check" />
+                    {label}
                   </span>
                 ))}
               </div>
+            </>
+          )}
+        </header>
+
+        <div className="researcher-body">
+          <section className="researcher-section" aria-label="Resumen IA">
+            <div className="researcher-card">
+              <div className="researcher-ai__heading">
+                <IconSparkles className="ti-sparkles" />
+                Resumen IA:
+              </div>
+              {aiSummary && <p className="researcher-ai__summary">{aiSummary}</p>}
             </div>
+          </section>
+
+          {oa && (
+            <>
+              <section className="researcher-section" aria-labelledby="researcher-kpi-label">
+                <h3 id="researcher-kpi-label" className="researcher-section__label">
+                  Indicadores
+                </h3>
+                <div className="researcher-card researcher-kpi-row">
+                  <div className="researcher-kpi-grid researcher-kpi-grid--primary">
+                    {renderKpiCard('output', 'Publicaciones')}
+                    {renderKpiCard('cites', 'Citas totales')}
+                    {renderKpiCard('h_index', 'H-index')}
+                  </div>
+                </div>
+                <div className="researcher-card researcher-kpi-row">
+                  <div className="researcher-kpi-grid researcher-kpi-grid--secondary">
+                    {renderKpiCard('fwci', 'FWCI')}
+                    {renderKpiCard('cpp', 'Citas/pub')}
+                    {renderKpiCard('datasets', 'Datasets')}
+                  </div>
+                </div>
+                <p className="researcher-provenance">{OPENALEX_METRICS_UNIVERSE_NOTE}</p>
+                {provenanceNote && <p className="researcher-provenance">{provenanceNote}</p>}
+
+                {datasetsExpanded && sortedAuthorDatasets.length > 0 && (
+                  <div
+                    id="researcher-datasets-panel"
+                    className="researcher-datasets-panel"
+                    role="region"
+                    aria-label={`Datasets del investigador (${sortedAuthorDatasets.length})`}
+                  >
+                    {sortedAuthorDatasets.map((ds) => (
+                      <WorkCard
+                        key={ds.openalex_id}
+                        ds={ds}
+                        variant="dataset"
+                        onOpenResearcher={handleOpenResearcherFromWork}
+                        currentResearcher={selected}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {metricDetail && MDEFS[metricDetail] && (
+                  <MetricDetailPanel
+                    metricKey={metricDetail}
+                    md={MDEFS[metricDetail]}
+                    oa={oa}
+                    selected={selected}
+                    METRICS={METRICS}
+                    RES_METRICS={RES_METRICS}
+                  />
+                )}
+              </section>
+
+              <AISummaryButton
+                className="researcher-ai-cta"
+                label="Analizar con IA"
+                panelTitle={`Análisis IA — ${selected.f} ${selected.l}`}
+                fetchAnalysis={() =>
+                  analyzeResearcher({
+                    orcid: researcherOrcid,
+                    researcherId: selected.id,
+                  })
+                }
+                renderStructured={(data: ResearcherAnalysisStructured) => (
+                  <div className="ai-researcher-analysis">
+                    {[
+                      ['Líneas de investigación', data.lineas_investigacion],
+                      ['Fortalezas científicas', data.fortalezas_cientificas],
+                      ['ODS principales', data.ods_principales],
+                      ['Colaboraciones destacadas', data.colaboraciones_destacadas],
+                      ['Publicaciones clave', data.publicaciones_clave],
+                      ['Oportunidades de colaboración', data.oportunidades_colaboracion],
+                    ].map(([title, items]) =>
+                      items?.length ? (
+                        <div key={String(title)} className="ai-panel__section">
+                          <div className="ai-panel__heading">{title}</div>
+                          <ul className="ai-panel__list">
+                            {items.map((item, i) => (
+                              <li key={i}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null,
+                    )}
+                  </div>
+                )}
+              />
+
+              <section className="researcher-section" aria-labelledby="researcher-impact-label">
+                <h3 id="researcher-impact-label" className="researcher-section__label">
+                  Impacto y ecosistema
+                </h3>
+                <div className="researcher-card researcher-impact">
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--cel-muted)', marginBottom: 6 }}>
+                      Cuartiles de revistas (SJR / Scimago)
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: q1Line.muted ? NO_DATA_COLOR : 'var(--cel-texto)',
+                        marginBottom: 4,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {q1Line.text}
+                      {q1Line.note && (
+                        <span style={{ fontSize: 11, fontWeight: 500, color: 'var(--cel-muted)', marginLeft: 6 }}>
+                          ({q1Line.note})
+                        </span>
+                      )}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 12,
+                        color: q1q2Line.muted ? NO_DATA_COLOR : 'var(--cel-muted)',
+                        marginBottom: 10,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {q1q2Line.text === QUARTILE_NO_DATA
+                        ? `${q1q2Line.label}: ${QUARTILE_NO_DATA}`
+                        : q1q2Line.text}
+                      {q1q2Line.note && (
+                        <span style={{ fontSize: 11, color: 'var(--cel-muted)', marginLeft: 6 }}>
+                          ({q1q2Line.note})
+                        </span>
+                      )}
+                    </div>
+                    <div className="researcher-quartile-bar">
+                      {[
+                        { q: 'Q1', c: 'var(--q1)', n: qp.q1 || 0 },
+                        { q: 'Q2', c: 'var(--q2)', n: qp.q2 || 0 },
+                        { q: 'Q3', c: 'var(--q3)', n: qp.q3 || 0 },
+                        { q: 'Q4', c: 'var(--q4)', n: qp.q4 || 0 },
+                      ].map(({ q, c, n }) => {
+                        const pct = qp.with_quartile ? (n / qp.with_quartile) * 100 : 0;
+                        return pct > 0 ? (
+                          <div
+                            key={q}
+                            style={{
+                              width: `${pct}%`,
+                              background: c,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: 8,
+                              fontWeight: 700,
+                              color: '#fff',
+                            }}
+                          >
+                            {pct > 3 ? q : ''}
+                          </div>
+                        ) : null;
+                      })}
+                    </div>
+                    {[
+                      { q: 'Q1', c: 'var(--q1)' },
+                      { q: 'Q2', c: 'var(--q2)' },
+                      { q: 'Q3', c: 'var(--q3)' },
+                      { q: 'Q4', c: 'var(--q4)' },
+                    ].map(({ q, c }) => (
+                      <div key={q} className="researcher-quartile-legend">
+                        <span className="researcher-quartile-legend__dot" style={{ background: c }} />
+                        <strong>{q}:</strong> {qp[q.toLowerCase() as 'q1'] || 0} pub. (
+                        {qp.q1_pct && q === 'Q1'
+                          ? qp.q1_pct
+                          : qp.with_quartile
+                            ? (((qp[q.toLowerCase() as 'q1'] || 0) / qp.with_quartile) * 100).toFixed(1)
+                            : 0}
+                        %)
+                      </div>
+                    ))}
+                  </div>
+                  <div className="researcher-oa-box">
+                    <div
+                      className="researcher-oa-box__value"
+                      style={{ color: oa.oaRate === null ? NO_DATA_COLOR : undefined }}
+                    >
+                      {oa.oaRate === null ? NO_DATA : `${oa.oaRate}%`}
+                    </div>
+                    <div className="researcher-oa-box__label">Open Access</div>
+                  </div>
+                </div>
+              </section>
+
+              {productivityTrend && trendYearCount > 0 && (
+                <section className="researcher-section" aria-labelledby="researcher-trend-label">
+                  <h3 id="researcher-trend-label" className="researcher-section__label">
+                    Trayectoria
+                  </h3>
+                  <div className="researcher-card">
+                    <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--cel-muted)', marginBottom: 10 }}>
+                      Publicaciones por año (últimos {trendYearCount} años)
+                    </div>
+                    <div className="researcher-trend">
+                      {Object.entries(productivityTrend).map(([yr, n]) => {
+                        const mx = Math.max(...Object.values(productivityTrend)) || 1;
+                        return (
+                          <div key={yr} className="researcher-trend__col">
+                            <div className="researcher-trend__count">{n}</div>
+                            <div
+                              className="researcher-trend__bar"
+                              style={{ height: Math.max(4, (n / mx) * 36) }}
+                            />
+                            <div className="researcher-trend__year">{yr}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </section>
+              )}
+            </>
           )}
 
-          {/* ── Research areas (misma UI que /areas, datos del investigador) ── */}
-          <h2 className="section-title">Áreas de Investigación</h2>
-          <div style={{ marginBottom: 24 }}>
+          <section className="researcher-section" aria-labelledby="researcher-collab-label">
+            <h3 id="researcher-collab-label" className="researcher-section__label">
+              Colaboración
+            </h3>
+            <div className="researcher-collab-grid">
+              <div className="researcher-card researcher-collab-card">
+                <p className="researcher-collab-card__title">
+                  Co-autores principales{' '}
+                  <span className="researcher-collab-card__hint">(clic para abrir ficha)</span>
+                </p>
+                {op?.coAuthors?.length ? (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {op.coAuthors.slice(0, 12).map((ca, i) => {
+                      const clickable = isCoAuthorClickable(ca, DATA);
+                      return (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (clickable) openCoAuthor(ca);
+                          }}
+                          className={`coauthor-chip ${clickable ? 'coauthor-chip--linked' : ''}`}
+                          disabled={!clickable}
+                        >
+                          {ca.name} ({ca.count})
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p className="researcher-collab-card__empty">Sin coautores registrados en ORCID.</p>
+                )}
+              </div>
+
+              {affinityList.length > 0 && (
+                <div className="researcher-card researcher-collab-card">
+                  <p className="researcher-collab-card__title">Investigadores afines (IA)</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {affinityList.slice(0, 8).map((af, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        className="researcher-affinity-chip"
+                        onClick={() => {
+                          const r2 = DATA.find((p) => cleanOrcid(p.o) === cleanOrcid(af.orcid));
+                          if (r2) openResearcher(r2);
+                        }}
+                      >
+                        {af.name} <strong>({af.score})</strong>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+
+          <section className="researcher-section">
+            <h3 className="researcher-section__title">Áreas de Investigación</h3>
             <ResearcherAreasSection
               researcher={selected}
               activeArea={modalTopic}
               onAreaClick={setModalTopic}
             />
-          </div>
+          </section>
 
-          {/* ── Publications (all-works.json vía autores_uta) ── */}
-          <h2 className="section-title">Producción Científica</h2>
-          <ResearcherPublicationsSection
-            researcher={selected}
-            modalTopic={modalTopic}
-            onTopicChange={setModalTopic}
-          />
+          <section className="researcher-section">
+            <h3 className="researcher-section__title">Producción Científica</h3>
+            <ResearcherPublicationsSection
+              researcher={selected}
+              modalTopic={modalTopic}
+              onTopicChange={setModalTopic}
+              onOpenResearcher={handleOpenResearcherFromWork}
+            />
+          </section>
         </div>
       </div>
     </div>
   );
 }
 
-// ─── Metric Detail Panel sub-component ───
-function MetricDetailPanel({ metricKey, md, oa, selected, METRICS, RES_METRICS }) {
-  const numV = md.numVal !== undefined ? md.numVal : (typeof md.val === 'string' ? parseFloat(md.val) : md.val);
+type MetricDef = {
+  name: string;
+  val: number | string | null;
+  numVal?: number | null;
+  dist?: Rdist[string];
+  color: string;
+  desc: string;
+  calc: string;
+  interpret: (v: number | null) => string;
+};
+
+function MetricDetailPanel({
+  metricKey,
+  md,
+  oa,
+  selected,
+  METRICS,
+  RES_METRICS,
+}: {
+  metricKey: MetricKey;
+  md: MetricDef;
+  oa: OaAuthor;
+  selected: Researcher;
+  METRICS: ReturnType<typeof getMetrics>;
+  RES_METRICS: ReturnType<typeof getResMetrics>;
+}) {
+  const numV =
+    md.numVal !== undefined && md.numVal !== null
+      ? md.numVal
+      : typeof md.val === 'string' && md.val !== NO_DATA
+        ? parseFloat(md.val)
+        : typeof md.val === 'number'
+          ? md.val
+          : null;
+  const hasNum = numV !== null && !Number.isNaN(numV);
   const dist = md.dist || {};
-  const pctile = dist.max && dist.max > dist.min ? Math.min(99, Math.round(((numV - dist.min) / (dist.max - dist.min)) * 100)) : 50;
-  const vsMedia = dist.mean > 0 ? +(numV / dist.mean).toFixed(1) : 0;
+  const pctile = hasNum ? getMetricPercentile(metricKey, numV) : null;
+  const vsMedia = hasNum && dist.mean != null && dist.mean > 0 ? +(numV / dist.mean).toFixed(1) : null;
   const wc = oa?.works_count || 0;
   const cc = oa?.cited_by_count || 0;
   const rm2 = RES_METRICS[cleanOrcid(selected.o)] || {};
-  const isPositive = metricKey === 'fwci' ? numV >= 1 : numV >= (dist.median || 0);
+  const isPositive = !hasNum ? false : metricKey === 'fwci' ? numV >= 1 : numV >= (dist.median || 0);
+  const panelValue =
+    md.val === null || md.val === undefined
+      ? NO_DATA
+      : typeof md.val === 'number'
+        ? md.val.toLocaleString()
+        : md.val;
 
   return (
     <div className="metric-panel" style={{ borderColor: md.color }}>
@@ -445,14 +992,18 @@ function MetricDetailPanel({ metricKey, md, oa, selected, METRICS, RES_METRICS }
         <div>
           <div className="metric-panel__title">{md.name}</div>
           <div style={{ fontSize: 13, opacity: 0.85, marginTop: 4 }}>Análisis detallado de indicador bibliométrico</div>
+          {KPI_PROVENANCE[metricKey] && (
+            <div style={{ fontSize: 11, opacity: 0.75, marginTop: 6 }}>{KPI_PROVENANCE[metricKey]}</div>
+          )}
         </div>
         <div style={{ textAlign: 'right' }}>
-          <div className="metric-panel__value">{typeof md.val === 'number' ? md.val.toLocaleString() : md.val}</div>
+          <div className="metric-panel__value" style={{ color: panelValue === NO_DATA ? NO_DATA_COLOR : undefined }}>
+            {panelValue}
+          </div>
         </div>
       </div>
 
       <div className="metric-panel__body">
-        {/* Left column */}
         <div>
           <div style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: '#94a3b8', fontWeight: 800, marginBottom: 10 }}>Definición</div>
           <div style={{ fontSize: 14, lineHeight: 1.6, color: '#334155', marginBottom: 20 }}>{md.desc}</div>
@@ -464,7 +1015,11 @@ function MetricDetailPanel({ metricKey, md, oa, selected, METRICS, RES_METRICS }
             <div style={{ marginBottom: 20, fontSize: 13, color: '#475569', lineHeight: 1.8 }}>
               Citas totales: <strong>{cc.toLocaleString()}</strong><br />
               Publicaciones totales: <strong>{wc.toLocaleString()}</strong><br />
-              CPP resultante: <strong>{wc > 0 ? (cc / wc).toFixed(2) : 0}</strong> citas por publicación
+              CPP resultante:{' '}
+              <strong style={{ color: wc > 0 ? undefined : NO_DATA_COLOR }}>
+                {wc > 0 ? (cc / wc).toFixed(2) : NO_DATA}
+              </strong>{' '}
+              citas por publicación
             </div>
           )}
 
@@ -472,10 +1027,10 @@ function MetricDetailPanel({ metricKey, md, oa, selected, METRICS, RES_METRICS }
             <>
               <div style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: '#94a3b8', fontWeight: 800, marginBottom: 10 }}>Benchmark institucional</div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                {[{ l: 'Investigador', v: typeof md.val === 'number' ? md.val : numV }, { l: 'Media UTA', v: dist.mean }, { l: 'Mediana UTA', v: dist.median }, { l: 'P75 UTA', v: dist.p75 }].map(({ l, v }, j) => (
-                  <div key={j} style={{ border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 12px', background: '#fff' }}>
+                {[{ l: 'Investigador', v: typeof md.val === 'number' ? md.val : numV }, { l: 'Media UTA', v: dist.mean }, { l: 'Mediana UTA', v: dist.median }, { l: 'P75 UTA', v: dist.p75 }].map(({ l, v }) => (
+                  <div key={l} style={{ border: '1px solid #e2e8f0', borderRadius: 10, padding: '10px 12px', background: '#fff' }}>
                     <div style={{ fontSize: 11, color: '#94a3b8', fontWeight: 700, marginBottom: 3 }}>{l}</div>
-                    <div style={{ fontSize: 20, fontWeight: 900, color: '#0f172a' }}>{typeof v === 'number' ? v.toLocaleString() : v}</div>
+                    <div style={{ fontSize: 20, fontWeight: 900, color: '#0f172a' }}>{typeof v === 'number' ? v.toLocaleString() : v ?? NO_DATA}</div>
                   </div>
                 ))}
               </div>
@@ -483,59 +1038,130 @@ function MetricDetailPanel({ metricKey, md, oa, selected, METRICS, RES_METRICS }
           )}
         </div>
 
-        {/* Right column */}
         <div>
           <div style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: '#94a3b8', fontWeight: 800, marginBottom: 10 }}>Interpretación analítica</div>
           <div style={{ background: isPositive ? '#ecfdf5' : '#fef2f2', border: `1px solid ${isPositive ? '#a7f3d0' : '#fecaca'}`, borderRadius: 14, padding: '14px 16px', fontSize: 14, lineHeight: 1.5, color: isPositive ? '#065f46' : '#991b1b', marginBottom: 16 }}>
-            {md.interpret(numV)}
+            {md.interpret(hasNum ? numV : null)}
           </div>
 
-          {/* Distribution Bar */}
-          {dist.max !== undefined && (
+          {hasNum && pctile !== null && dist.max !== undefined && (
             <div style={{ marginBottom: 16 }}>
               <div style={{ fontSize: 13, fontWeight: 800, color: '#475569', marginBottom: 10 }}>Distribución comparativa institucional</div>
               <div style={{ position: 'relative', height: 50, marginBottom: 8 }}>
                 <div style={{ position: 'absolute', top: 14, left: 0, right: 0, height: 18, borderRadius: 999, background: `linear-gradient(90deg,#e2e8f0 0%,${md.color}66 55%,${md.color} 100%)`, opacity: 0.9 }} />
-                <div style={{ position: 'absolute', top: 5, left: Math.max(0, Math.min(95, ((numV - dist.min) / (dist.max - dist.min || 1)) * 100)) + '%', width: 5, height: 38, borderRadius: 999, background: md.color, boxShadow: `0 0 0 5px ${md.color}22` }} />
-                <div style={{ position: 'absolute', top: 44, left: Math.max(0, Math.min(95, ((numV - dist.min) / (dist.max - dist.min || 1)) * 100)) + '%', transform: 'translateX(-50%)', fontSize: 12, fontWeight: 900, color: md.color, whiteSpace: 'nowrap' }}>{typeof md.val === 'number' ? md.val : numV}</div>
+                {[{ pos: 50, label: 'Mediana' }, { pos: 75, label: 'P75' }].map(({ pos }) => (
+                  <div
+                    key={pos}
+                    style={{
+                      position: 'absolute',
+                      top: 12,
+                      left: `${pos}%`,
+                      transform: 'translateX(-50%)',
+                      width: 2,
+                      height: 22,
+                      background: '#94a3b8',
+                      opacity: 0.45,
+                      borderRadius: 1,
+                    }}
+                  />
+                ))}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 5,
+                    left: `${Math.max(0, Math.min(95, pctile))}%`,
+                    width: 5,
+                    height: 38,
+                    borderRadius: 999,
+                    background: md.color,
+                    boxShadow: `0 0 0 5px ${md.color}22`,
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 44,
+                    left: `${Math.max(0, Math.min(95, pctile))}%`,
+                    transform: 'translateX(-50%)',
+                    fontSize: 12,
+                    fontWeight: 900,
+                    color: md.color,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {typeof md.val === 'number' ? md.val : numV}
+                </div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#94a3b8', fontWeight: 700, marginTop: 14 }}>
-                <span>Min: {dist.min}</span><span>Mediana: {dist.median}</span><span>P75: {dist.p75}</span><span>Max: {dist.max}</span>
+              <div style={{ position: 'relative', height: 32, fontSize: 11, color: '#94a3b8', fontWeight: 700 }}>
+                <span style={{ position: 'absolute', left: 0, top: 0 }}>Min: {dist.min}</span>
+                <span style={{ position: 'absolute', left: '50%', top: 0, transform: 'translateX(-50%)' }}>Mediana: {dist.median}</span>
+                <span style={{ position: 'absolute', left: '75%', top: 0, transform: 'translateX(-50%)' }}>P75: {dist.p75}</span>
+                <span style={{ position: 'absolute', right: 0, top: 0 }}>Max: {dist.max}</span>
               </div>
             </div>
           )}
 
-          {/* Comparison badges */}
-          {dist.mean !== undefined && (
+          {hasNum && dist.mean !== undefined && pctile !== null && (
             <div style={{ marginBottom: 16 }}>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
-                {pctile >= 75 && <span style={{ borderRadius: 999, padding: '6px 12px', fontSize: 12, fontWeight: 800, background: '#f3e8ff', color: '#5b21b6', border: '1px solid #ddd6fe' }}>Top {100 - pctile}% institucional</span>}
-                {vsMedia >= 2 && <span style={{ borderRadius: 999, padding: '6px 12px', fontSize: 12, fontWeight: 800, background: '#f3e8ff', color: '#5b21b6', border: '1px solid #ddd6fe' }}>{vsMedia}× sobre la media UTA</span>}
-                <span style={{ borderRadius: 999, padding: '6px 12px', fontSize: 12, fontWeight: 800, background: '#f3e8ff', color: '#5b21b6', border: '1px solid #ddd6fe' }}>Percentil P{pctile}</span>
+                {pctile >= 75 && (
+                  <span style={{ borderRadius: 999, padding: '6px 12px', fontSize: 12, fontWeight: 800, background: '#f3e8ff', color: '#5b21b6', border: '1px solid #ddd6fe' }}>
+                    Top {100 - pctile}% institucional
+                  </span>
+                )}
+                {vsMedia !== null && vsMedia >= 2 && (
+                  <span style={{ borderRadius: 999, padding: '6px 12px', fontSize: 12, fontWeight: 800, background: '#f3e8ff', color: '#5b21b6', border: '1px solid #ddd6fe' }}>
+                    {vsMedia}× sobre la media UTA
+                  </span>
+                )}
+                <span style={{ borderRadius: 999, padding: '6px 12px', fontSize: 12, fontWeight: 800, background: '#f3e8ff', color: '#5b21b6', border: '1px solid #ddd6fe' }}>
+                  Percentil P{pctile}
+                </span>
               </div>
               <div style={{ fontSize: 13, lineHeight: 1.6, color: '#475569' }}>
                 <strong>Distribución UTA ({METRICS.metadata?.total_researchers || 164} investigadores):</strong> Media={dist.mean}, σ={dist.std}.
-                {pctile >= 90 ? ` Se ubica en el segmento de mayor impacto (P${pctile}).` : pctile >= 75 ? ' Cuartil superior de la distribución.' : pctile >= 50 ? ' Sobre la mediana institucional.' : ' Bajo la mediana, con oportunidad de mejora.'}
+                {pctile >= 90
+                  ? ` Se ubica en el segmento de mayor impacto (P${pctile}).`
+                  : pctile >= 75
+                    ? ' Cuartil superior de la distribución.'
+                    : pctile >= 50
+                      ? ' Sobre la mediana institucional.'
+                      : ' Bajo la mediana, con oportunidad de mejora.'}
               </div>
             </div>
           )}
 
-          {/* Methodology note */}
+          {hasNum && dist.mean !== undefined && pctile === null && (
+            <div style={{ marginBottom: 16, fontSize: 13, lineHeight: 1.6, color: '#475569' }}>
+              Sin datos suficientes para calcular percentil institucional.
+            </div>
+          )}
+
           <div style={{ borderLeft: `4px solid ${md.color}`, padding: '10px 12px', background: `${md.color}08`, color: '#475569', fontSize: 12, lineHeight: 1.5, borderRadius: 8 }}>
-            <strong>Nota metodológica:</strong> {METHOD_NOTES[metricKey] || 'Interpretar en conjunto con otras métricas.'}
+            <strong>Nota metodológica:</strong> {METHOD_NOTES[metricKey] || KPI_PROVENANCE[metricKey] || 'Interpretar en conjunto con otras métricas.'}
           </div>
 
-          {/* Download button */}
-          <button onClick={() => {
-            const rm3 = RES_METRICS[cleanOrcid(selected.o)] || {};
-            downloadMetricReport({
-              metricKey, md, numV, dist, pctile, vsMedia, wc, cc,
-              name: selected.f + ' ' + selected.l,
-              dept: (selected.dp || [])[0]?.d || 'No especificada',
-              fields: rm3.fields || [],
-              career: rm3.career_span || {},
-            });
-          }} className="btn btn--xl btn--primary" style={{ marginTop: 14, boxShadow: '0 10px 22px rgba(30,58,138,0.24)' }}>
+          <button
+            type="button"
+            onClick={() => {
+              downloadMetricReport({
+                metricKey,
+                md,
+                numV: hasNum ? numV : 0,
+                dist,
+                pctile: pctile ?? 50,
+                vsMedia: vsMedia ?? 0,
+                wc,
+                cc,
+                name: `${selected.f} ${selected.l}`,
+                dept: (selected.dp || [])[0]?.d || 'No especificada',
+                fields: rm2.fields || [],
+                career: rm2.career_span || {},
+              });
+            }}
+            className="btn btn--xl btn--primary"
+            style={{ marginTop: 14, boxShadow: '0 10px 22px rgba(30,58,138,0.24)' }}
+          >
             📥 Descargar Análisis Completo
           </button>
         </div>
@@ -543,4 +1169,3 @@ function MetricDetailPanel({ metricKey, md, oa, selected, METRICS, RES_METRICS }
     </div>
   );
 }
-

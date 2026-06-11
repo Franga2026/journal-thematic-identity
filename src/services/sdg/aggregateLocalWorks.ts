@@ -1,6 +1,7 @@
 import type { Researcher, Work } from '../../shared/types';
 import type { SdgRankedResearcher, SdgRegionScope } from '../../shared/types/sdgResearcher';
-import { cleanOrcid, getResearcherUtaId, normalizeAuthorName } from '../../utils/helpers';
+import { cleanOrcid, getResearcherUtaId } from '../../utils/helpers';
+import { workLinkedToResearcher } from '../../utils/odsResearchers';
 import { isUTAInstitution } from '../../utils/institutionMatch';
 import { filterWorksBySdg } from '../../utils/odsResearchers';
 import { collectPublicationsForSdg } from '../../utils/sdgWorksSource';
@@ -10,6 +11,7 @@ import type { SdgRankingDiagnostics } from './sdgRankingDiagnostics';
 import { approximateHIndex, computeCollaborationScore, computeSdgScore } from './scoring';
 import { sortSdgRowsByPerfilesOrder } from '../../utils/perfilesOrder';
 import { buildUtaRankingFromSdgResearchers } from './utaSdgResearchers';
+import { getUtaLinks } from '../../utils/utaAuthorLinks';
 
 /** Sin tope: listar todos los investigadores UTA con publicaciones en el ODS. */
 export const UTA_SDG_RANKING_LIMIT = Number.MAX_SAFE_INTEGER;
@@ -167,16 +169,6 @@ export function aggregateAuthorsFromLocalWorks(
   return rows;
 }
 
-function workLinkedToResearcher(work: Work, r: Researcher): boolean {
-  const utaId = getResearcherUtaId(r);
-  const orcid = cleanOrcid(r.o);
-  const linked = work.autores_uta || [];
-  if (linked.includes(utaId) || (orcid && linked.includes(orcid))) return true;
-
-  const full = normalizeAuthorName(`${r.f || ''} ${r.l || ''}`);
-  return (work.a || []).some((name) => normalizeAuthorName(name) === full);
-}
-
 /** Ranking UTA desde all-works: autores_uta, a[] y sdg_researchers */
 export function buildUtaResearchersRanking(
   works: Work[],
@@ -195,8 +187,8 @@ export function buildUtaResearchersRanking(
 
   const pubByOrcid = new Map<string, number>();
   sdgWorks.forEach((w) => {
-    (w.autores_uta || []).forEach((id) => {
-      const o = cleanOrcid(id);
+    getUtaLinks(w).forEach((link) => {
+      const o = cleanOrcid(link.orcid);
       if (o) pubByOrcid.set(o, (pubByOrcid.get(o) || 0) + 1);
     });
   });
@@ -217,7 +209,7 @@ export function buildUtaResearchersRanking(
     const publications_count = pubs.length;
     const citations_count = citationsPerWork.reduce((s, c) => s + c, 0);
     const h_index_sdg = approximateHIndex(citationsPerWork);
-    const multiCountry = pubs.filter((w) => (w.autores_uta || []).length > 1).length;
+    const multiCountry = pubs.filter((w) => getUtaLinks(w).length > 1).length;
     const collaboration_score = computeCollaborationScore(multiCountry, publications_count);
     const score = computeSdgScore(
       publications_count,

@@ -8,9 +8,13 @@ import {
   linkAutoresUta,
   updateAW,
 } from '../../utils/dataProcessing';
-import { cleanOrcid, getResearcherUtaId, normalizeAuthorName } from '../../utils/helpers';
-import { isUTAInstitution } from '../../utils/institutionMatch';
-import { getPublicationAuthorships } from '../../utils/publicationAuthorships';
+import { cleanOrcid, getResearcherUtaId } from '../../utils/helpers';
+import type { OrcidAuthorIdMapFile } from '../../utils/orcidAuthorIdMap';
+import {
+  buildUtaLinksFromAuthorships,
+  dedupeUtaLinks,
+  getUtaLinks,
+} from '../../utils/utaAuthorLinks';
 import {
   collectCollaborationWorksForCoAuthor,
   resolveCoAuthorProfile,
@@ -20,88 +24,22 @@ import {
 import { fetchAuthorWorkDois, normCollaboratorDoi } from './openAlexCollaboratorWorks';
 import type { LinkCollaboratorInput, LinkCollaboratorResult } from './types';
 
-type LinkIndex = {
-  orcidToUtaId: Map<string, string>;
-  nameToUtaId: Map<string, string>;
-  utaIdToOrcid: Map<string, string>;
-};
-
-function buildLinkIndex(researchers: Researcher[]): LinkIndex {
-  const orcidToUtaId = new Map<string, string>();
-  const nameToUtaId = new Map<string, string>();
-  const utaIdToOrcid = new Map<string, string>();
-
-  researchers.forEach((r) => {
-    const utaId = getResearcherUtaId(r);
-    if (!utaId) return;
-    const full = normalizeAuthorName(`${r.f || ''} ${r.l || ''}`);
-    if (full) nameToUtaId.set(full, utaId);
-    const orcid = cleanOrcid(r.o);
-    if (orcid) {
-      orcidToUtaId.set(orcid, utaId);
-      utaIdToOrcid.set(utaId, orcid);
-    }
-  });
-
-  return { orcidToUtaId, nameToUtaId, utaIdToOrcid };
-}
-
-function addResearcherIds(ids: Set<string>, utaId: string | undefined, index: LinkIndex): void {
-  if (!utaId) return;
-  ids.add(utaId);
-  const orcid = index.utaIdToOrcid.get(utaId);
-  if (orcid) ids.add(orcid);
-}
-
-function utaIdsOnWork(work: Work, index: LinkIndex): Set<string> {
-  const ids = new Set<string>(work.autores_uta || []);
-
-  getPublicationAuthorships(work).forEach((raw) => {
-    const a = raw as {
-      author?: { display_name?: string; orcid?: string };
-      institutions?: Array<{ display_name?: string; country_code?: string }>;
-    };
-    const orcid = cleanOrcid(a.author?.orcid);
-    if (orcid && index.orcidToUtaId.has(orcid)) {
-      addResearcherIds(ids, index.orcidToUtaId.get(orcid), index);
-    }
-    const name = normalizeAuthorName(a.author?.display_name);
-    if (name && index.nameToUtaId.has(name)) {
-      addResearcherIds(ids, index.nameToUtaId.get(name), index);
-    }
-    (a.institutions || []).forEach((inst) => {
-      if (isUTAInstitution(inst.display_name)) {
-        index.orcidToUtaId.forEach((utaId, o) => {
-          if (ids.has(o) || ids.has(utaId)) addResearcherIds(ids, utaId, index);
-        });
-      }
-    });
-  });
-
-  (work.a || []).forEach((author) => {
-    const name = normalizeAuthorName(author);
-    if (name && index.nameToUtaId.has(name)) {
-      addResearcherIds(ids, index.nameToUtaId.get(name), index);
-    }
-  });
-
-  return ids;
-}
-
-/** Enriquece autores_uta usando authorships (ORCID, nombre, institución UTA). */
+/** Enriquece autores_uta solo por ORCID exacto en authorships. */
 export function enrichAutoresUtaFromAuthorships(
   works: Work[],
-  researchers: Researcher[]
+  researchers: Researcher[],
+  mapFile?: OrcidAuthorIdMapFile,
 ): number {
-  const index = buildLinkIndex(researchers);
   let added = 0;
 
   works.forEach((work) => {
-    const before = new Set(work.autores_uta || []);
-    const merged = utaIdsOnWork(work, index);
-    const next = [...merged];
-    if (next.length > before.size) added += next.length - before.size;
-    work.autores_uta = next;
+    const authorships = work.authorships;
+    if (!Array.isArray(authorships) || !authorships.length) return;
+
+    const before = getUtaLinks(work).length;
+    const links = buildUtaLinksFromAuthorships(work, researchers, mapFile);
+    work.autores_uta = links;
+    if (links.length > before) added += links.length - before;
   });
 
   return added;
@@ -113,15 +51,14 @@ export function linkCoAuthorCollaborations(
   coAuthor: CoAuthorMatchInput,
   researchers: Researcher[]
 ): number {
-  const index = buildLinkIndex(researchers);
   let linked = 0;
 
   works.forEach((work) => {
     if (!workIncludesCoAuthor(work, coAuthor)) return;
-    const utaIds = utaIdsOnWork(work, index);
-    if (!utaIds.size) return;
-    const before = work.autores_uta?.length || 0;
-    work.autores_uta = [...utaIds];
+    const links = buildUtaLinksFromAuthorships(work, researchers);
+    if (!links.length) return;
+    const before = getUtaLinks(work).length;
+    work.autores_uta = dedupeUtaLinks([...getUtaLinks(work), ...links]);
     if (work.autores_uta.length > before) linked += 1;
   });
 
@@ -164,7 +101,7 @@ export async function linkCollaborator(input: LinkCollaboratorInput = {}): Promi
   const OA = getOA();
   const works = getAW().map((w) => ({ ...w, autores_uta: [...(w.autores_uta || [])] }));
 
-  linkAutoresUta(DATA, works, OA);
+  linkAutoresUta(DATA, works);
   const authorshipLinksAdded = enrichAutoresUtaFromAuthorships(works, DATA);
 
   const coAuthor = resolveCoAuthorInput(input);
@@ -210,7 +147,7 @@ export async function linkCollaborator(input: LinkCollaboratorInput = {}): Promi
     ? collectCollaborationWorksForCoAuthor(profile).length
     : 0;
 
-  const worksWithAutores = works.filter((w) => (w.autores_uta || []).length > 0).length;
+  const worksWithAutores = works.filter((w) => getUtaLinks(w).length > 0).length;
 
   return {
     ok: true,

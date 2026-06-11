@@ -3,6 +3,7 @@ dist
 .env
 .env.*
 !.env.local.example
+scripts/oclc/.env.oclc
 .DS_Store
 
 # Large local datasets (not source code — copy from directorio-uta/src/)
@@ -17,3 +18,7 @@ src/researcher-metrics.json
 
 # Profile photos (copy from directorio-uta/public/photos/)
 public/photos/
+
+# KBART Scopus (~17 MB) — solo scripts Node (enrich:scopus)
+scripts/data/6569_elsevier_scopus_kbart.txt
+data/6569_elsevier_scopus_kbart.txt

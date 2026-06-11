@@ -20,7 +20,7 @@ beforeAll(() => {
       {
         t: 'Joint paper',
         a: ['Ana UTA', 'Bob External'],
-        autores_uta: ['11.111.111-1'],
+        autores_uta: [{ author_id: 'A111', rut: '11.111.111-1', orcid: '0000-0001-0000-0001', name: 'Test UTA', author_index: 0 }],
       },
     ],
     OD: { profiles: {} },

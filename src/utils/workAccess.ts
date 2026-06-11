@@ -33,6 +33,9 @@ export function normalizeWorkFields(work: WorkLike | null | undefined): Work {
   const w = { ...work } as WorkLike;
   if (!w.t && w.title) w.t = w.title;
   if (w.c == null && w.cited_by_count != null) w.c = w.cited_by_count;
+  const withFwci = w as WorkLike & { fwci?: number | null; impact?: number };
+  if (withFwci.fwci != null) withFwci.impact = withFwci.fwci;
+  else if (withFwci.impact != null && withFwci.fwci == null) withFwci.fwci = withFwci.impact;
   if (!w.d && w.doi) w.d = w.doi;
   if (!w.u && w.url) w.u = w.url;
   if (w.oa == null && w.open_access?.is_oa != null) w.oa = w.open_access.is_oa;

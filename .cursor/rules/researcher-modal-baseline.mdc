@@ -1,0 +1,39 @@
+---
+description: ResearcherModal — diseño celeste APROBADO y congelado (baseline bloqueado)
+globs: src/components/modals/ResearcherModal.tsx,src/styles/app.css
+alwaysApply: false
+---
+
+# ResearcherModal — baseline bloqueado
+
+Diseño **APROBADO y FINAL**. Referencia: captura `outputs/researcher-modal-celeste-v2.png`.
+
+## Regla de oro
+
+Si una tarea pareciera requerir cambio visual en este modal → **DETENERSE y preguntar** al responsable. No aplicar por iniciativa propia.
+
+## NO hacer (sin aprobación explícita previa)
+
+- Reordenar, agregar o quitar secciones. Orden fijo:
+  1. Hero
+  2. Resumen IA (+ botón Analizar con IA en la misma card)
+  3. Indicadores (2 niveles de cards)
+  4. Impacto y Ecosistema
+  5. Trayectoria
+  6. Colaboración (coautores + afines)
+  7. Áreas de Investigación
+  8. Producción Científica
+- Cambiar el hero: eyebrow UTA, Reporte Ejecutivo + X, avatar, nombre, cargo (una línea), formación, email, chips ORCID/OpenAlex, divisoria, distinciones.
+- Cambiar colores/tokens celeste ni semánticos (OA `#DCFCE7`/`#15803D`, FWCI≥1 verde, cuartiles Q1–Q4, ORCID `#A6CE39`).
+- Cambiar tamaños, espaciados, tipografías, radios, ancho/alto del modal (`92vw`, `max-width 960px`, `max-height 90vh`, scroll en cuerpo).
+- Re-estilar WorkCards de Producción ni sus acciones Citar/Acceder.
+- “Mejorar”, “pulir”, “optimizar”, “modernizar” o “limpiar” markup/CSS si altera lo visible.
+
+## Sí permitido
+
+- Correcciones **funcionales o de datos** explícitamente pedidas, con render **pixel-idéntico** a la captura.
+- Refactors internos solo si el resultado visual no cambia.
+
+## Validación
+
+Tras cualquier cambio en `ResearcherModal.tsx` o estilos `.researcher-modal` en `app.css`: debe verse idéntico a la captura. Si no → revertir.

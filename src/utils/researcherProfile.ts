@@ -41,6 +41,33 @@ export function getResearcherProfilePath(researcher: Researcher): string {
   return '/perfiles';
 }
 
+/** Ruta de ficha desde id de autores_uta (RUT u ORCID tal cual viene en el bundle). */
+export function getProfileRoutePath(profileId: string): string {
+  const key = profileId.trim();
+  return key ? `/perfiles/${encodeURIComponent(key)}` : '/perfiles';
+}
+
+/** Mismo investigador aunque el id sea RUT vs ORCID. */
+export function isSameResearcherProfileId(
+  profileId: string,
+  currentResearcher: Researcher | null | undefined,
+  catalog: Researcher[],
+): boolean {
+  if (!currentResearcher) return false;
+  const pid = profileId.trim();
+  if (!pid) return false;
+
+  const rut = (currentResearcher.id || '').trim();
+  if (rut && pid === rut) return true;
+
+  const orcid = cleanOrcid(currentResearcher.o);
+  if (orcid && pid === orcid) return true;
+
+  const current = findResearcherByProfileId(catalog, rut || orcid || '');
+  const target = findResearcherByProfileId(catalog, pid);
+  return Boolean(current && target && current.id && target.id && current.id === target.id);
+}
+
 /** Solo sincronizar URL de ficha cuando el usuario ya está en Perfiles. */
 export function shouldSyncProfileRoute(pathname: string): boolean {
   return pathname === '/perfiles' || pathname.startsWith('/perfiles/');

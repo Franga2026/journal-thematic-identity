@@ -1,0 +1,2637 @@
+{
+  "generated_at": "2026-06-10T04:03:09.071Z",
+  "uta_institution": {
+    "id": "I185652977",
+    "ror": "https://ror.org/04xe01d27",
+    "ror_bare": "04xe01d27"
+  },
+  "alias_aceptados": [
+    {
+      "investigador": {
+        "rut": "05950398-7",
+        "name": "Calogero Santoro Vargas",
+        "orcid": "0000-0002-3702-8408"
+      },
+      "alias_author_id": "A5125329996",
+      "display_name": "C.M. Santoro",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07177740-5",
+        "name": "Bernardo Arriaza Torres",
+        "orcid": "0000-0001-9921-9253"
+      },
+      "alias_author_id": "A5110863533",
+      "display_name": "Bernardo Arriaza",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07177740-5",
+        "name": "Bernardo Arriaza Torres",
+        "orcid": "0000-0001-9921-9253"
+      },
+      "alias_author_id": "A5039303527",
+      "display_name": "Bernado Arriaza",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "04105653-3",
+        "name": "Gloria Calaf Sarrat",
+        "orcid": "0000-0003-3542-296X"
+      },
+      "alias_author_id": "A5105102975",
+      "display_name": "Gloria M. Calaf",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "04105653-3",
+        "name": "Gloria Calaf Sarrat",
+        "orcid": "0000-0003-3542-296X"
+      },
+      "alias_author_id": "A5126223098",
+      "display_name": "Gloria M. Calaf",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "08707862-0",
+        "name": "Oscar German Espinoza Díaz",
+        "orcid": "0000-0001-7525-2980"
+      },
+      "alias_author_id": "A5124754163",
+      "display_name": "Oscar Espinoza",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "08707862-0",
+        "name": "Oscar German Espinoza Díaz",
+        "orcid": "0000-0001-7525-2980"
+      },
+      "alias_author_id": "A5128335919",
+      "display_name": "Oscar Espinoza",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "09070708-6",
+        "name": "Emilio Rodriguez Ponce",
+        "orcid": "0000-0003-4861-002X"
+      },
+      "alias_author_id": "A5125907676",
+      "display_name": "Emilio Rodríguez-Ponce",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "09070708-6",
+        "name": "Emilio Rodriguez Ponce",
+        "orcid": "0000-0003-4861-002X"
+      },
+      "alias_author_id": "A5133135546",
+      "display_name": "Emilio Rodríguez-Ponce",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07651723-1",
+        "name": "Juan Flores Araya",
+        "orcid": "0000-0002-5717-5317"
+      },
+      "alias_author_id": "A5023070315",
+      "display_name": "Juan CÃ©sar Flores",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "05831904-K",
+        "name": "Omar Espinoza Navarro",
+        "orcid": "0000-0002-2666-8725"
+      },
+      "alias_author_id": "A5128461028",
+      "display_name": "Omar Espinoza-Navarro",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07683725-2",
+        "name": "Daniel Moraga Muñoz",
+        "orcid": "0000-0002-7128-8174"
+      },
+      "alias_author_id": "A5122258851",
+      "display_name": "Daniel Moraga",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 3,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07683725-2",
+        "name": "Daniel Moraga Muñoz",
+        "orcid": "0000-0002-7128-8174"
+      },
+      "alias_author_id": "A5123679143",
+      "display_name": "Daniel Moraga",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07683725-2",
+        "name": "Daniel Moraga Muñoz",
+        "orcid": "0000-0002-7128-8174"
+      },
+      "alias_author_id": "A5132636532",
+      "display_name": "Daniel Moraga",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07683725-2",
+        "name": "Daniel Moraga Muñoz",
+        "orcid": "0000-0002-7128-8174"
+      },
+      "alias_author_id": "A5135869090",
+      "display_name": "Daniel Moraga",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07683725-2",
+        "name": "Daniel Moraga Muñoz",
+        "orcid": "0000-0002-7128-8174"
+      },
+      "alias_author_id": "A5136630526",
+      "display_name": "Daniel Moraga",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "05075694-7",
+        "name": "Ernesto Ponce López",
+        "orcid": "0000-0003-1917-2518"
+      },
+      "alias_author_id": "A5071444953",
+      "display_name": "Emilio Rodríguez Ponce",
+      "instituciones_ror": [
+        "04xe01d27",
+        "02p0gd045",
+        "02ntheh91",
+        "047gc3g35",
+        "05510vn56"
+      ],
+      "obras_que_aporta": 13,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "05075694-7",
+        "name": "Ernesto Ponce López",
+        "orcid": "0000-0003-1917-2518"
+      },
+      "alias_author_id": "A5061774435",
+      "display_name": "Estrella Cañipa Ponce",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "08491941-1",
+        "name": "Juan Romero Romero",
+        "orcid": "0000-0003-1501-5179"
+      },
+      "alias_author_id": "A5128807359",
+      "display_name": "Juan Romero Romero",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "09384607-9",
+        "name": "Germán Sepúlveda Chavera",
+        "orcid": "0000-0002-1452-7618"
+      },
+      "alias_author_id": "A5128146107",
+      "display_name": "German Sepúlveda-Chavera",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "07083812-5",
+        "name": "Rubén Capetillo Velasquez",
+        "orcid": "0000-0001-8015-332X"
+      },
+      "alias_author_id": "A5109717099",
+      "display_name": "Rubén Capetillo Velasquez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "08322438-K",
+        "name": "Marisol Haydee Palma Behnke",
+        "orcid": "0000-0002-7497-2617"
+      },
+      "alias_author_id": "A5068262258",
+      "display_name": "M. Palma",
+      "instituciones_ror": [
+        "04xe01d27",
+        "02vbtzd72"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "06236537-4",
+        "name": "Sergio Gonzalez Miranda",
+        "orcid": "0000-0002-0403-8538"
+      },
+      "alias_author_id": "A5114058707",
+      "display_name": "Sergio A. González Miranda",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "06236537-4",
+        "name": "Sergio Gonzalez Miranda",
+        "orcid": "0000-0002-0403-8538"
+      },
+      "alias_author_id": "A5125701969",
+      "display_name": "Sergio  González Miranda",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "06236537-4",
+        "name": "Sergio Gonzalez Miranda",
+        "orcid": "0000-0002-0403-8538"
+      },
+      "alias_author_id": "A5134528480",
+      "display_name": "Sergio González Miranda",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12087971-5",
+        "name": "Francisco Ganga Contreras",
+        "orcid": "0000-0001-9325-6459"
+      },
+      "alias_author_id": "A5135286443",
+      "display_name": "Francisco Ganga-Contreras",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 3,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12087971-5",
+        "name": "Francisco Ganga Contreras",
+        "orcid": "0000-0001-9325-6459"
+      },
+      "alias_author_id": "A5125889399",
+      "display_name": "Francisco Anibal Ganga-Contreras",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5126099932",
+      "display_name": "Héctor A. Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 17,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5104707528",
+      "display_name": "Héctor E. Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5112399474",
+      "display_name": "Héctor A Argas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 3,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5128345881",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 3,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5108474611",
+      "display_name": "H.C. Vargas",
+      "instituciones_ror": [
+        "05msy9z54",
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5126208288",
+      "display_name": "Hector A. Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5134638699",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5135669327",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5136611681",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5125643682",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5125960674",
+      "display_name": "Hector Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5126012493",
+      "display_name": "Héctor A. Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5130358577",
+      "display_name": "Héctor A. Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5132943967",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5133501033",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5133666702",
+      "display_name": "Héctor A. Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5136120579",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12661529-9",
+        "name": "Héctor Vargas Ortiz",
+        "orcid": "0000-0002-5355-3157"
+      },
+      "alias_author_id": "A5137614392",
+      "display_name": "Héctor Vargas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5124401422",
+      "display_name": "Alejandra Caqueo Urízar",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5112047169",
+      "display_name": "Alejandra Caqueo-Urízar",
+      "instituciones_ror": [
+        "04xe01d27",
+        "02akpm128",
+        "021018s57"
+      ],
+      "obras_que_aporta": 18,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5112192419",
+      "display_name": "Alejandra Caqueo-Urízar",
+      "instituciones_ror": [
+        "04xe01d27",
+        "03vek6s52"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5087376187",
+      "display_name": "Aleandra Caqueo-Urizar",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5105870862",
+      "display_name": "Alejandro Caqueo-Urízar",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5128047309",
+      "display_name": "Alejandra Caqueo-Urízar",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5128813107",
+      "display_name": "Alejandra Caqueo-Urízar",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5135002017",
+      "display_name": "Alejandra Caqueo-Urízar",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12437691-2",
+        "name": "Alejandra Caqueo Urizar",
+        "orcid": "0000-0002-4614-8380"
+      },
+      "alias_author_id": "A5137706431",
+      "display_name": "Alejandra Caqueo-Urízar",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12451865-2",
+        "name": "Alberto Díaz Araya",
+        "orcid": "0000-0001-5080-1672"
+      },
+      "alias_author_id": "A5020772506",
+      "display_name": "ALBERTO DÍAZ ARAYA",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 3,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12436627-5",
+        "name": "Carlos Ubeda de la Cerda",
+        "orcid": "0000-0002-2565-5850"
+      },
+      "alias_author_id": "A5114612674",
+      "display_name": "Carlos Ubeda",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 5,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12436627-5",
+        "name": "Carlos Ubeda de la Cerda",
+        "orcid": "0000-0002-2565-5850"
+      },
+      "alias_author_id": "A5132664421",
+      "display_name": "Carlos Ubeda",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12450066-4",
+        "name": "Carolina Guzman Valenzuela",
+        "orcid": "0000-0002-7974-762X"
+      },
+      "alias_author_id": "A5104286133",
+      "display_name": "Carolina María Guzmán-Valenzuela",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "11815383-9",
+        "name": "Raúl A. Bustos González",
+        "orcid": "0000-0002-2363-1919"
+      },
+      "alias_author_id": "A5121077251",
+      "display_name": "Raúl Antonio Bustos González",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12267871-7",
+        "name": "Carlos Donoso Rojas",
+        "orcid": "0000-0003-0154-6446"
+      },
+      "alias_author_id": "A5101208048",
+      "display_name": "Carlos David Donoso Rojas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12267871-7",
+        "name": "Carlos Donoso Rojas",
+        "orcid": "0000-0003-0154-6446"
+      },
+      "alias_author_id": "A5130377557",
+      "display_name": "Camila Cortés Rojas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12267871-7",
+        "name": "Carlos Donoso Rojas",
+        "orcid": "0000-0003-0154-6446"
+      },
+      "alias_author_id": "A5134544978",
+      "display_name": "Carlos Enrique Mondaca Rojas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13007343-3",
+        "name": "Cristian Pinto Cortez",
+        "orcid": "0000-0003-4311-9135"
+      },
+      "alias_author_id": "A5121501903",
+      "display_name": "Cristián Pinto-Cortez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13007343-3",
+        "name": "Cristian Pinto Cortez",
+        "orcid": "0000-0003-4311-9135"
+      },
+      "alias_author_id": "A5124744252",
+      "display_name": "Cristián Pinto-Cortez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13007343-3",
+        "name": "Cristian Pinto Cortez",
+        "orcid": "0000-0003-4311-9135"
+      },
+      "alias_author_id": "A5124943026",
+      "display_name": "Cristián Pinto-Cortez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "10662714-2",
+        "name": "Carlos Mondaca Rojas",
+        "orcid": "0000-0003-2640-2705"
+      },
+      "alias_author_id": "A5101208048",
+      "display_name": "Carlos David Donoso Rojas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "10662714-2",
+        "name": "Carlos Mondaca Rojas",
+        "orcid": "0000-0003-2640-2705"
+      },
+      "alias_author_id": "A5130377557",
+      "display_name": "Camila Cortés Rojas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "10662714-2",
+        "name": "Carlos Mondaca Rojas",
+        "orcid": "0000-0003-2640-2705"
+      },
+      "alias_author_id": "A5134544978",
+      "display_name": "Carlos Enrique Mondaca Rojas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "10500391-9",
+        "name": "Nelson Agustin Lara Henriquez",
+        "orcid": "0000-0002-9482-7353"
+      },
+      "alias_author_id": "A5134501933",
+      "display_name": "Nelson A. Lara",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12265631-4",
+        "name": "Javiera Carmona Jimenez",
+        "orcid": "0000-0002-5519-416X"
+      },
+      "alias_author_id": "A5134508582",
+      "display_name": "Javiera A. Carmona Jiménez",
+      "instituciones_ror": [
+        "04xe01d27",
+        "00x0xhn70"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "12474011-8",
+        "name": "Jenniffer Peralta Montecinos",
+        "orcid": "0000-0001-5687-8101"
+      },
+      "alias_author_id": "A5091582606",
+      "display_name": "Jennifer Peralta Montecinos",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "10259168-2",
+        "name": "Ludy Mireya Nuñez Soza",
+        "orcid": "0000-0003-4858-1900"
+      },
+      "alias_author_id": "A5002049824",
+      "display_name": "Ludy Nú∼nez Soza",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "11610049-5",
+        "name": "Paola Gioanna Muzatto Negron",
+        "orcid": "0000-0001-7864-6678"
+      },
+      "alias_author_id": "A5093363172",
+      "display_name": "Paola Muzatto-Negrón",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "11610049-5",
+        "name": "Paola Gioanna Muzatto Negron",
+        "orcid": "0000-0001-7864-6678"
+      },
+      "alias_author_id": "A5124747315",
+      "display_name": "Paola Muzatto-Negrón",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5121053242",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 7,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5130638739",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5137172390",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5120963809",
+      "display_name": "D. Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5124480038",
+      "display_name": "D. Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5132942496",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5132979699",
+      "display_name": "D. Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5133085183",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5133151295",
+      "display_name": "D. Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5133263174",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5135574111",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5136656351",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5136968838",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5137432144",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5137753473",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5137856248",
+      "display_name": "David Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13333313-4",
+        "name": "David Laroze Navarrete",
+        "orcid": "0000-0002-6487-8096"
+      },
+      "alias_author_id": "A5138001258",
+      "display_name": "D Laroze",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15371977-2",
+        "name": "Barbara Rojas Ayala",
+        "orcid": "0000-0002-0149-1302"
+      },
+      "alias_author_id": "A5066234116",
+      "display_name": "B. Rojas-Ayala",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15371977-2",
+        "name": "Barbara Rojas Ayala",
+        "orcid": "0000-0002-0149-1302"
+      },
+      "alias_author_id": "A5008432513",
+      "display_name": "B. Rojas-Ayala",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13471908-7",
+        "name": "Manuel Prieto Montt",
+        "orcid": "0000-0003-4262-3786"
+      },
+      "alias_author_id": "A5095903166",
+      "display_name": "Manuel Prieto",
+      "instituciones_ror": [
+        "04xe01d27",
+        "02bjvzs55"
+      ],
+      "obras_que_aporta": 3,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15018055-4",
+        "name": "Claudio Andres Quezada Romegialli",
+        "orcid": "0000-0003-3380-389X"
+      },
+      "alias_author_id": "A5114081490",
+      "display_name": "Caudio Quezada‐Romegialli",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15018055-4",
+        "name": "Claudio Andres Quezada Romegialli",
+        "orcid": "0000-0003-3380-389X"
+      },
+      "alias_author_id": "A5120860261",
+      "display_name": "Claudio Quezada- Romegialli",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13564204-5",
+        "name": "Nanette Liberona Concha",
+        "orcid": "0000-0002-0980-7519"
+      },
+      "alias_author_id": "A5071524987",
+      "display_name": "Nanette Paz Liberona Concha",
+      "instituciones_ror": [
+        "04xe01d27",
+        "00cxp1a86",
+        "01hrxxx24"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15382740-0",
+        "name": "Matias Calderon Seguel",
+        "orcid": "0000-0002-0802-7641"
+      },
+      "alias_author_id": "A5130777472",
+      "display_name": "Matías Calderón Seguel",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13679511-2",
+        "name": "Andrea Alejandra Chamorro Pérez",
+        "orcid": "0000-0003-2552-1681"
+      },
+      "alias_author_id": "A5134537369",
+      "display_name": "Andrea Chamorro Pérez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15693825-4",
+        "name": "Alejandra Andrea Roman Lay",
+        "orcid": "0000-0002-2530-0443"
+      },
+      "alias_author_id": "A5063270526",
+      "display_name": "Alejandra Roman Lay",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13214782-5",
+        "name": "Alvaro Daniel Espinoza Collao",
+        "orcid": "0000-0002-9858-8804"
+      },
+      "alias_author_id": "A5134515558",
+      "display_name": "Álvaro Daniel Espinoza Collao",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13939818-1",
+        "name": "Mónica S. Meza Aliaga",
+        "orcid": "0000-0002-4893-0050"
+      },
+      "alias_author_id": "A5052927669",
+      "display_name": "Michel Meza Aliaga",
+      "instituciones_ror": [
+        "04xe01d27",
+        "00749za89"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13976493-5",
+        "name": "Jorge J. Díaz Ramirez",
+        "orcid": "0000-0001-5335-576X"
+      },
+      "alias_author_id": "A5043300270",
+      "display_name": "Juan Romeo Dávila Ramírez",
+      "instituciones_ror": [
+        "04xe01d27",
+        "01cby8j38"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "13976493-5",
+        "name": "Jorge J. Díaz Ramirez",
+        "orcid": "0000-0001-5335-576X"
+      },
+      "alias_author_id": "A5089669263",
+      "display_name": "Jorge Díaz Ramírez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5109706741",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "012p63287",
+        "04xe01d27",
+        "04gcegc37"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5017560189",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27",
+        "04ypx8c21"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5029161147",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "03xpwj629",
+        "012p63287",
+        "04xe01d27",
+        "04gcegc37",
+        "01wspgy28",
+        "0190x2a66",
+        "03tzaeb71",
+        "00v0z9322",
+        "05htk5m33",
+        "003xyzq10",
+        "01kq0pv72",
+        "0040axw97",
+        "0106qb496",
+        "00n1nz186",
+        "027m9bs27",
+        "014er3x17"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5105582326",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5074724341",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5079179414",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5104224597",
+      "display_name": "S. K. Kabana",
+      "instituciones_ror": [
+        "012p63287",
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5135108300",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5124805665",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5128736559",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5129503860",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5135307078",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5136019241",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5136283788",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5137294509",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27416647-9",
+        "name": "Sonia Kabana",
+        "orcid": "0000-0003-0568-5750"
+      },
+      "alias_author_id": "A5137800047",
+      "display_name": "S. Kabana",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27890752-K",
+        "name": "Shalini Thakur",
+        "orcid": "0000-0002-1647-0360"
+      },
+      "alias_author_id": "A5106886504",
+      "display_name": "Shalini Thakur",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27890752-K",
+        "name": "Shalini Thakur",
+        "orcid": "0000-0002-1647-0360"
+      },
+      "alias_author_id": "A5124786781",
+      "display_name": "Shalini Thakur",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 3,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27890752-K",
+        "name": "Shalini Thakur",
+        "orcid": "0000-0002-1647-0360"
+      },
+      "alias_author_id": "A5105578068",
+      "display_name": "S Thakur",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27890752-K",
+        "name": "Shalini Thakur",
+        "orcid": "0000-0002-1647-0360"
+      },
+      "alias_author_id": "A5125573113",
+      "display_name": "S. Thakur",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27890752-K",
+        "name": "Shalini Thakur",
+        "orcid": "0000-0002-1647-0360"
+      },
+      "alias_author_id": "A5129064114",
+      "display_name": "S. Thakur",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27890752-K",
+        "name": "Shalini Thakur",
+        "orcid": "0000-0002-1647-0360"
+      },
+      "alias_author_id": "A5137286652",
+      "display_name": "Shalini Thakur",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5126496389",
+      "display_name": "S. Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 5,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5124416852",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5124988428",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5125219401",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5125416130",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5126287365",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5128699527",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5130326746",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5133439420",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5134805066",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24690468-5",
+        "name": "Saravanan Rajendran",
+        "orcid": "0000-0002-3771-4694"
+      },
+      "alias_author_id": "A5135062695",
+      "display_name": "Saravanan Rajendran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5124037311",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5124957406",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5125270983",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5125280543",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5125768199",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5126019411",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5129080208",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5129389457",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27768492-6",
+        "name": "Lalitha Gnanasekaran",
+        "orcid": "0009-0005-1560-2965"
+      },
+      "alias_author_id": "A5137125936",
+      "display_name": "Lalitha Gnanasekaran",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "21627536-5",
+        "name": "Alexander Neaman",
+        "orcid": "0000-0002-1819-0872"
+      },
+      "alias_author_id": "A5121947632",
+      "display_name": "A. Neaman",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5103376874",
+      "display_name": "L. M. Luengo Pérez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5121918005",
+      "display_name": "L. M. Pérez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5123546310",
+      "display_name": "L. M. Perez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5133336101",
+      "display_name": "Laura M. Pérez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5135565032",
+      "display_name": "Laura Perez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5135629760",
+      "display_name": "L. M. Pérez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5135978461",
+      "display_name": "L. M. Pérez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27952891-3",
+        "name": "Adriano Joao Da Silva",
+        "orcid": "0000-0003-3306-0141"
+      },
+      "alias_author_id": "A5126039528",
+      "display_name": "Adriano Da Silva",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "16359476-5",
+        "name": "César Ayala Núñez",
+        "orcid": "0000-0001-8730-9796"
+      },
+      "alias_author_id": "A5083342544",
+      "display_name": "César J. Ayala",
+      "instituciones_ror": [
+        "04xe01d27",
+        "05j136930",
+        "03m908832",
+        "046rm7j60",
+        "00453a208",
+        "04habxs80",
+        "01tmp8f25"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "27520015-8",
+        "name": "Andres Mauricio Velez Pereira",
+        "orcid": "0000-0003-1557-8684"
+      },
+      "alias_author_id": "A5137576877",
+      "display_name": "Andrés M. Vélez‐Pereira",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15935266-8",
+        "name": "Ignacio Jara Parra",
+        "orcid": "0000-0002-6682-8092"
+      },
+      "alias_author_id": "A5094190179",
+      "display_name": "Ignacio Jara",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "23497328-2",
+        "name": "Dante Alejandro Angelo Zelada",
+        "orcid": "0000-0002-5195-7780"
+      },
+      "alias_author_id": "A5132976171",
+      "display_name": "Dante Angelo",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15805086-2",
+        "name": "José Nicolás Berrios Riquelme",
+        "orcid": "0000-0003-2947-4739"
+      },
+      "alias_author_id": "A5125732813",
+      "display_name": "José Berríos-Riquelme",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "15805086-2",
+        "name": "José Nicolás Berrios Riquelme",
+        "orcid": "0000-0003-2947-4739"
+      },
+      "alias_author_id": "A5134507608",
+      "display_name": "José Berríos-Riquelme",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 0,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "24221393-9",
+        "name": "Ana María Cabanas Plana",
+        "orcid": "0000-0003-2800-150X"
+      },
+      "alias_author_id": "A5128311586",
+      "display_name": "Ana María Cabanas",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    },
+    {
+      "investigador": {
+        "rut": "17013156-8",
+        "name": "Diego A. Nocetti Garcia",
+        "orcid": "0000-0002-5084-0556"
+      },
+      "alias_author_id": "A5109099248",
+      "display_name": "D. A. Nocetti",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "ancla": "UTA_ROR"
+    }
+  ],
+  "alias_rechazados": [
+    {
+      "investigador": {
+        "rut": "09384607-9",
+        "name": "Germán Sepúlveda Chavera",
+        "orcid": "0000-0002-1452-7618"
+      },
+      "alias_author_id": "A5108043664",
+      "display_name": "Germán Sepúlveda",
+      "instituciones_ror": [
+        "04xe01d27",
+        "05wygq130",
+        "000w0ky84"
+      ],
+      "obras_que_aporta": 20,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "06236537-4",
+        "name": "Sergio Gonzalez Miranda",
+        "orcid": "0000-0002-0403-8538"
+      },
+      "alias_author_id": "A5029309979",
+      "display_name": "Sergio González Miranda",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 2,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "12267871-7",
+        "name": "Carlos Donoso Rojas",
+        "orcid": "0000-0003-0154-6446"
+      },
+      "alias_author_id": "A5059292166",
+      "display_name": "Carlos Mondaca Rojas",
+      "instituciones_ror": [
+        "04xe01d27",
+        "04d1zy188"
+      ],
+      "obras_que_aporta": 24,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "13007343-3",
+        "name": "Cristian Pinto Cortez",
+        "orcid": "0000-0003-4311-9135"
+      },
+      "alias_author_id": "A5106950112",
+      "display_name": "Cristián Pinto-Cortez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 5,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "13007343-3",
+        "name": "Cristian Pinto Cortez",
+        "orcid": "0000-0003-4311-9135"
+      },
+      "alias_author_id": "A5135886162",
+      "display_name": "Cristián Pinto-Cortez",
+      "instituciones_ror": [
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "10662714-2",
+        "name": "Carlos Mondaca Rojas",
+        "orcid": "0000-0003-2640-2705"
+      },
+      "alias_author_id": "A5032572410",
+      "display_name": "Carlos Donoso Rojas",
+      "instituciones_ror": [
+        "04xe01d27",
+        "01qq57711",
+        "00w1qvp54",
+        "01jsenc11",
+        "05ke4zy29"
+      ],
+      "obras_que_aporta": 10,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "12883031-6",
+        "name": "Cristobal Eduardo Castro Cruz",
+        "orcid": "0000-0002-0033-6124"
+      },
+      "alias_author_id": "A5081922952",
+      "display_name": "Cristián Castro",
+      "instituciones_ror": [
+        "04xe01d27",
+        "04teye511"
+      ],
+      "obras_que_aporta": 4,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "12883031-6",
+        "name": "Cristobal Eduardo Castro Cruz",
+        "orcid": "0000-0002-0033-6124"
+      },
+      "alias_author_id": "A5079538062",
+      "display_name": "Camilo José Castro",
+      "instituciones_ror": [
+        "00k4v9x79",
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "12834510-8",
+        "name": "Cristian Ivor Castro Rodríguez",
+        "orcid": "0000-0001-8203-1932"
+      },
+      "alias_author_id": "A5055180528",
+      "display_name": "Cristòbal E. Castro",
+      "instituciones_ror": [
+        "04xe01d27",
+        "04zmssz18",
+        "02feahw73",
+        "00g30e956",
+        "05trd4x28",
+        "02jet3w32",
+        "019j3tz70",
+        "01kebx220",
+        "045s9b323",
+        "05n21n105",
+        "05591te55"
+      ],
+      "obras_que_aporta": 12,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "12834510-8",
+        "name": "Cristian Ivor Castro Rodríguez",
+        "orcid": "0000-0001-8203-1932"
+      },
+      "alias_author_id": "A5079538062",
+      "display_name": "Camilo José Castro",
+      "instituciones_ror": [
+        "00k4v9x79",
+        "04xe01d27"
+      ],
+      "obras_que_aporta": 1,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5070232707",
+      "display_name": "Lisa M. Pérez",
+      "instituciones_ror": [
+        "04xe01d27",
+        "02n0ejh50",
+        "0409egh51",
+        "01f5ytq51",
+        "04aaa2n62",
+        "04att9732",
+        "00ay7va13",
+        "0034eay46",
+        "00453a208",
+        "0502a2655",
+        "00qqv6244",
+        "03ds72003",
+        "02hr72y72",
+        "00g2xk477",
+        "02ypd5h61",
+        "03qxge436",
+        "04663jx74",
+        "04gf6zh40",
+        "04nh1dc89",
+        "04vs0j422",
+        "050kcr883",
+        "0420db125",
+        "014qpa824"
+      ],
+      "obras_que_aporta": 1,
+      "motivo": "orcid_distinto"
+    },
+    {
+      "investigador": {
+        "rut": "21518997-K",
+        "name": "Laura Perez Fuentes",
+        "orcid": "0000-0002-2915-309X"
+      },
+      "alias_author_id": "A5100771780",
+      "display_name": "Laura M. Pérez",
+      "instituciones_ror": [
+        "04xe01d27",
+        "04dp46240",
+        "04wwgp209",
+        "052g8jq94",
+        "04r1hh402",
+        "02qs1a797",
+        "03bp5hc83",
+        "002x1sg85",
+        "01d5vx451",
+        "01ygm5w19",
+        "028brk668",
+        "02h694m69",
+        "037hby126",
+        "03bzdww12",
+        "05cvz6v56",
+        "04j0sev46",
+        "05xx77y52"
+      ],
+      "obras_que_aporta": 6,
+      "motivo": "orcid_distinto"
+    }
+  ],
+  "obras_vinculo_uta": {
+    "antes_regla_estricta": 4158,
+    "pendiente_link_works": false,
+    "despues_regla_estricta": 4174,
+    "delta": 16,
+    "obras_solo_entidad_orcid": 3970,
+    "obras_con_alias_aceptado": 204,
+    "vinculos_por_orcid": 4971,
+    "vinculos_por_alias": 206,
+    "obras_potenciales_perdidas_por_alias_rechazado": 87
+  },
+  "orcid_stats": {
+    "orcids_resolved": 164,
+    "orcids_unresolved": 35,
+    "orcids_multi_author": 58,
+    "aliases_accepted": 163,
+    "aliases_rejected": 12
+  },
+  "generated_at_link": "2026-06-10T04:03:51.330Z",
+  "conflictos_author_id_multi_rut": [
+    {
+      "author_id": "A5101208048",
+      "entries": [
+        {
+          "rut": "10662714-2",
+          "orcid": "0000-0003-2640-2705",
+          "name": "Carlos Mondaca Rojas"
+        },
+        {
+          "rut": "12267871-7",
+          "orcid": "0000-0003-0154-6446",
+          "name": "Carlos Donoso Rojas"
+        }
+      ]
+    },
+    {
+      "author_id": "A5130377557",
+      "entries": [
+        {
+          "rut": "10662714-2",
+          "orcid": "0000-0003-2640-2705",
+          "name": "Carlos Mondaca Rojas"
+        },
+        {
+          "rut": "12267871-7",
+          "orcid": "0000-0003-0154-6446",
+          "name": "Carlos Donoso Rojas"
+        }
+      ]
+    },
+    {
+      "author_id": "A5134544978",
+      "entries": [
+        {
+          "rut": "10662714-2",
+          "orcid": "0000-0003-2640-2705",
+          "name": "Carlos Mondaca Rojas"
+        },
+        {
+          "rut": "12267871-7",
+          "orcid": "0000-0003-0154-6446",
+          "name": "Carlos Donoso Rojas"
+        }
+      ]
+    }
+  ],
+  "spot_checks": {
+    "arriaza_chinchorro": {
+      "vinculada": true,
+      "author_ids": [
+        "A5110863533"
+      ]
+    },
+    "ariany_a_adriano": 0,
+    "felipe_a_claudia": 0,
+    "standen_obras": 0
+  }
+}

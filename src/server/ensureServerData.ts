@@ -23,6 +23,7 @@ export function ensureServerData(): void {
     METRICS: readJson('institutional-metrics.json', {}),
     RES_METRICS: readJson('researcher-metrics.json', {}),
     CITATIONS: {},
+    DATASETS: readJson('datasets.json', {}),
   });
   loaded = true;
 }

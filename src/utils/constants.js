@@ -108,11 +108,23 @@ export const AI_TABS = [
   { key: 'oportunidades', label: '🎯 Oportunidades' },
 ];
 
+/** Umbral mínimo de obras con FWCI calculable para ranking por FWCI (no confundir con works_count total). */
+export const MIN_FWCI_WORKS = 10;
+
+/** Umbral mínimo de obras con cuartil SJR para ranking por % Q1. */
+export const MIN_QUARTILE_WORKS = 10;
+
 export const RANK_OPTIONS = {
-  fwci: { label: '🎯 Impacto Real (FNCI)', desc: 'FNCI mide impacto real: citas recibidas vs esperadas por campo/año/tipo. Mundo=1.0.' },
+  fwci: {
+    label: '🎯 Impacto Real (FWCI)',
+    desc: 'Media de FWCI por obra desde OpenAlex; mínimo 10 obras con FWCI. Mundo=1.0.',
+  },
   hindex: { label: '📐 h-index', desc: 'Balance entre productividad e impacto. Favorece carreras largas.' },
   citas: { label: '📊 Citas Totales', desc: 'Total de citas acumuladas. Favorece entidades grandes.' },
-  q1: { label: '🥇 % en Q1', desc: '% de publicaciones en revistas del top 25% (CiteScore).' },
+  q1: {
+    label: '🥇 % en Q1',
+    desc: '% en Q1 (SJR Best Quartile, Scimago) sobre obras con cuartil reconocido; mínimo 10 obras con cuartil SJR.',
+  },
   cpp: { label: '📈 Citas/Pub', desc: 'Promedio de citas por publicación. No normaliza por disciplina.' },
   oa: { label: '🔓 Open Access', desc: '% de publicaciones en acceso abierto.' },
 };

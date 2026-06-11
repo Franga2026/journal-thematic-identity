@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import type { Work } from '../shared/types';
 import { initData, getAW } from '../utils/dataProcessing';
+import { utaLink } from './utaLinkFixtures';
 import {
   enrichAutoresUtaFromAuthorships,
   linkCoAuthorCollaborations,
@@ -13,7 +14,21 @@ vi.mock('../services/collaborators/openAlexCollaboratorWorks', () => ({
     (d || '').toLowerCase().replace(/^https?:\/\/(dx\.)?doi\.org\//, ''),
 }));
 
+const TEST_MAP = {
+  map: { '0000-0001-1111-1111': ['A1111111111'] },
+};
+
 const WORKS: Work[] = [
+  {
+    t: 'Colab paper',
+    c: 20,
+    d: '10.5555/colab',
+    autores_uta: [utaLink('111', '0000-0001-1111-1111', 'Ana Silva', 0, 'A1111111111')],
+    a: ['Ana Silva', 'External Colleague'],
+  },
+];
+
+const WORKS_WITH_AUTH = (): Work[] => [
   {
     t: 'Colab paper',
     c: 20,
@@ -22,8 +37,9 @@ const WORKS: Work[] = [
     authorships: [
       {
         author: {
+          id: 'https://openalex.org/A1111111111',
           display_name: 'Ana Silva',
-          orcid: 'https://orcid.org/0000-0001-1111-1111',
+          orcid: null,
         },
         institutions: [{ display_name: 'Universidad de Tarapacá' }],
       },
@@ -57,20 +73,20 @@ beforeEach(() => {
 });
 
 describe('linkCollaborators', () => {
-  it('enrichAutoresUtaFromAuthorships links ORCID in authorships', () => {
-    const works = getAW().map((w) => ({ ...w, autores_uta: [] }));
+  it('enrichAutoresUtaFromAuthorships links author.id in authorships', () => {
+    const works = WORKS_WITH_AUTH();
     const added = enrichAutoresUtaFromAuthorships(works, [
       { id: '111', f: 'Ana', l: 'Silva', o: '0000-0001-1111-1111' },
-    ]);
+    ], TEST_MAP);
     expect(added).toBeGreaterThan(0);
     expect(works[0].autores_uta?.length).toBeGreaterThan(0);
   });
 
   it('linkCoAuthorCollaborations marks co-author + UTA works', () => {
-    const works = getAW().map((w) => ({ ...w, autores_uta: [] }));
+    const works = WORKS_WITH_AUTH();
     enrichAutoresUtaFromAuthorships(works, [
       { id: '111', f: 'Ana', l: 'Silva', o: '0000-0001-1111-1111' },
-    ]);
+    ], TEST_MAP);
     const linked = linkCoAuthorCollaborations(
       works,
       { orcid: '0000-0002-2222-2222', name: 'External Colleague' },

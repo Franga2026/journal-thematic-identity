@@ -1,6 +1,7 @@
 import type { Researcher, Work } from '../../shared/types';
 import { cleanOrcid, getResearcherUtaId, normalizeAuthorName } from '../../utils/helpers';
 import { getPublicationAuthorships } from '../../utils/publicationAuthorships';
+import { getUtaLinks } from '../../utils/utaAuthorLinks';
 import type { SdgRankingDiagnostics } from './sdgRankingDiagnostics';
 
 export interface LocalExtractedAuthorship {
@@ -100,16 +101,14 @@ export function extractAuthorshipsFromWork(
     });
   }
 
-  (work.autores_uta || []).forEach((rawId) => {
-    const id = rawId.trim();
-    if (!id) return;
-    const researcher = index.byId.get(id);
+  getUtaLinks(work).forEach((link) => {
+    const researcher = index.byId.get(link.rut);
     if (!researcher) return;
-    const authorKey = getResearcherUtaId(researcher) || id;
+    const authorKey = getResearcherUtaId(researcher) || link.rut;
     pushAuthorship(list, seen, {
       authorKey,
-      authorName: `${researcher.f || ''} ${researcher.l || ''}`.trim(),
-      orcid: cleanOrcid(researcher.o) || undefined,
+      authorName: link.name || `${researcher.f || ''} ${researcher.l || ''}`.trim(),
+      orcid: cleanOrcid(link.orcid) || cleanOrcid(researcher.o) || undefined,
       institutionName: (researcher.dp || [])[0]?.d || 'Universidad de Tarapacá',
       countryCodes: ['CL'],
       isUtaLinked: true,
@@ -151,7 +150,7 @@ export function scanLocalWorksAuthorships(
     const rawAuthorships = (work as Work & { authorships?: unknown[] }).authorships;
     if (Array.isArray(rawAuthorships) && rawAuthorships.length) diag && (diag.worksWithAuthorships += 1);
     if ((work.a || []).length) diag && (diag.worksWithAuthorsArray += 1);
-    if ((work.autores_uta || []).length) diag && (diag.worksWithAutoresUta += 1);
+    if (getUtaLinks(work).length) diag && (diag.worksWithAutoresUta += 1);
     if (i === 0) diag && (diag.samplePublication = work);
     return extractAuthorshipsFromWork(work, index);
   });

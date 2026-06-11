@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, type ReactNode, type Dispatch, type SetStateAction } from 'react';
 import type { Researcher, CoAuthorProfile, TabKey, SearchType, AITabKey, MetricKey, ChatMessage } from '../shared/types';
+import type { OpenAlexAuthorSummary } from '../shared/types/openalex';
 import { getData } from '../utils/dataProcessing';
 import { findResearcherByProfileId, isOpenAlexAuthorId } from '../utils/researcherProfile';
 
@@ -22,7 +23,9 @@ interface UIState {
   openResearcher: (r: Researcher) => void;
   /** ORCID, RUT o OpenAlex A-id para ficha externa (fetch en ResearcherModal) */
   openAlexAuthorId: string | null;
-  openOpenAlexResearcher: (authorIdOrUrl: string) => void;
+  /** Datos completos del autor externo (de la fila del ranking), para pintar la ficha sin red */
+  openAlexAuthor: OpenAlexAuthorSummary | null;
+  openOpenAlexResearcher: (authorIdOrUrl: string, summary?: OpenAlexAuthorSummary | null) => void;
   /** Abre ficha UTA o dispara fetch OpenAlex según profileId en URL */
   resolveResearcherProfile: (profileId: string) => void;
   closeResearcher: () => void;
@@ -66,6 +69,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
 
   const [selected, setSelected] = useState<Researcher | null>(null);
   const [openAlexAuthorId, setOpenAlexAuthorId] = useState<string | null>(null);
+  const [openAlexAuthor, setOpenAlexAuthor] = useState<OpenAlexAuthorSummary | null>(null);
   const [modalTopic, setModalTopic] = useState('');
   const [viewCoAuthor, setViewCoAuthor] = useState<CoAuthorProfile | null>(null);
   const [metricDetail, setMetricDetail] = useState<MetricKey | null>(null);
@@ -83,24 +87,30 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const resetPage = useCallback(() => setPage(0), []);
   const openResearcher = useCallback((r: Researcher) => {
     setOpenAlexAuthorId(null);
+    setOpenAlexAuthor(null);
     setSelected(r);
     setModalTopic('');
     setReportText('');
     setMetricDetail(null);
   }, []);
-  const openOpenAlexResearcher = useCallback((authorIdOrUrl: string) => {
-    setSelected(null);
-    setOpenAlexAuthorId(authorIdOrUrl.trim());
-    setModalTopic('');
-    setReportText('');
-    setMetricDetail(null);
-  }, []);
+  const openOpenAlexResearcher = useCallback(
+    (authorIdOrUrl: string, summary?: OpenAlexAuthorSummary | null) => {
+      setSelected(null);
+      setOpenAlexAuthorId(authorIdOrUrl.trim());
+      setOpenAlexAuthor(summary ?? null);
+      setModalTopic('');
+      setReportText('');
+      setMetricDetail(null);
+    },
+    []
+  );
 
   const resolveResearcherProfile = useCallback((profileId: string) => {
     const key = profileId.trim();
     setModalTopic('');
     setReportText('');
     setMetricDetail(null);
+    setOpenAlexAuthor(null);
 
     if (isOpenAlexAuthorId(key)) {
       setSelected(null);
@@ -120,6 +130,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const closeResearcher = useCallback(() => {
     setSelected(null);
     setOpenAlexAuthorId(null);
+    setOpenAlexAuthor(null);
     setModalTopic('');
     setReportText('');
     setMetricDetail(null);
@@ -132,7 +143,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
     page, setPage, resetPage,
     descubridorQuartile, setDescubridorQuartile,
     descubridorAccess, setDescubridorAccess,
-    selected, openResearcher, openAlexAuthorId, openOpenAlexResearcher, resolveResearcherProfile, closeResearcher,
+    selected, openResearcher, openAlexAuthorId, openAlexAuthor, openOpenAlexResearcher, resolveResearcherProfile, closeResearcher,
     modalTopic, setModalTopic, viewCoAuthor, setViewCoAuthor,
     metricDetail, setMetricDetail, reportText, setReportText,
     reportLoading, setReportLoading,

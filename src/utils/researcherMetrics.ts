@@ -4,6 +4,7 @@ import { cleanOrcid, normalizeAuthorName } from './helpers';
 import { getPublicationAuthorships } from './publicationAuthorships';
 import { enrichWork, getAW } from './dataProcessing';
 import { mergeWorksWithCatalog } from './workAccess';
+import { getUtaLinks } from './utaAuthorLinks';
 
 export type ResearcherMetricsScope = 'local_profile' | 'collaboration' | 'global_openalex';
 
@@ -75,7 +76,7 @@ export function dedupeWorks(works: Work[]): Work[] {
 
 /** Obra vinculada al directorio UTA (tiene al menos un investigador UTA en autores_uta). */
 export function isUtaCollaborationWork(work: Work): boolean {
-  return Boolean((work.autores_uta || []).length);
+  return getUtaLinks(work).length > 0;
 }
 
 export interface CoAuthorMatchInput {

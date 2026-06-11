@@ -13,8 +13,9 @@ import COAUTHORS from '../coauthor-profiles.json';
 import METRICS from '../institutional-metrics.json';
 import RES_METRICS from '../researcher-metrics.json';
 import WORK_CITATIONS from '../data/work-citations.json';
+import DATASETS from '../datasets.json';
 
-initData({ DATA, OA, AW, OD, AI, COAUTHORS, METRICS, RES_METRICS, CITATIONS: WORK_CITATIONS });
+initData({ DATA, OA, AW, OD, AI, COAUTHORS, METRICS, RES_METRICS, CITATIONS: WORK_CITATIONS, DATASETS });
 
 if (import.meta.env.DEV) {
   console.log(

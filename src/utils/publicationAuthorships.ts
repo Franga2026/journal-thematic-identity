@@ -33,7 +33,7 @@ export function getPublicationAuthorships(publication: Work): unknown[] {
 
 export function publicationHasAuthorSignal(publication: Work): boolean {
   if (getPublicationAuthorships(publication).length > 0) return true;
-  if ((publication.autores_uta || []).length > 0) return true;
+  if (Array.isArray(publication.autores_uta) && publication.autores_uta.length > 0) return true;
   if ((publication.a || []).length > 0) return true;
   return false;
 }

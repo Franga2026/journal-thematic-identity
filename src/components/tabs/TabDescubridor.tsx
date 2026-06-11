@@ -1,9 +1,13 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
+import { startTransition } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getAW, enrichWork, buildWorkFacets } from '../../utils/dataProcessing';
 import { useUI } from '../../context/UIContext';
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
+import { getProfileRoutePath, shouldSyncProfileRoute } from '../../utils/researcherProfile';
 import { getSourceAccess, isAccessLookupLoaded } from '../../services/sources/sourceAccess';
 import { TYPE_ES } from '../../utils/constants';
-import DiscoveryCard from '../cards/DiscoveryCard';
+import WorkCard from '../cards/WorkCard';
 import { Pagination, EmptyState } from '../common/UIComponents';
 
 const PAGE_SIZE = 15;
@@ -69,15 +73,31 @@ function Facet({
 
 /* ─── Componente principal ─── */
 export default function TabDescubridor() {
+  const navigate = useTransitionNavigate();
+  const location = useLocation();
   const {
     search,
     setSearch,
-    openResearcher,
+    resolveResearcherProfile,
     descubridorQuartile,
     setDescubridorQuartile,
     descubridorAccess,
     setDescubridorAccess,
   } = useUI();
+
+  const handleOpenResearcher = useCallback(
+    (profileId: string) => {
+      const id = profileId.trim();
+      if (!id) return;
+      startTransition(() => {
+        resolveResearcherProfile(id);
+        if (shouldSyncProfileRoute(location.pathname)) {
+          navigate(getProfileRoutePath(id));
+        }
+      });
+    },
+    [resolveResearcherProfile, navigate, location.pathname],
+  );
 
   const AW = getAW();
   const totalWorks = (AW || []).length;
@@ -323,7 +343,7 @@ export default function TabDescubridor() {
           ) : (
             <div style={{ border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
               {pageData.map((w, i) => (
-                <DiscoveryCard key={`${w.d || ''}-${w.y || ''}-${i}`} w={w} onOpenResearcher={openResearcher} />
+                <WorkCard key={`${w.d || ''}-${w.y || ''}-${i}`} w={w} variant="discovery" onOpenResearcher={handleOpenResearcher} />
               ))}
             </div>
           )}

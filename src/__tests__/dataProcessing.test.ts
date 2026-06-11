@@ -6,6 +6,7 @@ import {
   getWorksForResearcher, linkAutoresUta,
 } from '../utils/dataProcessing';
 import type { Researcher, Work } from '../shared/types';
+import { utaLink } from './utaLinkFixtures';
 
 const MOCK_RESEARCHERS: Researcher[] = [
   { id: '0000-0001', f: 'Ana', l: 'Silva', o: '0000-0001-0000-0001', dp: [{ d: 'Física' }], t: 'Profesora' },
@@ -27,7 +28,11 @@ const MOCK_WORKS: Work[] = [
     qc: '#dc2626',
     a: ['Ana Silva', 'Luis Rojas'],
     d: '10.1234/test1',
-    autores_uta: ['0000-0001', '0000-0001-0000-0001', '0000-0002'],
+    openalex_id: 'W12345',
+    autores_uta: [
+      utaLink('0000-0001', '0000-0001-0000-0001', 'Ana Silva', 0),
+      utaLink('0000-0002', '0000-0002-0000-0002', 'Luis Rojas', 1),
+    ],
   },
   {
     t: 'Chemical analysis methods',
@@ -39,7 +44,7 @@ const MOCK_WORKS: Work[] = [
     field: 'Chemistry',
     qi: 'Q2',
     a: ['Luis Rojas'],
-    autores_uta: ['0000-0002', '0000-0002-0000-0002'],
+    autores_uta: [utaLink('0000-0002', '0000-0002-0000-0002', 'Luis Rojas', 0)],
   },
   {
     t: 'Biodiversity in Atacama',
@@ -51,7 +56,7 @@ const MOCK_WORKS: Work[] = [
     field: 'Biology',
     sdgs: ['Life on land'],
     a: ['Carla Díaz'],
-    autores_uta: ['0000-0003', '0000-0003-0000-0003'],
+    autores_uta: [utaLink('0000-0003', '0000-0003-0000-0003', 'Carla Díaz', 0)],
   },
   {
     t: 'Machine learning review',
@@ -62,7 +67,7 @@ const MOCK_WORKS: Work[] = [
     oa: false,
     field: 'Computer Science',
     a: ['Ana Silva'],
-    autores_uta: ['0000-0001', '0000-0001-0000-0001'],
+    autores_uta: [utaLink('0000-0001', '0000-0001-0000-0001', 'Ana Silva', 0)],
   },
 ];
 
@@ -146,6 +151,12 @@ describe('dataProcessing', () => {
       const enriched = enrichWork(w);
       expect(enriched.y).toBe(2022);
       expect(enriched.field).toBe('Chemistry');
+    });
+
+    it('preserves openalex_id from catalog match', () => {
+      const w: Work = { t: 'Quantum effects in nanostructures' };
+      const enriched = enrichWork(w);
+      expect(enriched.openalex_id).toBe('W12345');
     });
 
     it('returns normalized work if no match in catalog', () => {
@@ -270,13 +281,40 @@ describe('dataProcessing', () => {
       const ana = MOCK_RESEARCHERS[0];
       const works = getWorksForResearcher(ana);
       expect(works.length).toBe(2);
-      expect(works.every((w) => w.autores_uta?.includes('0000-0001'))).toBe(true);
+      expect(works.every((w) => w.autores_uta?.some((l) => l.rut === '0000-0001'))).toBe(true);
     });
 
-    it('links works by author name when autores_uta is empty', () => {
-      const loose: Work[] = [{ t: 'Loose paper', y: 2020, a: ['Pedro Mora'] }];
-      linkAutoresUta(MOCK_RESEARCHERS, loose, MOCK_OA);
-      expect(loose[0].autores_uta).toContain('0000-0004');
+    it('links works when authorship author.id matches ORCID cache', () => {
+      const loose: Work[] = [{
+        t: 'Loose paper',
+        y: 2020,
+        a: ['Ana Silva'],
+        authorships: [{
+          author: {
+            id: 'https://openalex.org/A0000000001',
+            display_name: 'Ana Silva',
+            orcid: null,
+          },
+        }],
+      }];
+      linkAutoresUta(MOCK_RESEARCHERS, loose, {
+        map: { '0000-0001-0000-0001': ['A0000000001'] },
+      });
+      expect(loose[0].autores_uta?.[0]?.rut).toBe('0000-0001');
+      expect(loose[0].autores_uta?.[0]?.author_id).toBe('A0000000001');
+    });
+
+    it('does not link by author name without UTA author.id', () => {
+      const loose: Work[] = [{
+        t: 'Loose paper',
+        y: 2020,
+        a: ['Pedro Mora'],
+        authorships: [{
+          author: { id: 'https://openalex.org/A9999999999', display_name: 'Pedro Mora', orcid: null },
+        }],
+      }];
+      linkAutoresUta(MOCK_RESEARCHERS, loose, { map: { '0000-0001-0000-0001': ['A0000000001'] } });
+      expect(loose[0].autores_uta).toEqual([]);
     });
   });
 });

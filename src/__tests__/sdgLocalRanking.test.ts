@@ -13,8 +13,8 @@ const RESEARCHERS: Researcher[] = [
 ];
 
 const WORKS: Work[] = [
-  { t: 'P1', sdgs: ['Reduced inequalities'], c: 30, autores_uta: ['111'], a: ['Ana Silva'] },
-  { t: 'P2', sdgs: ['Reduced inequalities'], c: 20, autores_uta: ['111'], a: ['Ana Silva', 'Pedro Externo'] },
+  { t: 'P1', sdgs: ['Reduced inequalities'], c: 30, autores_uta: [{ author_id: 'A111', rut: '111', orcid: '0000-0001-1111-1111', name: 'Ana Silva', author_index: 0 }], a: ['Ana Silva'] },
+  { t: 'P2', sdgs: ['Reduced inequalities'], c: 20, autores_uta: [{ author_id: 'A111', rut: '111', orcid: '0000-0001-1111-1111', name: 'Ana Silva', author_index: 0 }], a: ['Ana Silva', 'Pedro Externo'] },
 ];
 
 describe('local SDG ranking', () => {
@@ -28,8 +28,8 @@ describe('local SDG ranking', () => {
 
   it('buildUtaResearchersRanking orders by perfiles (data.json) index', () => {
     const works: Work[] = [
-      { t: 'P1', sdgs: ['Reduced inequalities'], autores_uta: ['222'] },
-      { t: 'P2', sdgs: ['Reduced inequalities'], autores_uta: ['111'] },
+      { t: 'P1', sdgs: ['Reduced inequalities'], autores_uta: [{ author_id: 'A222', rut: '222', orcid: '0000-0002-2222-2222', name: 'Luis', author_index: 0 }] },
+      { t: 'P2', sdgs: ['Reduced inequalities'], autores_uta: [{ author_id: 'A111', rut: '111', orcid: '0000-0001-1111-1111', name: 'Ana Silva', author_index: 0 }] },
     ];
     const diag = new SdgRankingDiagnostics(10, 'Reduced inequalities', 'local');
     const rows = buildUtaResearchersRanking(

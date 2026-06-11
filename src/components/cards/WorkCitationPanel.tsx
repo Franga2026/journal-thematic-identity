@@ -16,6 +16,7 @@ import { getWorkCitationId } from '../../utils/citation/workCitationId';
 interface WorkCitationPanelProps {
   work: Work;
   compact?: boolean;
+  ghost?: boolean;
 }
 
 const FORMATS: Array<{ key: keyof WorkCitations; label: string }> = [
@@ -73,7 +74,27 @@ function downloadText(filename: string, content: string, mime: string) {
   URL.revokeObjectURL(url);
 }
 
-const WorkCitationPanel = memo(function WorkCitationPanel({ work, compact }: WorkCitationPanelProps) {
+function IconQuote({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M3 21c3 0 7-1 7-8V5H3v14Z" />
+      <path d="M14 21c3 0 7-1 7-8V5h-7v14Z" />
+    </svg>
+  );
+}
+
+const WorkCitationPanel = memo(function WorkCitationPanel({ work, compact, ghost }: WorkCitationPanelProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [coords, setCoords] = useState<PopoverCoords | null>(null);
@@ -234,10 +255,10 @@ const WorkCitationPanel = memo(function WorkCitationPanel({ work, compact }: Wor
       <button
         type="button"
         onClick={handleToggle}
-        className="btn work-citation-panel__btn"
+        className={`btn work-citation-panel__btn${ghost ? ' work-citation-panel__btn--ghost' : ''}`}
         title="Citar publicación"
         aria-expanded={open}
-        style={{
+        style={ghost ? undefined : {
           background: '#475569',
           color: '#fff',
           padding: compact ? '3px 10px' : '5px 14px',
@@ -246,7 +267,14 @@ const WorkCitationPanel = memo(function WorkCitationPanel({ work, compact }: Wor
           cursor: 'pointer',
         }}
       >
-        📎 Citar
+        {ghost ? (
+          <>
+            <IconQuote className="work-citation-panel__icon" />
+            Citar
+          </>
+        ) : (
+          <>📎 Citar</>
+        )}
       </button>
       {popover && createPortal(popover, document.body)}
     </div>

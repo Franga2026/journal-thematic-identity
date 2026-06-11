@@ -2,11 +2,17 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
 import { findResearcherByProfileId } from '../../utils/researcherProfile';
-import { getData } from '../../utils/dataProcessing';
+import { getData, getOA } from '../../utils/dataProcessing';
 import { resolveSdgFromRoute } from '../../utils/sdgNormalize';
 import { clearSdgRankingCache } from '../../services/sdg/cache';
 import { getAllOdsRankings } from '../../services/sdg/getResearchersBySdg';
+import { collectPublicationsForSdg } from '../../utils/sdgWorksSource';
+import { workMatchesSdg } from '../../utils/odsResearchers';
+import { cleanOrcid } from '../../utils/helpers';
+import { SDG_COLORS } from '../../utils/constants';
 import type { SdgRankedResearcher, SdgResearchersApiResponse } from '../../shared/types/sdgResearcher';
+import type { Work } from '../../shared/types';
+import { getUtaLinks } from '../../utils/utaAuthorLinks';
 import OdsResearcherCard from './OdsResearcherCard';
 import { Loading, EmptyState } from '../common/UIComponents';
 
@@ -67,6 +73,25 @@ const INITIAL_TAB: TabState = {
   loaded: false,
 };
 
+/** Obras de un autor externo (OpenAlex) en este ODS, desde getOA().authors[...].works. */
+function getExternalOdsWorks(row: SdgRankedResearcher, sdgName: string, sdgNum: number): Work[] {
+  const authors = (getOA().authors || {}) as Record<
+    string,
+    { id?: string; orcid?: string; works?: Work[] }
+  >;
+  const oaId = (row.author_openalex_id || '').replace('https://openalex.org/', '');
+  const orcid = cleanOrcid(row.orcid);
+  const profile =
+    authors[row.author_openalex_id] ||
+    authors[oaId] ||
+    Object.values(authors).find(
+      (p) =>
+        (oaId && p?.id && String(p.id).includes(oaId)) ||
+        (orcid && p?.orcid && cleanOrcid(p.orcid) === orcid)
+    );
+  return (profile?.works || []).filter((w) => workMatchesSdg(w, sdgName, sdgNum));
+}
+
 export default function OdsResearchersPanel({
   sdgName,
   sdgNum: sdgNumProp,
@@ -85,6 +110,7 @@ export default function OdsResearchersPanel({
   );
 
   const sdgId = sdgContext?.sdgNum ?? NaN;
+  const accent = SDG_COLORS[sdgName as keyof typeof SDG_COLORS] || '#1e3a8a';
 
   const [utaState, setUtaState] = useState<TabState>(INITIAL_TAB);
   const [iberoState, setIberoState] = useState<TabState>(INITIAL_TAB);
@@ -173,6 +199,17 @@ export default function OdsResearchersPanel({
     const catalog = getData();
     const assignedTotal = state.rows.reduce((s, r) => s + r.publications_count, 0);
 
+    // Obras del ODS agrupadas por investigador UTA (modal al pulsar el badge).
+    const sdgWorks = collectPublicationsForSdg(sdgName, sdgId);
+    const worksByResearcher = new Map<string, Work[]>();
+    sdgWorks.forEach((w) => {
+      getUtaLinks(w).forEach((link) => {
+        const list = worksByResearcher.get(link.rut) || [];
+        list.push(w);
+        worksByResearcher.set(link.rut, list);
+      });
+    });
+
     return (
       <>
         <p className="ods-uta-summary">
@@ -180,18 +217,24 @@ export default function OdsResearchersPanel({
           <strong>{assignedTotal.toLocaleString()}</strong> artículos asignados en este ODS
           {state.worksFetched != null ? ` (${state.worksFetched.toLocaleString()} publicaciones en repositorio)` : ''}
         </p>
-        <div className="ods-uta-researcher-list">
+        <div className="grid grid--profiles">
           {state.rows.map((row) => {
             const local =
               row.uta_researcher_id != null
                 ? findResearcherByProfileId(catalog, row.uta_researcher_id)
                 : undefined;
+            const odsWorks =
+              worksByResearcher.get(row.uta_researcher_id) ||
+              (row.orcid ? worksByResearcher.get(row.orcid) : undefined) ||
+              [];
             return (
               <OdsResearcherCard
                 key={row.id}
                 variant="uta"
                 row={row}
                 researcher={local}
+                odsWorks={odsWorks}
+                accent={accent}
                 onClick={() => openProfile(row)}
               />
             );
@@ -221,16 +264,28 @@ export default function OdsResearchersPanel({
     if (state.emptyMessage) {
       return <EmptyState icon="📭" title={state.emptyTitle} message={state.emptyMessage} />;
     }
+
+    // Buscar el perfil UTA local de cada fila (por id o por ORCID) para mostrar foto.
+    const catalog = getData();
+
     return (
-      <div className="ods-researcher-list">
-        {state.rows.map((row) => (
-          <OdsResearcherCard
-            key={row.id}
-            variant="ranking"
-            row={row}
-            onClick={() => openProfile(row)}
-          />
-        ))}
+      <div className="grid grid--profiles">
+        {state.rows.map((row) => {
+          const local =
+            (row.uta_researcher_id ? findResearcherByProfileId(catalog, row.uta_researcher_id) : undefined) ||
+            (row.orcid ? findResearcherByProfileId(catalog, row.orcid) : undefined);
+          return (
+            <OdsResearcherCard
+              key={row.id}
+              variant="ranking"
+              row={row}
+              researcher={local}
+              odsWorks={getExternalOdsWorks(row, sdgName, sdgId)}
+              accent={accent}
+              onClick={() => openProfile(row)}
+            />
+          );
+        })}
       </div>
     );
   };

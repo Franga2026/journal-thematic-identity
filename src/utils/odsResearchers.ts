@@ -1,7 +1,8 @@
 import type { Researcher, Work } from '../shared/types';
 import { SDG_ES, SDG_NAME_TO_NUMBER } from './constants';
-import { cleanOrcid, getResearcherUtaId, normalizeAuthorName } from './helpers';
+import { cleanOrcid, getResearcherUtaId } from './helpers';
 import { sortResearchersByPerfilesOrder } from './perfilesOrder';
+import { getUtaLinks, workHasResearcher } from './utaAuthorLinks';
 import { sdgNumFromName } from './sdgNormalize';
 
 function normalizeSdgLabel(value: string): string {
@@ -43,13 +44,21 @@ export function filterWorksBySdg(
   return works.filter((w) => workMatchesSdg(w, sdgName, sdgNum));
 }
 
-/** IDs únicos en autores_uta de un conjunto de obras */
+/** Vinculación por autores_uta (ORCID confirmado en authorships). */
+export function workLinkedToResearcher(work: Work, r: Researcher): boolean {
+  return workHasResearcher(work, r);
+}
+
+export function filterOdsWorksForResearcher(works: Work[], researcher: Researcher): Work[] {
+  return works.filter((w) => workLinkedToResearcher(w, researcher));
+}
+
+/** RUTs únicos en autores_uta de un conjunto de obras */
 export function collectAutoresUtaIds(works: Work[]): Set<string> {
   const ids = new Set<string>();
   works.forEach((w) => {
-    (w.autores_uta || []).forEach((id) => {
-      const trimmed = (id || '').trim();
-      if (trimmed) ids.add(trimmed);
+    getUtaLinks(w).forEach((link) => {
+      if (link.rut.trim()) ids.add(link.rut.trim());
     });
   });
   return ids;
@@ -96,13 +105,7 @@ export function buildUtaResearchersForSdg(
   const researchers = resolveUtaResearchers(linkedIds, data);
 
   return researchers.map((researcher) => {
-    const utaId = getResearcherUtaId(researcher);
-    const orcid = cleanOrcid(researcher.o);
-    const publicationCount = sdgWorks.filter((w) => {
-      const linked = w.autores_uta || [];
-      return linked.includes(utaId) || Boolean(orcid && linked.includes(orcid));
-    }).length;
-
+    const publicationCount = sdgWorks.filter((w) => workHasResearcher(w, researcher)).length;
     return { researcher, publicationCount };
   });
 }

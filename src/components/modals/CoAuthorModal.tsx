@@ -1,7 +1,9 @@
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useUI } from '../../context/UIContext';
 import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
-import { getData, resolveCoAuthorProfile, METRICS_SCOPE_LABELS } from '../../utils/dataProcessing';
+import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
+import { getData, resolveCoAuthorProfile } from '../../utils/dataProcessing';
 import { stripTags } from '../../utils/helpers';
 import {
   COAUTHOR_EMPTY_LIST_MESSAGE,
@@ -10,8 +12,8 @@ import {
   shouldShowCoAuthorLinkingNote,
 } from '../../utils/coAuthorsTechnicalNote';
 import {
-  type CoAuthorModalTab,
   type PubSortKey,
+  buildCoAuthorKpiCards,
   countUtaCoauthorsFromWorks,
   getCoAuthorOpenAlexAuthorUrl,
   getCoAuthorOrcidUrl,
@@ -19,32 +21,57 @@ import {
   sortCoAuthorWorks,
 } from '../../utils/coAuthorProfileView';
 import { getCitationsForWork } from '../../utils/citation/getCitationsForWork';
-import CoAuthorPublicationCard from '../coauthor/CoAuthorPublicationCard';
+import { findResearcherByProfileId } from '../../utils/researcherProfile';
+import WorkCard from '../cards/WorkCard';
+import ResearcherProfileCard from '../researcher/ResearcherProfileCard';
 import AISummaryButton from '../ai/AISummaryButton';
 import { analyzeCoauthor } from '../../api/aiApi';
 import type { CoauthorAnalysisStructured } from '../../services/ai/types';
 import { Pagination } from '../common/UIComponents';
+import {
+  fetchCoAuthorDatasetRecords,
+  fetchCoAuthorDatasetsCount,
+} from '../../services/coauthors/coAuthorDatasetsCount';
+import type { DatasetRecord, Researcher } from '../../shared/types';
 
 const PAGE_SIZE = 8;
 
-const TABS: { key: CoAuthorModalTab; label: string }[] = [
-  { key: 'resumen', label: 'Resumen' },
-  { key: 'publicaciones', label: 'Publicaciones' },
-  { key: 'colaboracion', label: 'Colaboración UTA' },
-  { key: 'impacto', label: 'Impacto' },
-  { key: 'red', label: 'Red de coautoría' },
-];
+function IconChevronDown({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
 
 export default function CoAuthorModal() {
   const { viewCoAuthor, setViewCoAuthor } = useApp();
+  const { openResearcher } = useUI();
+  const navigate = useTransitionNavigate();
   const { openLocalResearcherProfile } = useOpenResearcherProfile();
   const catalog = getData();
 
-  const [activeTab, setActiveTab] = useState<CoAuthorModalTab>('resumen');
   const [page, setPage] = useState(0);
   const [pubSearch, setPubSearch] = useState('');
   const [fieldFilter, setFieldFilter] = useState('');
   const [sortKey, setSortKey] = useState<PubSortKey>('recent');
+  const [datasetsCount, setDatasetsCount] = useState<number | undefined>(undefined);
+  const [datasetsLoading, setDatasetsLoading] = useState(false);
+  const [datasetsExpanded, setDatasetsExpanded] = useState(false);
+  const [utaExpanded, setUtaExpanded] = useState(false);
+  const [coauthorDatasets, setCoauthorDatasets] = useState<DatasetRecord[]>([]);
+  const [datasetsListLoading, setDatasetsListLoading] = useState(false);
 
   const ca = useMemo(() => {
     if (!viewCoAuthor) return null;
@@ -54,21 +81,86 @@ export default function CoAuthorModal() {
 
   const allWorks = ca?.works || [];
   const utaCoauthorCount = useMemo(() => countUtaCoauthorsFromWorks(allWorks), [allWorks]);
-  const utaLinks = useMemo(
+  const utaCollaborators = useMemo(
     () => listUtaCollaboratorsFromWorks(allWorks, catalog),
-    [allWorks, catalog]
+    [allWorks, catalog],
   );
 
   const orcidUrl = ca ? getCoAuthorOrcidUrl(ca) : null;
   const openAlexAuthorUrl = ca ? getCoAuthorOpenAlexAuthorUrl(ca) : null;
 
   useEffect(() => {
-    setActiveTab('resumen');
     setPage(0);
     setPubSearch('');
     setFieldFilter('');
     setSortKey('recent');
+    setDatasetsExpanded(false);
+    setUtaExpanded(false);
+    setCoauthorDatasets([]);
   }, [viewCoAuthor]);
+
+  useEffect(() => {
+    if (!ca) {
+      setDatasetsCount(undefined);
+      setDatasetsLoading(false);
+      return;
+    }
+    let cancelled = false;
+    setDatasetsLoading(true);
+    setDatasetsCount(undefined);
+
+    fetchCoAuthorDatasetsCount({ oaId: ca.oaId, orcid: ca.orcid })
+      .then((count) => {
+        if (!cancelled) setDatasetsCount(count);
+      })
+      .catch(() => {
+        if (!cancelled) setDatasetsCount(0);
+      })
+      .finally(() => {
+        if (!cancelled) setDatasetsLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [ca?.oaId, ca?.orcid]);
+
+  useEffect(() => {
+    if (!datasetsExpanded || !ca || (datasetsCount ?? 0) <= 0) return;
+
+    let cancelled = false;
+    setDatasetsListLoading(true);
+
+    fetchCoAuthorDatasetRecords({ oaId: ca.oaId, orcid: ca.orcid })
+      .then((records) => {
+        if (!cancelled) {
+          setCoauthorDatasets(
+            [...records].sort((a, b) => (b.year ?? 0) - (a.year ?? 0)),
+          );
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setCoauthorDatasets([]);
+      })
+      .finally(() => {
+        if (!cancelled) setDatasetsListLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [datasetsExpanded, ca, datasetsCount]);
+
+  const handleOpenUtaResearcher = useCallback(
+    (researcher: Researcher, rut: string) => {
+      const profileId = rut.trim();
+      if (!profileId) return;
+      setViewCoAuthor(null);
+      openResearcher(researcher);
+      navigate(`/perfiles/${encodeURIComponent(profileId)}`);
+    },
+    [setViewCoAuthor, openResearcher, navigate],
+  );
 
   const filteredWorks = useMemo(() => {
     let list = sortCoAuthorWorks(allWorks, sortKey);
@@ -86,6 +178,16 @@ export default function CoAuthorModal() {
   const safePage = Math.min(page, totalPages - 1);
   const pageWorks = filteredWorks.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
 
+  const handleOpenResearcherFromWork = useCallback(
+    (profileId: string) => {
+      const researcher = findResearcherByProfileId(catalog, profileId);
+      if (!researcher) return;
+      setViewCoAuthor(null);
+      openLocalResearcherProfile(researcher);
+    },
+    [catalog, setViewCoAuthor, openLocalResearcherProfile],
+  );
+
   const handleExportReference = useCallback(() => {
     const w = filteredWorks[0] || allWorks[0];
     if (!w) return;
@@ -100,10 +202,20 @@ export default function CoAuthorModal() {
     URL.revokeObjectURL(url);
   }, [filteredWorks, allWorks]);
 
+  const metricCards = useMemo(
+    () =>
+      ca
+        ? buildCoAuthorKpiCards(ca, utaCoauthorCount, {
+            datasetsCount,
+            datasetsLoading,
+          })
+        : [],
+    [ca, utaCoauthorCount, datasetsCount, datasetsLoading],
+  );
+
   if (!ca) return null;
 
   const listScope = ca.publicationListScope || ca.metricsScope || 'collaboration';
-  const listScopeLabel = METRICS_SCOPE_LABELS[listScope];
   const global = ca.global_openalex;
   const showGlobal =
     global &&
@@ -118,94 +230,6 @@ export default function CoAuthorModal() {
     globalWorksCount: global?.works_count,
     orcid: ca.orcid,
   });
-
-  const pubTabLabel = `Publicaciones (${allWorks.length})`;
-
-  const metricCards = [
-    {
-      icon: '📄',
-      value: ca.works_count ?? 0,
-      label: 'Publicaciones',
-      tab: 'publicaciones' as CoAuthorModalTab,
-    },
-    {
-      icon: '❝',
-      value: ca.cited_by_count ?? 0,
-      label: 'Citas',
-      tab: 'impacto' as CoAuthorModalTab,
-    },
-    {
-      icon: '📈',
-      value: ca.h_index ?? 0,
-      label: 'H-index',
-      tab: 'impacto' as CoAuthorModalTab,
-    },
-    {
-      icon: '👥',
-      value: utaCoauthorCount,
-      label: 'Coautores UTA',
-      tab: 'colaboracion' as CoAuthorModalTab,
-    },
-  ];
-
-  const renderPublications = () => (
-    <div className="coauthor-panel">
-      <div className="coauthor-panel__head">
-        <div>
-          <h3 className="coauthor-panel__title">
-            Publicaciones indexadas ({filteredWorks.length})
-          </h3>
-          <p className="coauthor-panel__subtitle">{listScopeLabel}</p>
-        </div>
-        {allWorks.length > 3 && (
-          <div className="coauthor-panel__tools">
-            <select
-              className="filter-bar__input coauthor-sort"
-              value={sortKey}
-              onChange={(e) => {
-                setSortKey(e.target.value as PubSortKey);
-                setPage(0);
-              }}
-              aria-label="Ordenar publicaciones"
-            >
-              <option value="recent">Más recientes</option>
-              <option value="cited">Más citadas</option>
-              <option value="oldest">Más antiguas</option>
-            </select>
-            <input
-              className="filter-bar__input"
-              value={pubSearch}
-              onChange={(e) => {
-                setPubSearch(e.target.value);
-                setPage(0);
-              }}
-              placeholder="Buscar publicación..."
-              aria-label="Buscar publicación"
-            />
-          </div>
-        )}
-      </div>
-      {pageWorks.length > 0 ? (
-        <>
-          <div className="coauthor-pub-list">
-            {pageWorks.map((w, i) => (
-              <CoAuthorPublicationCard
-                key={w.d || w.t || `${safePage}-${i}`}
-                work={w}
-                authorHIndex={ca.h_index}
-              />
-            ))}
-          </div>
-          <Pagination page={safePage} totalPages={totalPages} onPageChange={setPage} />
-        </>
-      ) : (
-        <EmptyWorksMessage
-          showLinkingNote={showLinkingNote}
-          showGlobal={Boolean(showGlobal)}
-        />
-      )}
-    </div>
-  );
 
   return (
     <div className="modal-overlay coauthor-overlay" onClick={() => setViewCoAuthor(null)}>
@@ -224,43 +248,186 @@ export default function CoAuthorModal() {
           >
             ×
           </button>
-          <span className="coauthor-hero__badge">COLABORADOR INTERNACIONAL</span>
-          <div className="coauthor-hero__top">
-            <div className="coauthor-hero__identity">
-              <h2 id="coauthor-modal-title" className="coauthor-hero__name">
-                {ca.name}
-                {orcidUrl && (
-                  <a
-                    href={orcidUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="coauthor-hero__verified"
-                    title="Ver perfil ORCID"
-                    aria-label="Perfil ORCID verificado"
-                  >
-                    ✓
-                  </a>
-                )}
-              </h2>
-              {(ca.institutions || []).length > 0 && (
-                <ul className="coauthor-hero__institutions">
-                  {ca.institutions!.map((inst, i) => (
-                    <li key={i}>{inst}</li>
-                  ))}
-                </ul>
+          <span className="coauthor-hero__badge">Colaborador internacional</span>
+          <h2 id="coauthor-modal-title" className="coauthor-hero__name">
+            {ca.name}
+            {orcidUrl && (
+              <a
+                href={orcidUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="coauthor-hero__verified"
+                title="Ver perfil ORCID"
+                aria-label="Perfil ORCID verificado"
+              >
+                ✓
+              </a>
+            )}
+          </h2>
+          {(ca.institutions || []).length > 0 && (
+            <p className="coauthor-hero__institutions">{ca.institutions!.join(' · ')}</p>
+          )}
+          {(orcidUrl || openAlexAuthorUrl) && (
+            <div className="coauthor-hero__links">
+              {orcidUrl && (
+                <a
+                  href={orcidUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="coauthor-hero__link"
+                >
+                  ORCID
+                </a>
+              )}
+              {orcidUrl && openAlexAuthorUrl && (
+                <span className="coauthor-hero__link-sep" aria-hidden>
+                  ·
+                </span>
+              )}
+              {openAlexAuthorUrl && (
+                <a
+                  href={openAlexAuthorUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="coauthor-hero__link"
+                >
+                  OpenAlex
+                </a>
               )}
             </div>
-            <div className="coauthor-hero__lines">
-              <div className="coauthor-hero__lines-title">Líneas de investigación</div>
-              <div className="coauthor-hero__chips">
-                {(ca.fields || []).map((f) => (
+          )}
+        </header>
+
+        <div className="coauthor-body">
+          <section className="coauthor-section" aria-labelledby="coauthor-metrics-label">
+            <h3 id="coauthor-metrics-label" className="coauthor-section__label">
+              Métricas de colaboración con UTA
+            </h3>
+            {metricCards.length > 0 && (
+              <>
+                <div className="coauthor-metrics">
+                  {metricCards.map((m) => {
+                    const isDatasets = m.key === 'datasets';
+                    const isUta = m.key === 'uta';
+                    const isExpanded = isDatasets ? datasetsExpanded : isUta ? utaExpanded : false;
+                    const valueClass = `coauthor-metric__value${
+                      m.positive ? ' coauthor-metric__value--positive' : ''
+                    }${m.key === 'fwci' && !m.positive && m.display !== '—' ? ' coauthor-metric__value--neutral' : ''}`;
+                    const body = (
+                      <>
+                        <span className="coauthor-metric__value-row">
+                          <span className={valueClass}>{m.display}</span>
+                          {m.expandable && (
+                            <IconChevronDown
+                              className={`coauthor-metric__chevron ti-chevron-down${
+                                isExpanded ? ' coauthor-metric__chevron--open' : ''
+                              }`}
+                            />
+                          )}
+                        </span>
+                        <span className="coauthor-metric__label">{m.label}</span>
+                      </>
+                    );
+
+                    if (m.expandable && (isDatasets || isUta)) {
+                      return (
+                        <button
+                          key={m.key}
+                          type="button"
+                          className={`coauthor-metric coauthor-metric--expandable${
+                            isExpanded ? ' coauthor-metric--active' : ''
+                          }`}
+                          aria-label={`${m.label}: ${m.display}`}
+                          aria-expanded={isExpanded}
+                          aria-controls={`coauthor-${m.key}-panel`}
+                          onClick={() => {
+                            if (isDatasets) setDatasetsExpanded((open) => !open);
+                            if (isUta) setUtaExpanded((open) => !open);
+                          }}
+                        >
+                          {body}
+                        </button>
+                      );
+                    }
+
+                    return (
+                      <div
+                        key={m.key}
+                        className="coauthor-metric"
+                        aria-label={`${m.label}: ${m.display}`}
+                      >
+                        {body}
+                      </div>
+                    );
+                  })}
+                </div>
+                {datasetsExpanded && (datasetsCount ?? 0) > 0 && (
+                  <div
+                    id="coauthor-datasets-panel"
+                    className="coauthor-datasets-panel"
+                    role="region"
+                    aria-label={`Datasets del colaborador (${datasetsCount})`}
+                  >
+                    {datasetsListLoading && (
+                      <p className="coauthor-datasets-panel__loading">Cargando datasets…</p>
+                    )}
+                    {!datasetsListLoading &&
+                      coauthorDatasets.map((ds) => (
+                        <WorkCard
+                          key={ds.openalex_id}
+                          ds={ds}
+                          variant="dataset"
+                          onOpenResearcher={handleOpenResearcherFromWork}
+                        />
+                      ))}
+                    {!datasetsListLoading && coauthorDatasets.length === 0 && (
+                      <p className="coauthor-datasets-panel__empty">
+                        No se pudieron cargar los datasets.
+                      </p>
+                    )}
+                  </div>
+                )}
+                {utaExpanded && utaCoauthorCount > 0 && (
+                  <div
+                    id="coauthor-uta-panel"
+                    className="coauthor-uta-panel"
+                    role="region"
+                    aria-label={`Coautores UTA (${utaCoauthorCount})`}
+                  >
+                    {utaCollaborators.map((link) =>
+                      link.researcher ? (
+                        <ResearcherProfileCard
+                          key={link.id}
+                          researcher={link.researcher}
+                          compact
+                          onClick={(researcher) => handleOpenUtaResearcher(researcher, link.id)}
+                        />
+                      ) : (
+                        <div key={link.id} className="coauthor-uta-panel__missing">
+                          <span className="coauthor-uta-panel__missing-name">{link.name}</span>
+                          <span className="coauthor-uta-panel__missing-hint">Sin ficha local</span>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+          </section>
+
+          {(ca.fields || []).length > 0 && (
+            <section className="coauthor-section" aria-labelledby="coauthor-lines-label">
+              <h3 id="coauthor-lines-label" className="coauthor-section__label">
+                Líneas de investigación
+              </h3>
+              <div className="coauthor-line-chips">
+                {ca.fields!.map((f) => (
                   <button
                     key={f}
                     type="button"
                     className={`coauthor-line-chip ${fieldFilter === f ? 'coauthor-line-chip--active' : ''}`}
                     onClick={() => {
                       setFieldFilter((prev) => (prev === f ? '' : f));
-                      setActiveTab('publicaciones');
                       setPage(0);
                     }}
                   >
@@ -268,186 +435,94 @@ export default function CoAuthorModal() {
                   </button>
                 ))}
               </div>
-              <AISummaryButton
-                label="✨ Ver análisis IA completo"
-                panelTitle={`Colaboración — ${ca.name}`}
-                fetchAnalysis={() =>
-                  analyzeCoauthor({
-                    orcid: viewCoAuthor?.orcid,
-                    name: viewCoAuthor?.name,
-                    oaId: viewCoAuthor?.oaId,
-                  })
-                }
-                renderStructured={(data: CoauthorAnalysisStructured) => (
-                  <div className="ai-coauthor-analysis">
-                    <p><strong>Tipo de colaboración:</strong> {data.tipo_colaboracion}</p>
-                    <p><strong>Impacto:</strong> {data.impacto_colaboracion}</p>
-                    {data.temas_comunes?.length > 0 && (
-                      <p><strong>Temas comunes:</strong> {data.temas_comunes.join(' · ')}</p>
-                    )}
-                  </div>
-                )}
-              />
-            </div>
-          </div>
-          <p className="coauthor-hero__scope">{METRICS_SCOPE_LABELS[ca.metricsScope || 'collaboration']}</p>
-          <div className="coauthor-metrics">
-            {metricCards.map((m) => (
-              <button
-                key={m.label}
-                type="button"
-                className="coauthor-metric"
-                onClick={() => setActiveTab(m.tab)}
-                aria-label={`${m.label}: ${m.value}`}
-              >
-                <span className="coauthor-metric__icon" aria-hidden>
-                  {m.icon}
-                </span>
-                <span className="coauthor-metric__value">{Number(m.value).toLocaleString()}</span>
-                <span className="coauthor-metric__label">{m.label}</span>
-              </button>
-            ))}
-          </div>
-          <div className="coauthor-hero__links">
-            {orcidUrl && (
-              <a href={orcidUrl} target="_blank" rel="noopener noreferrer" className="coauthor-hero__link">
-                ORCID
-              </a>
-            )}
-            {openAlexAuthorUrl && (
-              <a
-                href={openAlexAuthorUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="coauthor-hero__link"
-              >
-                OpenAlex
-              </a>
-            )}
-          </div>
-        </header>
-
-        <nav className="coauthor-tabs" role="tablist" aria-label="Secciones del colaborador">
-          {TABS.map(({ key, label }) => (
-            <button
-              key={key}
-              type="button"
-              role="tab"
-              aria-selected={activeTab === key}
-              className={`coauthor-tabs__btn ${activeTab === key ? 'coauthor-tabs__btn--active' : ''}`}
-              onClick={() => setActiveTab(key)}
-            >
-              {key === 'publicaciones' ? pubTabLabel : label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="coauthor-body">
-          {(activeTab === 'resumen' || activeTab === 'publicaciones') && renderPublications()}
-
-          {activeTab === 'colaboracion' && (
-            <div className="coauthor-panel">
-              <h3 className="coauthor-panel__title">Colaboración con investigadores UTA</h3>
-              <p className="coauthor-panel__subtitle">
-                {utaCoauthorCount} investigadores UTA vinculados en publicaciones conjuntas del repositorio local.
-              </p>
-              {utaLinks.length > 0 ? (
-                <ul className="coauthor-uta-list">
-                  {utaLinks.map((u) => (
-                    <li key={u.id}>
-                      <button
-                        type="button"
-                        className="coauthor-uta-list__btn"
-                        onClick={() => {
-                          if (u.researcher) {
-                            setViewCoAuthor(null);
-                            openLocalResearcherProfile(u.researcher);
-                          }
-                        }}
-                        disabled={!u.researcher}
-                      >
-                        {u.name}
-                        {!u.researcher && (
-                          <span className="coauthor-uta-list__hint"> (sin ficha local)</span>
-                        )}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="coauthor-panel__empty">No hay coautores UTA identificados en obras locales.</p>
-              )}
-            </div>
+            </section>
           )}
 
-          {activeTab === 'impacto' && (
-            <div className="coauthor-panel">
-              <h3 className="coauthor-panel__title">Impacto bibliométrico</h3>
-              <div className="coauthor-impact-grid">
-                <div className="coauthor-impact-card">
-                  <span className="coauthor-impact-card__label">Publicaciones (colaboración UTA)</span>
-                  <strong>{(ca.works_count ?? 0).toLocaleString()}</strong>
-                </div>
-                <div className="coauthor-impact-card">
-                  <span className="coauthor-impact-card__label">Citas (colaboración UTA)</span>
-                  <strong>{(ca.cited_by_count ?? 0).toLocaleString()}</strong>
-                </div>
-                <div className="coauthor-impact-card">
-                  <span className="coauthor-impact-card__label">H-index (colaboración UTA)</span>
-                  <strong>{ca.h_index ?? 0}</strong>
-                </div>
-              </div>
-              {showGlobal && global && (
-                <div className="coauthor-global-box">
-                  <h4>{METRICS_SCOPE_LABELS.global_openalex}</h4>
+          <div className="coauthor-ai-wrap">
+            <AISummaryButton
+              className="coauthor-ai-btn"
+              label="✨ Ver análisis IA completo"
+              panelTitle={`Colaboración — ${ca.name}`}
+              fetchAnalysis={() =>
+                analyzeCoauthor({
+                  orcid: viewCoAuthor?.orcid,
+                  name: viewCoAuthor?.name,
+                  oaId: viewCoAuthor?.oaId,
+                })
+              }
+              renderStructured={(data: CoauthorAnalysisStructured) => (
+                <div className="ai-coauthor-analysis">
                   <p>
-                    <strong>{(global.works_count ?? 0).toLocaleString()}</strong> publicaciones ·{' '}
-                    <strong>{(global.cited_by_count ?? 0).toLocaleString()}</strong> citas · h-index{' '}
-                    <strong>{global.h_index ?? 0}</strong>
+                    <strong>Tipo de colaboración:</strong> {data.tipo_colaboracion}
                   </p>
-                  <p className="coauthor-panel__subtitle">
-                    Totales de carrera en OpenAlex; no equivalen al repositorio UTA.
+                  <p>
+                    <strong>Impacto:</strong> {data.impacto_colaboracion}
                   </p>
-                  {openAlexAuthorUrl && (
-                    <a
-                      href={openAlexAuthorUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="coauthor-hero__link"
-                    >
-                      Ver autor en OpenAlex →
-                    </a>
+                  {data.temas_comunes?.length > 0 && (
+                    <p>
+                      <strong>Temas comunes:</strong> {data.temas_comunes.join(' · ')}
+                    </p>
                   )}
                 </div>
               )}
-            </div>
-          )}
+            />
+          </div>
 
-          {activeTab === 'red' && (
-            <div className="coauthor-panel">
-              <h3 className="coauthor-panel__title">Red de coautoría</h3>
-              <p className="coauthor-panel__subtitle">
-                Coautores en publicaciones indexadas con la UTA.
-              </p>
-              {allWorks.length > 0 ? (
-                <ul className="coauthor-network-list">
-                  {[
-                    ...new Set(
-                      allWorks.flatMap((w) => (w.a || []).map((n) => n.trim()).filter(Boolean))
-                    ),
-                  ]
-                    .slice(0, 40)
-                    .map((name) => (
-                      <li key={name}>
-                        <span className="coauthor-network-list__name">{name}</span>
-                      </li>
-                    ))}
-                </ul>
-              ) : (
-                <p className="coauthor-panel__empty">Sin autores en obras vinculadas.</p>
+          <section className="coauthor-section coauthor-publications" aria-labelledby="coauthor-pubs-label">
+            <div className="coauthor-panel__head">
+              <h3 id="coauthor-pubs-label" className="coauthor-panel__title">
+                Publicaciones indexadas ({filteredWorks.length})
+              </h3>
+              {allWorks.length > 0 && (
+                <div className="coauthor-panel__tools">
+                  <select
+                    className="filter-bar__input coauthor-sort coauthor-panel__input"
+                    value={sortKey}
+                    onChange={(e) => {
+                      setSortKey(e.target.value as PubSortKey);
+                      setPage(0);
+                    }}
+                    aria-label="Ordenar publicaciones"
+                  >
+                    <option value="recent">Más recientes</option>
+                    <option value="cited">Más citadas</option>
+                    <option value="oldest">Más antiguas</option>
+                  </select>
+                  <input
+                    className="filter-bar__input coauthor-panel__input"
+                    value={pubSearch}
+                    onChange={(e) => {
+                      setPubSearch(e.target.value);
+                      setPage(0);
+                    }}
+                    placeholder="Buscar publicación..."
+                    aria-label="Buscar publicación"
+                  />
+                </div>
               )}
             </div>
-          )}
+            {pageWorks.length > 0 ? (
+              <>
+                <div className="coauthor-pub-list">
+                  {pageWorks.map((w, i) => (
+                    <WorkCard
+                      key={w.d || w.t || `${safePage}-${i}`}
+                      w={w}
+                      variant="coauthor"
+                      onOpenResearcher={handleOpenResearcherFromWork}
+                    />
+                  ))}
+                </div>
+                <Pagination page={safePage} totalPages={totalPages} onPageChange={setPage} />
+              </>
+            ) : (
+              <EmptyWorksMessage
+                showLinkingNote={showLinkingNote}
+                showGlobal={Boolean(showGlobal)}
+                openAlexAuthorUrl={openAlexAuthorUrl}
+              />
+            )}
+          </section>
         </div>
 
         <footer className="coauthor-footer">
@@ -471,16 +546,27 @@ export default function CoAuthorModal() {
 function EmptyWorksMessage({
   showLinkingNote,
   showGlobal,
+  openAlexAuthorUrl,
 }: {
   showLinkingNote: boolean;
   showGlobal: boolean;
+  openAlexAuthorUrl: string | null;
 }) {
   return (
     <div className="coauthor-empty">
       <div className="coauthor-empty__title">{COAUTHOR_EMPTY_LIST_TITLE}</div>
       <p>{COAUTHOR_EMPTY_LIST_MESSAGE}</p>
-      {showGlobal && (
-        <p>Consulte las métricas globales OpenAlex en la pestaña Impacto.</p>
+      {showGlobal && openAlexAuthorUrl && (
+        <p>
+          <a
+            href={openAlexAuthorUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="coauthor-hero__link"
+          >
+            Ver perfil global en OpenAlex →
+          </a>
+        </p>
       )}
       {showLinkingNote && (
         <div className="coauthor-empty__note">

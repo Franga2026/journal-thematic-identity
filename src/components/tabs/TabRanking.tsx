@@ -1,60 +1,86 @@
 import { useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import type { RankKey } from '../../shared/types';
-import { getData, getAuthorOA, getResMetrics } from '../../utils/dataProcessing';
-import { getColor, getInitials, shortDept, cleanOrcid } from '../../utils/helpers';
-import { RANK_OPTIONS } from '../../utils/constants';
+import { getData, getAuthorOA } from '../../utils/dataProcessing';
+import { getColor, getInitials, shortDept } from '../../utils/helpers';
+import { RANK_OPTIONS, MIN_FWCI_WORKS, MIN_QUARTILE_WORKS } from '../../utils/constants';
+import { formatQuartilePct, isQuartileRankEligible } from '../../utils/quartileDisplay';
+
+const MIN_PUBS = 10;
+const NO_DATA = '—';
 
 export default function TabRanking() {
   const { rankBy, setRankBy, openResearcher } = useApp();
   const DATA = getData();
-  const RES_METRICS = getResMetrics();
 
   const labels = Object.fromEntries(Object.entries(RANK_OPTIONS).map(([k, v]) => [k, v.label]));
   const descs = Object.fromEntries(Object.entries(RANK_OPTIONS).map(([k, v]) => [k, v.desc]));
 
   const sorted = useMemo(() => {
-    const minPubs = 10;
-    const ranked = DATA.filter(r => r.o).map(r => {
+    const ranked = DATA.filter((r) => r.o).map((r) => {
       const oa = getAuthorOA(r);
-      const rm = RES_METRICS[cleanOrcid(r.o)] || {};
-      const qp = rm.quartile_profile || {};
-      const wc = oa?.works_count || rm.scholarly_output || 0;
-      const cc = oa?.cited_by_count || rm.citation_count || 0;
+      const qp = oa?.quartile_profile || {};
+      const wc = oa?.works_count ?? null;
+      const cc = oa?.cited_by_count ?? null;
+      const withQuartile = qp.with_quartile ?? 0;
+      const q1Pct = typeof qp.q1_pct === 'number' ? qp.q1_pct : null;
       return {
-        ...r, wc, cc,
-        hi: oa?.h_index || rm.h_index || 0,
-        fwci: rm.fwci || 0,
-        q1p: qp.q1_pct || 0,
-        oar: rm.oa_rate || 0,
-        cpp: wc > 0 ? +(cc / wc).toFixed(1) : 0,
+        ...r,
+        wc,
+        cc,
+        hi: oa?.h_index ?? null,
+        fwci: oa?.fwci ?? null,
+        fwciN: oa?.fwciN ?? 0,
+        withQuartile,
+        q1p: q1Pct,
+        q1Eligible: isQuartileRankEligible(qp) && q1Pct != null,
+        oar: oa?.oaRate ?? null,
+        cpp: wc != null && wc > 0 && cc != null ? +(cc / wc).toFixed(1) : null,
       };
     });
 
-    const filtered = ranked.filter(r =>
-      r.wc >= minPubs &&
-      (rankBy === 'fwci' ? r.fwci > 0 : rankBy === 'q1' ? r.q1p > 0 : true)
+    const filtered = ranked.filter(
+      (r) =>
+        (r.wc ?? 0) >= MIN_PUBS &&
+        (rankBy === 'fwci'
+          ? r.fwci != null && r.fwciN >= MIN_FWCI_WORKS
+          : rankBy === 'q1'
+            ? r.q1Eligible
+            : true)
     );
 
-    const sortFn = {
-      fwci: (a, b) => b.fwci - a.fwci,
-      hindex: (a, b) => b.hi - a.hi,
-      citas: (a, b) => b.cc - a.cc,
-      q1: (a, b) => b.q1p - a.q1p,
-      cpp: (a, b) => b.cpp - a.cpp,
-      oa: (a, b) => b.oar - a.oar,
+    const sortFn: Record<RankKey, (a: (typeof ranked)[0], b: (typeof ranked)[0]) => number> = {
+      fwci: (a, b) => (b.fwci ?? 0) - (a.fwci ?? 0),
+      hindex: (a, b) => (b.hi ?? 0) - (a.hi ?? 0),
+      citas: (a, b) => (b.cc ?? 0) - (a.cc ?? 0),
+      q1: (a, b) => (b.q1p ?? 0) - (a.q1p ?? 0),
+      cpp: (a, b) => (b.cpp ?? 0) - (a.cpp ?? 0),
+      oa: (a, b) => {
+        if (a.oar == null && b.oar == null) return 0;
+        if (a.oar == null) return 1;
+        if (b.oar == null) return -1;
+        return b.oar - a.oar;
+      },
     };
 
     return [...filtered].sort(sortFn[rankBy] || (() => 0));
-  }, [DATA, RES_METRICS, rankBy]);
+  }, [DATA, rankBy]);
 
-  const fwciColor = (v) => v >= 2 ? '#166534' : v >= 1 ? '#22c55e' : v >= 0.8 ? '#f59e0b' : '#ef4444';
+  const fwciColor = (v: number | null) =>
+    v == null ? 'var(--gray-400)' : v >= 2 ? '#166534' : v >= 1 ? '#22c55e' : v >= 0.8 ? '#f59e0b' : '#ef4444';
+
+  const thresholdNote =
+    rankBy === 'fwci'
+      ? `Mínimo ${MIN_PUBS} publicaciones y ${MIN_FWCI_WORKS} obras con FWCI.`
+      : rankBy === 'q1'
+        ? `Mínimo ${MIN_PUBS} publicaciones y ${MIN_QUARTILE_WORKS} obras con cuartil SJR.`
+        : `Mínimo ${MIN_PUBS} publicaciones.`;
 
   return (
     <>
       <h2 style={{ fontSize: 18, fontWeight: 600, margin: '0 0 6px' }}>Ranking de Investigadores</h2>
       <p style={{ fontSize: 12, color: 'var(--gray-500)', margin: '0 0 14px' }}>
-        Indicadores bibliométricos normalizados — {labels[rankBy]}
+        Indicadores bibliométricos — {labels[rankBy]}
       </p>
 
       {/* Rank selector */}
@@ -70,7 +96,7 @@ export default function TabRanking() {
 
       {/* Description */}
       <div style={{ background: 'var(--blue-100)', borderRadius: 8, padding: '10px 14px', fontSize: 11, color: 'var(--blue-800)', marginBottom: 14, border: '1px solid #bfdbfe' }}>
-        {descs[rankBy]} Mínimo 10 publicaciones.
+        {descs[rankBy]} {thresholdNote}
       </div>
 
       {/* Table */}
@@ -83,7 +109,7 @@ export default function TabRanking() {
             <th style={{ textAlign: 'right' }}>Pubs</th>
             <th style={{ textAlign: 'right' }}>Citas</th>
             <th style={{ textAlign: 'right' }}>h</th>
-            <th style={{ textAlign: 'right', color: rankBy === 'fwci' ? 'var(--blue-800)' : undefined, fontWeight: rankBy === 'fwci' ? 700 : undefined }}>FNCI</th>
+            <th style={{ textAlign: 'right', color: rankBy === 'fwci' ? 'var(--blue-800)' : undefined, fontWeight: rankBy === 'fwci' ? 700 : undefined }}>FWCI</th>
             <th style={{ textAlign: 'right', color: rankBy === 'q1' ? 'var(--blue-800)' : undefined, fontWeight: rankBy === 'q1' ? 700 : undefined }}>Q1%</th>
             <th style={{ textAlign: 'right', color: rankBy === 'oa' ? 'var(--blue-800)' : undefined, fontWeight: rankBy === 'oa' ? 700 : undefined }}>OA%</th>
           </tr>
@@ -110,21 +136,31 @@ export default function TabRanking() {
                   </div>
                 </td>
                 <td style={{ fontSize: 11, color: '#888' }}>{shortDept((r.dp || [])[0]?.d || '')}</td>
-                <td style={{ textAlign: 'right' }}>{r.wc.toLocaleString()}</td>
-                <td style={{ textAlign: 'right' }}>{r.cc.toLocaleString()}</td>
+                <td style={{ textAlign: 'right' }}>{r.wc != null ? r.wc.toLocaleString() : NO_DATA}</td>
+                <td style={{ textAlign: 'right' }}>{r.cc != null ? r.cc.toLocaleString() : NO_DATA}</td>
                 <td style={{ textAlign: 'right' }}>
-                  <span className="badge badge--sm badge--cites">{r.hi}</span>
+                  {r.hi != null ? (
+                    <span className="badge badge--sm badge--cites">{r.hi}</span>
+                  ) : (
+                    NO_DATA
+                  )}
                 </td>
-                <td style={{ textAlign: 'right', color: fwciColor(r.fwci), fontWeight: 700, fontSize: 13 }}>{r.fwci > 0 ? r.fwci : '—'}</td>
-                <td style={{ textAlign: 'right' }}>{r.q1p > 0 ? r.q1p + '%' : '—'}</td>
-                <td style={{ textAlign: 'right', color: 'var(--green-600)' }}>{r.oar > 0 ? r.oar + '%' : '—'}</td>
+                <td style={{ textAlign: 'right', color: fwciColor(r.fwci), fontWeight: 700, fontSize: 13 }}>
+                  {r.fwci != null && r.fwci > 0 ? r.fwci.toFixed(2) : NO_DATA}
+                </td>
+                <td style={{ textAlign: 'right' }}>
+                  {r.q1Eligible && r.q1p != null ? formatQuartilePct(r.q1p) : NO_DATA}
+                </td>
+                <td style={{ textAlign: 'right', color: r.oar != null ? 'var(--green-600)' : 'var(--gray-400)' }}>
+                  {r.oar != null ? r.oar + '%' : NO_DATA}
+                </td>
               </tr>
             );
           })}
         </tbody>
       </table>
       <div style={{ marginTop: 12, fontSize: 10, color: 'var(--gray-400)', textAlign: 'right' }}>
-        Indicadores bibliométricos normalizados · Fuente: OpenAlex + Crossref + Unpaywall
+        Indicadores bibliométricos · Fuente: OpenAlex
       </div>
     </>
   );
