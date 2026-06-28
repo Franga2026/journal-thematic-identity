@@ -88,8 +88,9 @@ describe('reportMetrics — métricas sobre P', () => {
   ];
 
   it('calcula n_pubs, cpp, h_index, pct_q1, cagr y fwci', () => {
-    const metrics = buildReportMetricsFromWorks(researcher, periodWorks, 2026, new Map());
+    const { metrics, obrasPeriodo } = buildReportMetricsFromWorks(researcher, periodWorks, 2026, new Map());
     expect(metrics.n_pubs).toBe(5);
+    expect(obrasPeriodo).toHaveLength(5);
     expect(metrics.cpp).toBe(36);
     expect(computeHIndex(periodWorks)).toBe(5);
     expect(metrics.h_index).toBe(5);

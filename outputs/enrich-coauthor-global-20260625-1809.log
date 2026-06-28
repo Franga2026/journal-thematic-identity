@@ -1,0 +1,97 @@
+npm warn Unknown env config "devdir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> directorio-uta@1.0.0 enrich:coauthor-global
+> node scripts/enrich-coauthor-global.mjs --batch ./src/coauthor-profiles.json --out ./src/coauthor-profiles.20260625-1809.enriched.json --sjr ./scripts/data/sjr-2025-quartiles.json --resume --delay 1000
+
+Reanudando desde ./src/coauthor-profiles.20260625-1809.enriched.json
+global_profile al inicio: 1
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Liliana Pedraja-Rejas: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5011201528&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ D. Laroze: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5084154522&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Emilio Rodríguez-Ponce: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5012420772&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Andrés Ruiz‐Linares: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5081207747&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ María Cátira Bortolini: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5045949136&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Carla Gallo: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5077411586&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Rolando González‐José: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5018736214&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Vivien G. Standen: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5089838590&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Calógero M. Santoro: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5031846842&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Samuel Canizales‐Quinteros: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5002545024&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl

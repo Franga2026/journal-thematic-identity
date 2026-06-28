@@ -36,6 +36,22 @@ export function readReportJsonBody(req: Connect.IncomingMessage): Promise<Record
   });
 }
 
+function writeReportResponse(
+  res: { statusCode?: number; setHeader: (key: string, value: string) => void; end: (body?: Buffer | string) => void },
+  status: number,
+  headers: Record<string, string>,
+  body: Buffer | string,
+): void {
+  res.statusCode = status;
+  Object.entries(headers).forEach(([k, v]) => res.setHeader(k, v));
+  if (Buffer.isBuffer(body)) {
+    res.setHeader('Content-Length', String(body.length));
+    res.end(body);
+    return;
+  }
+  res.end(body);
+}
+
 export async function executeReportRoute(
   body: Record<string, unknown>,
 ): Promise<{ status: number; headers: Record<string, string>; body: Buffer | string }> {
@@ -88,11 +104,7 @@ export function createReportApiMiddleware(): Connect.NextHandleFunction {
 
     readReportJsonBody(req)
       .then((body) => executeReportRoute(body))
-      .then(({ status, headers, body }) => {
-        res.statusCode = status;
-        Object.entries(headers).forEach(([k, v]) => res.setHeader(k, v));
-        res.end(body);
-      })
+      .then(({ status, headers, body }) => writeReportResponse(res, status, headers, body))
       .catch((err: Error) => {
         res.statusCode = statusForReportError(err);
         res.setHeader('Content-Type', 'application/json');
@@ -129,8 +141,6 @@ export function createVercelReportHandler() {
         : {};
 
     const { status, headers, body: out } = await executeReportRoute(body);
-    res.statusCode = status;
-    Object.entries(headers).forEach(([k, v]) => res.setHeader(k, v));
-    res.end(out);
+    writeReportResponse(res, status, headers, out);
   };
 }

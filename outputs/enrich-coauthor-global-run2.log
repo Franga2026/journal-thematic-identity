@@ -1,0 +1,2223 @@
+npm warn Unknown env config "devdir". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> directorio-uta@1.0.0 enrich:coauthor-global
+> node scripts/enrich-coauthor-global.mjs --batch ./src/coauthor-profiles.json --out ./src/coauthor-profiles.enriched.json --sjr ./scripts/data/sjr-2025-quartiles.json --resume --delay 600
+
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Liliana Pedraja-Rejas: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5011201528&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ D. Laroze: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5084154522&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Emilio Rodríguez-Ponce: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5012420772&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Andrés Ruiz‐Linares: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5081207747&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ María Cátira Bortolini: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5045949136&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Carla Gallo: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5077411586&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Rolando González‐José: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5018736214&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Vivien G. Standen: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5089838590&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Calógero M. Santoro: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5031846842&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Samuel Canizales‐Quinteros: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5002545024&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ H. Román-Flores: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5014279595&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Y. Chalco-Cano: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5032591319&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Francisco Rothhammer: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5022063392&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Alfonso Urzúa: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5074648690&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Kaustubh Adhikari: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5086839876&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Víctor Acuña-Alonzo: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5102960772&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Pablo Sarricolea: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5082719897&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Geraldy Sepúlveda‐Páez: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5087103876&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ José Joaquín Brunner: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5076772348&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Claudio Latorre: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5032476448&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Alberto Dí­az Araya: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5046519156&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ C.A. Duque: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5003487684&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Virgínia Ramallo: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5080092446&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ E. Vañó: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5026073407&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Francisco Ganga Contreras: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5062802905&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Lavínia Schüler‐Faccini: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5033125558&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Jorge Gómez‐Valdés: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5022804577&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Eugenia M. Gayó: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5037040629&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Miguel Urrestarazu: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5060709266&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Paolo Grigolini: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5078279388&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ E. Feddi: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5049632386&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Manuel Gonzalez-Espinoza: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5020293831&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Antonio Maldonado: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5023259225&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Luis Eduardo González: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5101827969&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Fernando P. Ponce: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5082249083&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ William Arias: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5066911761&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Víctor Ayala: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5054458684&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Joel Saavedra: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5070617131&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Giovanni Poletti: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5108137537&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Claudia Jaramillo: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5085797138&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ José M. Capriles: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5011233683&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Patricio Mena‐Chamorro: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5004242252&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Laura M. Pérez: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5050578379&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Gorazd Cvetič: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5063673311&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Yiniva Camargo Caicedo: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5050473584&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Noel McGinn: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5008930201&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Camila Muñoz-Fritis: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5084516199&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ M.E. Mora‐Ramos: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5052839007&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Bernardo Arriaza: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5080782092&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Alejandro Cuadra-Peralta: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5073079803&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Carmen Araneda-Guirriman: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5088980583&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Bernardo Tellini: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5078077176&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Wilson Huanca‐Mamani: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5017129197&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Mauro Bologna: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5050985966&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Raúl Bustos González: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5085340325&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ V. Tulupenko: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5069666390&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Macarena Fuentes‐Guajardo: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5049088822&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Manuel Prieto: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5000836059&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Miguel Ángel Mansilla: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5063458407&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ A. L. Morales: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5041300920&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ V. Akimov: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5059469446&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Constanza Veloso-Besio: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5063987605&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Eleuterio F. Toro: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5030446403&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Cristóbal Guerra: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5069498692&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Giovanni Poletti: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5004909250&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Paloma Vidao Gómez: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5054958313&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Eva Mañas: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5050526562&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Raquel Sánchez García: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5029234333&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Ana María Blázquez Henao: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5112983568&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Héctor A. Vargas: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5033065674&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Alfonso Díaz Aguad: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5000214481&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Wilson Muñoz: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5044100862&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Beáta Bőthe: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5010150017&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Mónika Koós: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5023824502&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Léna Nagy: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5069129906&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Shane W. Kraus: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5000650282&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Zsolt Demetrovics: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5024527571&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Marc N. Potenza: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5067499997&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Rafael Ballester‐Arnal: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5060745608&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Dominik Batthyány: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5044878521&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Sophie Bergeron: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5050101462&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Joël Billieux: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5068894986&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Georgina Cárdenas‐López: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5068664711&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Joana Carvalho: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5087373261&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Jesús Castro‐Calvo: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5010873451&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Lijun Chen: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5028341119&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Giacomo Ciocca: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5045050607&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Ornella Corazza: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5012791303&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Rita I. Csákó: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5016401887&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ David P. Fernandez: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5052727319&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Hironobu Fujiwara: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5015467303&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ R. T. Marcavillaca: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5078738899&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Bruce J. West: OpenAlex 429 en https://api.openalex.org/works?filter=author.id:A5039177932&per-page=200&select=id,title,publication_year,cited_by_count,fwci,citation_normalized_percentile,open_access,primary_location,primary_topic,authorships&cursor=*&mailto=cris-victoria@uta.cl
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+… 429 OpenAlex, esperando 90s
+… 429 OpenAlex, esperando 90s
+✗ Roberto Serrano‐Notivoli: fetch failed
+✗ Miguél Nussbaum: fetch failed
+✗ Julio Labraña: fetch failed
+✗ Pascal Bertran: fetch failed
+✗ M. Gaździcki: fetch failed
+✗ Victoria Castro: fetch failed
+✗ M.D. Jiménez–Gamero: fetch failed
+✗ R. Osuna-Gómez: fetch failed
+✗ Mónica Navarrete: fetch failed
+✗ Rodrigo Ferrer‐Urbina: fetch failed
+✗ David Véliz: fetch failed
+✗ U. S. Mahabaleshwar: fetch failed
+✗ Carlos Piñones Rivera: fetch failed
+✗ H. Białkowska: fetch failed
+✗ M. Fuchs: fetch failed
+✗ M. Kowalski: fetch failed
+✗ S. Margetis: fetch failed
+✗ Héctor Rodrı́guez: fetch failed
+✗ Adriano Da Silva: fetch failed
+✗ Luis Sandoval: fetch failed
+✗ Javier Mendoza‐Revilla: fetch failed
+✗ Juan Camilo Chacón-Duque: fetch failed
+✗ Gabriel Haeser: fetch failed
+✗ Sangmoo Jeong: fetch failed
+✗ Roozbeh Eskandari: fetch failed
+✗ Sui Seng Tee: fetch failed
+✗ Kayvan R. Keshari: fetch failed
+✗ Sergio Curilef: fetch failed
+✗ Francisco Aguayo: fetch failed
+✗ Virginia McRostie: fetch failed
+✗ Marko Antonio Rojas-Medar: fetch failed
+✗ A. Rufián-Lizana: fetch failed
+✗ Genly León: fetch failed
+… 429 OpenAlex, esperando 4s
+… 429 OpenAlex, esperando 8s
+… 429 OpenAlex, esperando 16s
+… 429 OpenAlex, esperando 32s
+… 429 OpenAlex, esperando 64s
+✗ Katja Radon: fetch failed
+✗ Carlos Ubeda: fetch failed
+✗ Wendolin Suárez-Amaya: fetch failed
+✗ Patrícia Miranda: fetch failed
+✗ M.G. Barseghyan: fetch failed
+✗ Paola Everardo: fetch failed
+✗ José-Norberto Mazón: fetch failed
+✗ José Zubcoff: fetch failed
+✗ Francisco M. Salzano: fetch failed
+✗ Yoelsy Leyva: fetch failed
+✗ Giovanni Otalora: fetch failed
+✗ Pamela Zapata-Sepúlveda: fetch failed
+✗ Fernando Leyton: fetch failed
+✗ Menara Guizardi: fetch failed
+✗ Rodrigo Ramos‐Jiliberto: fetch failed
+✗ Ricardo Ceballos: fetch failed
+✗ J.C. Flores: fetch failed
+✗ Nanette Liberona Concha: fetch failed
+✗ Claudio Dib: fetch failed
+✗ Juan Carlos Helo: fetch failed
+✗ Philip S. Muirhead: fetch failed
+✗ Andrew W. Mann: fetch failed
+✗ R.L. Restrepo: fetch failed
+✗ Marcelo Vargas‐Ortiz: fetch failed
+✗ Rodrigo Ruz Zagal: fetch failed
+✗ Bruno Corradi: fetch failed
+✗ Patrício Aroca: fetch failed
+✗ María Dolores Frías Navarro: fetch failed
+✗ Macarena Trujillo Cristoffanini: fetch failed
+✗ Hans Nina: fetch failed
+✗ Kevin R. Covey: fetch failed
+✗ Sorin‐Mihai Grad: fetch failed
+✗ Еlvira A. Dovletyarova: fetch failed
+✗ Tuan K.A. Hoang: fetch failed
+✗ F. Gracia: fetch failed
+✗ Norbert Mercier: fetch failed
+✗ Javier Martín Vide: fetch failed
+✗ M.A. Tawfik: fetch failed
+✗ Saravanan Rajendran: fetch failed
+✗ Juan Bautista Solís Muñoz: fetch failed
+✗ Láutaro Núñez: fetch failed
+✗ Pablo A. Marquet: fetch failed
+✗ Luís E. Parra: fetch failed
+✗ Geraldo Nunes Silva: fetch failed
+✗ Felipe Ponce-Correa: fetch failed
+✗ Jebiti Haribabu: fetch failed
+✗ Carlos Mondaca Rojas: fetch failed
+✗ Milan Stehlík: fetch failed
+✗ Romina Ramos Rodríguez: fetch failed
+✗ Mauricio Ramírez Pérez: fetch failed
+✗ Noemí Pereda: fetch failed
+✗ Matías Irarrázaval: fetch failed
+✗ Laurent Boyer: fetch failed
+✗ Ronald Barnett: fetch failed
+✗ Gilson R. P. Moreira: fetch failed
+✗ Marcela Sepúlveda: fetch failed
+✗ Martin Käser: fetch failed
+✗ Magdalena Suárez-Ortega: fetch failed
+✗ Héctor Pizarro: fetch failed
+✗ Marcel G. Clerc: fetch failed
+✗ Matías Calderón‐Seguel: fetch failed
+✗ Pablo Díaz: fetch failed
+✗ Ilmar F. Santos: fetch failed
+✗ J. Egaña: fetch failed
+✗ Jorge Maluenda Albornoz: fetch failed
+✗ Antonio Pineda: fetch failed
+✗ Pilar Martín-Escudero: fetch failed
+✗ Abhishek Saxena: fetch failed
+✗ Roberto Andreani: fetch failed
+✗ Rodrigo Barquera: fetch failed
+✗ Ricardo De Pol‐Holz: fetch failed
+✗ Claudio Parra: fetch failed
+✗ Tiago Mendonça da Costa: fetch failed
+✗ Weldon A. Lodwick: fetch failed
+✗ Juan Pablo Ogalde: fetch failed
+✗ Kristopher J. Chandía: fetch failed
+✗ Fernando Rojas: fetch failed
+✗ A. Martín-Ruiz: fetch failed
+✗ Vagner Beserra: fetch failed
+✗ Marcos Pascual‐Soler: fetch failed
+✗ Jerome Flores: fetch failed
+✗ Diego Henríquez: fetch failed
+✗ Seth M. Holmes: fetch failed
+✗ Gonzalo Fuentes: fetch failed
+✗ Diego Cabrera: fetch failed
+✗ Chris Harrod: fetch failed
+✗ Zeren Simon Wang: fetch failed
+✗ James P. Lloyd: fetch failed
+✗ N. C. Santos: fetch failed
+✗ Alain Queffelec: fetch failed
+✗ Emmanuel N. Saridakis: fetch failed
+✗ Mirsha Quinto‐Sánchez: fetch failed
+✗ Paula C. Ugalde: fetch failed
+✗ Mauricio Uribe: fetch failed
+✗ María Torreblanca: fetch failed
+✗ Eyüp Kızıl: fetch failed
+✗ Luiz A. B. San Martín: fetch failed
+✗ José Gutiérrez‐Maldonado: fetch failed
+✗ Alejandra Caqueo‐Urízar: fetch failed
+✗ Ricardo Valdivia: fetch failed
+✗ Dante Castillo: fetch failed
+✗ M. L. Contreras: fetch failed
+✗ Roberto Rozas: fetch failed
+✗ Hugo Escobar: fetch failed
+✗ Óliver Meseguer-Ruiz: fetch failed
+✗ P. Miranda: fetch failed
+✗ Marcos Carmona–Halty: fetch failed
+✗ Víctor Tello: fetch failed
+✗ René–Vinicio Sánchez: fetch failed
+✗ Mariela Cerrada: fetch failed
+✗ Irma Vila: fetch failed
+✗ Marisa Salanova: fetch failed
+✗ Wilmar B. Schaufeli: fetch failed
+✗ Marcela González: fetch failed
+✗ Keivan G. Stassun: fetch failed
+✗ David W. Latham: fetch failed
+✗ Stephen R. Kane: fetch failed
+✗ Joshua N. Winn: fetch failed
+✗ S. G. Sousa: fetch failed
+✗ V. Adibekyan: fetch failed
+✗ E. Delgado Mena: fetch failed
+✗ M. Tsantaki: fetch failed
+✗ Alfredo N. Iusem: fetch failed
+✗ Maykel Courel: fetch failed
+✗ Claudia Navarro‐Villarroel: fetch failed
+✗ Sébastien Sauvé: fetch failed
+✗ Jiaqian Qin: fetch failed
+✗ Jorge Olcina Cantos: fetch failed
+✗ Elisabeth Viviana Lucero Baldevenites: fetch failed
+✗ S.K. Samdarshi: fetch failed
+✗ Rancés Blanco: fetch failed
+✗ Germán Sepúlveda: fetch failed
+✗ Mario J. Simirgiotis: fetch failed
+✗ Juan Carlos Figueroa–García: fetch failed
+✗ Lorena Gallardo-Peralta: fetch failed
+✗ Diego Nocetti: fetch failed
+✗ Arunachalam Arulraj: fetch failed
+✗ Adolfo Ignácio Calderón: fetch failed
+✗ Diego Salazar: fetch failed
+✗ Pablo Richter: fetch failed
+✗ Rodrigo Moya-Vergara: fetch failed
+✗ Norman Garrido Cabezas: fetch failed
+✗ Fabiola Peña Cárdenas: fetch failed
+✗ Walter Sáez: fetch failed
+✗ Andrés Rojas‐Murphy Tagle: fetch failed
+✗ Fernanda Stang: fetch failed
+✗ Herminia Gonzálvez Torralbo: fetch failed
+✗ Gislene L. Gonçalves: fetch failed
+✗ Álvaro Luis Romero Guevara: fetch failed
+✗ Saulyn Lee-Maturana: fetch failed
+✗ Diego Portilla-Saavedra: fetch failed
+✗ Pablo Pérez-Portilla: fetch failed
+✗ A. Radu: fetch failed
+✗ Ulises Guevara: fetch failed
+✗ H. Pickmann-Soto: fetch failed
+✗ Silvia Finol Pérez: fetch failed
+✗ David R. Ciardi: fetch failed
+✗ Jon M. Jenkins: fetch failed
+✗ Carla Ferreira do Nascimento: fetch failed
+✗ Alexandre Dias Porto Chiavegatto Filho: fetch failed
+✗ Nicolás Lampe: fetch failed
+✗ José Ragas: fetch failed
+✗ Francisca Puyol: fetch failed
+✗ Melissa Andrade-Molina: fetch failed
+✗ Osmel Martín: fetch failed
+✗ Pau Loke Show: fetch failed
+✗ Arnaud Lenoble: fetch failed
+✗ O. Fomina: fetch failed
+✗ Jacqueline Coromoto Guillén de Romero: fetch failed
+✗ Desh Bandhu Singh: fetch failed
+✗ Madhappan Santhamoorthy: fetch failed
+✗ Tom K. Hei: fetch failed
+✗ María Eugenia Castro: fetch failed
+✗ Wolfgang Kliemann: fetch failed
+✗ Felipe Parra: fetch failed
+✗ Lucas Maubert: fetch failed
+✗ Rodney Carlos Bassanezi: fetch failed
+✗ Joaquín Gairín Sallán: fetch failed
+✗ Siân E. Halcrow: fetch failed
+✗ Carolina Yáñez: fetch failed
+✗ Fernando A. Moraga: fetch failed
+✗ Rodrigo Calderón-Jofré: fetch failed
+✗ Agustín Espinosa: fetch failed
+✗ Javier Loyola: fetch failed
+✗ José Luíz Boldrini: fetch failed
+✗ Adrián Carbajal-Domı́nguez: fetch failed
+✗ Patricio Leyton: fetch failed
+✗ Carolina Paipa: fetch failed
+✗ M. Campos‐Vallette: fetch failed
+✗ M. Inés Toral: fetch failed
+✗ Daniel Quinteros: fetch failed
+✗ Mandy Matthewson: fetch failed
+✗ Margarita Briceño Toledo: fetch failed
+✗ Guillaume Fond: fetch failed
+✗ Dante Bobadilla: fetch failed
+✗ Marcela Tenorio: fetch failed
+✗ Edgardo Toro: fetch failed
+✗ Raúl R. Cordero: fetch failed
+✗ Alessandro Damiani: fetch failed
+✗ J.A. Vinasco: fetch failed
+✗ J. Bragard: fetch failed
+✗ María Christina Fragkou: fetch failed
+✗ Ximena Power: fetch failed
+✗ Eduardo Saavedra: fetch failed
+✗ Lorena Cornejo‐Ponce: fetch failed
+✗ Jenny M. Blamey: fetch failed
+✗ Sébastien Lépine: fetch failed
+✗ Ana Castillo: fetch failed
+✗ Patricio I. Moreno: fetch failed
+✗ Rewi M. Newnham: fetch failed
+✗ Orlando Astudillo: fetch failed
+✗ Limbert Torrez-Rodríguez: fetch failed
+✗ María Eugenia de Porras: fetch failed
+✗ Marco Billi: fetch failed
+✗ Francisco Leal-Soto: fetch failed
+✗ L. Velázquez: fetch failed
+✗ Juan Carlos Castro-Palacio: fetch failed
+✗ F. Ungan: fetch failed
+✗ Siegmar Otto: fetch failed
+✗ Rosanna Ginocchio: fetch failed
+✗ Patricia Peñaloza: fetch failed
+✗ Isabel González: fetch failed
+✗ Lalitha Gnanasekaran: fetch failed
+✗ Natesan Thirumalaivasan: fetch failed
+✗ Mathieu Langlais: fetch failed
+✗ Marta Zorrilla: fetch failed
+✗ Magdalena Fuentealba: fetch failed
+✗ Concepción De Linares: fetch failed
+✗ Jordina Belmonte: fetch failed
+✗ Angélica Patricia Garrido Galindo: fetch failed
+✗ P.S. Panja: fetch failed
+✗ Basim Belgasim: fetch failed
+✗ Daniela Osorio: fetch failed
+✗ CG Carter: fetch failed
+✗ Daniela Valenzuela: fetch failed
+✗ Nelson Lara: fetch failed
+✗ Patricio Muñoz-Torres: fetch failed
+✗ Carlos R. Fadragas: fetch failed
+✗ Iván Muñoz: fetch failed
+✗ María del Carmen Salas Sanjuán: fetch failed
+✗ Ondine S. von Ehrenstein: fetch failed
+✗ Yahira Larrondo: fetch failed
+✗ Elva Ortega-Torres: fetch failed
+✗ Francisco Guillén‐González: fetch failed
+✗ Héctor Gaete Feres: fetch failed
+✗ César Borie: fetch failed
+✗ Jorge Bernal: fetch failed
+✗ Yeliza Gajardo Carvajal: fetch failed
+✗ Corinna Dwan: fetch failed
+✗ Juan Abello-Romero: fetch failed
+✗ Patricio Viancos: fetch failed
+✗ Danilo Alvares: fetch failed
+✗ J. A. Vélez: fetch failed
+✗ Marcus Oliveira: fetch failed
+✗ David R. Williams: fetch failed
+✗ Carolina Gómez-González: fetch failed
+✗ Alejandro Tapia Tosetti: fetch failed
+✗ Carolina Ramírez: fetch failed
+✗ Enrique A. Mundaca: fetch failed
+✗ Rosângela Brito: fetch failed
+✗ Persis B. Clarkson: fetch failed
+✗ Deodato Radić: fetch failed
+✗ Michael Dumbser: fetch failed
+✗ Mirliana Ramírez-Pereira: fetch failed
+✗ Jorge Carrasco: fetch failed
+✗ Valeria Stuardo Ávila: fetch failed
+✗ Karina Yager: fetch failed
+✗ Sandra Leiva Gómez: fetch failed
+✗ Rubén Medina: fetch failed
+✗ Charlie Lozano: fetch failed
+✗ Karina Alarcón-Castillo: fetch failed
+✗ Christina Gao: fetch failed
+✗ G. Cottin: fetch failed
+✗ Fabián Hernández-Pinto: fetch failed
+✗ Luciane Simões Duarte: fetch failed
+✗ Ana Luíza Vilela Borges: fetch failed
+✗ Behnood Bikdeli: fetch failed
+✗ David Jiménez: fetch failed
+✗ Anahí Urquiza: fetch failed
+✗ Diego Teca: fetch failed
+✗ Jens Ahm Sørensen: fetch failed
+✗ Jørn Bo Thomsen: fetch failed
+✗ Tito Poli: fetch failed
+✗ Icíar Arteagoitia: fetch failed
+✗ Luís Puente: fetch failed
+✗ Amir Karbassi Yazdi: fetch failed
+✗ B. K. Sharma: fetch failed
+✗ Jawad El Hamdaoui: fetch failed
+✗ Miguel Ojeda‐Martínez: fetch failed
+✗ M. Kria: fetch failed
+✗ N. Aghoutane: fetch failed
+✗ José Verdejo: fetch failed
+✗ Pedro Mondaca: fetch failed
+✗ Beatriz Hernández‐Jiménez: fetch failed
+✗ Gerardo Aquino: fetch failed
+✗ Andronikos Paliathanasis: fetch failed
+✗ José Suárez‐Lezcano: fetch failed
+✗ Diego García‐Saiz: fetch failed
+✗ José Alfonso Aguilar-Calderón: fetch failed
+✗ Pamela Smith: fetch failed
+✗ José A. Guijarro: fetch failed
+✗ Tomás R. Bolaño-Ortiz: fetch failed
+✗ Rodrigo Palma-­Behnke: fetch failed
+✗ Hanan M. El-Shal: fetch failed
+✗ W. E. Abd Allah: fetch failed
+✗ Wei‐Hsin Chen: fetch failed
+✗ A. Dinesh: fetch failed
+✗ A. Manikandan: fetch failed
+✗ Leonardo D. Secchin: fetch failed
+✗ Richard Ponce‐Cusi: fetch failed
+✗ Daniel Martins: fetch failed
+✗ Leonardo Mejia: fetch failed
+✗ L.A. Sarabia: fetch failed
+✗ Catherine Sánchez: fetch failed
+✗ Philippe Jouan: fetch failed
+✗ Tommy Riojá: fetch failed
+✗ Fabiola Carvajal: fetch failed
+✗ Paulina Salgado-García: fetch failed
+✗ José Cárcamo: fetch failed
+✗ Arnoldo Vizcarra: fetch failed
+✗ Raúl G. E. Morales: fetch failed
+✗ M.C. Salas: fetch failed
+✗ Juan Vega-Vargas: fetch failed
+✗ Srividya Swaminathan: fetch failed
+✗ Juan F. Santibáñez: fetch failed
+✗ Ronald Herrera: fetch failed
+✗ Ursula Berger: fetch failed
+✗ María José Boada: fetch failed
+✗ Luis R. Murillo‐Zamorano: fetch failed
+✗ Samuel Durán‐Agüero: fetch failed
+✗ Catalina Miranda: fetch failed
+✗ José Julián Soto Lara: fetch failed
+✗ Andrés Bernasconi: fetch failed
+✗ Axel E. Nielsen: fetch failed
+✗ Carlos Choque Mariño: fetch failed
+✗ María Bull: fetch failed
+✗ Pavlina Jordanova: fetch failed
+✗ Cristián Pinto‐Cortez: fetch failed
+✗ Álvaro González Sanzana: fetch failed
+✗ Pedro Sandoval Rubilar: fetch failed
+✗ Marco Wandercil: fetch failed
+✗ Marcelo Hadweh Briceño: fetch failed
+✗ H.R. Schelin: fetch failed
+✗ Helen J. Khoury: fetch failed
+✗ Marta Ferrer‐García: fetch failed
+✗ Roxana Chiappa: fetch failed
+✗ Paulina Pérez Mejías: fetch failed
+✗ Dominique Bégu: fetch failed
+✗ Loreto Holuigue: fetch failed
+✗ Andrea Riedemann: fetch failed
+✗ Hugo A. Benítez: fetch failed
+✗ José Cerdeña: fetch failed
+✗ Jackie Farfán: fetch failed
+✗ Jörn Behrens: fetch failed
+✗ Michelle Espinoza: fetch failed
+✗ Marcelo Pizarro: fetch failed
+✗ Patricio Cumsille: fetch failed
+✗ Susana Carvajal: fetch failed
+✗ Claudia Pérez-Salas: fetch failed
+✗ José A. Luque: fetch failed
+✗ J. Jorquera: fetch failed
+✗ Harald Pleiner: fetch failed
+✗ S. Coulibaly: fetch failed
+✗ Rodrigo Fuster: fetch failed
+✗ Massimo Macucci: fetch failed
+✗ Gilberto Aranda Bustamante: fetch failed
+✗ Jungbin Hwang: fetch failed
+✗ Chuan Li: fetch failed
+✗ Dante Carrasco-Olivera: fetch failed
+✗ Ricardo L. Soto: fetch failed
+✗ Nancy Nelly González Sanmiguel González Sanmiguel: fetch failed
+✗ María del Carmen Rodríguez Martín-Retortillo: fetch failed
+✗ L. Vázquez: fetch failed
+✗ Graciela Ruocco: fetch failed
+✗ Gloria Arratia: fetch failed
+✗ Valery E. Lyubovitskij: fetch failed
+✗ Mónica A. García-Ñustes: fetch failed
+✗ Carolina Guzmán-Valenzuela: fetch failed
+✗ Sara González: fetch failed
+✗ Brent V. Alloway: fetch failed
+✗ Nicolas Hadjisavvas: fetch failed
+✗ Alireza Kabgani: fetch failed
+✗ Catalina Amigo: fetch failed
+✗ Mario Alarcón: fetch failed
+✗ Paola Valero: fetch failed
+✗ Luz Valoyes-Chávez: fetch failed
+✗ A. V. Kotikov: fetch failed
+✗ Eduardo Estrada‐Castillón: fetch failed
+✗ Lee W. T. Alkureishi: fetch failed
+✗ Adorján F. Kovács: fetch failed
+✗ Alejandra Espinosa: fetch failed
+✗ Sebastián Muñoz-Herrera: fetch failed
+✗ Cristhian Pérez Villalobos: fetch failed
+✗ I. Montoya De Los Santos: fetch failed
+✗ Eduardo Gomes Salgado: fetch failed
+✗ Juan L. Celis‐Diez: fetch failed
+✗ Yu. A. Krutyakov: fetch failed
+✗ Frédéric Villièras: fetch failed
+✗ Arieh Singer: fetch failed
+✗ Manuel A. Bravo: fetch failed
+✗ Gabriel Ruiz Garzón: fetch failed
+✗ Vivian Gavilán Vega: fetch failed
+✗ O. J. Suarez: fetch failed
+✗ Domingo Mery: fetch failed
+✗ Byron Droguett: fetch failed
+✗ Israel Quirós: fetch failed
+✗ S. Vadivel: fetch failed
+✗ Xinyu Zhang: fetch failed
+✗ Karthikeyan Sekar: fetch failed
+✗ Hesam Kamyab: fetch failed
+✗ Aishah Abdul Jalil: fetch failed
+✗ Emmanuel Discamps: fetch failed
+✗ Xavier Muth: fetch failed
+✗ Carolina Tripp-Barba: fetch failed
+✗ Ignacio Núñez‐Hidalgo: fetch failed
+✗ Paulina Ponce-Philimon: fetch failed
+✗ Carlos Rodriguez‐Benites: fetch failed
+✗ Manuel Alva-Morales: fetch failed
+✗ E. Kasapoğlu: fetch failed
+✗ Ivan S. Babichuk: fetch failed
+✗ V. V. Belykh: fetch failed
+✗ Muneesh Sethi: fetch failed
+✗ Parul Gupta: fetch failed
+✗ Álvaro Soliz: fetch failed
+✗ Felipe M. Galleguillos Madrid: fetch failed
+✗ Thanigaivel Sundaram: fetch failed
+✗ Senthilkumar Nangan: fetch failed
+✗ R. Suresh: fetch failed
+✗ Paulo J. S. Silva: fetch failed
+✗ Debasish Roy: fetch failed
+✗ Lin Fritschi: fetch failed
+✗ Julio Osorio: fetch failed
+✗ Yongliang Zhao: fetch failed
+✗ Julio C. Tapia: fetch failed
+✗ Alejandro H. Corvalán: fetch failed
+✗ Carla Delporte: fetch failed
+✗ Javier Echeverría: fetch failed
+✗ Sinan Müftü: fetch failed
+✗ Pablo A. Lizana: fetch failed
+✗ J. Inostroza: fetch failed
+✗ Patricio Quiroz: fetch failed
+✗ Héctor Rodríguez Bustos: fetch failed
+✗ Guilherme Zsigmond: fetch failed
+✗ Laécio Carvalho de Barros: fetch failed
+✗ Andrés David Báez-Sánchez: fetch failed
+✗ Mikhail S. Plyushchay: fetch failed
+✗ J. R. Villanueva: fetch failed
+✗ María C. Ávila‐Arcos: fetch failed
+✗ Gino Fornaciari: fetch failed
+✗ Nathan Wales: fetch failed
+✗ M. Thomas P. Gilbert: fetch failed
+✗ Charlotte L. King: fetch failed
+✗ Andrew R. Millard: fetch failed
+✗ Darren R. Gröcke: fetch failed
+✗ Dulasiri Amarasiriwardena: fetch failed
+✗ Michael Hilke: fetch failed
+✗ Arnaud Tanguy: fetch failed
+✗ Johan Ohlander: fetch failed
+✗ Michael Schomaker: fetch failed
+✗ Christian Heumann: fetch failed
+✗ Bernhard Michalke: fetch failed
+✗ Oskar G. Jenni: fetch failed
+✗ Anandaram Sreekanth: fetch failed
+✗ Yorelis Acosta: fetch failed
+✗ Juan Valencia-Moya: fetch failed
+✗ Yolanda González: fetch failed
+✗ Iris Sattolo: fetch failed
+✗ Alessandro Soares da Silva: fetch failed
+✗ Francisco Javier Miranda González: fetch failed
+✗ Antonio Chamorro Mera: fetch failed
+✗ Trinidad Vera: fetch failed
+✗ Karina Maldonado: fetch failed
+✗ Diego Aracena Pizarro: fetch failed
+✗ Enrique Fernández‐Cara: fetch failed
+✗ Felipe W. Cruz: fetch failed
+✗ María Ángeles Rodríguez‐Bellido: fetch failed
+✗ R. C. Pereira–Carvalho: fetch failed
+✗ José Carmine Dianese: fetch failed
+✗ Ricardo Salvatierra‐Martínez: fetch failed
+✗ Ignacio Redondo: fetch failed
+✗ Jozef Kiseľák: fetch failed
+✗ Marcela Tapia Ladino: fetch failed
+✗ Cecilia Mayorga-Muñoz: fetch failed
+✗ Leonor Riquelme-Segura: fetch failed
+✗ Ana Carolina Maldonado Fuentes: fetch failed
+✗ Luis Carlos Santander: fetch failed
+✗ Ivette Durán-Seguel: fetch failed
+✗ Alan César Belo Angeluci: fetch failed
+✗ María del Rosario Pérez: fetch failed
+✗ L. González: fetch failed
+✗ Eduardo Valenzuela: fetch failed
+✗ Ana M. Aristizábal: fetch failed
+✗ Mar Rus‐Calafell: fetch failed
+✗ Carolang Escobar-Soler: fetch failed
+✗ Sergio Celis: fetch failed
+✗ Myrian Carbajal: fetch failed
+✗ Robin Cavagnoud: fetch failed
+✗ Eleonora López Contreras: fetch failed
+✗ Drew S. Coleman: fetch failed
+✗ Magdalena García: fetch failed
+✗ Aitor Gómez: fetch failed
+✗ María Inés García-Ripa: fetch failed
+✗ Ramiro O. Bustamante: fetch failed
+✗ Rodrigo Castillo: fetch failed
+✗ Sarah Féron: fetch failed
+✗ Pedro Llanillo: fetch failed
+✗ Constanza Adrian Parra: fetch failed
+✗ Cristian Lisboa Donoso: fetch failed
+✗ Danilo Gómez: fetch failed
+✗ Mercedes Carrasco‐Portiño: fetch failed
+✗ Cecilia Bustos Ibarra: fetch failed
+✗ Jaime Barrientos: fetch failed
+✗ Beatriz Bustos: fetch failed
+✗ Rosa Isela Meneses: fetch failed
+✗ Roberto O. Chávez: fetch failed
+✗ Matías Olea: fetch failed
+✗ James Quesada: fetch failed
+✗ Luis Orellana Urtubia: fetch failed
+✗ Sergio González Pizarro: fetch failed
+✗ Jonnathan Rodríguez: fetch failed
+✗ Rubén López: fetch failed
+✗ Miguel-Ángel Garrido-Tamayo: fetch failed
+✗ Patrícia Rivera: fetch failed
+✗ César San Martín: fetch failed
+✗ Oscar Cordero: fetch failed
+✗ Elvis Valero: fetch failed
+✗ Jeff Browitt: fetch failed
+✗ Martin Nakata: fetch failed
+✗ Jessica Vivas Roso Vivas Roso: fetch failed
+✗ Analía Antik Antik: fetch failed
+✗ Andrew L. Jackson: fetch failed
+✗ Daniel Gomez‐Uchida: fetch failed
+✗ Susana Llorens: fetch failed
+✗ Carla Semir-González: fetch failed
+✗ M. Nayak: fetch failed
+✗ A. E. Cárcamo Hernández: fetch failed
+✗ C. S. Kim: fetch failed
+✗ M. Hirsch: fetch failed
+✗ Shubhalaxmi Rath: fetch failed
+✗ Emily Hannum: fetch failed
+✗ Ran Liu: fetch failed
+✗ José Miguel Urzúa: fetch failed
+✗ Manuela Rodríguez: fetch failed
+✗ Elizabeth Fujimori: fetch failed
+✗ Yeda A. O. Duarte: fetch failed
+✗ K. Alfaro-Bittner: fetch failed
+✗ Alejandro O. León: fetch failed
+✗ Matías Zamorano-Veragua: fetch failed
+✗ Gustavo Castillo-Rozas: fetch failed
+✗ Kyria Rebeca Finardi: fetch failed
+✗ Carmen Rodríguez: fetch failed
+✗ Alfonso Muriel: fetch failed
+✗ Andrew Rees: fetch failed
+✗ Armand Hernández: fetch failed
+✗ María Montt Strabucchi: fetch failed
+✗ D. d’Enterria: fetch failed
+✗ S. Kluth: fetch failed
+✗ С. В. Михайлов: fetch failed
+✗ Antonio Pardo: fetch failed
+✗ J. Francisco Santibáñez-Palma: fetch failed
+✗ Norge Cruz Hernández: fetch failed
+✗ Kevin Wunderle: fetch failed
+✗ Yong Tan: fetch failed
+✗ Camila Spormann-Romeri: fetch failed
+✗ Catherine Jara-Reyes: fetch failed
+✗ Ximena Paredes-Villarroel: fetch failed
+✗ Marcos Rojas: fetch failed
+✗ Marjorie Baquedano-Rodríguez: fetch failed
+✗ Isidora Castillo‐Rabanal: fetch failed
+✗ Paula Parra-Ponce: fetch failed
+✗ Débora Alvarado-Figueroa: fetch failed
+✗ Oronzio Manca: fetch failed
+✗ Nidhish Kumar Mishra: fetch failed
+✗ Karina G. Rodriguez-Osorio: fetch failed
+✗ Kawtar Feddi: fetch failed
+✗ Elliot Burnham: fetch failed
+✗ Alexey A. Novoselov: fetch failed
+✗ Tamé González: fetch failed
+✗ Yunierkis Pérez‐Castillo: fetch failed
+✗ Yovani Marrero‐Ponce: fetch failed
+✗ Helen Moore: fetch failed
+✗ Juan P. Jiménez: fetch failed
+✗ Bappi Paul: fetch failed
+✗ Anne Delagnes: fetch failed
+✗ Rémy Crassard: fetch failed
+✗ Morgane Liard: fetch failed
+✗ Mark D. Bateman: fetch failed
+✗ Sebastián Yrarrázaval: fetch failed
+✗ François Bachellerie: fetch failed
+✗ Mathieu Bosq: fetch failed
+✗ Greg White: fetch failed
+✗ Martín de Luis: fetch failed
+✗ Ernesto Tejedor: fetch failed
+✗ Hugo Romero Aravena: fetch failed
+✗ Francisco S. N. Lobo: fetch failed
+✗ Lucila Kraiselburd: fetch failed
+✗ Susana J. Landau: fetch failed
+✗ Daniel Domínguez Figaredo: fetch failed
+✗ Carlos Kölbl: fetch failed
+✗ Martin J. Packer: fetch failed
+✗ J.C. Martı́nez-Orozco: fetch failed
+✗ J.D. Correa: fetch failed
+✗ María Isabel Santos Quintero: fetch failed
+✗ Víctor Hugo González Torres: fetch failed
+✗ Claudia Patricia Caballero de Lamarque: fetch failed
+✗ Nicolás Del Solar-Duarte: fetch failed
+✗ Josep M. Llovet: fetch failed
+✗ Emma Markey: fetch failed
+✗ Jerry Hourihane Clancy: fetch failed
+✗ David J. O’Connor: fetch failed
+✗ Avnish Kumar: fetch failed
+✗ Varun Goel: fetch failed
+✗ Sanjeev Kumar Joshi: fetch failed
+✗ Mu. Naushad: fetch failed
+✗ Paramasivam Shanmugam: fetch failed
+✗ Laxmi Kant Bhardwaj: fetch failed
+✗ Pankaj Kanti Jodder: fetch failed
+✗ Okan Duman: fetch failed
+✗ J. M. Martı́nez: fetch failed
+✗ Leonardo M. Mito: fetch failed
+✗ Roger Behling: fetch failed
+✗ David O. Carpenter: fetch failed
+✗ Amedeo Amedei: fetch failed
+✗ Liliana Cardemil: fetch failed
+✗ Mary T. K. Arroyo: fetch failed
+✗ Gloria Montenegro: fetch failed
+✗ Max Andresen: fetch failed
+✗ Carlos Rodrigo de Mello Roesler: fetch failed
+✗ Claudio Ponce: fetch failed
+✗ Daniel Alejandro Ponce Saldías: fetch failed
+✗ Francisco Aguayo: fetch failed
+✗ Sandra Cortés: fetch failed
+✗ Catterina Ferreccio: fetch failed
+✗ C Tamayo: fetch failed
+✗ Bastien Llamas: fetch failed
+✗ Lars Fehren‐Schmitz: fetch failed
+✗ Guido Valverde: fetch failed
+✗ Fritz Colonius: fetch failed
+✗ Michael Färber: fetch failed
+✗ William Eduardo Valdivia Hanco: fetch failed
+✗ Julio César Rodríguez: fetch failed
+✗ Hermán Silva: fetch failed
+✗ Rocío Abello Correa: fetch failed
+✗ Jorge Castaño García: fetch failed
+✗ Marina Tuyako Mizukoshi: fetch failed
+✗ Juan Carlos Romero: fetch failed
+✗ Francisco Gil Rodríguez: fetch failed
+✗ Daniel Rojas Pachas: fetch failed
+✗ Ramón Herrera: fetch failed
+✗ Miguel Rivas: fetch failed
+✗ Pedro Campos: fetch failed
+✗ Anders Albrechtsen: fetch failed
+✗ Thorfinn Sand Korneliussen: fetch failed
+✗ Morten Rasmussen: fetch failed
+✗ Richard Toro A.: fetch failed
+✗ Manuel A. Leiva G.: fetch failed
+✗ R. Morales: fetch failed
+✗ Araceli Peña-Fernández: fetch failed
+✗ Diego Luis Valera Martínez: fetch failed
+✗ Juan E. Álvaro: fetch failed
+✗ Alexander Neaman: fetch failed
+✗ J.A. Sánchez-Molina: fetch failed
+✗ Daniela Navarrete: fetch failed
+✗ J. Marttini Abarca: fetch failed
+✗ Gloria M. Calaf: fetch failed
+✗ Juan A. Lazzús: fetch failed
+✗ Mehdi Shakibaei: fetch failed
+✗ Francisco Osorio: fetch failed
+✗ Víctor Jiménez‐Benítez: fetch failed
+✗ Salvador Antonio Mireles Sandoval: fetch failed
+✗ Ángela Vera Ruíz: fetch failed
+✗ Marcos Zumárraga-Espinosa: fetch failed
+✗ Celia Bórquez B.: fetch failed
+✗ Rubén Alejandro Castillo-España: fetch failed
+✗ Giuliani Coluccio: fetch failed
+✗ Elkin Argiro Muñoz Arroyave: fetch failed
+✗ Elsa María Vásquez Trespalacios: fetch failed
+✗ Charl C. Wolhuter: fetch failed
+✗ Yasna Tapia: fetch failed
+✗ Dinoraz Vélez: fetch failed
+✗ Rubén Pastene: fetch failed
+✗ Daniel López: fetch failed
+✗ María J. Rojas: fetch failed
+✗ Fernando González: fetch failed
+✗ M. Espinoza: fetch failed
+✗ Sabina Herrera: fetch failed
+✗ Bernardino Barrientos: fetch failed
+✗ Leopoldo Bertossi: fetch failed
+✗ Pablo Braz e Silva: fetch failed
+✗ Miguel Loayza: fetch failed
+✗ Élder J. Villamizar‐Roa: fetch failed
+✗ Luis Friz: fetch failed
+✗ C. A. Inácio: fetch failed
+✗ Tamara Schmey: fetch failed
+✗ Corinn Small: fetch failed
+✗ Tahir Ali: fetch failed
+✗ Soledad Gamboa: fetch failed
+✗ Marco Thines: fetch failed
+✗ Remco Stam: fetch failed
+✗ Frances Hayashida: fetch failed
+✗ Jacqueline Correa‐Lau: fetch failed
+✗ Ivan Veas-González: fetch failed
+✗ Nelson Carrión-Bósquez: fetch failed
+✗ J. C. García-Melgarejo: fetch failed
+✗ Juan A. Cañas: fetch failed
+✗ Ernesto Leo Rossi: fetch failed
+✗ Luis Enrique Quiñones Baraybar: fetch failed
+✗ Mario Rodríguez-Camacho: fetch failed
+✗ Belén Prieto‐Corona: fetch failed
+✗ Margarita Cabrera‐Bravo: fetch failed
+✗ Daniela Alves Silva: fetch failed
+✗ Luboš Střelec: fetch failed
+✗ Li‐Chun Zhang: fetch failed
+✗ Paul Allin: fetch failed
+✗ Fionn Murtagh: fetch failed
+✗ Peter Smith: fetch failed
+✗ Guy P. Nason: fetch failed
+✗ Jamie Moore: fetch failed
+✗ Gabriele B. Durrant: fetch failed
+✗ Paul A. Smith: fetch failed
+✗ Cristian O. Salas: fetch failed
+✗ César Soto: fetch failed
+✗ Eduardo Ruiz‐Hitzky: fetch failed
+✗ J. Alonso: fetch failed
+✗ David Martínez: fetch failed
+✗ Trevor Driscoll: fetch failed
+✗ Mario Moya: fetch failed
+✗ Ximena Cea: fetch failed
+✗ Juan Carlos Mamani Morales: fetch failed
+✗ Elizabeth del Carmen Sánchez Gonzalez: fetch failed
+✗ Julio Tereucán-Angulo: fetch failed
+✗ Claudia Miranda‐Castillo: fetch failed
+✗ Serafín Lemos Giráldez: fetch failed
+✗ Stephen Morrell: fetch failed
+✗ Michael Hütel: fetch failed
+✗ Oeslle Lucena: fetch failed
+✗ Georgiana Zamfir: fetch failed
+✗ Sophia R. O’Brien: fetch failed
+✗ Elizabeth S. McDonald: fetch failed
+✗ Samantha P. Zuckerman: fetch failed
+✗ John R. Scheel: fetch failed
+✗ Anna Metafa: fetch failed
+✗ Nisha Sharma: fetch failed
+✗ Sébastien Ourselin: fetch failed
+✗ Jorge Cardoso: fetch failed
+✗ Keshthra Satchithananda: fetch failed
+✗ Emily F. Conant: fetch failed
+✗ Eduardo Alejandro Velásquez Parraguez: fetch failed
+✗ Mar Duran-Bellonch: fetch failed
+✗ Sara Joiko: fetch failed
+✗ Marjorie Tovar-Correal: fetch failed
+✗ Marcos Sepúlveda: fetch failed
+✗ Jorge Muñoz-Gama: fetch failed
+✗ Joos C. A. M. Buijs: fetch failed
+✗ Álvaro T. Palma: fetch failed
+✗ Aleksandar Poleksić: fetch failed
+✗ Héctor Valdés-González: fetch failed
+✗ Ana M. Cabanas: fetch failed
+✗ Luís Araya-Castillo: fetch failed
+✗ Katherine Restrepo Quintero: fetch failed
+✗ José Ricardo Vera Garnica: fetch failed
+✗ Juan Castillo: fetch failed
+✗ Diego Aragón‐Caqueo: fetch failed
+✗ Javier Fernández‐Salinas: fetch failed
+✗ Elizabeth Flores Ferro: fetch failed
+✗ Fernando Maureira Cid: fetch failed
+✗ Ángela Silva-Salse: fetch failed
+✗ Alexis Matheu Pérez: fetch failed
+✗ Braulio Navarro‒Aburto: fetch failed
+✗ Esteban Aedo–Muñoz: fetch failed
+✗ Sebastián Peña-Troncoso: fetch failed
+✗ Daniel Serey Araneda: fetch failed
+✗ Pablo Vera-Villarroel: fetch failed
+✗ Ester Villalonga-Olives: fetch failed
+✗ Diego Atencio‐Quevedo: fetch failed
+✗ Cristián Ramírez: fetch failed
+✗ Marigen Narea: fetch failed
+✗ Raúl Berríos: fetch failed
+✗ Lorena Ortega: fetch failed
+✗ Matías Montero: fetch failed
+✗ Diego Palacios: fetch failed
+✗ Benoît Castandet: fetch failed
+✗ Michel Hernould: fetch failed
+✗ Suharsono Suharsono: fetch failed
+✗ Jean Franco Daponte: fetch failed
+✗ Germán Morong Reyes: fetch failed
+✗ Dáilet Fredes Collarte: fetch failed
+✗ Macarena Bonhomme: fetch failed
+✗ Aline Bravo: fetch failed
+✗ Gustavo Macaya-Aguirre: fetch failed
+✗ Báltica Cabieses: fetch failed
+✗ Alice Blukacz: fetch failed
+✗ Pablo Mardones: fetch failed
+✗ Esteban Nazal: fetch failed
+✗ Lina Magalhães: fetch failed
+✗ Axel Hausmann: fetch failed
+✗ Carlos O. Esquivel: fetch failed
+✗ K.E. Giller: fetch failed
+✗ Donald R. Davis: fetch failed
+✗ Bernard Landry: fetch failed
+✗ Pietro Pollo: fetch failed
+✗ Galder Kortaberría: fetch failed
+✗ Arantxa Eceiza: fetch failed
+✗ Gino I. Montecinos: fetch failed
+✗ Bok Jik Lee: fetch failed
+✗ Walter Boscheri: fetch failed
+✗ Maurizio Tavelli: fetch failed
+✗ Nicole Beisiegel: fetch failed
+✗ Angela Flores: fetch failed
+✗ Soledad Burgos: fetch failed
+✗ Dante Cáceres: fetch failed
+✗ Verónica Iglesias: fetch failed
+✗ Natalie Figueredo-Borda: fetch failed
+✗ Mauricio Marín-Gutiérrez: fetch failed
+✗ Cláudia Moura de Melo: fetch failed
+✗ Maribel Vega-Arce: fetch failed
+✗ Gonzalo Salas: fetch failed
+✗ Gastón Núñez-Ulloa: fetch failed
+✗ Manuel Serra: fetch failed
+✗ Volker Wennrich: fetch failed
+✗ Camila López‐Allendes: fetch failed
+✗ Ignacio García: fetch failed
+✗ Abraham Flores-Varas: fetch failed
+✗ Joseline Tapia: fetch failed
+✗ Coral Pardo-Esté: fetch failed
+✗ Juan Castro‐Severyn: fetch failed
+✗ Francisco Remonsellez: fetch failed
+✗ Natalí Fernández: fetch failed
+✗ Màrius Domínguez Amorós: fetch failed
+✗ Sònia Parella Rubio: fetch failed
+✗ Carolina Hernández: fetch failed
+✗ Víctor Hidalgo: fetch failed
+✗ Julieta Belmar Prieto: fetch failed
+✗ Manuel Méndez: fetch failed
+✗ Xurxo M. Ayán Vila: fetch failed
+✗ Adriana Aránguiz‐Acuña: fetch failed
+✗ Rodrigo Loyola: fetch failed
+✗ Valentina Figueroa: fetch failed
+✗ Yasna Contreras: fetch failed
+✗ Mileska Romero: fetch failed
+✗ Sius-geng Salinas: fetch failed
+✗ Karen Veloso: fetch failed
+✗ Marioly Corona Ramírez: fetch failed
+✗ Camila Álvarez Torres: fetch failed
+✗ Lauren Carruth: fetch failed
+✗ Carlos Ruiz Martínez: fetch failed
+✗ Lahra Smith: fetch failed
+✗ Katharine M. Donato: fetch failed
+✗ Michael Harvey: fetch failed
+✗ Michelle Morse: fetch failed
+✗ Joel Ferrall: fetch failed
+✗ Kavya Nambiar: fetch failed
+✗ Ángel Martínez Hernáez: fetch failed
+✗ Alan Rodríguez Valdivia: fetch failed
+✗ Stella Juste: fetch failed
+✗ Sergio González Miranda: fetch failed
+✗ Mariano Álvarez: fetch failed
+✗ José Luis Gálvez-Nieto: fetch failed
+✗ Héctor Mora Nawrath: fetch failed
+✗ Pedro R. Gil‐Monte: fetch failed
+✗ Hugo Figueiredo‐Ferraz: fetch failed
+✗ Jenniffer Peralta Montecinos: fetch failed
+✗ Exequiel Mallea-Zepeda: fetch failed
+✗ Álvaro Cortínez Pontoni: fetch failed
+✗ Ximena Badilla-Torrico: fetch failed
+✗ Roberto Jimenez Ramirez: fetch failed
+✗ Andrés Araujo de la Mata: fetch failed
+✗ Bernardo Lara: fetch failed
+✗ Gabriel Peñaloza-Díaz: fetch failed
+✗ Juan Miguel Díaz Rodríguez: fetch failed
+✗ Danay Ahumada: fetch failed
+✗ Astrid Caichac H: fetch failed
+✗ Pía Villarroel: fetch failed
+✗ Viviana Pacheco: fetch failed
+✗ Paola Aravena: fetch failed
+✗ Claudia Encina Vega: fetch failed
+✗ Patricio Oliva Mella: fetch failed
+✗ Paola Muzatto-Negrón: fetch failed
+✗ Patricia Huerta Riveros: fetch failed
+✗ Wengang Ao: fetch failed
+✗ Rafael E. Vásquez: fetch failed
+✗ Daniel San Martín: fetch failed
+✗ Germain Pastén: fetch failed
+✗ Jésica Pantáz: fetch failed
+✗ Cristina Manzaneda: fetch failed
+✗ César A. Cisneros Puebla: fetch failed
+✗ Juan P. Muñoz: fetch failed
+✗ Jorge Cortés‐Miranda: fetch failed
+✗ Caren Vega‐Retter: fetch failed
+✗ Marcial Quiroga‐Carmona: fetch failed
+✗ Guillermo D’Elía: fetch failed
+✗ Jay F. Storz: fetch failed
+✗ Isabella Meneghel: fetch failed
+✗ Carolyn M. Youssef‐Morgan: fetch failed
+✗ Alfonso R. Zerwekh: fetch failed
+✗ Carolina Arbeláez: fetch failed
+✗ Diego Restrepo: fetch failed
+✗ E. Bertholet: fetch failed
+✗ Camila Jara Ibarra: fetch failed
+✗ Sebastián Márquez: fetch failed
+✗ Patricio A. Flores: fetch failed
+✗ Luis Bustos: fetch failed
+✗ Maximiliano Martínez‐Cifuentes: fetch failed
+✗ Germán Sepúlveda-Chavera: fetch failed
+✗ German Zapata‐Hernández: fetch failed
+✗ Martina Gajardo‐Rojas: fetch failed
+✗ Ariel A. Muñoz: fetch failed
+✗ Karen Yáñez: fetch failed
+✗ Md Rishad Ahmed: fetch failed
+✗ Patrick Wheeler: fetch failed
+✗ Marcel Reis Queiroz: fetch failed
+✗ Maria Elizângela Ramos Junqueira: fetch failed
+✗ Carmen Simone Grilo Diniz: fetch failed
+✗ Yair Zárate: fetch failed
+✗ Yogesh N. Joglekar: fetch failed
+✗ René G. Rojas: fetch failed
+✗ Celia Galve-González: fetch failed
+✗ Gabriela Flores-Oyarzo: fetch failed
+✗ Raquel Gómez-Frías: fetch failed
+✗ Leynin Caamaño-Rocha: fetch failed
+✗ Laura Badenes‐Ribera: fetch failed
+✗ Daniela Bolívar: fetch failed
+✗ José Ventura‐León: fetch failed
+✗ Miguel Barboza-Palomino: fetch failed
+✗ Carla Vidal Figueroa: fetch failed
+✗ María Olaya Grau Rengifo: fetch failed
+✗ Ana Luisa Muñoz‐García: fetch failed
+✗ Jhuliane Evelyn da Silva: fetch failed
+✗ Juliana Zeggio Martinez: fetch failed
+✗ Le Hai Yen: fetch failed
+✗ Fabián Flores-Bazán: fetch failed
+✗ Phan Tu Vuong: fetch failed
+✗ Tran Van Nghi: fetch failed
+✗ Robert F. Houser: fetch failed
+✗ Nashely Yuvitza Lizarme Villcas: fetch failed
+✗ José Manuel Carrasco: fetch failed
+✗ Melissa Fuster: fetch failed
+✗ María Gómez: fetch failed
+✗ Camilo Wee: fetch failed
+✗ Raf Vanderstraeten: fetch failed
+✗ Julián Cortés: fetch failed
+✗ Elizabeth H. Arredondo: fetch failed
+✗ Miguel A. Benitez-Rathgeb: fetch failed
+✗ Diogo Boito: fetch failed
+✗ D. Britzger: fetch failed
+✗ Daniela Ramírez-Carrasco: fetch failed
+✗ Javier Escudero‐Pastén: fetch failed
+✗ Juan A. Monsoriu: fetch failed
+✗ José Luis Bucarey: fetch failed
+✗ Peter Wänke: fetch failed
+✗ Elisa Adriasola: fetch failed
+✗ Hossein Komasi: fetch failed
+✗ Cristián Candia: fetch failed
+✗ Roberto Melipillán: fetch failed
+✗ Garland Culbreth: fetch failed
+✗ Paolo Allegrini: fetch failed
+✗ Rohisha Tuladhar: fetch failed
+✗ Gianluca Ascolani: fetch failed
+✗ Alexandre Marcondes Quaglio: fetch failed
+✗ Carolina Gois Falandes: fetch failed
+✗ Pablo Concha: fetch failed
+✗ Kelly M. Britt: fetch failed
+✗ Margaret L. Brown: fetch failed
+✗ Stacey Lynn Camp: fetch failed
+✗ Manuel Fuentes: fetch failed
+✗ H. Mancini: fetch failed
+✗ Nicolas Valderrama Saez: fetch failed
+✗ Giuseppe Gaetano Luciano: fetch failed
+✗ Amare Abebe: fetch failed
+✗ J. Socorro: fetch failed
+✗ Bayron Micolta-Riascos: fetch failed
+✗ Luis del Campo: fetch failed
+✗ Judith S. Lederman: fetch failed
+✗ Norman G. Lederman: fetch failed
+✗ Mariana Aparecida Bologna Soares de Andrade: fetch failed
+✗ Rosa Cardoso: fetch failed
+✗ Pawat Chaipidech: fetch failed
+✗ Özgür Kıvılcan Doğan: fetch failed
+✗ Çiğdem Han-Tosunoğlu: fetch failed
+✗ Gary M. Holliday: fetch failed
+✗ Άννα Κουμαρά: fetch failed
+✗ Jari Lavonen: fetch failed
+✗ Mila Rosa Librea‐Carden: fetch failed
+✗ Irene Neumann: fetch failed
+✗ Mafor Penn: fetch failed
+✗ Irene Garrigós: fetch failed
+✗ Jorge Hochstetter: fetch failed
+✗ Jaime Díaz: fetch failed
+✗ Ania Cravero: fetch failed
+✗ Marina Hernández-Mora: fetch failed
+✗ Juan Javier Miró: fetch failed
+✗ Óscar Corvacho-Ganahín: fetch failed
+✗ Tiberiu Harko: fetch failed
+✗ Grigoris Panotopoulos: fetch failed
+✗ Ángel Rincón: fetch failed
+✗ Nelson Videla: fetch failed
+✗ A. Burton-Villalobos: fetch failed
+✗ Carlos Leiva: fetch failed
+✗ L. K. Duchaniya: fetch failed
+✗ Vanessa Jara-Labarthé: fetch failed
+✗ Svend Brinkmann: fetch failed
+✗ Mitchell Allen: fetch failed
+✗ Wolff‐Michael Roth: fetch failed
+✗ Maria Guisasola-Rabes: fetch failed
+✗ Miriam de Nadal: fetch failed
+✗ Zoë L. Fleming: fetch failed
+✗ Moisés Martínez‐Bracero: fetch failed
+✗ Roland Sarda‐Estève: fetch failed
+✗ Álvaro González: fetch failed
+✗ Kush Rana: fetch failed
+✗ Monika Tomar: fetch failed
+✗ Vinay Gupta: fetch failed
+✗ Atul Thakur: fetch failed
+✗ Meenakshi Thakur: fetch failed
+✗ Rajendra Damu Patil: fetch failed
+✗ Prangya Rath: fetch failed
+✗ Sanju Purohit: fetch failed
+✗ Tanu Jindal: fetch failed
+✗ Ajay Shankar: fetch failed
+✗ Mahesh Chand: fetch failed
+✗ Ritu Singh: fetch failed
+✗ Huma Parveen: fetch failed
+✗ Remy Hoek Spaans: fetch failed
+✗ Bruna Drumond: fetch failed
+✗ Kim Robin van Daalen: fetch failed
+✗ Alison Derbyshire: fetch failed
+✗ Raquel Martins Lana: fetch failed
+✗ Gabriel Carrasco‐Escobar: fetch failed
+✗ Cláudia Torres Codeço: fetch failed
+✗ Rachel Lowe: fetch failed
+✗ Ernesto G. Birgin: fetch failed
+✗ David Albandea: fetch failed
+✗ Pilar Hernández: fetch failed
+✗ Fernando Romero-López: fetch failed
+✗ Chia‐Ling Chen: fetch failed
+✗ Mehmet R. Dokmeci: fetch failed
+✗ Fernando Cabrales Gómez: fetch failed
+✗ Marco Villalobos Abarca: fetch failed
+✗ Gualberto Solís‐Perales: fetch failed
+✗ Marcelo Duarte: fetch failed
+✗ Sebastián Espinoza-Donoso: fetch failed
+✗ Todd M. Gilligan: fetch failed
+✗ John W. Brown: fetch failed
+✗ Andrés Rodríguez Aguilera: fetch failed
+✗ Jéssica López: fetch failed
+✗ Cecilia Baginsky: fetch failed
+✗ Marco Garrido: fetch failed
+✗ Damir Galaz-Mandakovic: fetch failed
+✗ Manuel Arana‐Jiménez: fetch failed
+✗ Osvaldo R. Saavedra: fetch failed
+✗ Hamzeh Agahi: fetch failed
+✗ Juan J. Nieto: fetch failed
+✗ Abdelghani Ouahab: fetch failed
+✗ R. Zurita‐Milla: fetch failed
+✗ Cristian Lopez: fetch failed
+✗ Sebastián Gutiérrez: fetch failed
+✗ Natalia Aravena: fetch failed
+✗ Camila Contreras: fetch failed
+✗ Tiago Vera-Assaoka: fetch failed
+✗ Guillermo Laclote-Gutierrez: fetch failed
+✗ Querubín Flores-Núñez: fetch failed
+✗ Bastián Carter-Thuillier: fetch failed
+✗ Maura Auad-Brito: fetch failed
+✗ Carlos A. Manzano: fetch failed
+✗ Manuel Merino: fetch failed
+✗ Gilda Carrasco: fetch failed
+✗ Gabino Alberto Martínez-Gutiérrez: fetch failed
+✗ Jürgen Vormann: fetch failed
+✗ Deterlino Urzagasti: fetch failed
+✗ Pedro Vega-Jorquera: fetch failed
+✗ F. Domínguez‐Adame: fetch failed
+✗ Leticia Martínez‐Lapuente: fetch failed
+✗ Belén Ayestarán: fetch failed
+✗ Zenaida Guadalupe: fetch failed
+✗ Julián Quintero Quiroz: fetch failed
+✗ Patricio Huerta: fetch failed
+✗ Miguel Antonio Espinosa Rico: fetch failed
+✗ Alexandra López Martínez: fetch failed
+✗ Marlenis Marisol Martínez Fuentes: fetch failed
+✗ Ximena Póo Figueroa: fetch failed
+✗ Sebastião Júnior Henrique Duarte: fetch failed
+✗ C Meléndez: fetch failed
+✗ Genaro Moyano Arcos: fetch failed
+✗ Damián Lo Chávez: fetch failed
+✗ Karelia Cerda Castro: fetch failed
+✗ Carlos Donoso Rojas: fetch failed
+✗ Julio Mendívil: fetch failed
+✗ Vicente Romero: fetch failed
+✗ Fernando Martínez: fetch failed
+✗ César Arriagada: fetch failed
+✗ Katja Deckart: fetch failed
+✗ Matías Peña: fetch failed
+✗ Sergio F. Ochoa: fetch failed
+✗ Damiano Sarocchi: fetch failed
+✗ Mariano Cerca: fetch failed
+✗ Carolina Agüero: fetch failed
+✗ Jeffrey Splitstoser: fetch failed
+✗ Tracy Martens: fetch failed
+✗ César Parcero‐Oubiña: fetch failed
+✗ Pastor Fábrega‐Álvarez: fetch failed
+✗ Andrés Troncoso: fetch failed
+✗ David Killick: fetch failed
+✗ Ariadna Cifuentes: fetch failed
+✗ Iván Godoy-Flores: fetch failed
+✗ Brayan Medina Concha: fetch failed
+✗ Carlos Jesús Ríos Rodríguez: fetch failed
+✗ Paola Lagos Labbé: fetch failed
+✗ Francisco Ramis Lanyon: fetch failed
+✗ Daniela Silva: fetch failed
+✗ Tony Mifsud: fetch failed
+✗ Elizabeth Lira: fetch failed
+✗ Andrés Fernando Suárez: fetch failed
+✗ José Sepúlveda: fetch failed
+✗ Waldemar Karwowski: fetch failed
+✗ Erico R. Carmona: fetch failed
+✗ Anandhakumar Sukeri: fetch failed
+✗ Ana Aliverti: fetch failed
+✗ Elisa García España: fetch failed
+✗ Germán Fajardo-Dolci: fetch failed
+✗ Kimberley Norris: fetch failed
+✗ Elisa Delvecchio: fetch failed
+✗ Karla Tay‐Karapas: fetch failed
+✗ Ricardo Espinoza-Tapia: fetch failed
+✗ À. Martínez-Ferrer: fetch failed
+✗ María-Carla Morales-Gómez: fetch failed
+✗ Cristián Pinto-Cortez: fetch failed
+✗ José Berríos-Riquelme: fetch failed
+✗ Katherine Acosta: fetch failed
+✗ Diego Castro Ceacero: fetch failed
+✗ Paola Contreras Hernández: fetch failed
+✗ Andrea Alvarado-Urbina: fetch failed
+✗ David Álvarez-Maldonado: fetch failed
+✗ Carmen Pénnanen-Arias: fetch failed
+✗ Nicolás Barrientos-Oradini: fetch failed
+✗ Noemí Copaja Morales: fetch failed
+✗ Nancy Alarcón Henríquez: fetch failed
+✗ P. Arce: fetch failed
+✗ Nataly Ruiz-Cornejo: fetch failed
+✗ Adolfo González: fetch failed
+✗ Patricia González: fetch failed
+✗ G Grebe: fetch failed
+✗ Anton Tiutiunnyk: fetch failed
+✗ Beatriz Larraz: fetch failed
+✗ José M. Pavía: fetch failed
+✗ David Henriquez-Villarroel: fetch failed
+✗ Ari Jerrems: fetch failed
+✗ Patricio Landaeta Mardones: fetch failed
+✗ Francisco J. Rodríguez‐Valadez: fetch failed
+✗ Gabriela Rosiles‐González: fetch failed
+✗ Felip Gascón i Martín: fetch failed
+✗ Luís Costa: fetch failed
+✗ Marjorie Andrea Mardones Leiva: fetch failed
+✗ César Pacheco Silva: fetch failed
+✗ Rodrigo Browne Sartori: fetch failed
+✗ Pamela Romero Lizama: fetch failed
+✗ Luis Nitrihual Valdebenito: fetch failed
+✗ María Gabriela Huidobro Salazar: fetch failed
+✗ Paula Martínez Sagredo: fetch failed
+✗ Elías Pizarro Pizarro: fetch failed
+✗ Daniel Ramírez: fetch failed
+✗ Alejandro Lorca-Vyhmeister: fetch failed
+✗ Stephen Darwin: fetch failed
+✗ Andrea Flanagan-Bórquez: fetch failed
+✗ Almendra Aguilera-Muñoz: fetch failed
+✗ Alba V. Olivares-Nadal: fetch failed
+✗ Alberto A. López Toro: fetch failed
+✗ Mahía Saracostti: fetch failed
+✗ Enrique Canessa: fetch failed
+✗ Marcela Rivadeneira Valenzuela: fetch failed
+✗ Héctor Solórzano Navarro: fetch failed
+✗ Mónica Moreno Falcón: fetch failed
+✗ Claudia Sandoval-Yáñez: fetch failed
+✗ Claudia Sandoval: fetch failed
+✗ Juan J. Freire: fetch failed
+✗ Ángel Leiva: fetch failed
+✗ Borja Fernández–d’Arlas: fetch failed
+✗ Baolin Tian: fetch failed
+✗ Nikolaos Nikiforakis: fetch failed
+✗ Davide Vanzo: fetch failed
+✗ Annunziato Siviglia: fetch failed
+✗ Philip Bohle: fetch failed
+✗ Àngela Martín: fetch failed
+✗ Félix Aguirre: fetch failed
+✗ Cristóbal Campos: fetch failed
+✗ Tomislav Curkovic: fetch failed
+✗ Ana María Marino de Remes Lenicov: fetch failed
+✗ Vinícius Almada Mozetic: fetch failed
+✗ Rommy Álvarez Escudero: fetch failed
+✗ Amalia Patricia Cobos Campos: fetch failed
+✗ Suzéte Da Silva Reis: fetch failed
+✗ Jorge Reis: fetch failed
+✗ Cláudia Cinara Locateli: fetch failed
+✗ Joan Lluís Pérez Francesch: fetch failed
+✗ Fabiana Marion Spengler: fetch failed
+✗ Ma Carmen Núñez Zorrilla: fetch failed
+✗ Judith Solé Resina: fetch failed
+✗ Wilson Steinmetz: fetch failed
+✗ Jordi Rovira: fetch failed
+✗ Elizabeth Zenteno Torres: fetch failed
+✗ Soledad Álvarez Velasco: fetch failed
+✗ Diego Andrés Riquelme Gómez: fetch failed
+✗ Luca Sitzia: fetch failed
+✗ Débora Zurro: fetch failed
+✗ J. M. Alonso Vega: fetch failed
+✗ Constanza Roa Solís: fetch failed
+✗ Claudia Silva: fetch failed
+✗ Luis Iturra Valenzuela: fetch failed
+✗ Sergio Lavandero: fetch failed
+✗ César Ross: fetch failed
+✗ Leonardo Docena Pina: fetch failed
+✗ Claudio Espinoza: fetch failed
+✗ Evgenii S. Baranovskii: fetch failed
+✗ Eber Lenes: fetch failed
+✗ Eduardo Cisternas: fetch failed
+✗ María-Cristina Alfred Urízar: fetch failed
+✗ Carmen Paz Castro Correa: fetch failed
+✗ Paulina Rodríguez-Díaz: fetch failed
+✗ Carlos Fabrizio Álvarez Macías: fetch failed
+✗ Pablo Guicharrousse: fetch failed
+✗ David A. Catari-Vargas: fetch failed
+✗ Jessica Moya Tillería: fetch failed
+✗ Waleska Willson Rojas: fetch failed
+✗ Rodrigo Buhring: fetch failed
+✗ Marcelo Fernández-Salamanca: fetch failed
+✗ Andrea Avaria: fetch failed
+✗ Ítalo A. Marchioni-Choque: fetch failed
+✗ Shaohui Zhang: fetch failed
+✗ Qin Yi: fetch failed
+✗ Jean-Carlo Macancela: fetch failed
+✗ Mauricio Villacís: fetch failed
+✗ Jianyu Long: fetch failed
+✗ Zhiping Liu: fetch failed
+✗ María Francisca Greene-González: fetch failed
+✗ Eduar Barbosa: fetch failed
+✗ Hector Flores Callisaya: fetch failed
+✗ Alex Espinoza Verdejo: fetch failed
+✗ Fernando Matı́a: fetch failed
+✗ Basil Mohammed Al‐Hadithi: fetch failed
+✗ M. Sumathi: fetch failed
+✗ Juan Tello: fetch failed
+✗ Brian Hayden: fetch failed
+✗ Kimmo K. Kahilainen: fetch failed
+✗ Christelle Lopes: fetch failed
+✗ Fabrice Réquier: fetch failed
+✗ Francisco E. Fontúrbel: fetch failed
+✗ Pablo Ormeño-Arriagada: fetch failed
+✗ Helio Quintero Arrieta: fetch failed
+✗ Jorge Díaz-Ramírez: fetch failed
+✗ Bernardo Lessa Horta: fetch failed
+✗ Fresia Caba Burgos: fetch failed
+✗ Angélica del Carmen Larraín Huerta: fetch failed
+✗ Verónica Pantoja Silva: fetch failed
+✗ Cristiane da Silva Cabral: fetch failed
+✗ Hellen Geremias dos Santos: fetch failed
+✗ André Filipe de Moraes Batista: fetch failed
+✗ Ana Pereira: fetch failed
+✗ Cristòbal E. Castro: fetch failed
+✗ René S. Rojas: fetch failed
+✗ Ignacio A. Jessop: fetch failed
+✗ Ernesto Ruppert Filho: fetch failed
+✗ Rafael Riveros-Ávila: fetch failed
+✗ J Perezgonzalez: fetch failed
+✗ Karla Lobos: fetch failed
+✗ Elizabeth Buckner: fetch failed
+✗ Nigel O. M. Brissett: fetch failed
+✗ Benjamin D. Scherrer: fetch failed
+✗ Daniele Cantini: fetch failed
+✗ Juan Enrique Martínez-Legaz: fetch failed
+✗ L. F. Bueno: fetch failed
+✗ Dinh The Luc: fetch failed
+✗ Nguyễn Văn Tuyên: fetch failed
+✗ Trần Văn Thắng: fetch failed
+✗ Aviva Must: fetch failed
+✗ Hernán Delgado: fetch failed
+✗ Mauro Vallejo: fetch failed
+✗ Jethro Hernández Berrones: fetch failed
+✗ María Silvia Di Liscia: fetch failed
+✗ Rubén Calvo: fetch failed
+✗ Tamara Oyarzún: fetch failed
+✗ Felipe Valencia: fetch failed
+✗ Javier Álvarez: fetch failed
+✗ Paulina Latorre: fetch failed
+✗ Mario Sánchez Aguilar: fetch failed
+✗ Juan Luis Prieto: fetch failed
+✗ Rafael Enrique Gutiérrez-Araujo: fetch failed
+✗ Aldo Parra: fetch failed
+✗ Vanessa Franco Neto: fetch failed
+✗ Ricardo Cantoral: fetch failed
+✗ R. N. Moreira: fetch failed
+✗ M. Calcina-Nogales: fetch failed
+✗ A. Plastino: fetch failed
+✗ Liliana Zura‐Bravo: fetch failed
+✗ Roberto Lemus‐Mondaca: fetch failed
+✗ Fernando Romero: fetch failed
+✗ Jaime I. García-García: fetch failed
+✗ Blanca Arteaga Martínez: fetch failed
+✗ Jorge Antunes: fetch failed
+✗ Angappa Gunasekaran: fetch failed
+✗ Henrique Luiz Corrêa: fetch failed
+✗ Fernando Zúñiga: fetch failed
+✗ Mildred Vanessa López Cabrera: fetch failed
+✗ Mary Jane Schilling-Norman: fetch failed
+✗ Josselinne Toirkens-Niklitschek: fetch failed
+✗ Juan Carlos Briede Westermeyer: fetch failed
+✗ María Virtudes Alba Fernández: fetch failed
+✗ Joaquín Muñoz García: fetch failed
+✗ Giovanni Francesco Massari: fetch failed
+✗ Robin Dunbar: fetch failed
+✗ Constantino Tsallis: fetch failed
+✗ W.G. Rodriguez: fetch failed
+✗ Rafael Guimarães Pedroso: fetch failed
+✗ Andrés García-Umaña: fetch failed
+✗ Évelyn Fernanda Córdoba: fetch failed
+✗ Nicole Elizondo Villalobos: fetch failed
+✗ Carla Hernández: fetch failed
+✗ Samuel Flewett: fetch failed
+✗ Thibault Saintenoy: fetch failed
+✗ Carolina A. Robles: fetch failed
+✗ Sebastián Gutiérrez: fetch failed
+✗ Evan Maxey: fetch failed
+✗ Stefan Vogt: fetch failed
+✗ Darı́o G. Pérez: fetch failed
+✗ Mauricio Diéguez: fetch failed
+✗ Jeferson Arango‐López: fetch failed
+✗ Carlos Cares: fetch failed
+✗ Nigel Fielding: fetch failed
+✗ Günter Mey: fetch failed
+✗ Marco Gemignani: fetch failed
+✗ Angelo Benozzo: fetch failed
+✗ Maria Isabel Sobral Escada: fetch failed
+✗ Walter Gómez: fetch failed
+✗ Andreas Fischer: fetch failed
+✗ Ademir A. Ribeiro: fetch failed
+✗ Adela Hernández-Galván: fetch failed
+
+Listo: 0 enriquecidos, 1 omitidos (resume), 1460 fallidos → ./src/coauthor-profiles.enriched.json

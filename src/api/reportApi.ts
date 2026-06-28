@@ -27,20 +27,31 @@ export async function requestReport(orcid: string): Promise<ReportDownloadResult
     body: JSON.stringify({ orcid }),
   });
 
+  const contentType = res.headers.get('Content-Type') ?? '';
+
   if (!res.ok) {
     let message = 'No se pudo generar el informe';
-    try {
-      const data = (await res.json()) as { error?: string };
-      if (data.error) message = data.error;
-    } catch {
-      /* binary or empty */
+    if (contentType.includes('application/json')) {
+      try {
+        const data = (await res.json()) as { error?: string };
+        if (data.error) message = data.error;
+      } catch {
+        /* ignore */
+      }
     }
     throw new ReportApiError(message, res.status);
   }
 
+  const isDocx = contentType.includes('wordprocessingml');
+  const isPdf = contentType.includes('application/pdf');
   const formatHeader = res.headers.get('X-Report-Format');
-  const format: 'pdf' | 'docx' = formatHeader === 'docx' ? 'docx' : 'pdf';
+  const format: 'pdf' | 'docx' =
+    formatHeader === 'docx' || isDocx ? 'docx' : formatHeader === 'pdf' || isPdf ? 'pdf' : 'docx';
+
   const blob = await res.blob();
+  if (!blob.size) {
+    throw new ReportApiError('El servidor devolvió un archivo vacío', res.status);
+  }
   const filename =
     filenameFromDisposition(res.headers.get('Content-Disposition')) ??
     `Informe_${orcid.replace(/\//g, '-')}.${format}`;

@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import type { Researcher, Work } from '../../shared/types';
-import { getData, getOA } from '../../utils/dataProcessing';
+import { getData, getOA, getAW } from '../../utils/dataProcessing';
 import { getEnrichedWorksForResearcher } from '../../utils/researcherWorks';
 import { cleanOrcid, stripTags } from '../../utils/helpers';
 import { fwciIsEligible } from '../../shared/metrics/fwci';
@@ -9,6 +9,7 @@ import { groupWorksByArea } from '../../utils/areaGrouping';
 import { loadQuartileMap, getQuartile, type Quartile } from '../../utils/quartileIndex';
 import { workIssnCandidates } from '../../utils/localQuartileProfile';
 import { ensureServerData } from '../../server/ensureServerData';
+import { computeCollabMetrics, type CollabWork } from './reportCollabMetrics';
 
 const SJR_MAP_PATH = join(process.cwd(), 'scripts/data/sjr-2025-quartiles.json');
 const WINDOW_YEARS = 5;
@@ -198,7 +199,7 @@ export function buildReportMetricsFromWorks(
   works: Work[],
   snapshotYear: number,
   quartileMap?: Map<string, Quartile>,
-): ReportMetricsResult {
+): { metrics: ReportMetricsResult; obrasPeriodo: Work[] } {
   const map = quartileMap ?? getQuartileMap();
   const { inicio, fin, periodWorks } = computeAdaptivePeriod(works, snapshotYear);
   const pubs = periodWorks.filter((w) => !isDatasetWork(w));
@@ -259,10 +260,10 @@ export function buildReportMetricsFromWorks(
       })
     : new Date().toLocaleDateString('es-CL');
 
-  const obras: ReportObraRow[] = [...pubs]
-    .sort((a, b) => getWorkOpenAlexCitations(b) - getWorkOpenAlexCitations(a))
-    .slice(0, 10)
-    .map((w) => {
+  const obrasOrdenadasPorCitas = [...pubs].sort(
+    (a, b) => getWorkOpenAlexCitations(b) - getWorkOpenAlexCitations(a),
+  );
+  const obras: ReportObraRow[] = [...obrasOrdenadasPorCitas].slice(0, 10).map((w) => {
       const doi = normalizeDoi(w.d ?? w.doi);
       const fwciVal = getWorkOpenAlexFwci(w);
       const q = resolveWorkQuartile(w, map);
@@ -275,36 +276,56 @@ export function buildReportMetricsFromWorks(
         cuartil: q ?? '—',
         citas: getWorkOpenAlexCitations(w),
         fwci: fwciVal != null ? fwciVal.toFixed(2) : '—',
-      };
+    };
+  });
+
+  let pct_colab_intl = '—';
+  let pct_top10 = '—';
+  try {
+    const collab = computeCollabMetrics(getAW() as CollabWork[], cleanOrcid(researcher.o), {
+      from: inicio,
+      to: fin,
     });
+    if (collab.n_clasificables > 0) {
+      pct_colab_intl = `${collab.pct_colab_intl}%`;
+    }
+    if (collab.excelencia.obras_con_percentil > 0) {
+      pct_top10 = `${collab.excelencia.top10.pct}%`;
+    }
+  } catch {
+    /* corpus sin authorships enriquecidos */
+  }
 
   return {
-    nombre_investigador: `${researcher.f || ''} ${researcher.l || ''}`.trim(),
-    apellido: (researcher.l || 'investigador').trim(),
-    unidad: (researcher.dp || [])[0]?.d?.trim() || 'Universidad de Tarapacá',
-    orcid: cleanOrcid(researcher.o),
-    periodo_inicio: inicio,
-    periodo_fin: fin,
-    fecha_snapshot,
-    n_pubs: n,
-    fwci_global,
-    fwci_pct,
-    fwci_pct_label,
-    cpp,
-    h_index,
-    pct_q1,
-    cagr,
-    cagr_label,
-    area_top,
-    pct_area_top,
-    area_2,
-    pct_area_2,
-    pct_top10: '—',
-    pct_colab_intl: '—',
-    prod_por_anio,
-    prod_por_area,
-    dist_cuartiles,
-    obras,
+    metrics: {
+      nombre_investigador: `${researcher.f || ''} ${researcher.l || ''}`.trim(),
+      apellido: (researcher.l || 'investigador').trim(),
+      unidad: (researcher.dp || [])[0]?.d?.trim() || 'Universidad de Tarapacá',
+      orcid: cleanOrcid(researcher.o),
+      periodo_inicio: inicio,
+      periodo_fin: fin,
+      fecha_snapshot,
+      n_pubs: n,
+      fwci_global,
+      fwci_pct,
+      fwci_pct_label,
+      cpp,
+      h_index,
+      pct_q1,
+      cagr,
+      cagr_label,
+      area_top,
+      pct_area_top,
+      area_2,
+      pct_area_2,
+      pct_top10,
+      pct_colab_intl,
+      prod_por_anio,
+      prod_por_area,
+      dist_cuartiles,
+      obras,
+    },
+    obrasPeriodo: pubs,
   };
 }
 
@@ -315,7 +336,10 @@ export function findResearcherByOrcid(orcid: string): Researcher | null {
 }
 
 /** Métricas del informe CRIS Victoria para un ORCID UTA. */
-export function reportMetrics(orcid: string): ReportMetricsResult {
+export function reportMetricsBundle(orcid: string): {
+  metrics: ReportMetricsResult;
+  obrasPeriodo: Work[];
+} {
   ensureServerData();
   if (!isValidOrcidFormat(orcid)) {
     throw new ReportMetricsError('ORCID inválido', 400);
@@ -329,4 +353,8 @@ export function reportMetrics(orcid: string): ReportMetricsResult {
     throw new ReportMetricsError('Sin producción indexada en OpenAlex', 422);
   }
   return buildReportMetricsFromWorks(researcher, works, getSnapshotYear());
+}
+
+export function reportMetrics(orcid: string): ReportMetricsResult {
+  return reportMetricsBundle(orcid).metrics;
 }

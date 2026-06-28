@@ -1,17 +1,17 @@
-import { readFileSync, writeFileSync, mkdtempSync, rmSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdtempSync, rmSync, existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import Docxtemplater from 'docxtemplater';
-import PizZip from 'pizzip';
-// @ts-expect-error no types published
-import ImageModule from 'docxtemplater-image-module-free';
-import { reportMetrics, ReportMetricsError } from './reportMetrics';
+import { reportMetricsBundle, ReportMetricsError } from './reportMetrics';
 import { buildReportFigures } from './figures';
+import { buildExecutiveReportDocx } from './buildExecutiveReport';
+import { buildExecutiveReportData } from './reportExecutiveData';
+import { computeCollabMetrics, type CollabWork } from './reportCollabMetrics';
+import { getAW } from '../../utils/dataProcessing';
+import { cleanOrcid } from '../../utils/helpers';
 
 const execFileAsync = promisify(execFile);
-const TEMPLATE_PATH = join(process.cwd(), 'src/services/report/templates/informe-fase1.docx');
 
 export type ReportOutputFormat = 'pdf' | 'docx';
 
@@ -19,7 +19,7 @@ export interface ReportHandlerResult {
   buffer: Buffer;
   format: ReportOutputFormat;
   filename: string;
-  metrics: ReturnType<typeof reportMetrics>;
+  metrics: ReturnType<typeof reportMetricsBundle>['metrics'];
 }
 
 async function findSoffice(): Promise<string | null> {
@@ -55,64 +55,16 @@ async function convertDocxToPdf(docxPath: string, outDir: string): Promise<Buffe
     outDir,
     docxPath,
   ]);
-  const pdfPath = join(outDir, `${docxPath.split('/').pop()?.replace(/\.docx$/i, '')}.pdf`);
+  const base = docxPath.split('/').pop()?.replace(/\.docx$/i, '') ?? 'report';
+  const pdfPath = join(outDir, `${base}.pdf`);
   if (!existsSync(pdfPath)) {
     throw new Error('PDF conversion failed');
   }
-  return readFileSync(pdfPath);
-}
-
-function renderDocx(
-  metrics: ReturnType<typeof reportMetrics>,
-  figures: Awaited<ReturnType<typeof buildReportFigures>>,
-): Buffer {
-  if (!existsSync(TEMPLATE_PATH)) {
-    throw new Error(`Plantilla no encontrada: ${TEMPLATE_PATH}. Ejecute node scripts/build-informe-template.mjs`);
+  const pdfBuffer = readFileSync(pdfPath);
+  if (!pdfBuffer.length) {
+    throw new Error('PDF conversion produced empty file');
   }
-  const content = readFileSync(TEMPLATE_PATH);
-  const zip = new PizZip(content);
-
-  const figureBuffers = {
-    fig_produccion: figures.fig_produccion,
-    fig_areas: figures.fig_areas,
-    fig_cuartiles: figures.fig_cuartiles,
-  };
-
-  const imageOpts = {
-    centered: false,
-    getImage: (tagValue: string) => {
-      const buf = figureBuffers[tagValue as keyof typeof figureBuffers];
-      if (!buf) throw new Error(`Figura desconocida: ${tagValue}`);
-      return buf;
-    },
-    getSize: (_img: Buffer, tagValue: string) => {
-      if (tagValue === 'fig_areas') return [640, 400] as [number, number];
-      return [640, 360] as [number, number];
-    },
-  };
-  const imageModule = new ImageModule(imageOpts);
-
-  const doc = new Docxtemplater(zip, {
-    paragraphLoop: true,
-    linebreaks: true,
-    delimiters: { start: '{{', end: '}}' },
-    modules: [imageModule],
-  });
-
-  const templateData = {
-    ...metrics,
-    fwci_global: metrics.fwci_global ?? '—',
-    fwci_pct: metrics.fwci_pct ?? '—',
-    cpp: metrics.cpp ?? '—',
-    pct_q1: metrics.pct_q1 ?? '—',
-    cagr: metrics.cagr ?? '—',
-    fig_produccion: 'fig_produccion',
-    fig_areas: 'fig_areas',
-    fig_cuartiles: 'fig_cuartiles',
-  };
-
-  doc.render(templateData);
-  return doc.getZip().generate({ type: 'nodebuffer', compression: 'DEFLATE' });
+  return pdfBuffer;
 }
 
 export async function handleResearcherReport(body: Record<string, unknown>): Promise<ReportHandlerResult> {
@@ -121,9 +73,20 @@ export async function handleResearcherReport(body: Record<string, unknown>): Pro
     throw new ReportMetricsError('Se requiere orcid en el body', 400);
   }
 
-  const metrics = reportMetrics(orcid);
-  const figures = await buildReportFigures(metrics);
-  const docxBuffer = renderDocx(metrics, figures);
+  const { metrics, obrasPeriodo } = reportMetricsBundle(orcid);
+  const orcidClean = cleanOrcid(orcid);
+  const corpus = getAW() as CollabWork[];
+  const collab = computeCollabMetrics(corpus, orcidClean);
+  const figures = await buildReportFigures(metrics, collab);
+  const docxBuffer = await buildExecutiveReportDocx({
+    ...buildExecutiveReportData(
+      metrics,
+      collab,
+      obrasPeriodo,
+      `período ${metrics.periodo_inicio}–${metrics.periodo_fin}`,
+    ),
+    figures,
+  });
 
   const baseName = `Informe_${metrics.apellido.replace(/\s+/g, '_')}_${metrics.periodo_inicio}-${metrics.periodo_fin}`;
   const tmpDir = mkdtempSync(join(tmpdir(), 'uta-report-'));
