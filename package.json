@@ -13,6 +13,7 @@
     "setup:data": "node scripts/setup-data.mjs",
     "restore:data": "node scripts/setup-data.mjs && npm run enrich:author-ids && npm run link:works && npm run index:citations",
     "enrich:authorships": "tsx scripts/enrich-work-authorships.ts",
+    "enrich:collab": "tsx scripts/enrich-work-collab.ts",
     "enrich:author-ids": "tsx scripts/enrich/resolve-author-ids.ts",
     "link:works": "tsx scripts/link-autores-uta.mjs",
     "index:citations": "npx vite-node scripts/index-citations.ts",
@@ -23,6 +24,7 @@
     "enrich:quartile": "tsx scripts/enrich-quartile.ts",
     "enrich:openalex-id": "tsx scripts/enrich-openalex-id.ts",
     "enrich:work-metrics": "tsx scripts/enrich-work-openalex-metrics.ts",
+    "enrich:coauthor-global": "node scripts/enrich-coauthor-global.mjs",
     "audit:enrich": "node scripts/audit-enrich.mjs",
     "oclc:token-test": "tsx scripts/oclc-token-test.ts",
     "oclc:kb-probe": "tsx scripts/oclc-kb-probe.ts",
@@ -30,6 +32,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.100.0",
+    "docx": "^9.7.1",
     "docxtemplater": "^3.68.7",
     "docxtemplater-image-module-free": "^1.1.1",
     "pizzip": "^3.2.0",

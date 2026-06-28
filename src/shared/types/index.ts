@@ -2,6 +2,10 @@
 // Data Models — Universidad de Tarapacá
 // ═══════════════════════════════════════
 
+import type { GlobalProfile } from './globalProfile';
+
+export type { GlobalProfile } from './globalProfile';
+
 // ─── Researcher (from data.json) ───
 export interface Department {
   d: string;       // department name
@@ -9,13 +13,14 @@ export interface Department {
 }
 
 export interface Researcher {
-  id?: string;     // RUT / ID institucional UTA
-  f: string;       // first name
-  l: string;       // last name
-  t?: string;      // title / position
-  e?: string;      // email
-  o?: string;      // ORCID
-  ph?: string;     // photo filename
+  id?: string;
+  f: string;
+  l: string;
+  t?: string;
+  g?: string;        // grado académico (ej. "Doctor en Biología")
+  e?: string;
+  o?: string;
+  ph?: string;
   dp?: Department[];
 }
 
@@ -54,14 +59,36 @@ export interface Work {
   pub?: string;    // publisher
   srcOA?: boolean; // source is OA journal
   cr_pub?: string; // crossref publisher
+  /** Estado OA según Pure/update (ej. 'closed') */
+  up_oa_status?: string;
+  /** Año según Pure (fallback de y) */
+  up_year?: number;
+  /** ISSN(s) Crossref — array */
+  cr_issn?: string[];
+  /** ISSN(s) Pure — string CSV (ej. '2352-409X,2352-4103') */
+  up_issn?: string;
   /** Vínculos UTA confirmados por ORCID en authorships OpenAlex */
   autores_uta?: UtaAuthorLink[];
   /** Authorships estilo OpenAlex (si vienen enriquecidas en all-works.json) */
   authorships?: Array<{
     author?: { id?: string; display_name?: string; orcid?: string };
-    institutions?: Array<{ id?: string; display_name?: string; country_code?: string }>;
+    institutions?: Array<{
+      id?: string;
+      display_name?: string;
+      country_code?: string;
+      ror?: string;
+      type?: string;
+    }>;
     countries?: string[];
   }>;
+  /** Percentil de citas normalizado (OpenAlex citation_normalized_percentile) */
+  percentile?: {
+    value?: number;
+    is_in_top_1_percent?: boolean;
+    is_in_top_10_percent?: boolean;
+  };
+  /** Marca de enriquecimiento colaboración (affiliations + percentile) */
+  collabFetchedAt?: string;
   /** Alias / campos OpenAlex enriquecidos */
   title?: string;
   cited_by_count?: number;
@@ -200,6 +227,8 @@ export interface CoAuthorProfile {
   global_openalex?: GlobalOpenAlexMetrics;
   /** Ámbito del listado de publicaciones (puede diferir de metricsScope si hay fallback) */
   publicationListScope?: ResearcherMetricsScope;
+  /** Perfil global de carrera (OpenAlex), pre-cacheado por enrich-coauthor-global */
+  global_profile?: GlobalProfile;
 }
 
 // ─── AI Data ───

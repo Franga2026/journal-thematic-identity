@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from 'react';
 import { Link } from 'react-router-dom';
-import { TYPE_ES, SDG_ES, SDG_NAME_TO_NUMBER } from '../../utils/constants';
+import { SDG_ES, SDG_NAME_TO_NUMBER, typeLabelEs } from '../../utils/constants';
 import { stripTags } from '../../utils/helpers';
 import { getWorkAccessUrl, getWorkNavigationUrl } from '../../utils/workAccess';
 import { getData } from '../../utils/dataProcessing';
@@ -32,6 +32,8 @@ import {
   datasetRepoLabel,
 } from '../../utils/datasetWorkCard';
 import { fetchDataCiteUsage, type DataCiteUsage } from '../../utils/datasetUsage';
+import { fwciWorkCardTileMeta } from '../../utils/fwciKpiDisplay';
+import { fieldEs, topicLineEs } from '../../utils/fieldEs';
 
 export const ODS_COLORS: Record<number, string> = {
   1: '#E5243B',
@@ -210,6 +212,69 @@ function IconUser({ className }: { className?: string }) {
   );
 }
 
+function IconFileText({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="16" y1="13" x2="8" y2="13" />
+      <line x1="16" y1="17" x2="8" y2="17" />
+      <polyline points="10 9 9 9 8 9" />
+    </svg>
+  );
+}
+
+function IconLockOpen({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+    </svg>
+  );
+}
+
+function IconArrowUpRight({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <line x1="7" y1="17" x2="17" y2="7" />
+      <polyline points="7 7 17 7 17 17" />
+    </svg>
+  );
+}
+
 export type WorkCardVariant =
   | 'discovery'
   | 'production'
@@ -286,9 +351,11 @@ const OpenAlexWorkCard = memo(function OpenAlexWorkCard({ w }: { w: Work }) {
   const cites = getWorkOpenAlexCitations(w);
   const fwciEligible = fwciIsEligible(w);
   const fwci = getWorkOpenAlexFwci(w);
-  const fwciDisplay = fwciEligible && fwci !== null ? fwci.toFixed(2) : '—';
-  const fwciNote =
-    fwciEligible && fwci !== null ? `${fwci.toFixed(2)}× la media del campo` : undefined;
+  const { display: fwciDisplay, note: fwciNote, title: fwciTitle } = fwciWorkCardTileMeta(
+    w,
+    fwciEligible,
+    fwci,
+  );
   const fwciClass =
     !fwciEligible || fwci === null ? 'work-card__metric-value--muted'
     : fwci >= 1 ? 'work-card__metric-value--positive'
@@ -348,6 +415,7 @@ const OpenAlexWorkCard = memo(function OpenAlexWorkCard({ w }: { w: Work }) {
           value={fwciDisplay}
           valueClass={fwciClass}
           note={fwciNote}
+          title={fwciTitle}
           openAlexWorkUrl={openAlexWorkUrl}
         />
         <MetricTile
@@ -408,9 +476,11 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
 
   const metaParts = [year, source].filter(Boolean);
 
-  const fwciDisplay = fwciEligible && fwci !== null ? fwci.toFixed(2) : '—';
-  const fwciNote =
-    fwciEligible && fwci !== null ? `${fwci.toFixed(2)}× la media del campo` : undefined;
+  const { display: fwciDisplay, note: fwciNote, title: fwciTitle } = fwciWorkCardTileMeta(
+    w,
+    fwciEligible,
+    fwci,
+  );
   const fwciClass =
     !fwciEligible || fwci === null ? 'work-card__metric-value--muted'
     : fwci >= 1 ? 'work-card__metric-value--positive'
@@ -441,7 +511,8 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
   const hasChips =
     (isEnriched && Boolean(w.qi))
     || w.oa === true
-    || (isEnriched && (w.sdgs || []).length > 0);
+    || (isEnriched && (w.sdgs || []).length > 0)
+    || Boolean(w.field);
 
   return (
     <article className={`work-card work-card--coauthor${isEnriched ? '' : ' work-card--coauthor-lite'}`}>
@@ -498,6 +569,10 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
         <p className="work-card__meta-text work-card__meta-text--coauthor">{metaParts.join(' · ')}</p>
       )}
 
+      {(w.field || w.topic) && (
+        <p className="work-card__topics">{topicLineEs(w)}</p>
+      )}
+
       {showMetrics && (
         <div className="work-card__metrics work-card__metrics--coauthor">
           {showFwciTile && (
@@ -507,6 +582,7 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
               value={fwciDisplay}
               valueClass={fwciClass}
               note={fwciNote}
+              title={fwciTitle}
               openAlexWorkUrl={openAlexWorkUrl}
             />
           )}
@@ -538,6 +614,9 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
             {isEnriched && (w.sdgs || []).map((sdg) => (
               <SdgChip key={sdg} sdg={sdg} />
             ))}
+            {w.field && (
+              <span className="work-card__chip work-card__chip--field">{fieldEs(w.field)}</span>
+            )}
           </div>
         )}
         <div className="work-card__chips-actions work-card__chips-actions--coauthor">
@@ -799,7 +878,7 @@ const WorkCard = memo(function WorkCard({
   const title = stripTags(w.t) || 'Sin título';
   const year = w.y != null ? String(w.y) : '';
   const source = w.s?.trim() || '';
-  const type = TYPE_ES[w.tp as keyof typeof TYPE_ES] || w.tp || '';
+  const type = typeLabelEs(w.tp);
   const publisher = w.pub || w.cr_pub || '';
   const cites = getWorkOpenAlexCitations(w);
   const authors = w.a || [];
@@ -818,8 +897,14 @@ const WorkCard = memo(function WorkCard({
 
   const isOpenAccess = srcInfo.access === 'oa' || Boolean(w.oa);
   const leadership = variant === 'discovery' ? getUtaLeadershipLabel(w, catalog) : null;
+  const showWorkHeader =
+    (variant === 'discovery' || variant === 'production')
+    && Boolean(type || year || isOpenAccess);
+  const showWorkFoot = variant === 'discovery' || variant === 'production';
 
-  const metaParts = [type, year, source, publisher || srcInfo.publisher].filter(Boolean);
+  const metaParts = showWorkHeader
+    ? [source, publisher || srcInfo.publisher].filter(Boolean)
+    : [type, year, source, publisher || srcInfo.publisher].filter(Boolean);
 
   const handleTitleClick = (e: MouseEvent) => {
     e.preventDefault();
@@ -843,9 +928,11 @@ const WorkCard = memo(function WorkCard({
     openLocalResearcherProfile(match.researcher);
   };
 
-  const fwciDisplay = fwciEligible && fwci !== null ? fwci.toFixed(2) : '—';
-  const fwciNote =
-    fwciEligible && fwci !== null ? `${fwci.toFixed(2)}× la media del campo` : undefined;
+  const { display: fwciDisplay, note: fwciNote, title: fwciTitle } = fwciWorkCardTileMeta(
+    w,
+    fwciEligible,
+    fwci,
+  );
   const fwciClass =
     !fwciEligible || fwci === null ? 'work-card__metric-value--muted'
     : fwci >= 1 ? 'work-card__metric-value--positive'
@@ -853,6 +940,24 @@ const WorkCard = memo(function WorkCard({
 
   return (
     <article className={`work-card work-card--${variant}`}>
+      {showWorkHeader && (
+        <div className="work-card__header">
+          {type && (
+            <span className="work-card__type-pill">
+              <IconFileText className="work-card__type-pill-icon" />
+              {type}
+            </span>
+          )}
+          {year && <span className="work-card__year">{year}</span>}
+          {isOpenAccess && (
+            <span className="work-card__oa-badge">
+              <IconLockOpen className="work-card__oa-badge-icon" />
+              Acceso abierto
+            </span>
+          )}
+        </div>
+      )}
+
       {navUrl ? (
         <a
           href={navUrl}
@@ -882,7 +987,7 @@ const WorkCard = memo(function WorkCard({
               DOI ↗
             </a>
           )}
-          <WorkCitationPanel work={w} compact={isCompact} ghost />
+          {!showWorkFoot && <WorkCitationPanel work={w} compact={isCompact} ghost />}
         </div>
       </div>
 
@@ -931,10 +1036,7 @@ const WorkCard = memo(function WorkCard({
       )}
 
       {(w.field || w.topic) && (
-        <p className="work-card__topics">
-          {w.topic || w.field}
-          {w.subfield && w.subfield !== w.field ? ` · ${w.subfield}` : ''}
-        </p>
+        <p className="work-card__topics">{topicLineEs(w)}</p>
       )}
 
       <div className="work-card__metrics">
@@ -944,6 +1046,7 @@ const WorkCard = memo(function WorkCard({
           value={fwciDisplay}
           valueClass={fwciClass}
           note={fwciNote}
+          title={fwciTitle}
           openAlexWorkUrl={openAlexWorkUrl}
         />
         <MetricTile
@@ -952,34 +1055,77 @@ const WorkCard = memo(function WorkCard({
           note="citas en OpenAlex"
           openAlexWorkUrl={openAlexWorkUrl}
         />
+        {w.qi && (
+          <MetricTile
+            label="SJR"
+            sigla
+            value={/^Q/i.test(w.qi) ? w.qi.toUpperCase() : `Q${w.qi}`}
+            note="Scimago"
+          />
+        )}
       </div>
 
       <div className="work-card__chips">
         <div className="work-card__chips-left">
-          {w.qi && (
-            <span className="work-card__chip work-card__chip--quartile">
-              SJR · {w.qi}
-            </span>
-          )}
           {w.field && (
-            <span className="work-card__chip work-card__chip--field">{w.field}</span>
+            <span className="work-card__chip work-card__chip--field">{fieldEs(w.field)}</span>
           )}
           {(w.sdgs || []).map((sdg) => (
             <SdgChip key={sdg} sdg={sdg} />
           ))}
-          {isOpenAccess && (
+          {isOpenAccess && !showWorkHeader && (
             <span className="work-card__chip work-card__chip--oa">Acceso abierto</span>
           )}
           {variant === 'discovery' && leadership && (
             <span className="work-card__chip work-card__chip--leadership">{leadership}</span>
           )}
         </div>
-        <div className="work-card__chips-actions">
+        {!showWorkFoot && (
+          <div className="work-card__chips-actions">
+            <AISummaryButton
+              label="Resumen IA"
+              panelTitle="Resumen IA de la publicación"
+              compact={isCompact}
+              ghost
+              fetchAnalysis={() => summarizeWork(w)}
+              renderStructured={(data: WorkSummaryStructured) => (
+                <div className="ai-work-summary">
+                  <p><strong>Resumen:</strong> {data.resumen}</p>
+                  <p><strong>Aporte:</strong> {data.aporte_principal}</p>
+                  <p><strong>Metodología:</strong> {data.metodologia_probable}</p>
+                  <p><strong>Aplicación:</strong> {data.aplicacion_practica}</p>
+                  {data.ods_relacionados?.length > 0 && (
+                    <p><strong>ODS:</strong> {data.ods_relacionados.join(' · ')}</p>
+                  )}
+                </div>
+              )}
+            />
+            <button
+              type="button"
+              disabled={!accessUrl}
+              title={accessUrl ? undefined : 'Sin enlace de acceso disponible'}
+              onClick={handleAccessClick}
+              className="btn work-card__access-btn"
+            >
+              Acceder
+            </button>
+          </div>
+        )}
+      </div>
+
+      {showWorkFoot && (
+        <div className="work-card__foot">
+          <WorkCitationPanel
+            work={w}
+            compact={isCompact}
+            buttonClassName="work-card__btn"
+          />
           <AISummaryButton
             label="Resumen IA"
             panelTitle="Resumen IA de la publicación"
             compact={isCompact}
-            ghost
+            buttonClassName="work-card__btn"
+            showIcon
             fetchAnalysis={() => summarizeWork(w)}
             renderStructured={(data: WorkSummaryStructured) => (
               <div className="ai-work-summary">
@@ -998,12 +1144,13 @@ const WorkCard = memo(function WorkCard({
             disabled={!accessUrl}
             title={accessUrl ? undefined : 'Sin enlace de acceso disponible'}
             onClick={handleAccessClick}
-            className="btn work-card__access-btn"
+            className="work-card__btn work-card__btn--access"
           >
+            <IconArrowUpRight className="work-card__btn-icon" />
             Acceder
           </button>
         </div>
-      </div>
+      )}
     </article>
   );
 });

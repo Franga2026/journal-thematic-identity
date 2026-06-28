@@ -17,6 +17,7 @@ interface WorkCitationPanelProps {
   work: Work;
   compact?: boolean;
   ghost?: boolean;
+  buttonClassName?: string;
 }
 
 const FORMATS: Array<{ key: keyof WorkCitations; label: string }> = [
@@ -94,7 +95,12 @@ function IconQuote({ className }: { className?: string }) {
   );
 }
 
-const WorkCitationPanel = memo(function WorkCitationPanel({ work, compact, ghost }: WorkCitationPanelProps) {
+const WorkCitationPanel = memo(function WorkCitationPanel({
+  work,
+  compact,
+  ghost,
+  buttonClassName,
+}: WorkCitationPanelProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [coords, setCoords] = useState<PopoverCoords | null>(null);
@@ -250,15 +256,22 @@ const WorkCitationPanel = memo(function WorkCitationPanel({ work, compact, ghost
     </div>
   ) : null;
 
+  const footStyle = Boolean(buttonClassName);
+  const showQuoteIcon = ghost || footStyle;
+
   return (
     <div ref={anchorRef} className="work-citation-panel">
       <button
         type="button"
         onClick={handleToggle}
-        className={`btn work-citation-panel__btn${ghost ? ' work-citation-panel__btn--ghost' : ''}`}
+        className={[
+          'btn',
+          buttonClassName,
+          !buttonClassName && `work-citation-panel__btn${ghost ? ' work-citation-panel__btn--ghost' : ''}`,
+        ].filter(Boolean).join(' ')}
         title="Citar publicación"
         aria-expanded={open}
-        style={ghost ? undefined : {
+        style={ghost || footStyle ? undefined : {
           background: '#475569',
           color: '#fff',
           padding: compact ? '3px 10px' : '5px 14px',
@@ -267,9 +280,9 @@ const WorkCitationPanel = memo(function WorkCitationPanel({ work, compact, ghost
           cursor: 'pointer',
         }}
       >
-        {ghost ? (
+        {showQuoteIcon ? (
           <>
-            <IconQuote className="work-citation-panel__icon" />
+            <IconQuote className={footStyle ? 'work-card__btn-icon' : 'work-citation-panel__icon'} />
             Citar
           </>
         ) : (

@@ -72,17 +72,35 @@ export const SDG_ES = {
   'Partnerships for the goals': 'Alianzas',
 };
 
+/** Etiquetas en español para OpenAlex `work.type` (w.tp). */
 export const TYPE_ES = {
   article: 'Artículo',
   'book-chapter': 'Capítulo',
   book: 'Libro',
-  dissertation: 'Tesis',
-  preprint: 'Preprint',
   review: 'Revisión',
-  dataset: 'Dataset',
+  preprint: 'Preprint',
+  dataset: 'Conjunto de datos',
+  dissertation: 'Tesis',
   report: 'Reporte',
+  letter: 'Carta',
+  editorial: 'Editorial',
+  erratum: 'Fe de erratas',
+  'peer-review': 'Revisión por pares',
+  paratext: 'Paratexto',
+  'reference-entry': 'Entrada de referencia',
+  standard: 'Norma',
+  grant: 'Financiamiento',
+  'supplementary-materials': 'Material complementario',
+  retraction: 'Retractación',
+  component: 'Componente',
   other: 'Otro',
 };
+
+/** Traduce w.tp; fallback capitaliza la clave cruda o «Otro» si falta. */
+export function typeLabelEs(tp) {
+  if (!tp) return 'Otro';
+  return TYPE_ES[tp] ?? (tp.charAt(0).toUpperCase() + tp.slice(1));
+}
 
 export const PAGE_SIZE = 20;
 export const WORKS_PAGE_SIZE = 50;
@@ -94,6 +112,7 @@ export const TABS = [
   { key: 'areas', label: 'Áreas' },
   { key: 'ods', label: 'ODS' },
   { key: 'produccion', label: 'Producción' },
+  { key: 'descubridor', label: 'Descubridor' },
   { key: 'ranking', label: 'Ranking' },
   { key: 'metricas', label: 'Métricas' },
   { key: 'informes', label: 'Informes' },

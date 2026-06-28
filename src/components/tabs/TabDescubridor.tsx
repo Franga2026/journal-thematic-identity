@@ -6,14 +6,33 @@ import { useUI } from '../../context/UIContext';
 import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import { getProfileRoutePath, shouldSyncProfileRoute } from '../../utils/researcherProfile';
 import { getSourceAccess, isAccessLookupLoaded } from '../../services/sources/sourceAccess';
-import { TYPE_ES } from '../../utils/constants';
+import { typeLabelEs } from '../../utils/constants';
+import { sortWorks, type SortKey } from '../../utils/sortWorks';
+import { unifiedSearch, type SearchResult } from '../../services/search/unifiedSearch';
+import { getColor, getInitials } from '../../utils/helpers';
 import WorkCard from '../cards/WorkCard';
 import { Pagination, EmptyState } from '../common/UIComponents';
 
 const PAGE_SIZE = 15;
 
 /* ─── Tipos locales ─── */
-interface FacetItem { name: string; count: number; label?: string; }
+interface FacetItem {
+  count: number;
+  /** Valor crudo que va al filtro (p. ej. 'article', 'open', 'Q1'). */
+  value: string;
+  /** Texto visible; si falta, se usa value. */
+  label?: string;
+  /** Alias legacy de buildWorkFacets / facetas locales. */
+  name?: string;
+}
+
+function facetValue(item: FacetItem): string {
+  return item.value ?? item.name ?? '';
+}
+
+function facetLabel(item: FacetItem): string {
+  return item.label ?? item.name ?? item.value ?? '';
+}
 
 /* ─── Componente de faceta compacta ─── */
 function Facet({
@@ -33,12 +52,13 @@ function Facet({
         {title}
       </div>
       {visible.map((item) => {
-        const active = selected === item.name;
+        const value = facetValue(item);
+        const active = selected === value;
         return (
           <button
-            key={item.name}
+            key={value}
             type="button"
-            onClick={() => onSelect(active ? '' : item.name)}
+            onClick={() => onSelect(active ? '' : value)}
             style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               width: '100%', padding: '5px 8px', fontSize: 11, border: 'none',
@@ -48,7 +68,7 @@ function Facet({
               marginBottom: 1, position: 'relative',
             }}
           >
-            <span style={{ zIndex: 1, position: 'relative' }}>{item.label || item.name}</span>
+            <span style={{ zIndex: 1, position: 'relative' }}>{facetLabel(item)}</span>
             <span style={{ zIndex: 1, position: 'relative', fontWeight: 600, fontSize: 10 }}>{item.count.toLocaleString()}</span>
             <span style={{
               position: 'absolute', left: 0, top: 0, bottom: 0,
@@ -112,6 +132,7 @@ export default function TabDescubridor() {
   const access = descubridorAccess;
   const setAccess = setDescubridorAccess;
   const [page, setPage] = useState(0);
+  const [sortBy, setSortBy] = useState<SortKey>('citations');
   const [lookupReady, setLookupReady] = useState(isAccessLookupLoaded());
 
   useEffect(() => {
@@ -126,6 +147,10 @@ export default function TabDescubridor() {
   useEffect(() => {
     setPage(0);
   }, [search]);
+
+  useEffect(() => {
+    setPage(0);
+  }, [sortBy]);
 
   const hasFilters = Boolean(search.trim() || year || type || access || field || quartile || sdg);
 
@@ -149,8 +174,8 @@ export default function TabDescubridor() {
         (w.a || []).some((a: string) => a.toLowerCase().includes(q)) ||
         (w.s || '').toLowerCase().includes(q) ||
         (w.d || '').toLowerCase().includes(q) ||
-        String((w as { cr_issn?: string }).cr_issn || '').toLowerCase().includes(q) ||
-        String((w as { up_issn?: string }).up_issn || '').toLowerCase().includes(q);
+        String(w.cr_issn || '').toLowerCase().includes(q) ||
+        String(w.up_issn || '').toLowerCase().includes(q);
       const my = !year || String(w.y) === year;
       const mtp = !type || w.tp === type;
       const moa = !access ||
@@ -162,10 +187,12 @@ export default function TabDescubridor() {
     });
   }, [AW, search, year, type, access, field, quartile, sdg]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const sorted = useMemo(() => sortWorks(filtered, sortBy), [filtered, sortBy]);
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
   const pageData = useMemo(
-    () => filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE).map(enrichWork),
-    [filtered, page]
+    () => sorted.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE).map(enrichWork),
+    [sorted, page]
   );
 
   // ─── Facetas (calculadas sobre los resultados cruzados) ───
@@ -210,6 +237,30 @@ export default function TabDescubridor() {
     return { oa, q1, cites, sdAccess };
   }, [filtered, lookupReady]);
 
+  const uni = useMemo(
+    () => (search.trim() ? unifiedSearch(search) : []),
+    [search],
+  );
+  const unifiedResearchers = useMemo(
+    () => uni.filter((r): r is Extract<SearchResult, { kind: 'researcher' }> => r.kind === 'researcher'),
+    [uni],
+  );
+  const unifiedJournals = useMemo(
+    () => uni.filter((r): r is Extract<SearchResult, { kind: 'journal' }> => r.kind === 'journal'),
+    [uni],
+  );
+
+  const handleJournalClick = useCallback(
+    (title: string) => {
+      setSearch(title);
+      resetPage();
+    },
+    [setSearch, resetPage],
+  );
+
+  const showEmptyState =
+    filtered.length === 0 && unifiedResearchers.length === 0 && unifiedJournals.length === 0;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
       {/* ─── Header ─── */}
@@ -245,11 +296,34 @@ export default function TabDescubridor() {
             </button>
           )}
         </div>
-        <div style={{ marginTop: 8, fontSize: 12, color: 'var(--gray-500)' }}>
-          <strong style={{ color: 'var(--blue-800)' }}>{filtered.length.toLocaleString()}</strong> resultados
-          {filtered.length !== totalWorks && (
-            <span> de {totalWorks.toLocaleString()} publicaciones</span>
-          )}
+        <div style={{
+          marginTop: 8,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 12,
+          flexWrap: 'wrap',
+        }}>
+          <div style={{ fontSize: 12, color: 'var(--gray-500)' }}>
+            <strong style={{ color: 'var(--blue-800)' }}>{filtered.length.toLocaleString()}</strong> resultados
+            {filtered.length !== totalWorks && (
+              <span> de {totalWorks.toLocaleString()} publicaciones</span>
+            )}
+          </div>
+          <div className="descubridor__sort">
+            <label htmlFor="descubridor-sort" className="descubridor__sort-label">Ordenar por</label>
+            <select
+              id="descubridor-sort"
+              className="descubridor__sort-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortKey)}
+            >
+              <option value="citations">Más citadas</option>
+              <option value="fwci">Mayor FWCI</option>
+              <option value="year">Año (recientes)</option>
+              <option value="relevance">Relevancia</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -283,15 +357,19 @@ export default function TabDescubridor() {
         }}>
           <Facet
             title="Año"
-            items={facets.years.slice(0, 20)}
+            items={facets.years.slice(0, 20).map((y) => ({
+              value: y.name,
+              count: y.count,
+            }))}
             selected={year}
             onSelect={(v) => { setYear(v); resetPage(); }}
           />
           <Facet
             title="Cuartil"
-            items={quartileFacets.map((q) => ({
-              ...q,
+            items={quartileFacets.filter((q) => q.count > 0).map((q) => ({
+              value: q.name,
               label: q.name,
+              count: q.count,
             }))}
             selected={quartile}
             onSelect={(v) => { setQuartile(v); resetPage(); }}
@@ -299,9 +377,10 @@ export default function TabDescubridor() {
           />
           <Facet
             title="Tipo"
-            items={facets.types.map((t) => ({
-              ...t,
-              label: TYPE_ES[t.name as keyof typeof TYPE_ES] || t.name,
+            items={facets.types.filter((t) => t.count > 0).map((t) => ({
+              value: t.name,
+              label: typeLabelEs(t.name),
+              count: t.count,
             }))}
             selected={type}
             onSelect={(v) => { setType(v); resetPage(); }}
@@ -309,8 +388,9 @@ export default function TabDescubridor() {
           <Facet
             title="Acceso"
             items={facets.access.filter((a) => a.count > 0).map((a) => ({
-              ...a,
+              value: a.name,
               label: a.name === 'open' ? 'Open Access' : 'Cerrado',
+              count: a.count,
             }))}
             selected={access}
             onSelect={(v) => { setAccess(v); resetPage(); }}
@@ -318,14 +398,20 @@ export default function TabDescubridor() {
           />
           <Facet
             title="Área temática"
-            items={facets.topics}
+            items={facets.topics.map((t) => ({
+              value: t.name,
+              count: t.count,
+            }))}
             selected={field}
             onSelect={(v) => { setField(v); resetPage(); }}
           />
           {sdgFacets.length > 0 && (
             <Facet
               title="ODS"
-              items={sdgFacets}
+              items={sdgFacets.map((s) => ({
+                value: s.name,
+                count: s.count,
+              }))}
               selected={sdg}
               onSelect={(v) => { setSdg(v); resetPage(); }}
             />
@@ -334,18 +420,107 @@ export default function TabDescubridor() {
 
         {/* Resultados */}
         <main style={{ flex: 1, minWidth: 0 }}>
-          {filtered.length === 0 ? (
+          {showEmptyState ? (
             <EmptyState
               icon="🔍"
               title="Sin resultados"
               message="Prueba con otros términos de búsqueda o ajusta los filtros."
             />
           ) : (
-            <div style={{ border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
-              {pageData.map((w, i) => (
-                <WorkCard key={`${w.d || ''}-${w.y || ''}-${i}`} w={w} variant="discovery" onOpenResearcher={handleOpenResearcher} />
-              ))}
-            </div>
+            <>
+              {search.trim() && unifiedResearchers.length > 0 && (
+                <section className="descubridor-mixed" aria-label="Investigadores">
+                  <h3 className="descubridor-mixed__heading">
+                    Investigadores ({unifiedResearchers.length})
+                  </h3>
+                  <div className="descubridor-mixed__list">
+                    {unifiedResearchers.map((r) => {
+                      const initials = getInitials(r.raw.f, r.raw.l);
+                      const avatarColor = getColor(r.name);
+                      return (
+                        <button
+                          key={r.id}
+                          type="button"
+                          className="descubridor-mixed__row descubridor-mixed__row--researcher"
+                          onClick={() => handleOpenResearcher(r.orcid || r.id)}
+                        >
+                          <span
+                            className="descubridor-mixed__avatar"
+                            style={{ background: avatarColor }}
+                            aria-hidden
+                          >
+                            {initials}
+                          </span>
+                          <span className="descubridor-mixed__content">
+                            <span className="descubridor-mixed__topline">
+                              <span className="descubridor-mixed__badge descubridor-mixed__badge--researcher">
+                                INVESTIGADOR
+                              </span>
+                              <span className="descubridor-mixed__title">{r.name}</span>
+                            </span>
+                            <span className="descubridor-mixed__subtitle">{r.subtitle}</span>
+                          </span>
+                          {r.hIndex != null && (
+                            <span className="descubridor-mixed__meta">
+                              h-index {r.hIndex}
+                            </span>
+                          )}
+                          <span className="descubridor-mixed__arrow" aria-hidden>↗</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </section>
+              )}
+
+              {search.trim() && unifiedJournals.length > 0 && (
+                <section className="descubridor-mixed" aria-label="Revistas">
+                  <h3 className="descubridor-mixed__heading">
+                    Revistas ({unifiedJournals.length})
+                  </h3>
+                  <div className="descubridor-mixed__list">
+                    {unifiedJournals.map((j) => (
+                      <button
+                        key={j.id}
+                        type="button"
+                        className="descubridor-mixed__row descubridor-mixed__row--journal"
+                        onClick={() => handleJournalClick(j.title)}
+                      >
+                        <span className="descubridor-mixed__content">
+                          <span className="descubridor-mixed__topline">
+                            <span className="descubridor-mixed__badge descubridor-mixed__badge--journal">
+                              REVISTA
+                            </span>
+                            <span className="descubridor-mixed__title">{j.title}</span>
+                          </span>
+                          <span className="descubridor-mixed__subtitle">
+                            {j.issn ? `ISSN ${j.issn}` : 'Sin ISSN'}
+                            {j.qi ? ` · ${j.qi}` : ''}
+                            {j.raw.workCount > 0
+                              ? ` · ${j.raw.workCount.toLocaleString()} obras`
+                              : ''}
+                          </span>
+                        </span>
+                        <span className="descubridor-mixed__arrow" aria-hidden>↗</span>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {filtered.length > 0 && (
+                <section className="descubridor-mixed descubridor-mixed--works" aria-label="Publicaciones">
+                  <h3 className="descubridor-mixed__heading">
+                    Publicaciones ({filtered.length.toLocaleString()})
+                  </h3>
+                  <div style={{ border: '1px solid var(--border)', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+                    {pageData.map((w, i) => (
+                      <WorkCard key={`${w.d || ''}-${w.y || ''}-${i}`} w={w} variant="discovery" onOpenResearcher={handleOpenResearcher} />
+                    ))}
+                  </div>
+                </section>
+              )}
+            </>
           )}
 
           <div style={{ marginTop: 16 }}>

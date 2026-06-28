@@ -1,7 +1,8 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useState, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { getAW, getInstitution, filterWorks } from '../../utils/dataProcessing';
 import { WORKS_PAGE_SIZE } from '../../utils/constants';
+import { sortWorks, type SortKey } from '../../utils/sortWorks';
 import { Pagination } from '../common/UIComponents';
 import ProductionSearchBar from '../production/ProductionSearchBar';
 import ProductionWorkList from '../production/ProductionWorkList';
@@ -27,6 +28,8 @@ export default function TabProduccion() {
     setWorkPage,
   } = useApp();
 
+  const [sortBy, setSortBy] = useState<SortKey>('citations');
+
   const AW = getAW();
   const INST = getInstitution();
   const totalCount = (AW || []).length;
@@ -46,10 +49,16 @@ export default function TabProduccion() {
 
   const fw = useMemo(() => filterWorks(filterParams), [filterParams]);
 
-  const totalPages = Math.max(1, Math.ceil(fw.length / WORKS_PAGE_SIZE));
+  useEffect(() => {
+    setWorkPage(0);
+  }, [sortBy, setWorkPage]);
+
+  const sorted = useMemo(() => sortWorks(fw, sortBy), [fw, sortBy]);
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / WORKS_PAGE_SIZE));
   const pageData = useMemo(
-    () => fw.slice(workPage * WORKS_PAGE_SIZE, (workPage + 1) * WORKS_PAGE_SIZE),
-    [fw, workPage]
+    () => sorted.slice(workPage * WORKS_PAGE_SIZE, (workPage + 1) * WORKS_PAGE_SIZE),
+    [sorted, workPage]
   );
 
   const resetWorkPage = useCallback(() => setWorkPage(0), [setWorkPage]);
@@ -132,6 +141,8 @@ export default function TabProduccion() {
         totalCount={totalCount}
         hasActiveFilters={hasActiveFilters}
         onClearFilters={clearFilters}
+        sortBy={sortBy}
+        onSortChange={setSortBy}
       />
 
       <div className="production-layout">

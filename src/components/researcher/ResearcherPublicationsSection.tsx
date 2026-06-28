@@ -1,8 +1,11 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useState } from 'react';
 import type { Researcher, Work } from '../../shared/types';
+import { fieldEs } from '../../utils/fieldEs';
 import { getResearcherUtaId } from '../../utils/helpers';
 import { getEnrichedWorksForResearcher } from '../../utils/researcherWorks';
+import { sortWorks, type SortKey } from '../../utils/sortWorks';
 import ProductionWorkList from '../production/ProductionWorkList';
+import ProductionViewToggle, { type ProductionViewMode } from '../production/ProductionViewToggle';
 import { EmptyState } from '../common/UIComponents';
 
 interface ResearcherPublicationsSectionProps {
@@ -19,31 +22,33 @@ export default function ResearcherPublicationsSection({
   onOpenResearcher,
 }: ResearcherPublicationsSectionProps) {
   const utaId = getResearcherUtaId(researcher);
+  const [sortBy, setSortBy] = useState<SortKey>('citations');
+  const [viewMode, setViewMode] = useState<ProductionViewMode>('list');
 
-  const allLinked = useMemo(
+  const works = useMemo(
     () => getEnrichedWorksForResearcher(researcher),
-    [researcher, utaId]
+    [researcher, utaId],
   );
 
+  const total = works.length;
+
+  const topicCounts = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const w of works) {
+      const t = (w.field ?? w.topic) as string | undefined;
+      if (t) m.set(t, (m.get(t) ?? 0) + 1);
+    }
+    return [...m.entries()].sort((a, b) => b[1] - a[1]);
+  }, [works]);
+
   const publicacionesFiltradas = useMemo(() => {
-    if (!modalTopic) return allLinked;
-    return allLinked.filter((w) => w.field === modalTopic || w.topic === modalTopic);
-  }, [allLinked, modalTopic]);
+    if (!modalTopic) return works;
+    return works.filter((w) => w.field === modalTopic || w.topic === modalTopic);
+  }, [works, modalTopic]);
 
-  const fieldCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    allLinked.forEach((w) => {
-      const f = w.field || w.topic;
-      if (f) counts[f] = (counts[f] || 0) + 1;
-    });
-    return counts;
-  }, [allLinked]);
-
-  const fields = useMemo(() => Object.keys(fieldCounts).sort(), [fieldCounts]);
-
-  const handleTopic = useCallback(
-    (topic: string) => onTopicChange(topic),
-    [onTopicChange]
+  const publicacionesOrdenadas = useMemo(
+    () => sortWorks(publicacionesFiltradas, sortBy),
+    [publicacionesFiltradas, sortBy],
   );
 
   if (!utaId) {
@@ -58,54 +63,52 @@ export default function ResearcherPublicationsSection({
 
   return (
     <>
-      {fields.length > 0 && (
-        <div className="researcher-pubs__topics">
-          <div className="researcher-pubs__topics-label">Áreas temáticas</div>
-          <div className="researcher-pubs__topics-chips">
-            <span
-              role="button"
-              tabIndex={0}
-              onClick={() => handleTopic('')}
-              onKeyDown={(e) => e.key === 'Enter' && handleTopic('')}
-              className={`badge badge--clickable ${!modalTopic ? 'badge--cites' : ''}`}
-              style={
-                !modalTopic
-                  ? { background: '#1e3a8a', color: '#fff', borderColor: '#1e3a8a' }
-                  : undefined
-              }
-            >
-              Todas ({allLinked.length})
-            </span>
-            {fields.map((f) => (
-              <span
-                key={f}
-                role="button"
-                tabIndex={0}
-                onClick={() => handleTopic(f)}
-                onKeyDown={(e) => e.key === 'Enter' && handleTopic(f)}
-                className={`badge badge--clickable ${modalTopic === f ? 'badge--cites' : ''}`}
-                style={
-                  modalTopic === f
-                    ? { background: '#1e3a8a', color: '#fff', borderColor: '#1e3a8a' }
-                    : { background: '#eff6ff', color: '#1e40af', borderColor: '#bfdbfe' }
-                }
-              >
-                {f} ({fieldCounts[f]})
-              </span>
-            ))}
-          </div>
+      <div className="rps-head">
+        <div className="rps-head__left">
+          <span className="rps-count">{total} publicaciones</span>
+          <ProductionViewToggle value={viewMode} onChange={setViewMode} />
         </div>
-      )}
-
-      <p className="researcher-pubs__meta">
-        {publicacionesFiltradas.length.toLocaleString()} publicaciones vinculadas
-        <span className="researcher-pubs__source"> · fuente: all-works.json</span>
-      </p>
+        <div className="descubridor__sort">
+          <label htmlFor="rps-sort" className="descubridor__sort-label">Ordenar por</label>
+          <select
+            id="rps-sort"
+            className="descubridor__sort-select"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as SortKey)}
+          >
+            <option value="citations">Más citadas</option>
+            <option value="fwci">Mayor FWCI</option>
+            <option value="year">Año (recientes)</option>
+            <option value="quartile">Mejor cuartil</option>
+          </select>
+        </div>
+      </div>
+      <span className="rps-topics__label">Áreas temáticas</span>
+      <div className="rps-chips">
+        <button
+          type="button"
+          className={`rps-chip${!modalTopic ? ' rps-chip--active' : ''}`}
+          onClick={() => onTopicChange('')}
+        >
+          Todas · {total}
+        </button>
+        {topicCounts.map(([t, n]) => (
+          <button
+            key={t}
+            type="button"
+            className={`rps-chip${modalTopic === t ? ' rps-chip--active' : ''}`}
+            onClick={() => onTopicChange(t)}
+          >
+            {fieldEs(t)} · {n}
+          </button>
+        ))}
+      </div>
 
       <div className="researcher-pubs__list">
-        {publicacionesFiltradas.length > 0 ? (
+        {publicacionesOrdenadas.length > 0 ? (
           <ProductionWorkList
-            works={publicacionesFiltradas as Work[]}
+            works={publicacionesOrdenadas as Work[]}
+            viewMode={viewMode}
             onOpenResearcher={onOpenResearcher}
             currentResearcher={researcher}
           />

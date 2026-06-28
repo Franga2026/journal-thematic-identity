@@ -1,4 +1,5 @@
 import { CURRENT_YEAR } from '../shared/metrics/fwci';
+import type { Work } from '../shared/types';
 
 /** Sublabel compacto bajo el valor FWCI en la ficha del investigador. */
 export function fwciKpiSublabel(
@@ -24,3 +25,24 @@ export function fwciKpiTooltip(fwciN: number | null | undefined): string {
 
 export const OPENALEX_METRICS_UNIVERSE_NOTE =
   'Métricas calculadas sobre la producción completa indexada en OpenAlex.';
+
+/** Valor, nota y tooltip del tile FWCI en WorkCard. */
+export function fwciWorkCardTileMeta(
+  w: Pick<Work, 'y'> | null | undefined,
+  fwciEligible: boolean,
+  fwci: number | null,
+): { display: string; note: string; title?: string } {
+  const fwciNa = !fwciEligible || fwci === null;
+  const fwciCurrentYear = Number(w?.y) >= CURRENT_YEAR;
+  return {
+    display: fwciNa ? '—' : fwci.toFixed(2),
+    note: !fwciNa
+      ? `${fwci.toFixed(2)}× la media del campo`
+      : fwciCurrentYear ? 'año en curso' : 'sin dato',
+    title: !fwciNa
+      ? undefined
+      : fwciCurrentYear
+        ? 'FWCI no disponible: obra del año en curso, ventana de citación incompleta.'
+        : 'FWCI no disponible para esta obra (sin valor en OpenAlex).',
+  };
+}

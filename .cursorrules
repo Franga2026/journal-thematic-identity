@@ -1,0 +1,26 @@
+# Reglas permanentes — directorio-uta
+
+## Typecheck gate (obligatorio)
+
+Antes de dar por terminado **CUALQUIER** cambio:
+
+1. Ejecutar `npx tsc --noEmit` en la raíz del repo.
+2. Comparar contra el baseline de errores preexistentes (ver `.cursor/rules/tsc-gate-and-imports.mdc`).
+3. Si el cambio introduce errores **nuevos** (archivos o mensajes que no estaban en el baseline) → **no entregar**: corregirlos primero.
+4. Reportar **siempre** el resultado de `tsc` al finalizar (éxito, conteo, o errores nuevos vs baseline).
+
+## Imports
+
+- Al agregar lógica a un archivo, **no eliminar imports existentes** que sigan en uso.
+- Si extraes JSX a otro componente, el archivo original debe conservar los imports que aún necesita (ej.: `WorkCard` en `CoAuthorModal.tsx` para `variant="dataset"`).
+
+## Comando
+
+```bash
+cd "/Users/franga/Downloads/directorio-uta 7" && npx tsc --noEmit
+```
+
+## Otras reglas del proyecto
+
+- `.cursor/rules/researcher-modal-baseline.mdc` — diseño celeste del ResearcherModal (no tocar sin aprobación).
+- `.cursor/rules/tsc-gate-and-imports.mdc` — baseline detallado de errores TS conocidos.

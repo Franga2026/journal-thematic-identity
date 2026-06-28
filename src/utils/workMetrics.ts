@@ -64,6 +64,13 @@ export function mapOpenAlexWorkMetrics(raw: {
   };
 }
 
+/** Formato compacto FWCI para badges (145.264 → "145×", 0.65 → "0,65×"). */
+export function fmtFwci(v: number | null | undefined): string | null {
+  if (v == null) return null;
+  if (v >= 100) return `${Math.round(v).toLocaleString('es')}×`;
+  return `${v.toLocaleString('es', { maximumFractionDigits: 2 })}×`;
+}
+
 /** Promedio FWCI por obra elegible (excluye año en curso y obras sin dato). */
 export function computeMeanEligibleWorkFwci(
   works: Array<Work | FwciEligibleInput>,

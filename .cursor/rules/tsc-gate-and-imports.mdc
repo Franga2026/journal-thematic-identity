@@ -1,0 +1,47 @@
+---
+description: Gate obligatorio tsc --noEmit y preservación de imports al editar
+alwaysApply: true
+---
+
+# Typecheck gate + imports
+
+## Antes de dar por terminado CUALQUIER cambio
+
+1. Ejecutar `npx tsc --noEmit` en la raíz del proyecto.
+2. Comparar contra el baseline de errores **preexistentes** (ver abajo).
+3. Si el cambio introduce errores **nuevos** (archivos o mensajes que no estaban en el baseline) → **no entregar**: corregirlos primero.
+4. Reportar **siempre** el resultado de `tsc` al finalizar (éxito, o lista breve de errores nuevos vs baseline).
+
+## Imports
+
+- Al agregar lógica a un archivo, **no eliminar imports existentes** que sigan en uso.
+- Si mueves JSX a otro componente, verifica que el archivo original conserve los imports que aún necesita (p. ej. `WorkCard` en `CoAuthorModal.tsx` para `variant="dataset"`).
+
+## Baseline conocido (~58 errores, 20 archivos — 2026-06-25)
+
+Errores preexistentes — no bloquean entregas si no se agravan:
+
+- `src/__tests__/`: App, AppContext, AppRouter, aiHandlers, coAuthorProfileResolver, dataProcessing, linkCollaborators, openalexIdPipeline, researcherMetrics, researcherWorks, useOpenResearcherProfile
+- `src/components/modals/ResearcherModal.tsx`
+- `src/components/ods/OdsResearchersPanel.tsx`
+- `src/components/tabs/TabDescubridor.tsx`
+- `src/server/aiApiAdapter.ts`
+- `src/services/report/buildExecutiveReport.ts`, `reportMetrics.ts`
+- `src/services/sdg/aggregateAuthors.ts`
+- `src/utils/fetchDatasetRecords.ts`, `localQuartileProfile.ts`, `sdgWorksSource.ts`
+
+Patrones habituales: fixtures de tests sin `CITATIONS`/`DATASETS`; props ODS; tipos en report/sdg utils.
+
+## Comando de verificación
+
+```bash
+cd "/Users/franga/Downloads/directorio-uta 7" && npx tsc --noEmit
+```
+
+Para detectar errores nuevos rápido:
+
+```bash
+npx tsc --noEmit 2>&1 | grep "error TS" | sed 's/(.*//' | sort -u
+```
+
+Actualizar este baseline solo cuando se corrijan errores de forma intencional.

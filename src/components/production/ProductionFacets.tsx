@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { buildWorkFacets } from '../../utils/dataProcessing';
-import { TYPE_ES } from '../../utils/constants';
+import { typeLabelEs } from '../../utils/constants';
+import { fieldEs } from '../../utils/fieldEs';
 import FacetCard, { useFacetMax } from './FacetCard';
 import type { Work } from '../../shared/types';
 
@@ -45,7 +46,7 @@ export default function ProductionFacets({
   const typeItems = typeFacets.map((t) => ({
     name: t.name,
     count: t.count,
-    label: TYPE_ES[t.name as keyof typeof TYPE_ES] || t.name,
+    label: typeLabelEs(t.name),
   }));
 
   const accessItems = accessFacets
@@ -92,7 +93,7 @@ export default function ProductionFacets({
       />
       <FacetCard
         title="Topic / Área"
-        items={topicFacets}
+        items={topicFacets.map((t) => ({ ...t, label: fieldEs(t.name) }))}
         selected={workTopic}
         onSelect={(name) => {
           setWorkTopic(workTopic === name ? '' : name);

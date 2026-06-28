@@ -112,15 +112,24 @@ describe('WorkCard', () => {
     };
     renderCard(<WorkCard w={work} variant="production" />);
     expect(screen.getByText('—')).toBeDefined();
+    expect(screen.getByText('año en curso')).toBeDefined();
     expect(screen.queryByText(/× la media del campo/)).toBeNull();
     expect(screen.getByText('0')).toBeDefined();
     expect(screen.getByText('citas en OpenAlex')).toBeDefined();
     expect(screen.queryByText('0.00× la media del campo')).toBeNull();
   });
 
-  it('shows quartile chip', () => {
+  it('shows sin dato for FWCI when work has no impact value', () => {
+    renderCard(<WorkCard w={MINIMAL_WORK} variant="discovery" />);
+    expect(screen.getByText('sin dato')).toBeDefined();
+  });
+
+  it('shows SJR quartile in metric tile', () => {
     renderCard(<WorkCard w={FULL_WORK} variant="discovery" />);
-    expect(screen.getByText('SJR · Q1')).toBeDefined();
+    expect(screen.getByText('SJR')).toBeDefined();
+    expect(screen.getByText('Q1')).toBeDefined();
+    expect(screen.getByText('Scimago')).toBeDefined();
+    expect(screen.queryByText('SJR · Q1')).toBeNull();
   });
 
   it('shows field chip', () => {
@@ -302,7 +311,7 @@ describe('WorkCard', () => {
     renderCard(<WorkCard w={work} variant="coauthor" />);
     expect(screen.getByText('Lightweight Collab')).toBeDefined();
     expect(screen.getByText('Acceso abierto')).toBeDefined();
-    expect(screen.queryByText('Biology')).toBeNull();
+    expect(screen.getAllByText('Biology').length).toBeGreaterThanOrEqual(1);
     expect(screen.queryByText('Acceso UTA')).toBeNull();
     expect(screen.queryByText('FWCI')).toBeNull();
     expect(screen.getByText('Citas')).toBeDefined();

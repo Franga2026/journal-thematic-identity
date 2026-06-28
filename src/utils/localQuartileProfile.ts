@@ -54,11 +54,12 @@ export function resolveOrcids(
   return orcids;
 }
 
-export function workIssnCandidates(work: Work): Array<string | null | undefined> {
-  return ([] as Array<string | string[] | null | undefined>).concat(
-    work.cr_issn ?? [],
-    work.up_issn ?? [],
-  );
+export function workIssnCandidates(work: Work): string[] {
+  const candidates = [
+    ...(work.cr_issn ?? []),
+    ...(work.up_issn?.split(',').map((s) => s.trim()) ?? []),
+  ].filter(Boolean);
+  return candidates;
 }
 
 export function toQuartileProfile(tally: Tally): QuartileProfile {

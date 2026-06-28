@@ -140,4 +140,13 @@ export function getWorkNavigationUrl(work: WorkLike | null | undefined): string 
   return getWorkAccessUrl(work) || getWorkScholarSearchUrl(work);
 }
 
+/** DOI como URL https para enlaces en UI. */
+export function normDoiUrl(d?: string): string | null {
+  const raw = (d || '').trim();
+  if (!raw) return null;
+  if (/^https?:\/\//i.test(raw)) return raw;
+  const bare = raw.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '');
+  return `https://doi.org/${bare}`;
+}
+
 export { normDoi, normTitle };

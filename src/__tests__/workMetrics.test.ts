@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   computeMeanEligibleWorkFwci,
+  fmtFwci,
   fwciIsEligible,
   getFwciCurrentYear,
   getWorkOpenAlexCitations,
@@ -30,6 +31,14 @@ describe('workMetrics', () => {
 
   it('getWorkOpenAlexFwci returns null when no metric', () => {
     expect(getWorkOpenAlexFwci({})).toBeNull();
+  });
+
+  it('fmtFwci formats high values as rounded integer with ×', () => {
+    expect(fmtFwci(145.264)).toBe('145×');
+  });
+
+  it('fmtFwci formats fractional values with es locale comma', () => {
+    expect(fmtFwci(0.65)).toBe('0,65×');
   });
 
   it('mapOpenAlexWorkMetrics maps fwci and cited_by_count to canonical fields', () => {

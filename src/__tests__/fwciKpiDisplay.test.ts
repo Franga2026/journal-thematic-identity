@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   fwciKpiSublabel,
   fwciKpiTooltip,
+  fwciWorkCardTileMeta,
   OPENALEX_METRICS_UNIVERSE_NOTE,
 } from '../utils/fwciKpiDisplay';
 import { CURRENT_YEAR } from '../shared/metrics/fwci';
@@ -35,5 +36,31 @@ describe('fwciKpiDisplay', () => {
     expect(OPENALEX_METRICS_UNIVERSE_NOTE).toBe(
       'Métricas calculadas sobre la producción completa indexada en OpenAlex.',
     );
+  });
+
+  describe('fwciWorkCardTileMeta', () => {
+    it('shows value and multiplier note when eligible', () => {
+      expect(fwciWorkCardTileMeta({ y: 2023 }, true, 2.5)).toEqual({
+        display: '2.50',
+        note: '2.50× la media del campo',
+        title: undefined,
+      });
+    });
+
+    it('shows año en curso for current-year works', () => {
+      expect(fwciWorkCardTileMeta({ y: CURRENT_YEAR }, false, 0)).toEqual({
+        display: '—',
+        note: 'año en curso',
+        title: 'FWCI no disponible: obra del año en curso, ventana de citación incompleta.',
+      });
+    });
+
+    it('shows sin dato when no FWCI value', () => {
+      expect(fwciWorkCardTileMeta({ y: 2020 }, false, null)).toEqual({
+        display: '—',
+        note: 'sin dato',
+        title: 'FWCI no disponible para esta obra (sin valor en OpenAlex).',
+      });
+    });
   });
 });
