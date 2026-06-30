@@ -479,7 +479,7 @@ export default function CoAuthorModal() {
             )}
           </section>
 
-          {utaCoauthorCount > 0 && (
+          {utaCoauthorCount > 0 ? (
             <>
               <div className="cg-prod-head">
                 <span className="cg-prod-title">COAUTORES UTA</span>
@@ -531,6 +531,21 @@ export default function CoAuthorModal() {
                 })}
               </div>
             </>
+          ) : (
+            <div className="coauthor-uta-opportunity" role="note">
+              <div className="coauthor-uta-opportunity__icon" aria-hidden>
+                🔗
+              </div>
+              <div className="coauthor-uta-opportunity__body">
+                <h4 className="coauthor-uta-opportunity__title">
+                  Sin colaboración previa con la Universidad de Tarapacá
+                </h4>
+                <p className="coauthor-uta-opportunity__text">
+                  Referente internacional en este ODS. Potencial oportunidad de vinculación para
+                  investigadores UTA.
+                </p>
+              </div>
+            </div>
           )}
 
           {fieldCounts.length > 0 && (

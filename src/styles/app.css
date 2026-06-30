@@ -3162,6 +3162,44 @@ input, select { font-family: var(--font); }
   color: #9aa7b0;
 }
 
+.coauthor-uta-opportunity {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 16px 0 8px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  border: 1px solid #c5e4ef;
+  background: linear-gradient(135deg, #eef8fc 0%, #e3f4fa 100%);
+}
+
+.coauthor-uta-opportunity__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 10px;
+  background: rgba(26, 166, 183, 0.12);
+}
+
+.coauthor-uta-opportunity__title {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f3447;
+  line-height: 1.35;
+}
+
+.coauthor-uta-opportunity__text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #3d6278;
+}
+
 @media (max-width: 680px) {
   .cg-uta-coauthors {
     grid-template-columns: 1fr;

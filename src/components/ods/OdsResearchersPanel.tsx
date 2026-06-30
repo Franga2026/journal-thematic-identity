@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
+import { useApp } from '../../context/AppContext';
 import { findResearcherByProfileId } from '../../utils/researcherProfile';
 import { getData, getOA } from '../../utils/dataProcessing';
 import { resolveSdgFromRoute } from '../../utils/sdgNormalize';
@@ -98,7 +99,8 @@ export default function OdsResearchersPanel({
   activeTab,
 }: OdsResearchersPanelProps) {
   const { sdgNum: sdgNumRoute } = useParams();
-  const { openLocalResearcherProfile, openOpenAlexProfile } = useOpenResearcherProfile();
+  const { openLocalResearcherProfile } = useOpenResearcherProfile();
+  const { setViewCoAuthor } = useApp();
 
   const sdgContext = useMemo(
     () =>
@@ -162,17 +164,19 @@ export default function OdsResearchersPanel({
         return;
       }
     }
-    openOpenAlexProfile({
-      id: row.author_openalex_id,
-      openAlexId: row.author_openalex_id,
-      display_name: row.author_name,
-      orcid: row.orcid,
-      works_count: row.publications_count,
-      cited_by_count: row.citations_count,
-      h_index: row.h_index_sdg,
-      institution: row.institution_name,
-      country_code: row.country_code,
-    });
+    if (row.region_scope === 'iberoamerica' || row.region_scope === 'global') {
+      setViewCoAuthor({
+        name: row.author_name,
+        orcid: row.orcid,
+        oaId: row.author_openalex_id,
+        institutions: row.institution_name ? [row.institution_name] : undefined,
+        works_count: row.publications_count,
+        cited_by_count: row.citations_count,
+        h_index: row.h_index_sdg,
+        works: getExternalOdsWorks(row, sdgName, sdgId),
+        metricsScope: 'global_openalex',
+      });
+    }
   };
 
   const renderUtaResearchersList = (state: TabState, loadingLabel: string) => {
