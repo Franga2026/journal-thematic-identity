@@ -1,14 +1,26 @@
 #!/usr/bin/env node
 /**
- * build-ods-rankings.mjs — Rankings ODS por FWCI promedio (OpenAlex, standalone).
+ * build-ods-rankings.mjs — Rankings ODS por FWCI (Global + Iberoamérica, OpenAlex).
  *
  * Uso:
  *   node scripts/ods/build-ods-rankings.mjs --sdg 14
- *   node scripts/ods/build-ods-rankings.mjs --sdg 14 --top 25 --min-works 50 --min-h-index 10 --delay 200
+ *   node scripts/ods/build-ods-rankings.mjs --sdg 14 --top 25 --delay 1500
  *   node scripts/ods/build-ods-rankings.mjs --sdg 14 --resume
  */
 
-const FORMAT_VERSION = 2;
+const FORMAT_VERSION = 3;
+
+/** Latinoamérica hispano/lusoparlante + España + Portugal + Puerto Rico (ISO-3166 alpha-2) */
+const IBEROAMERICA_COUNTRIES = [
+  'AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'SV', 'GT', 'HN',
+  'MX', 'NI', 'PA', 'PY', 'PE', 'PR', 'PT', 'ES', 'UY', 'VE',
+];
+const IBEROAMERICA_COUNTRY_SET = new Set(IBEROAMERICA_COUNTRIES);
+
+const THRESHOLDS = {
+  global: { min_works: 50, min_h: 10 },
+  iberoamerica: { min_works: 20, min_h: 5 },
+};
 
 import {
   copyFileSync,
@@ -160,7 +172,7 @@ function buildTopCoauthors(works, authorId, authorUrl) {
     }));
 }
 
-async function enrichRankedResearcher(row, rank, delay) {
+async function enrichRankedResearcher(row, delay) {
   const authorId = normalizeAuthorId(row._key || row.openalex_id);
   const authorUrl = row.openalex_id;
   let authorJson = row._authorProfile;
@@ -186,10 +198,9 @@ async function enrichRankedResearcher(row, rank, delay) {
     .sort((a, b) => (b.cited_by_count || 0) - (a.cited_by_count || 0))
     .map(mapWorkToPortalShape);
 
-  const { works: _w, _eligible_fwci, _key, _authorProfile, ...kpiRest } = row;
+  const { works: _w, _eligible_fwci, _key, _authorProfile, _sources, ...kpiRest } = row;
 
   return {
-    rank,
     ...kpiRest,
     global_profile: authorJson ? buildGlobalProfile(authorJson, careerWorks, SJR_MAP) : null,
     top_coauthors: buildTopCoauthors(row.works || [], authorId, authorUrl),
@@ -201,8 +212,6 @@ function parseArgs(argv) {
   const args = {
     sdg: null,
     top: 25,
-    minWorks: 50,
-    minHIndex: 10,
     delay: 200,
     resume: false,
   };
@@ -210,17 +219,17 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a === '--sdg') args.sdg = Number(argv[++i]);
     else if (a === '--top') args.top = Number(argv[++i]);
-    else if (a === '--min-works') args.minWorks = Number(argv[++i]);
-    else if (a === '--min-h-index') args.minHIndex = Number(argv[++i]);
     else if (a === '--delay') args.delay = Number(argv[++i]);
     else if (a === '--resume') args.resume = true;
     else if (a === '--help' || a === '-h') {
       console.log(`Uso: node scripts/ods/build-ods-rankings.mjs --sdg <n> [opciones]
-  --top 25           Investigadores en el ranking final
-  --min-works 50     Mínimo de obras ODS en el período
-  --min-h-index 10   Mínimo h-index ODS (impacto demostrado)
+  --top 25           Investigadores por lista (Global e Iberoamérica)
   --delay 200        ms entre llamadas OpenAlex
-  --resume           Continuar desde checkpoint`);
+  --resume           Continuar desde checkpoint
+
+Umbrales fijos:
+  Global:         >=50 obras ODS, h-index ODS >=10
+  Iberoamérica:   país ibero, >=20 obras ODS, h-index ODS >=5`);
       process.exit(0);
     }
   }
@@ -418,13 +427,75 @@ function computeAuthorKpis(works, authorId, authorUrl, fallbackName, profileMeta
   };
 }
 
-async function fetchGroupByCandidates(sdg, delay) {
-  const filter = sdgFilter(sdg);
+async function fetchGroupByCandidates(sdg, delay, { iberoOnly = false } = {}) {
+  let filter = sdgFilter(sdg);
+  if (iberoOnly) {
+    const codes = IBEROAMERICA_COUNTRIES.map((c) => c.toLowerCase()).join('|');
+    filter += `,authorships.institutions.country_code:${codes}`;
+  }
   const url =
     `${OPENALEX_BASE}/works?filter=${encodeURIComponent(filter)}` +
     `&group_by=authorships.author.id`;
   const data = await getJSON(url, { delay });
   return data.group_by || [];
+}
+
+function isIberoCountry(code) {
+  return Boolean(code && IBEROAMERICA_COUNTRY_SET.has(String(code).toUpperCase()));
+}
+
+function buildCandidateUnion(rawGlobal, rawIbero, iberoGroupByOk) {
+  const minSweep = Math.min(THRESHOLDS.global.min_works, THRESHOLDS.iberoamerica.min_works);
+  const map = new Map();
+
+  const add = (c, source) => {
+    if (isJunkCandidate(c) || c.count < minSweep) return;
+    const prev = map.get(c.key);
+    if (prev) {
+      if (!prev._sources.includes(source)) prev._sources.push(source);
+      if (c.count > prev.count) {
+        prev.count = c.count;
+        prev.key_display_name = c.key_display_name;
+      }
+    } else {
+      map.set(c.key, { ...c, _sources: [source] });
+    }
+  };
+
+  for (const c of rawGlobal) add(c, 'global_group_by');
+  if (iberoGroupByOk) {
+    for (const c of rawIbero) add(c, 'ibero_group_by');
+  } else {
+    for (const c of rawGlobal) {
+      if (c.count >= THRESHOLDS.iberoamerica.min_works) add(c, 'ibero_fallback_global');
+    }
+  }
+
+  return [...map.values()].sort((a, b) => b.count - a.count);
+}
+
+function sortByFwci(a, b) {
+  return (
+    b.fwci - a.fwci ||
+    b.publications - a.publications ||
+    b.citations_ods - a.citations_ods
+  );
+}
+
+function selectRankingSlice(processed, scope, top) {
+  const th = THRESHOLDS[scope];
+  let rows = processed.filter(
+    (row) => row.publications >= th.min_works && row.h_index_ods >= th.min_h,
+  );
+  if (scope === 'iberoamerica') {
+    rows = rows.filter((row) => isIberoCountry(row.country));
+  }
+  return [...rows].sort(sortByFwci).slice(0, top);
+}
+
+function careerWorksLabel(gp) {
+  if (!gp) return 'sin global_profile';
+  return `carrera ${gp.works_count ?? '?'} obras · fwci ${gp.fwci_mean ?? '—'}`;
 }
 
 async function fetchAuthorOdsWorks(sdg, authorKey, delay, expectedCount = 0) {
@@ -496,22 +567,32 @@ async function main() {
   const started = Date.now();
   mkdirSync(OUT_DIR, { recursive: true });
 
-  console.log(`\nODS ranking por FWCI — SDG ${args.sdg} (${PERIOD})`);
-  console.log(`min-works=${args.minWorks} min-h-index=${args.minHIndex} top=${args.top} delay=${args.delay}ms\n`);
+  console.log(`\nODS rankings por FWCI — SDG ${args.sdg} (${PERIOD})`);
+  console.log(
+    `Global: >=${THRESHOLDS.global.min_works} obras, h>=${THRESHOLDS.global.min_h} · ` +
+      `Ibero: >=${THRESHOLDS.iberoamerica.min_works} obras, h>=${THRESHOLDS.iberoamerica.min_h} · ` +
+      `top=${args.top} delay=${args.delay}ms\n`,
+  );
 
   resetHttpStats();
 
-  const rawCandidates = await fetchGroupByCandidates(args.sdg, 0);
-  console.log(`Paso 1: group_by devolvió ${rawCandidates.length} autores`);
+  const rawGlobal = await fetchGroupByCandidates(args.sdg, 0, { iberoOnly: false });
+  console.log(`Paso 1: group_by global devolvió ${rawGlobal.length} autores`);
 
-  const candidates = rawCandidates
-    .filter((c) => !isJunkCandidate(c))
-    .filter((c) => c.count >= args.minWorks)
-    .sort((a, b) => b.count - a.count);
+  let rawIbero = [];
+  let iberoGroupByOk = false;
+  try {
+    rawIbero = await fetchGroupByCandidates(args.sdg, 0, { iberoOnly: true });
+    iberoGroupByOk = true;
+    console.log(`Paso 2: group_by ibero devolvió ${rawIbero.length} autores`);
+  } catch (err) {
+    console.log(
+      `Paso 2: group_by ibero no disponible (${err.message.slice(0, 80)}…) — fallback filtro país tras KPIs`,
+    );
+  }
 
-  console.log(
-    `Paso 2: ${candidates.length} candidatos tras filtro (>=${args.minWorks} obras, sin basura)`,
-  );
+  const candidates = buildCandidateUnion(rawGlobal, rawIbero, iberoGroupByOk);
+  console.log(`Paso 3: ${candidates.length} candidatos únicos en unión (barrido desde >=${THRESHOLDS.iberoamerica.min_works} obras)`);
   if (!candidates.length) {
     console.error('Sin candidatos. Abortando.');
     process.exit(1);
@@ -578,13 +659,16 @@ async function main() {
       processed.push({
         _key: c.key,
         _authorProfile: authorProfile,
+        _sources: c._sources,
         ...kpis,
       });
-      process.stderr.write(`fwci=${kpis.fwci} pubs=${kpis.publications}\n`);
+      process.stderr.write(`fwci=${kpis.fwci} pubs=${kpis.publications} ${kpis.country || '—'}\n`);
 
       saveCheckpoint(args.sdg, {
         sdg: args.sdg,
+        format_version: FORMAT_VERSION,
         updated_at: new Date().toISOString(),
+        ibero_group_by_ok: iberoGroupByOk,
         candidates_total: candidates.length,
         processed,
       });
@@ -592,7 +676,9 @@ async function main() {
       process.stderr.write(`ERROR: ${err.message}\n`);
       saveCheckpoint(args.sdg, {
         sdg: args.sdg,
+        format_version: FORMAT_VERSION,
         updated_at: new Date().toISOString(),
+        ibero_group_by_ok: iberoGroupByOk,
         candidates_total: candidates.length,
         processed,
         last_error: err.message,
@@ -610,60 +696,61 @@ async function main() {
   }
   const uniqueProcessed = [...deduped.values()];
 
-  const impactQualified = uniqueProcessed.filter(
-    (row) => row.publications >= args.minWorks && row.h_index_ods >= args.minHIndex,
+  const globalSlice = selectRankingSlice(uniqueProcessed, 'global', args.top);
+  const iberoSlice = selectRankingSlice(uniqueProcessed, 'iberoamerica', args.top);
+
+  console.log(
+    `\nCalificación: global ${globalSlice.length}/${args.top} · ibero ${iberoSlice.length}/${args.top} ` +
+      `(de ${uniqueProcessed.length} con FWCI)`,
   );
-  const eliminatedByH = uniqueProcessed.filter(
-    (row) => row.publications >= args.minWorks && row.h_index_ods < args.minHIndex,
-  );
-  if (eliminatedByH.length) {
-    console.log(
-      `Filtro h-index ODS >= ${args.minHIndex}: descartados ${eliminatedByH.length} — ` +
-        eliminatedByH.map((x) => `${x.name} (h${x.h_index_ods})`).join(', '),
-    );
+
+  const enrichKeys = new Map();
+  for (const row of [...globalSlice, ...iberoSlice]) {
+    enrichKeys.set(row._key, row);
   }
 
-  const rankedSlice = [...impactQualified]
-    .sort(
-      (a, b) =>
-        b.fwci - a.fwci ||
-        b.publications - a.publications ||
-        b.citations_ods - a.citations_ods,
-    )
-    .slice(0, args.top);
-
-  console.log(`\nEnriqueciendo Top ${rankedSlice.length} (global_profile + obras shape Work + coautores)…`);
-  const researchers = [];
-  for (let i = 0; i < rankedSlice.length; i++) {
-    const row = rankedSlice[i];
-    process.stderr.write(`  enrich [${i + 1}/${rankedSlice.length}] ${row.name}… `);
-    const enriched = await enrichRankedResearcher(row, i + 1, args.delay);
-    researchers.push(enriched);
-    const gp = enriched.global_profile;
+  console.log(`\nEnriqueciendo ${enrichKeys.size} referentes únicos (global_profile + obras + coautores)…`);
+  const enrichedByKey = new Map();
+  let enrichIdx = 0;
+  for (const row of enrichKeys.values()) {
+    enrichIdx += 1;
+    process.stderr.write(`  enrich [${enrichIdx}/${enrichKeys.size}] ${row.name}… `);
+    const enriched = await enrichRankedResearcher(row, args.delay);
+    enrichedByKey.set(row._key, enriched);
     process.stderr.write(
-      `${enriched.works.length} obras ODS · ${careerWorksLabel(gp)} · ${enriched.top_coauthors.length} coautores\n`,
+      `${enriched.works.length} obras ODS · ${careerWorksLabel(enriched.global_profile)} · ` +
+        `${enriched.top_coauthors.length} coautores\n`,
     );
   }
 
-  function careerWorksLabel(gp) {
-    if (!gp) return 'sin global_profile';
-    return `carrera ${gp.works_count ?? '?'} obras · fwci ${gp.fwci_mean ?? '—'}`;
-  }
+  const globalResearchers = globalSlice.map((row, i) => ({
+    rank: i + 1,
+    ...enrichedByKey.get(row._key),
+  }));
+  const iberoResearchers = iberoSlice.map((row, i) => ({
+    rank: i + 1,
+    ...enrichedByKey.get(row._key),
+  }));
 
   const out = {
     format_version: FORMAT_VERSION,
     sdg: args.sdg,
     generated_at: new Date().toISOString(),
-    method: `Top ${args.top} por FWCI promedio entre autores con >=${args.minWorks} obras y h-index ODS >=${args.minHIndex}, ${PERIOD} (perfil global, coautores y obras completas)`,
+    method:
+      `Top ${args.top} por FWCI (Global e Iberoamérica), ${PERIOD}. ` +
+      'Interpretación 2: un autor ibero puede figurar en ambas listas.',
     period: PERIOD,
-    min_works: args.minWorks,
-    min_h_index: args.minHIndex,
+    thresholds: { ...THRESHOLDS },
+    iberoamerica_countries: [...IBEROAMERICA_COUNTRIES],
+    ibero_group_by_ok: iberoGroupByOk,
     api_calls: httpStats.total,
     http_stats: { ...httpStats },
-    candidates_after_filter: candidates.length,
+    candidates_union: candidates.length,
     authors_with_fwci: uniqueProcessed.length,
-    authors_after_h_index_filter: impactQualified.length,
-    researchers,
+    rankings: {
+      global: globalResearchers,
+      iberoamerica: iberoResearchers,
+    },
   };
 
   const outFile = outputPath(args.sdg);
@@ -684,8 +771,14 @@ async function main() {
   console.log(`  authors:            ${httpStats.authors}`);
   console.log(`  works-carrera:      ${httpStats.careerWorks}`);
   console.log(`  respuestas 429:     ${httpStats.rateLimited429}`);
-  console.log(`\nTop ${researchers.length} (nombre · fwci · pubs · país):`);
-  for (const r of researchers) {
+  console.log(`\nTop Global (${globalResearchers.length}):`);
+  for (const r of globalResearchers) {
+    console.log(
+      `  ${String(r.rank).padStart(2)}. ${r.name} · fwci=${r.fwci} · pubs=${r.publications} · ${r.country || '—'}`,
+    );
+  }
+  console.log(`\nTop Iberoamérica (${iberoResearchers.length}):`);
+  for (const r of iberoResearchers) {
     console.log(
       `  ${String(r.rank).padStart(2)}. ${r.name} · fwci=${r.fwci} · pubs=${r.publications} · ${r.country || '—'}`,
     );
