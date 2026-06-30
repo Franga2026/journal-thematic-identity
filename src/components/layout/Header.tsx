@@ -48,91 +48,8 @@ export default function Header() {
     [applySearch],
   );
 
-  const searchChips = useMemo(
-    () => [
-      {
-        label: '🔬 Investigadores UTA',
-        action: () => {
-          startTransition(() => {
-            setSearch('');
-            setOnlyOrcid(false);
-            setSdgFilter('');
-            resetPage();
-            clearDescubridorPresets();
-            navigate('/perfiles');
-          });
-        },
-      },
-      {
-        label: '📊 Publicaciones Q1',
-        action: () => {
-          startTransition(() => {
-            setSearch('');
-            setOnlyOrcid(false);
-            setSdgFilter('');
-            resetPage();
-            setDescubridorQuartile('Q1');
-            setDescubridorAccess('');
-            navigate('/descubridor');
-          });
-        },
-      },
-      {
-        label: '🔓 Open Access',
-        action: () => {
-          startTransition(() => {
-            setSearch('');
-            setOnlyOrcid(false);
-            setSdgFilter('');
-            resetPage();
-            setDescubridorQuartile('');
-            setDescubridorAccess('open');
-            navigate('/descubridor');
-          });
-        },
-      },
-      {
-        label: '🌱 ODS',
-        action: () => {
-          startTransition(() => {
-            clearDescubridorPresets();
-            navigate('/ods');
-          });
-        },
-      },
-      {
-        label: '📈 Ranking',
-        action: () => {
-          startTransition(() => {
-            clearDescubridorPresets();
-            navigate('/ranking');
-          });
-        },
-      },
-      {
-        label: '📚 Fuentes KBART',
-        action: () => {
-          startTransition(() => {
-            clearDescubridorPresets();
-            navigate('/fuentes');
-          });
-        },
-      },
-    ],
-    [
-      navigate,
-      setSearch,
-      setOnlyOrcid,
-      setSdgFilter,
-      resetPage,
-      clearDescubridorPresets,
-      setDescubridorQuartile,
-      setDescubridorAccess,
-    ],
-  );
-
   return (
-    <header className="header" role="banner">
+    <header className="header header--institutional" role="banner">
       <div className="header__inner">
         <div className="header__subtitle">Universidad de Tarapacá · Arica, Chile</div>
         <h1 className="header__title">
@@ -179,18 +96,6 @@ export default function Header() {
               {intentMeta.hint}
             </p>
           )}
-          <div className="search-chips" role="group" aria-label="Atajos de búsqueda">
-            {searchChips.map((chip) => (
-              <button
-                key={chip.label}
-                type="button"
-                className="search-chips__btn"
-                onClick={chip.action}
-              >
-                {chip.label}
-              </button>
-            ))}
-          </div>
         </div>
       </div>
     </header>

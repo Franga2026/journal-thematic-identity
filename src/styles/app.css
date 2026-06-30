@@ -131,13 +131,18 @@ input, select { font-family: var(--font); }
 }
 
 .header--institutional .header__inner {
-  padding: 32px 32px 40px;
-  text-align: left;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 45vh;
+  padding: 48px 32px;
 }
 
 .header--institutional .search-wrapper {
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0 auto;
+  width: 100%;
   max-width: 640px;
 }
 
