@@ -26,3 +26,4 @@ outputs/ods-rankings/.checkpoint-*.json
 outputs/ods-rankings/*.log
 outputs/ods-rankings/*.backup*
 outputs/*.png
+outputs/ods-rankings/*.bak*
