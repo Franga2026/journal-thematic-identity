@@ -4,9 +4,11 @@
  *
  * Uso:
  *   node scripts/ods/build-ods-rankings.mjs --sdg 14
- *   node scripts/ods/build-ods-rankings.mjs --sdg 14 --top 25 --min-works 50 --max-pubs-json 20 --delay 200
+ *   node scripts/ods/build-ods-rankings.mjs --sdg 14 --top 25 --min-works 50 --min-h-index 10 --delay 200
  *   node scripts/ods/build-ods-rankings.mjs --sdg 14 --resume
  */
+
+const FORMAT_VERSION = 2;
 
 import {
   copyFileSync,
@@ -27,9 +29,183 @@ const OPENALEX_BASE = 'https://api.openalex.org';
 const MAILTO = 'directorio.uta@tarapaca.cl';
 const PERIOD = '2020-2025';
 const WORK_SELECT =
-  'id,title,publication_year,fwci,cited_by_count,authorships';
+  'id,title,publication_year,fwci,cited_by_count,authorships,doi,primary_location,open_access,primary_topic,type';
+
+const SJR_MAP = JSON.parse(
+  readFileSync(join(ROOT, 'scripts/data/sjr-2025-quartiles.json'), 'utf8'),
+);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+function normIssn(raw) {
+  const v = String(raw ?? '').trim().toUpperCase().replace(/-/g, '');
+  return v.length === 8 ? v : '';
+}
+
+function extractIssns(work) {
+  const src = work?.primary_location?.source;
+  const candidates = [];
+  if (src?.issn_l) candidates.push(src.issn_l);
+  if (src?.issn) {
+    if (Array.isArray(src.issn)) candidates.push(...src.issn);
+    else candidates.push(src.issn);
+  }
+  const out = [];
+  for (const item of candidates) {
+    String(item)
+      .split(',')
+      .forEach((part) => {
+        const n = normIssn(part);
+        if (n && !out.includes(n)) out.push(n);
+      });
+  }
+  return out;
+}
+
+function lookupQi(work) {
+  for (const issn of extractIssns(work)) {
+    const q = SJR_MAP[issn];
+    if (q) return q;
+  }
+  return null;
+}
+
+function mapWorkToPortalShape(work) {
+  const issns = extractIssns(work);
+  return {
+    t: work.title ?? null,
+    y: work.publication_year ?? null,
+    c: work.cited_by_count ?? 0,
+    impact: work.fwci ?? null,
+    d: work.doi || null,
+    oa: work.open_access?.is_oa ?? false,
+    s: work.primary_location?.source?.display_name || null,
+    a: (work.authorships || []).map((au) => au.author?.display_name).filter(Boolean),
+    topic: work.primary_topic?.display_name || null,
+    field: work.primary_topic?.field?.display_name || null,
+    type: work.type || null,
+    openalex_id: work.id || null,
+    issn: issns[0] || null,
+    qi: lookupQi(work),
+  };
+}
+
+function buildGlobalProfile(author, fallbackInstitution) {
+  const ss = author?.summary_stats || {};
+  const cby = author?.counts_by_year || [];
+  const years = cby.map((c) => c.year).filter((y) => typeof y === 'number');
+  const totalWorks = cby.reduce((s, c) => s + (c.works_count || 0), 0);
+  const totalOa = cby.reduce((s, c) => s + (c.oa_works_count || 0), 0);
+  const oa_percent = totalWorks > 0 ? Math.round((totalOa / totalWorks) * 100) : 0;
+
+  return {
+    h_index: ss.h_index ?? null,
+    i10_index: ss.i10_index ?? null,
+    works_count: author?.works_count ?? null,
+    cited_by_count: author?.cited_by_count ?? null,
+    active_since: years.length ? Math.min(...years) : null,
+    counts_by_year: cby,
+    topics: (author?.topics || []).slice(0, 8).map((t) => ({
+      name: t.display_name,
+      count: t.count,
+    })),
+    oa_percent,
+    last_institution:
+      author?.last_known_institutions?.[0]?.display_name || fallbackInstitution || null,
+  };
+}
+
+function isJunkCoauthorName(name) {
+  const n = (name || '').trim();
+  return !n || /^et al\.?$/i.test(n);
+}
+
+function pickTopFromCounts(map) {
+  let best;
+  let bestN = 0;
+  for (const [k, n] of map) {
+    if (n > bestN) {
+      bestN = n;
+      best = k;
+    }
+  }
+  return best || null;
+}
+
+function buildTopCoauthors(works, authorId, authorUrl) {
+  const counts = new Map();
+
+  for (const work of works) {
+    for (const auth of work.authorships || []) {
+      if (authorMatchesAuthorship(auth, authorId, authorUrl)) continue;
+      const name = auth.author?.display_name;
+      if (isJunkCoauthorName(name)) continue;
+      const id = auth.author?.id;
+      if (!id) continue;
+
+      let entry = counts.get(id);
+      if (!entry) {
+        entry = {
+          name,
+          openalex_id: id,
+          institution: null,
+          country: null,
+          works_together: 0,
+          _instCounts: new Map(),
+          _countryCounts: new Map(),
+        };
+        counts.set(id, entry);
+      }
+      entry.works_together += 1;
+      for (const inst of auth.institutions || []) {
+        if (inst.display_name) {
+          entry._instCounts.set(
+            inst.display_name,
+            (entry._instCounts.get(inst.display_name) || 0) + 1,
+          );
+        }
+        const cc = inst.country_code?.toUpperCase();
+        if (cc) {
+          entry._countryCounts.set(cc, (entry._countryCounts.get(cc) || 0) + 1);
+        }
+      }
+    }
+  }
+
+  return [...counts.values()]
+    .sort((a, b) => b.works_together - a.works_together)
+    .slice(0, 10)
+    .map(({ _instCounts, _countryCounts, ...rest }) => ({
+      name: rest.name,
+      openalex_id: rest.openalex_id,
+      institution: pickTopFromCounts(_instCounts),
+      country: pickTopFromCounts(_countryCounts),
+      works_together: rest.works_together,
+    }));
+}
+
+async function enrichRankedResearcher(row, rank, delay) {
+  const authorId = normalizeAuthorId(row._key || row.openalex_id);
+  const authorUrl = row.openalex_id;
+  let authorJson = row._authorProfile;
+  if (authorId) {
+    authorJson = await fetchAuthorProfile(authorId, delay);
+  }
+
+  const portalWorks = [...(row.works || [])]
+    .sort((a, b) => (b.cited_by_count || 0) - (a.cited_by_count || 0))
+    .map(mapWorkToPortalShape);
+
+  const { works: _w, _eligible_fwci, _key, _authorProfile, ...kpiRest } = row;
+
+  return {
+    rank,
+    ...kpiRest,
+    global_profile: buildGlobalProfile(authorJson, row.institution),
+    top_coauthors: buildTopCoauthors(row.works || [], authorId, authorUrl),
+    works: portalWorks,
+  };
+}
 
 function parseArgs(argv) {
   const args = {
@@ -37,7 +213,6 @@ function parseArgs(argv) {
     top: 25,
     minWorks: 50,
     minHIndex: 10,
-    maxPubsJson: 20,
     delay: 200,
     resume: false,
   };
@@ -47,7 +222,6 @@ function parseArgs(argv) {
     else if (a === '--top') args.top = Number(argv[++i]);
     else if (a === '--min-works') args.minWorks = Number(argv[++i]);
     else if (a === '--min-h-index') args.minHIndex = Number(argv[++i]);
-    else if (a === '--max-pubs-json') args.maxPubsJson = Number(argv[++i]);
     else if (a === '--delay') args.delay = Number(argv[++i]);
     else if (a === '--resume') args.resume = true;
     else if (a === '--help' || a === '-h') {
@@ -55,7 +229,6 @@ function parseArgs(argv) {
   --top 25           Investigadores en el ranking final
   --min-works 50     Mínimo de obras ODS en el período
   --min-h-index 10   Mínimo h-index ODS (impacto demostrado)
-  --max-pubs-json 20 Obras por autor en el JSON de salida
   --delay 200        ms entre llamadas OpenAlex
   --resume           Continuar desde checkpoint`);
       process.exit(0);
@@ -308,16 +481,6 @@ function saveCheckpoint(sdg, state) {
   renameSync(tmp, p);
 }
 
-function formatWorkForJson(w) {
-  return {
-    id: w.id,
-    title: w.title,
-    year: w.publication_year,
-    fwci: w.fwci,
-    citations: w.cited_by_count || 0,
-  };
-}
-
 async function main() {
   const args = parseArgs(process.argv);
   const started = Date.now();
@@ -371,10 +534,11 @@ async function main() {
         args.delay,
         c.count,
       );
+      let authorProfile = null;
       let profileMeta = null;
       try {
-        const profile = await fetchAuthorProfile(authorId, args.delay);
-        profileMeta = metaFromAuthorProfile(profile, c.key_display_name);
+        authorProfile = await fetchAuthorProfile(authorId, args.delay);
+        profileMeta = metaFromAuthorProfile(authorProfile, c.key_display_name);
       } catch {
         profileMeta = null;
       }
@@ -402,6 +566,7 @@ async function main() {
       }
       processed.push({
         _key: c.key,
+        _authorProfile: authorProfile,
         ...kpis,
       });
       process.stderr.write(`fwci=${kpis.fwci} pubs=${kpis.publications}\n`);
@@ -447,31 +612,32 @@ async function main() {
     );
   }
 
-  const ranked = [...impactQualified]
+  const rankedSlice = [...impactQualified]
     .sort(
       (a, b) =>
         b.fwci - a.fwci ||
         b.publications - a.publications ||
         b.citations_ods - a.citations_ods,
     )
-    .slice(0, args.top)
-    .map((row, idx) => {
-      const topWorks = [...row.works]
-        .sort((a, b) => (b.cited_by_count || 0) - (a.cited_by_count || 0))
-        .slice(0, args.maxPubsJson)
-        .map(formatWorkForJson);
-      const { works: _w, _eligible_fwci, _key, ...rest } = row;
-      return {
-        rank: idx + 1,
-        ...rest,
-        works: topWorks,
-      };
-    });
+    .slice(0, args.top);
+
+  console.log(`\nEnriqueciendo Top ${rankedSlice.length} (global_profile + obras shape Work + coautores)…`);
+  const researchers = [];
+  for (let i = 0; i < rankedSlice.length; i++) {
+    const row = rankedSlice[i];
+    process.stderr.write(`  enrich [${i + 1}/${rankedSlice.length}] ${row.name}… `);
+    const enriched = await enrichRankedResearcher(row, i + 1, args.delay);
+    researchers.push(enriched);
+    process.stderr.write(
+      `${enriched.works.length} obras · ${enriched.top_coauthors.length} coautores\n`,
+    );
+  }
 
   const out = {
+    format_version: FORMAT_VERSION,
     sdg: args.sdg,
     generated_at: new Date().toISOString(),
-    method: `Top ${args.top} por FWCI promedio entre autores con >=${args.minWorks} obras y h-index ODS >=${args.minHIndex}, ${PERIOD}`,
+    method: `Top ${args.top} por FWCI promedio entre autores con >=${args.minWorks} obras y h-index ODS >=${args.minHIndex}, ${PERIOD} (perfil global, coautores y obras completas)`,
     period: PERIOD,
     min_works: args.minWorks,
     min_h_index: args.minHIndex,
@@ -479,7 +645,7 @@ async function main() {
     candidates_after_filter: candidates.length,
     authors_with_fwci: uniqueProcessed.length,
     authors_after_h_index_filter: impactQualified.length,
-    researchers: ranked,
+    researchers,
   };
 
   const outFile = outputPath(args.sdg);
@@ -496,8 +662,8 @@ async function main() {
   const elapsed = ((Date.now() - started) / 1000).toFixed(1);
   console.log(`\nEscrito: ${outFile}`);
   console.log(`Llamadas API: ${apiCalls} · Tiempo: ${elapsed}s`);
-  console.log(`\nTop ${ranked.length} (nombre · fwci · pubs · país):`);
-  for (const r of ranked) {
+  console.log(`\nTop ${researchers.length} (nombre · fwci · pubs · país):`);
+  for (const r of researchers) {
     console.log(
       `  ${String(r.rank).padStart(2)}. ${r.name} · fwci=${r.fwci} · pubs=${r.publications} · ${r.country || '—'}`,
     );
