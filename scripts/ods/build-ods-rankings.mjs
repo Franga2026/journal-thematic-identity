@@ -20,6 +20,7 @@ import {
 } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildGlobalProfile, fetchAllWorks } from '../lib/globalProfileFromOpenAlex.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');
@@ -87,31 +88,6 @@ function mapWorkToPortalShape(work) {
     openalex_id: work.id || null,
     issn: issns[0] || null,
     qi: lookupQi(work),
-  };
-}
-
-function buildGlobalProfile(author, fallbackInstitution) {
-  const ss = author?.summary_stats || {};
-  const cby = author?.counts_by_year || [];
-  const years = cby.map((c) => c.year).filter((y) => typeof y === 'number');
-  const totalWorks = cby.reduce((s, c) => s + (c.works_count || 0), 0);
-  const totalOa = cby.reduce((s, c) => s + (c.oa_works_count || 0), 0);
-  const oa_percent = totalWorks > 0 ? Math.round((totalOa / totalWorks) * 100) : 0;
-
-  return {
-    h_index: ss.h_index ?? null,
-    i10_index: ss.i10_index ?? null,
-    works_count: author?.works_count ?? null,
-    cited_by_count: author?.cited_by_count ?? null,
-    active_since: years.length ? Math.min(...years) : null,
-    counts_by_year: cby,
-    topics: (author?.topics || []).slice(0, 8).map((t) => ({
-      name: t.display_name,
-      count: t.count,
-    })),
-    oa_percent,
-    last_institution:
-      author?.last_known_institutions?.[0]?.display_name || fallbackInstitution || null,
   };
 }
 
@@ -188,8 +164,22 @@ async function enrichRankedResearcher(row, rank, delay) {
   const authorId = normalizeAuthorId(row._key || row.openalex_id);
   const authorUrl = row.openalex_id;
   let authorJson = row._authorProfile;
-  if (authorId) {
+  if (authorId && !authorJson) {
     authorJson = await fetchAuthorProfile(authorId, delay);
+  }
+
+  let careerWorks = [];
+  if (authorId) {
+    careerWorks = await fetchAllWorks(
+      authorId,
+      (url) => getJSON(url, { delay, category: 'careerWorks' }),
+      {
+        baseUrl: OPENALEX_BASE,
+        mailto: MAILTO,
+        pageDelayMs: delay,
+        sleep,
+      },
+    );
   }
 
   const portalWorks = [...(row.works || [])]
@@ -201,7 +191,7 @@ async function enrichRankedResearcher(row, rank, delay) {
   return {
     rank,
     ...kpiRest,
-    global_profile: buildGlobalProfile(authorJson, row.institution),
+    global_profile: authorJson ? buildGlobalProfile(authorJson, careerWorks, SJR_MAP) : null,
     top_coauthors: buildTopCoauthors(row.works || [], authorId, authorUrl),
     works: portalWorks,
   };
@@ -251,16 +241,36 @@ function withMailto(url) {
   return u.toString();
 }
 
-let apiCalls = 0;
+let httpStats = {
+  total: 0,
+  candidatesSweep: 0,
+  authors: 0,
+  careerWorks: 0,
+  rateLimited429: 0,
+};
 
-async function getJSON(url, { delay = 0, retries = 8 } = {}) {
+function resetHttpStats() {
+  httpStats = {
+    total: 0,
+    candidatesSweep: 0,
+    authors: 0,
+    careerWorks: 0,
+    rateLimited429: 0,
+  };
+}
+
+async function getJSON(url, { delay = 0, retries = 8, category = 'candidatesSweep' } = {}) {
   for (let attempt = 0; ; attempt++) {
     if (delay > 0) await sleep(delay);
-    apiCalls += 1;
+    httpStats.total += 1;
+    if (category in httpStats && category !== 'total' && category !== 'rateLimited429') {
+      httpStats[category] += 1;
+    }
     const res = await fetch(withMailto(url), {
       headers: { Accept: 'application/json', 'User-Agent': `UTA-ODS-Rankings (${MAILTO})` },
     });
     if (res.ok) return res.json();
+    if (res.status === 429) httpStats.rateLimited429 += 1;
     if ((res.status === 429 || res.status === 502 || res.status === 503 || res.status === 504) && attempt < retries) {
       const raRaw = Number(res.headers.get('retry-after'));
       const ra = Number.isFinite(raRaw) && raRaw > 0 ? Math.min(raRaw, 120) : 0;
@@ -332,7 +342,7 @@ function metaFromAuthorProfile(authorJson, fallbackName) {
 }
 
 async function fetchAuthorProfile(authorId, delay) {
-  return getJSON(`${OPENALEX_BASE}/authors/${authorId}`, { delay });
+  return getJSON(`${OPENALEX_BASE}/authors/${authorId}`, { delay, category: 'authors' });
 }
 
 function extractAuthorMeta(works, authorId, authorUrl, fallbackName) {
@@ -489,7 +499,8 @@ async function main() {
   console.log(`\nODS ranking por FWCI — SDG ${args.sdg} (${PERIOD})`);
   console.log(`min-works=${args.minWorks} min-h-index=${args.minHIndex} top=${args.top} delay=${args.delay}ms\n`);
 
-  apiCalls = 0;
+  resetHttpStats();
+
   const rawCandidates = await fetchGroupByCandidates(args.sdg, 0);
   console.log(`Paso 1: group_by devolvió ${rawCandidates.length} autores`);
 
@@ -628,9 +639,15 @@ async function main() {
     process.stderr.write(`  enrich [${i + 1}/${rankedSlice.length}] ${row.name}… `);
     const enriched = await enrichRankedResearcher(row, i + 1, args.delay);
     researchers.push(enriched);
+    const gp = enriched.global_profile;
     process.stderr.write(
-      `${enriched.works.length} obras · ${enriched.top_coauthors.length} coautores\n`,
+      `${enriched.works.length} obras ODS · ${careerWorksLabel(gp)} · ${enriched.top_coauthors.length} coautores\n`,
     );
+  }
+
+  function careerWorksLabel(gp) {
+    if (!gp) return 'sin global_profile';
+    return `carrera ${gp.works_count ?? '?'} obras · fwci ${gp.fwci_mean ?? '—'}`;
   }
 
   const out = {
@@ -641,7 +658,8 @@ async function main() {
     period: PERIOD,
     min_works: args.minWorks,
     min_h_index: args.minHIndex,
-    api_calls: apiCalls,
+    api_calls: httpStats.total,
+    http_stats: { ...httpStats },
     candidates_after_filter: candidates.length,
     authors_with_fwci: uniqueProcessed.length,
     authors_after_h_index_filter: impactQualified.length,
@@ -661,7 +679,11 @@ async function main() {
 
   const elapsed = ((Date.now() - started) / 1000).toFixed(1);
   console.log(`\nEscrito: ${outFile}`);
-  console.log(`Llamadas API: ${apiCalls} · Tiempo: ${elapsed}s`);
+  console.log(`HTTP: ${httpStats.total} llamadas · ${elapsed}s`);
+  console.log(`  barrido candidatos: ${httpStats.candidatesSweep}`);
+  console.log(`  authors:            ${httpStats.authors}`);
+  console.log(`  works-carrera:      ${httpStats.careerWorks}`);
+  console.log(`  respuestas 429:     ${httpStats.rateLimited429}`);
   console.log(`\nTop ${researchers.length} (nombre · fwci · pubs · país):`);
   for (const r of researchers) {
     console.log(
