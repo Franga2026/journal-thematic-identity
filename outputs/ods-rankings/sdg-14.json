@@ -1,0 +1,3710 @@
+{
+  "sdg": 14,
+  "generated_at": "2026-06-30T18:43:44.815Z",
+  "method": "Top 25 por FWCI promedio entre autores con >=50 obras y h-index ODS >=10, 2020-2025",
+  "period": "2020-2025",
+  "min_works": 50,
+  "api_calls": 637,
+  "candidates_after_filter": 197,
+  "authors_with_fwci": 187,
+  "researchers": [
+    {
+      "rank": 1,
+      "name": "Thomas J. Algeo",
+      "openalex_id": "https://openalex.org/A5070746201",
+      "orcid": "0000-0002-3333-7035",
+      "fwci": 11.104,
+      "publications": 167,
+      "citations_ods": 5197,
+      "h_index_ods": 37,
+      "country": "CN",
+      "institution": "University of Cincinnati",
+      "works": [
+        {
+          "id": "https://openalex.org/W3005003947",
+          "title": "Redox classification and calibration of redox thresholds in sedimentary systems",
+          "year": 2020,
+          "fwci": 113.224,
+          "citations": 541
+        },
+        {
+          "id": "https://openalex.org/W3007555621",
+          "title": "A re-assessment of elemental proxies for paleoredox analysis",
+          "year": 2020,
+          "fwci": 105.5262,
+          "citations": 506
+        },
+        {
+          "id": "https://openalex.org/W3026130405",
+          "title": "Sedimentary host phases of mercury (Hg) and implications for use of Hg as a volcanic proxy",
+          "year": 2020,
+          "fwci": 12.5779,
+          "citations": 221
+        },
+        {
+          "id": "https://openalex.org/W3032974216",
+          "title": "Massive formation of early diagenetic dolomite in the Ediacaran ocean: Constraints on the “dolomite problem”",
+          "year": 2020,
+          "fwci": 32.8683,
+          "citations": 146
+        },
+        {
+          "id": "https://openalex.org/W3087396130",
+          "title": "The redox structure of Ediacaran and early Cambrian oceans and its controls",
+          "year": 2020,
+          "fwci": 25.1609,
+          "citations": 131
+        },
+        {
+          "id": "https://openalex.org/W3026977701",
+          "title": "Uranium isotopes in marine carbonates as a global ocean paleoredox proxy: A critical review",
+          "year": 2020,
+          "fwci": 24.7581,
+          "citations": 113
+        },
+        {
+          "id": "https://openalex.org/W3041034961",
+          "title": "Carbon-cycle changes during the Toarcian (Early Jurassic) and implications for regional versus global drivers of the Toarcian oceanic anoxic event",
+          "year": 2020,
+          "fwci": 21.0984,
+          "citations": 103
+        },
+        {
+          "id": "https://openalex.org/W3010035362",
+          "title": "Beyond redox: Control of trace-metal enrichment in anoxic marine facies by watermass chemistry and sedimentation rate",
+          "year": 2020,
+          "fwci": 9.8389,
+          "citations": 101
+        },
+        {
+          "id": "https://openalex.org/W3111957921",
+          "title": "Mercury fluxes record regional volcanism in the South China craton prior to the end-Permian mass extinction",
+          "year": 2020,
+          "fwci": 5.8288,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3160788542",
+          "title": "Hydrological controls on marine chemistry in the Cryogenian Nanhua Basin (South China)",
+          "year": 2021,
+          "fwci": 19.6791,
+          "citations": 82
+        },
+        {
+          "id": "https://openalex.org/W3003648957",
+          "title": "Evidence for high organic carbon export to the early Cambrian seafloor",
+          "year": 2020,
+          "fwci": 17.0282,
+          "citations": 80
+        },
+        {
+          "id": "https://openalex.org/W3109985086",
+          "title": "Redox changes in the outer Yangtze Sea (South China) through the Hirnantian Glaciation and their implications for the end-Ordovician biocrisis",
+          "year": 2020,
+          "fwci": 18.6412,
+          "citations": 79
+        },
+        {
+          "id": "https://openalex.org/W4220811251",
+          "title": "Mercury evidence for combustion of organic-rich sediments during the end-Triassic crisis",
+          "year": 2022,
+          "fwci": 7.8308,
+          "citations": 78
+        },
+        {
+          "id": "https://openalex.org/W3039625463",
+          "title": "Biomarker evidence of algal-microbial community changes linked to redox and salinity variation, Upper Devonian Chattanooga Shale (Tennessee, USA)",
+          "year": 2020,
+          "fwci": 11.7688,
+          "citations": 73
+        },
+        {
+          "id": "https://openalex.org/W2997715461",
+          "title": "Extensive marine anoxia associated with the Late Devonian Hangenberg Crisis",
+          "year": 2020,
+          "fwci": 18.6678,
+          "citations": 72
+        },
+        {
+          "id": "https://openalex.org/W4386554284",
+          "title": "Theory and classification of mass extinction causation",
+          "year": 2023,
+          "fwci": 51.0637,
+          "citations": 70
+        },
+        {
+          "id": "https://openalex.org/W3134992909",
+          "title": "Periodic oceanic euxinia and terrestrial fluxes linked to astronomical forcing during the Late Devonian Frasnian–Famennian mass extinction",
+          "year": 2021,
+          "fwci": 24.3696,
+          "citations": 67
+        },
+        {
+          "id": "https://openalex.org/W3128091019",
+          "title": "The prograde-to-retrograde evolution of the Huangshaping skarn deposit (Nanling Range, South China)",
+          "year": 2021,
+          "fwci": 8.392,
+          "citations": 66
+        },
+        {
+          "id": "https://openalex.org/W3158135360",
+          "title": "Was climatic cooling during the earliest Carboniferous driven by expansion of seed plants?",
+          "year": 2021,
+          "fwci": 18.6451,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W3022002191",
+          "title": "Cryogenian cap carbonate models: a review and critical assessment",
+          "year": 2020,
+          "fwci": 12.5494,
+          "citations": 55
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "name": "Noah J. Planavsky",
+      "openalex_id": "https://openalex.org/A5031830595",
+      "orcid": "0000-0001-5849-8508",
+      "fwci": 11.069,
+      "publications": 139,
+      "citations_ods": 3857,
+      "h_index_ods": 38,
+      "country": "US",
+      "institution": "Yale University",
+      "works": [
+        {
+          "id": "https://openalex.org/W3185738595",
+          "title": "Oxygenation, Life, and the Planetary System during Earth's Middle History: An Overview",
+          "year": 2021,
+          "fwci": 60.758,
+          "citations": 198
+        },
+        {
+          "id": "https://openalex.org/W3180691942",
+          "title": "A lithium-isotope perspective on the evolution of carbon and silicon cycles",
+          "year": 2021,
+          "fwci": 10.4902,
+          "citations": 158
+        },
+        {
+          "id": "https://openalex.org/W3119079502",
+          "title": "Global marine redox evolution from the late Neoproterozoic to the early Paleozoic constrained by the integration of Mo and U isotope records",
+          "year": 2021,
+          "fwci": 43.0504,
+          "citations": 122
+        },
+        {
+          "id": "https://openalex.org/W3026977701",
+          "title": "Uranium isotopes in marine carbonates as a global ocean paleoredox proxy: A critical review",
+          "year": 2020,
+          "fwci": 24.7581,
+          "citations": 113
+        },
+        {
+          "id": "https://openalex.org/W3015907633",
+          "title": "Persistent global marine euxinia in the early Silurian",
+          "year": 2020,
+          "fwci": 24.7527,
+          "citations": 93
+        },
+        {
+          "id": "https://openalex.org/W3111957921",
+          "title": "Mercury fluxes record regional volcanism in the South China craton prior to the end-Permian mass extinction",
+          "year": 2020,
+          "fwci": 5.8288,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3120307837",
+          "title": "Evolution of the structure and impact of Earth’s biosphere",
+          "year": 2021,
+          "fwci": 7.4783,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3008531413",
+          "title": "The effects of diagenesis on lithium isotope ratios of shallow marine carbonates",
+          "year": 2020,
+          "fwci": 4.9342,
+          "citations": 82
+        },
+        {
+          "id": "https://openalex.org/W3179371683",
+          "title": "A long-term record of early to mid-Paleozoic marine redox change",
+          "year": 2021,
+          "fwci": 22.559,
+          "citations": 82
+        },
+        {
+          "id": "https://openalex.org/W3194184597",
+          "title": "The History of Ocean Oxygenation",
+          "year": 2021,
+          "fwci": 23.9126,
+          "citations": 82
+        },
+        {
+          "id": "https://openalex.org/W4322763099",
+          "title": "Manganese oxides, Earth surface oxygenation, and the rise of oxygenic photosynthesis",
+          "year": 2023,
+          "fwci": 15.1328,
+          "citations": 78
+        },
+        {
+          "id": "https://openalex.org/W3006096372",
+          "title": "The impact of marine nutrient abundance on early eukaryotic ecosystems",
+          "year": 2020,
+          "fwci": 21.5064,
+          "citations": 76
+        },
+        {
+          "id": "https://openalex.org/W3037226283",
+          "title": "Uranium Isotope Fractionation in Non‐sulfidic Anoxic Settings and the Global Uranium Isotope Mass Balance",
+          "year": 2020,
+          "fwci": 19.8833,
+          "citations": 74
+        },
+        {
+          "id": "https://openalex.org/W4225287927",
+          "title": "Marine anoxia linked to abrupt global warming during Earth’s penultimate icehouse",
+          "year": 2022,
+          "fwci": 7.9428,
+          "citations": 74
+        },
+        {
+          "id": "https://openalex.org/W3106766582",
+          "title": "The role of environmental factors in the long-term evolution of the marine biological pump",
+          "year": 2020,
+          "fwci": 8.4035,
+          "citations": 73
+        },
+        {
+          "id": "https://openalex.org/W3197081377",
+          "title": "What controls the duration and intensity of ocean anoxic events in the Paleozoic and the Mesozoic?",
+          "year": 2021,
+          "fwci": 20.5685,
+          "citations": 73
+        },
+        {
+          "id": "https://openalex.org/W2997715461",
+          "title": "Extensive marine anoxia associated with the Late Devonian Hangenberg Crisis",
+          "year": 2020,
+          "fwci": 18.6678,
+          "citations": 72
+        },
+        {
+          "id": "https://openalex.org/W4378713627",
+          "title": "Ocean alkalinity enhancement through restoration of blue carbon ecosystems",
+          "year": 2023,
+          "fwci": 16.1957,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W3011233575",
+          "title": "Palaeoproterozoic oxygenated oceans following the Lomagundi–Jatuli Event",
+          "year": 2020,
+          "fwci": 20.6949,
+          "citations": 68
+        },
+        {
+          "id": "https://openalex.org/W4400248620",
+          "title": "Sustained increases in atmospheric oxygen and marine productivity in the Neoproterozoic and Palaeozoic eras",
+          "year": 2024,
+          "fwci": 92.8673,
+          "citations": 68
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "name": "Mario Hoppmann",
+      "openalex_id": "https://openalex.org/A5075713727",
+      "orcid": "0000-0003-1294-9531",
+      "fwci": 9.337,
+      "publications": 114,
+      "citations_ods": 1844,
+      "h_index_ods": 22,
+      "country": "DE",
+      "institution": "Alfred-Wegener-Institut Helmholtz-Zentrum für Polar- und Meeresforschung",
+      "works": [
+        {
+          "id": "https://openalex.org/W4213239123",
+          "title": "Overview of the MOSAiC expedition: Snow and sea ice",
+          "year": 2022,
+          "fwci": 246.3437,
+          "citations": 323
+        },
+        {
+          "id": "https://openalex.org/W4211219306",
+          "title": "Overview of the MOSAiC expedition: Physical oceanography",
+          "year": 2022,
+          "fwci": 29.42,
+          "citations": 219
+        },
+        {
+          "id": "https://openalex.org/W3008242407",
+          "title": "The MOSAiC ice floe: sediment-laden survivor from the Siberian shelf",
+          "year": 2020,
+          "fwci": 11.0404,
+          "citations": 126
+        },
+        {
+          "id": "https://openalex.org/W4285213375",
+          "title": "Seasonality and timing of sea ice mass balance and heat fluxes in the Arctic transpolar drift during 2019–2020",
+          "year": 2022,
+          "fwci": 15.049,
+          "citations": 117
+        },
+        {
+          "id": "https://openalex.org/W4226236720",
+          "title": "Thermodynamic and dynamic contributions to seasonal Arctic sea ice thickness distributions from airborne observations",
+          "year": 2022,
+          "fwci": 11.9314,
+          "citations": 97
+        },
+        {
+          "id": "https://openalex.org/W3041899297",
+          "title": "Platelet ice, the Southern Ocean's hidden ice: a review",
+          "year": 2020,
+          "fwci": 6.5773,
+          "citations": 81
+        },
+        {
+          "id": "https://openalex.org/W3153826554",
+          "title": "Snow Depth and Air Temperature Seasonality on Sea Ice Derived From Snow Buoy Measurements",
+          "year": 2021,
+          "fwci": 8.081,
+          "citations": 80
+        },
+        {
+          "id": "https://openalex.org/W3000117916",
+          "title": "Seasonal and interannual variability of landfast sea ice in Atka Bay, Weddell Sea, Antarctica",
+          "year": 2020,
+          "fwci": 3.8767,
+          "citations": 56
+        },
+        {
+          "id": "https://openalex.org/W4386702983",
+          "title": "Thin and transient meltwater layers and false bottoms in the Arctic sea ice pack—Recent insights on these historically overlooked features",
+          "year": 2023,
+          "fwci": 10.542,
+          "citations": 54
+        },
+        {
+          "id": "https://openalex.org/W3088459953",
+          "title": "Surface-based Ku- and Ka-band polarimetric radar for sea ice studies",
+          "year": 2020,
+          "fwci": 4.1106,
+          "citations": 48
+        },
+        {
+          "id": "https://openalex.org/W3204312696",
+          "title": "Estimation of thermodynamic and dynamic contributions to sea ice growth in the Central Arctic using ICESat-2 and MOSAiC SIMBA buoy data",
+          "year": 2021,
+          "fwci": 3.9856,
+          "citations": 42
+        },
+        {
+          "id": "https://openalex.org/W3033015451",
+          "title": "Platelet Ice Under Arctic Pack Ice in Winter",
+          "year": 2020,
+          "fwci": 2.3491,
+          "citations": 39
+        },
+        {
+          "id": "https://openalex.org/W3119811279",
+          "title": "New insights into radiative transfer within sea ice derived from autonomous optical propagation measurements",
+          "year": 2021,
+          "fwci": 3.739,
+          "citations": 35
+        },
+        {
+          "id": "https://openalex.org/W4386225637",
+          "title": "Sea-ice decline could keep zooplankton deeper for longer",
+          "year": 2023,
+          "fwci": 6.4423,
+          "citations": 33
+        },
+        {
+          "id": "https://openalex.org/W3176741845",
+          "title": "Insights Into Water Mass Origins in the Central Arctic Ocean From In‐Situ Dissolved Organic Matter Fluorescence",
+          "year": 2021,
+          "fwci": 3.4086,
+          "citations": 31
+        },
+        {
+          "id": "https://openalex.org/W3080716514",
+          "title": "Seasonal changes in sea ice kinematics and deformation in the Pacific sector of the Arctic Ocean in 2018/19",
+          "year": 2021,
+          "fwci": 3.2565,
+          "citations": 30
+        },
+        {
+          "id": "https://openalex.org/W4396769479",
+          "title": "The MOSAiC Distributed Network: Observing the coupled Arctic system with multidisciplinary, coordinated platforms",
+          "year": 2024,
+          "fwci": 6.3147,
+          "citations": 28
+        },
+        {
+          "id": "https://openalex.org/W4322770423",
+          "title": "Winners and Losers of Atlantification: The Degree of Ocean Warming Affects the Structure of Arctic Microbial Communities",
+          "year": 2023,
+          "fwci": 6.0785,
+          "citations": 25
+        },
+        {
+          "id": "https://openalex.org/W4379231373",
+          "title": "Wind redistribution of snow impacts the Ka- and Ku-band radar signatures of Arctic sea ice",
+          "year": 2023,
+          "fwci": 4.6853,
+          "citations": 24
+        },
+        {
+          "id": "https://openalex.org/W4381995639",
+          "title": "Different mechanisms of Arctic first-year sea-ice ridge consolidation observed during the MOSAiC expedition",
+          "year": 2023,
+          "fwci": 4.7552,
+          "citations": 24
+        }
+      ]
+    },
+    {
+      "rank": 4,
+      "name": "Jean‐Pierre Gattuso",
+      "openalex_id": "https://openalex.org/A5079156035",
+      "orcid": "0000-0002-4533-4114",
+      "fwci": 9.302,
+      "publications": 110,
+      "citations_ods": 2585,
+      "h_index_ods": 22,
+      "country": "FR",
+      "institution": "Laboratoire d’Océanographie de Villefranche",
+      "works": [
+        {
+          "id": "https://openalex.org/W4285731403",
+          "title": "Marine heatwaves drive recurrent mass mortalities in the Mediterranean Sea",
+          "year": 2022,
+          "fwci": 73.9179,
+          "citations": 498
+        },
+        {
+          "id": "https://openalex.org/W4229025788",
+          "title": "Global estimates of the extent and production of macroalgal forests",
+          "year": 2022,
+          "fwci": 40.75,
+          "citations": 252
+        },
+        {
+          "id": "https://openalex.org/W4295706063",
+          "title": "Global seaweed productivity",
+          "year": 2022,
+          "fwci": 31.1531,
+          "citations": 197
+        },
+        {
+          "id": "https://openalex.org/W3091221566",
+          "title": "Copernicus Marine Service Ocean State Report, Issue 4",
+          "year": 2020,
+          "fwci": 20.356,
+          "citations": 144
+        },
+        {
+          "id": "https://openalex.org/W3124285912",
+          "title": "The Potential for Ocean-Based Climate Action: Negative Emissions Technologies and Beyond",
+          "year": 2021,
+          "fwci": 35.5387,
+          "citations": 136
+        },
+        {
+          "id": "https://openalex.org/W4398209534",
+          "title": "Carbon export from seaweed forests to deep ocean sinks",
+          "year": 2024,
+          "fwci": 46.6889,
+          "citations": 115
+        },
+        {
+          "id": "https://openalex.org/W3200347685",
+          "title": "Copernicus Marine Service Ocean State Report, Issue 5",
+          "year": 2021,
+          "fwci": 35.1756,
+          "citations": 110
+        },
+        {
+          "id": "https://openalex.org/W3049148124",
+          "title": "A Regional Neural Network Approach to Estimate Water-Column Nutrient Concentrations and Carbonate System Variables in the Mediterranean Sea: CANYON-MED",
+          "year": 2020,
+          "fwci": 15.121,
+          "citations": 104
+        },
+        {
+          "id": "https://openalex.org/W4360613429",
+          "title": "Global Surface Ocean Acidification Indicators From 1750 to 2100",
+          "year": 2023,
+          "fwci": 26.0189,
+          "citations": 102
+        },
+        {
+          "id": "https://openalex.org/W4206206703",
+          "title": "Best Practice Data Standards for Discrete Chemical Oceanographic Observations",
+          "year": 2022,
+          "fwci": 18.6133,
+          "citations": 98
+        },
+        {
+          "id": "https://openalex.org/W3089626246",
+          "title": "Ocean acidification causes variable trait‐shifts in a coral species",
+          "year": 2020,
+          "fwci": 4.8554,
+          "citations": 53
+        },
+        {
+          "id": "https://openalex.org/W4308944530",
+          "title": "Impact of climate change on Arctic macroalgal communities",
+          "year": 2022,
+          "fwci": 9.6005,
+          "citations": 53
+        },
+        {
+          "id": "https://openalex.org/W3007122664",
+          "title": "Global distribution of photosynthetically available radiation on the seafloor",
+          "year": 2020,
+          "fwci": 4.4821,
+          "citations": 48
+        },
+        {
+          "id": "https://openalex.org/W4388523631",
+          "title": "Air‐sea carbon dioxide equilibrium: Will it be possible to use seaweeds for carbon removal offsets?",
+          "year": 2023,
+          "fwci": 11.6573,
+          "citations": 48
+        },
+        {
+          "id": "https://openalex.org/W3013398231",
+          "title": "Near-future ocean warming and acidification alter foraging behaviour, locomotion, and metabolic rate in a keystone marine mollusc",
+          "year": 2020,
+          "fwci": 4.8556,
+          "citations": 41
+        },
+        {
+          "id": "https://openalex.org/W4406128139",
+          "title": "Perspectives and challenges of marine carbon dioxide removal",
+          "year": 2025,
+          "fwci": 49.0324,
+          "citations": 36
+        },
+        {
+          "id": "https://openalex.org/W3049612263",
+          "title": "Operating Cabled Underwater Observatories in Rough Shelf-Sea Environments: A Technological Challenge",
+          "year": 2020,
+          "fwci": 5.4324,
+          "citations": 35
+        },
+        {
+          "id": "https://openalex.org/W4390701257",
+          "title": "Functional changes across marine habitats due to ocean acidification",
+          "year": 2024,
+          "fwci": 13.1875,
+          "citations": 32
+        },
+        {
+          "id": "https://openalex.org/W4315853196",
+          "title": "Drivers of change in Arctic fjord socio-ecological systems: Examples from the European Arctic",
+          "year": 2023,
+          "fwci": 11.2974,
+          "citations": 32
+        },
+        {
+          "id": "https://openalex.org/W3110704254",
+          "title": "Magnitude and Predictability of pH Fluctuations Shape Plastic Responses to Ocean Acidification",
+          "year": 2020,
+          "fwci": 2.8002,
+          "citations": 31
+        }
+      ]
+    },
+    {
+      "rank": 5,
+      "name": "Christian R. Voolstra",
+      "openalex_id": "https://openalex.org/A5091777836",
+      "orcid": "0000-0003-4555-3795",
+      "fwci": 9.063,
+      "publications": 180,
+      "citations_ods": 6493,
+      "h_index_ods": 42,
+      "country": "DE",
+      "institution": "University of Konstanz",
+      "works": [
+        {
+          "id": "https://openalex.org/W3121793874",
+          "title": "Heat stress destabilizes symbiotic nutrient cycling in corals",
+          "year": 2021,
+          "fwci": 44.4897,
+          "citations": 403
+        },
+        {
+          "id": "https://openalex.org/W3027896178",
+          "title": "Adapting with Microbial Help: Microbiome Flexibility Facilitates Rapid Responses to Environmental Change",
+          "year": 2020,
+          "fwci": 26.2089,
+          "citations": 313
+        },
+        {
+          "id": "https://openalex.org/W3205491578",
+          "title": "Extending the natural adaptive capacity of coral holobionts",
+          "year": 2021,
+          "fwci": 28.764,
+          "citations": 260
+        },
+        {
+          "id": "https://openalex.org/W3191241810",
+          "title": "Coral microbiome manipulation elicits metabolic and genetic restructuring to mitigate heat stress and evade mortality",
+          "year": 2021,
+          "fwci": 28.7635,
+          "citations": 252
+        },
+        {
+          "id": "https://openalex.org/W3014480380",
+          "title": "Coral reef survival under accelerating ocean deoxygenation",
+          "year": 2020,
+          "fwci": 23.8018,
+          "citations": 241
+        },
+        {
+          "id": "https://openalex.org/W3021270982",
+          "title": "Standardized short‐term acute heat stress assays resolve historical differences in coral thermotolerance across microhabitat reef sites",
+          "year": 2020,
+          "fwci": 19.1369,
+          "citations": 228
+        },
+        {
+          "id": "https://openalex.org/W4224979440",
+          "title": "Coral‐bleaching responses to climate change across biological scales",
+          "year": 2022,
+          "fwci": 27.7945,
+          "citations": 197
+        },
+        {
+          "id": "https://openalex.org/W4399174757",
+          "title": "The Fourth Global Coral Bleaching Event: Where do we go from here?",
+          "year": 2024,
+          "fwci": 78.516,
+          "citations": 197
+        },
+        {
+          "id": "https://openalex.org/W3092862335",
+          "title": "Diatom modulation of select bacteria through use of two unique secondary metabolites",
+          "year": 2020,
+          "fwci": 17.8528,
+          "citations": 191
+        },
+        {
+          "id": "https://openalex.org/W4383998242",
+          "title": "Human‐induced salinity changes impact marine organisms and ecosystems",
+          "year": 2023,
+          "fwci": 42.7583,
+          "citations": 190
+        },
+        {
+          "id": "https://openalex.org/W3108270011",
+          "title": "Increasing comparability among coral bleaching experiments",
+          "year": 2020,
+          "fwci": 13.6676,
+          "citations": 160
+        },
+        {
+          "id": "https://openalex.org/W4392382638",
+          "title": "The coral microbiome in sickness, in health and in a changing world",
+          "year": 2024,
+          "fwci": 62.62,
+          "citations": 156
+        },
+        {
+          "id": "https://openalex.org/W3184046879",
+          "title": "Rebuilding Coral Reefs: A Decadal Grand Challenge",
+          "year": 2021,
+          "fwci": null,
+          "citations": 143
+        },
+        {
+          "id": "https://openalex.org/W4224235198",
+          "title": "Coral holobiont cues prime <i>Endozoicomonas</i> for a symbiotic lifestyle",
+          "year": 2022,
+          "fwci": 22.1982,
+          "citations": 139
+        },
+        {
+          "id": "https://openalex.org/W3004497505",
+          "title": "Coral microbiome composition along the northern Red Sea suggests high plasticity of bacterial and specificity of endosymbiotic dinoflagellate communities",
+          "year": 2020,
+          "fwci": 12.7051,
+          "citations": 134
+        },
+        {
+          "id": "https://openalex.org/W3118193281",
+          "title": "Contrasting heat stress response patterns of coral holobionts across the Red Sea suggest distinct mechanisms of thermal tolerance",
+          "year": 2021,
+          "fwci": 17.9244,
+          "citations": 128
+        },
+        {
+          "id": "https://openalex.org/W3159341718",
+          "title": "Fast and pervasive transcriptomic resilience and acclimation of extremely heat-tolerant coral holobionts from the northern Red Sea",
+          "year": 2021,
+          "fwci": 14.3788,
+          "citations": 117
+        },
+        {
+          "id": "https://openalex.org/W3004848745",
+          "title": "Corals in the hottest reefs in the world exhibit symbiont fidelity not flexibility",
+          "year": 2020,
+          "fwci": 12.2232,
+          "citations": 114
+        },
+        {
+          "id": "https://openalex.org/W3108817428",
+          "title": "Insights into the Cultured Bacterial Fraction of Corals",
+          "year": 2021,
+          "fwci": 11.503,
+          "citations": 104
+        },
+        {
+          "id": "https://openalex.org/W3131182508",
+          "title": "Remarkably high and consistent tolerance of a Red Sea coral to acute and chronic thermal stress exposures",
+          "year": 2021,
+          "fwci": 11.6678,
+          "citations": 97
+        }
+      ]
+    },
+    {
+      "rank": 6,
+      "name": "Mats A. Granskog",
+      "openalex_id": "https://openalex.org/A5058592116",
+      "orcid": "0000-0002-5035-4347",
+      "fwci": 8.912,
+      "publications": 100,
+      "citations_ods": 1990,
+      "h_index_ods": 21,
+      "country": "NO",
+      "institution": "Norwegian Polar Institute",
+      "works": [
+        {
+          "id": "https://openalex.org/W4213239123",
+          "title": "Overview of the MOSAiC expedition: Snow and sea ice",
+          "year": 2022,
+          "fwci": 246.3437,
+          "citations": 323
+        },
+        {
+          "id": "https://openalex.org/W4324344134",
+          "title": "Regime shift in Arctic Ocean sea ice thickness",
+          "year": 2023,
+          "fwci": 45.0963,
+          "citations": 232
+        },
+        {
+          "id": "https://openalex.org/W4211219306",
+          "title": "Overview of the MOSAiC expedition: Physical oceanography",
+          "year": 2022,
+          "fwci": 29.42,
+          "citations": 219
+        },
+        {
+          "id": "https://openalex.org/W3015388872",
+          "title": "The Transpolar Drift as a Source of Riverine and Shelf‐Derived Trace Elements to the Central Arctic Ocean",
+          "year": 2020,
+          "fwci": 35.0159,
+          "citations": 167
+        },
+        {
+          "id": "https://openalex.org/W3084422711",
+          "title": "Terrestrial Inputs Drive Seasonality in Organic Matter and Nutrient Biogeochemistry in a High Arctic Fjord System (Isfjorden, Svalbard)",
+          "year": 2020,
+          "fwci": 8.2237,
+          "citations": 112
+        },
+        {
+          "id": "https://openalex.org/W3008283214",
+          "title": "Snow Property Controls on Modeled Ku-Band Altimeter Estimates of First-Year Sea Ice Thickness: Case Studies From the Canadian and Norwegian Arctic",
+          "year": 2020,
+          "fwci": 5.0516,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W4386702983",
+          "title": "Thin and transient meltwater layers and false bottoms in the Arctic sea ice pack—Recent insights on these historically overlooked features",
+          "year": 2023,
+          "fwci": 10.542,
+          "citations": 54
+        },
+        {
+          "id": "https://openalex.org/W3109669291",
+          "title": "Toward a Better Surface Radiation Budget Analysis Over Sea Ice in the High Arctic Ocean: A Comparative Study Between Satellite, Reanalysis, and local‐scale Observations",
+          "year": 2020,
+          "fwci": 4.1116,
+          "citations": 52
+        },
+        {
+          "id": "https://openalex.org/W4388694212",
+          "title": "Still Arctic?—The changing Barents Sea",
+          "year": 2023,
+          "fwci": 9.9067,
+          "citations": 50
+        },
+        {
+          "id": "https://openalex.org/W4285293260",
+          "title": "Quantifying false bottoms and under-ice meltwater layers beneath Arctic summer sea ice with fine-scale observations",
+          "year": 2022,
+          "fwci": 6.2367,
+          "citations": 45
+        },
+        {
+          "id": "https://openalex.org/W4311674609",
+          "title": "Vertical redistribution of principle water masses on the Northeast Greenland Shelf",
+          "year": 2022,
+          "fwci": 4.1392,
+          "citations": 39
+        },
+        {
+          "id": "https://openalex.org/W4401500360",
+          "title": "Future sea ice weakening amplifies wind-driven trends in surface stress and Arctic Ocean spin-up",
+          "year": 2024,
+          "fwci": 11.9414,
+          "citations": 37
+        },
+        {
+          "id": "https://openalex.org/W4292356923",
+          "title": "Deciphering the Properties of Different Arctic Ice Types During the Growth Phase of MOSAiC: Implications for Future Studies on Gas Pathways",
+          "year": 2022,
+          "fwci": 6.3741,
+          "citations": 35
+        },
+        {
+          "id": "https://openalex.org/W4362512828",
+          "title": "Temporal evolution of under-ice meltwater layers and false bottoms and their impact on summer Arctic sea ice mass balance",
+          "year": 2023,
+          "fwci": 7.7273,
+          "citations": 34
+        },
+        {
+          "id": "https://openalex.org/W3176741845",
+          "title": "Insights Into Water Mass Origins in the Central Arctic Ocean From In‐Situ Dissolved Organic Matter Fluorescence",
+          "year": 2021,
+          "fwci": 3.4086,
+          "citations": 31
+        },
+        {
+          "id": "https://openalex.org/W4384662608",
+          "title": "Upper ocean warming and sea ice reduction in the East Greenland Current from 2003 to 2019",
+          "year": 2023,
+          "fwci": 5.6614,
+          "citations": 29
+        },
+        {
+          "id": "https://openalex.org/W4396769479",
+          "title": "The MOSAiC Distributed Network: Observing the coupled Arctic system with multidisciplinary, coordinated platforms",
+          "year": 2024,
+          "fwci": 6.3147,
+          "citations": 28
+        },
+        {
+          "id": "https://openalex.org/W4401789263",
+          "title": "Overview of the MOSAiC expedition: Ecosystem",
+          "year": 2024,
+          "fwci": 10.684,
+          "citations": 28
+        },
+        {
+          "id": "https://openalex.org/W4381995639",
+          "title": "Different mechanisms of Arctic first-year sea-ice ridge consolidation observed during the MOSAiC expedition",
+          "year": 2023,
+          "fwci": 4.7552,
+          "citations": 24
+        },
+        {
+          "id": "https://openalex.org/W3113362934",
+          "title": "Compositional Differences in Dissolved Organic Matter Between Arctic Cold Seeps Versus Non-Seep Sites at the Svalbard Continental Margin and the Barents Sea",
+          "year": 2020,
+          "fwci": 1.397,
+          "citations": 23
+        }
+      ]
+    },
+    {
+      "rank": 7,
+      "name": "Michel Tsamados",
+      "openalex_id": "https://openalex.org/A5035914534",
+      "orcid": "0000-0001-7034-5360",
+      "fwci": 8.794,
+      "publications": 113,
+      "citations_ods": 2071,
+      "h_index_ods": 22,
+      "country": "GB",
+      "institution": "University College London",
+      "works": [
+        {
+          "id": "https://openalex.org/W4213239123",
+          "title": "Overview of the MOSAiC expedition: Snow and sea ice",
+          "year": 2022,
+          "fwci": 246.3437,
+          "citations": 323
+        },
+        {
+          "id": "https://openalex.org/W3015616568",
+          "title": "Sea Ice Roughness Overlooked as a Key Source of Uncertainty in CryoSat‐2 Ice Freeboard Retrievals",
+          "year": 2020,
+          "fwci": 14.9203,
+          "citations": 180
+        },
+        {
+          "id": "https://openalex.org/W4295763188",
+          "title": "A year-round satellite sea-ice thickness record from CryoSat-2",
+          "year": 2022,
+          "fwci": 21.4215,
+          "citations": 172
+        },
+        {
+          "id": "https://openalex.org/W3082374884",
+          "title": "A Lagrangian Snow Evolution System for Sea Ice Applications (SnowModel‐LG): Part II—Analyses",
+          "year": 2020,
+          "fwci": 11.1582,
+          "citations": 128
+        },
+        {
+          "id": "https://openalex.org/W3008242407",
+          "title": "The MOSAiC ice floe: sediment-laden survivor from the Siberian shelf",
+          "year": 2020,
+          "fwci": 11.0404,
+          "citations": 126
+        },
+        {
+          "id": "https://openalex.org/W3135028339",
+          "title": "Summer Extreme Cyclone Impacts on Arctic Sea Ice",
+          "year": 2021,
+          "fwci": 7.3573,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3170458267",
+          "title": "Faster decline and higher variability in the sea ice thickness of the marginal Arctic seas when accounting for dynamic snow cover",
+          "year": 2021,
+          "fwci": 8.6841,
+          "citations": 81
+        },
+        {
+          "id": "https://openalex.org/W3121876319",
+          "title": "Inter-comparison of snow depth over Arctic sea ice from reanalysis reconstructions and satellite retrieval",
+          "year": 2021,
+          "fwci": 7.114,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W3033120841",
+          "title": "Machine learning approaches to retrieve pan-Arctic melt ponds from visible satellite imagery",
+          "year": 2020,
+          "fwci": 6.3425,
+          "citations": 68
+        },
+        {
+          "id": "https://openalex.org/W2971918490",
+          "title": "Brief communication: Conventional assumptions involving the speed of radar waves in snow introduce systematic underestimates to sea ice thickness and seasonal growth rate estimates",
+          "year": 2020,
+          "fwci": 4.6981,
+          "citations": 67
+        },
+        {
+          "id": "https://openalex.org/W4200010420",
+          "title": "Advances in altimetric snow depth estimates using bi-frequency SARAL and CryoSat-2 Ka–Ku measurements",
+          "year": 2021,
+          "fwci": 5.5482,
+          "citations": 61
+        },
+        {
+          "id": "https://openalex.org/W4375861562",
+          "title": "Recent state transition of the Arctic Ocean’s Beaufort Gyre",
+          "year": 2023,
+          "fwci": 12.0536,
+          "citations": 61
+        },
+        {
+          "id": "https://openalex.org/W3047560485",
+          "title": "Control of the Oceanic Heat Content of the Getz‐Dotson Trough, Antarctica, by the Amundsen Sea Low",
+          "year": 2020,
+          "fwci": 4.4632,
+          "citations": 60
+        },
+        {
+          "id": "https://openalex.org/W3189193556",
+          "title": "Record winter winds in 2020/21 drove exceptional Arctic sea ice transport",
+          "year": 2021,
+          "fwci": 5.4259,
+          "citations": 55
+        },
+        {
+          "id": "https://openalex.org/W3160929504",
+          "title": "Changes in elevation and mass of Arctic glaciers and ice caps, 2010–2017",
+          "year": 2021,
+          "fwci": 4.5825,
+          "citations": 52
+        },
+        {
+          "id": "https://openalex.org/W3210476873",
+          "title": "A 10-year record of Arctic summer sea ice freeboard from CryoSat-2",
+          "year": 2021,
+          "fwci": 4.4613,
+          "citations": 51
+        },
+        {
+          "id": "https://openalex.org/W3088459953",
+          "title": "Surface-based Ku- and Ka-band polarimetric radar for sea ice studies",
+          "year": 2020,
+          "fwci": 4.1106,
+          "citations": 48
+        },
+        {
+          "id": "https://openalex.org/W4313839682",
+          "title": "Synoptic Variability in Satellite Altimeter‐Derived Radar Freeboard of Arctic Sea Ice",
+          "year": 2023,
+          "fwci": 7.0705,
+          "citations": 36
+        },
+        {
+          "id": "https://openalex.org/W4304191700",
+          "title": "Rain on snow (ROS) understudied in sea ice remote sensing: a multi-sensor analysis of ROS during MOSAiC (Multidisciplinary drifting Observatory for the Study of Arctic Climate)",
+          "year": 2022,
+          "fwci": 4.203,
+          "citations": 33
+        },
+        {
+          "id": "https://openalex.org/W4396769479",
+          "title": "The MOSAiC Distributed Network: Observing the coupled Arctic system with multidisciplinary, coordinated platforms",
+          "year": 2024,
+          "fwci": 6.3147,
+          "citations": 28
+        }
+      ]
+    },
+    {
+      "rank": 8,
+      "name": "Laurent Bopp",
+      "openalex_id": "https://openalex.org/A5079839995",
+      "orcid": "0000-0003-4732-4953",
+      "fwci": 8.561,
+      "publications": 117,
+      "citations_ods": 4821,
+      "h_index_ods": 28,
+      "country": "FR",
+      "institution": "Centre National de la Recherche Scientifique",
+      "works": [
+        {
+          "id": "https://openalex.org/W3040588293",
+          "title": "Twenty-first century ocean warming, acidification, deoxygenation, and upper-ocean nutrient and primary production decline from CMIP6 model projections",
+          "year": 2020,
+          "fwci": 88.3338,
+          "citations": 868
+        },
+        {
+          "id": "https://openalex.org/W2993089090",
+          "title": "Carbon–concentration and carbon–climate feedbacks in CMIP6 models and their comparison to CMIP5 models",
+          "year": 2020,
+          "fwci": 44.8194,
+          "citations": 661
+        },
+        {
+          "id": "https://openalex.org/W3058227715",
+          "title": "Tracking Improvement in Simulated Marine Biogeochemistry Between CMIP5 and CMIP6",
+          "year": 2020,
+          "fwci": 51.1701,
+          "citations": 436
+        },
+        {
+          "id": "https://openalex.org/W3097222573",
+          "title": "Consistency and Challenges in the Ocean Carbon Sink Estimate for the Global Carbon Budget",
+          "year": 2020,
+          "fwci": 24.7794,
+          "citations": 350
+        },
+        {
+          "id": "https://openalex.org/W3119596800",
+          "title": "Around one third of current Arctic Ocean primary production sustained by rivers and coastal erosion",
+          "year": 2021,
+          "fwci": 28.0949,
+          "citations": 291
+        },
+        {
+          "id": "https://openalex.org/W3208573340",
+          "title": "Next-generation ensemble projections reveal higher climate risks for marine ecosystems",
+          "year": 2021,
+          "fwci": 22.3567,
+          "citations": 289
+        },
+        {
+          "id": "https://openalex.org/W3215995014",
+          "title": "Persistent Uncertainties in Ocean Net Primary Production Climate Change Projections at Regional Scales Raise Challenges for Assessing Impacts on Ecosystem Services",
+          "year": 2021,
+          "fwci": 25.2225,
+          "citations": 193
+        },
+        {
+          "id": "https://openalex.org/W4296621012",
+          "title": "Ocean biogeochemical modelling",
+          "year": 2022,
+          "fwci": 21.1592,
+          "citations": 134
+        },
+        {
+          "id": "https://openalex.org/W3036161870",
+          "title": "Emergent constraint on Arctic Ocean acidification in the twenty-first century",
+          "year": 2020,
+          "fwci": 15.3131,
+          "citations": 131
+        },
+        {
+          "id": "https://openalex.org/W2991737992",
+          "title": "IPSL-CM5A2 – an Earth system model designed for multi-millennial climate simulations",
+          "year": 2020,
+          "fwci": 9.1636,
+          "citations": 117
+        },
+        {
+          "id": "https://openalex.org/W4386620202",
+          "title": "Magnitude, Trends, and Variability of the Global Ocean Carbon Sink From 1985 to 2018",
+          "year": 2023,
+          "fwci": 15.8051,
+          "citations": 107
+        },
+        {
+          "id": "https://openalex.org/W4391051693",
+          "title": "A Synthesis of Global Coastal Ocean Greenhouse Gas Fluxes",
+          "year": 2024,
+          "fwci": 32.7642,
+          "citations": 81
+        },
+        {
+          "id": "https://openalex.org/W3024480793",
+          "title": "The impacts of ocean acidification on marine trace gases and the implications for atmospheric chemistry and climate",
+          "year": 2020,
+          "fwci": 11.0177,
+          "citations": 75
+        },
+        {
+          "id": "https://openalex.org/W4206332467",
+          "title": "Evidence that Pacific tuna mercury levels are driven by marine methylmercury production and anthropogenic inputs",
+          "year": 2022,
+          "fwci": 6.1987,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W4288536598",
+          "title": "Contrasting projections of the ENSO-driven CO <sub>2</sub> flux variability in the equatorial Pacific under high-warming scenario",
+          "year": 2022,
+          "fwci": 6.3426,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W4389055824",
+          "title": "Monitoring, reporting, and verification for ocean alkalinity enhancement",
+          "year": 2023,
+          "fwci": 8.2718,
+          "citations": 56
+        },
+        {
+          "id": "https://openalex.org/W4295008875",
+          "title": "Diazotrophy as a key driver of the response of marine net primary productivity to climate change",
+          "year": 2022,
+          "fwci": 10.1883,
+          "citations": 55
+        },
+        {
+          "id": "https://openalex.org/W3026348461",
+          "title": "Sources and Sinks of Isoprene in the Global Open Ocean: Simulated Patterns and Emissions to the Atmosphere",
+          "year": 2020,
+          "fwci": 3.4068,
+          "citations": 53
+        },
+        {
+          "id": "https://openalex.org/W3086498647",
+          "title": "Predictable Variations of the Carbon Sinks and Atmospheric CO <sub>2</sub> Growth in a Multi‐Model Framework",
+          "year": 2020,
+          "fwci": 3.7003,
+          "citations": 51
+        },
+        {
+          "id": "https://openalex.org/W3088526315",
+          "title": "An iron cycle cascade governs the response of equatorial Pacific ecosystems to climate change",
+          "year": 2020,
+          "fwci": 6.1626,
+          "citations": 50
+        }
+      ]
+    },
+    {
+      "rank": 9,
+      "name": "Julie Poulain",
+      "openalex_id": "https://openalex.org/A5013766158",
+      "orcid": "0000-0002-8744-3116",
+      "fwci": 8.549,
+      "publications": 109,
+      "citations_ods": 1873,
+      "h_index_ods": 23,
+      "country": "FR",
+      "institution": "Commissariat à l'Énergie Atomique et aux Énergies Alternatives",
+      "works": [
+        {
+          "id": "https://openalex.org/W4224078476",
+          "title": "Cryptic and abundant marine viruses at the evolutionary origins of Earth’s RNA virome",
+          "year": 2022,
+          "fwci": 42.5392,
+          "citations": 260
+        },
+        {
+          "id": "https://openalex.org/W4288369446",
+          "title": "Functional repertoire convergence of distantly related eukaryotic plankton lineages abundant in the sunlit ocean",
+          "year": 2022,
+          "fwci": 29.6688,
+          "citations": 189
+        },
+        {
+          "id": "https://openalex.org/W4210413950",
+          "title": "Patterns of eukaryotic diversity from the surface to the deep-ocean sediment",
+          "year": 2022,
+          "fwci": 18.3099,
+          "citations": 112
+        },
+        {
+          "id": "https://openalex.org/W4281625021",
+          "title": "Diversity and ecological footprint of Global Ocean RNA viruses",
+          "year": 2022,
+          "fwci": 17.284,
+          "citations": 109
+        },
+        {
+          "id": "https://openalex.org/W3144995900",
+          "title": "Bioinformatic pipelines combining denoising and clustering tools allow for more comprehensive prokaryotic and eukaryotic metabarcoding",
+          "year": 2021,
+          "fwci": 12.0105,
+          "citations": 93
+        },
+        {
+          "id": "https://openalex.org/W4287869566",
+          "title": "Genomic evidence for global ocean plankton biogeography shaped by large-scale current systems",
+          "year": 2022,
+          "fwci": 11.5285,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3152699145",
+          "title": "Evaluating sediment and water sampling methods for the estimation of deep-sea biodiversity using environmental DNA",
+          "year": 2021,
+          "fwci": 7.7785,
+          "citations": 76
+        },
+        {
+          "id": "https://openalex.org/W4379057963",
+          "title": "Ecology of Endozoicomonadaceae in three coral genera across the Pacific Ocean",
+          "year": 2023,
+          "fwci": 15.9841,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W4392581276",
+          "title": "The defensome of complex bacterial communities",
+          "year": 2024,
+          "fwci": 27.1412,
+          "citations": 68
+        },
+        {
+          "id": "https://openalex.org/W4379054880",
+          "title": "Diversity of the Pacific Ocean coral reef microbiome",
+          "year": 2023,
+          "fwci": 14.4578,
+          "citations": 64
+        },
+        {
+          "id": "https://openalex.org/W3172494159",
+          "title": "Microbial community structure in hadal sediments: high similarity along trench axes and strong changes along redox gradients",
+          "year": 2021,
+          "fwci": 5.1141,
+          "citations": 62
+        },
+        {
+          "id": "https://openalex.org/W4280625693",
+          "title": "Terrestrial and marine influence on atmospheric bacterial diversity over the north Atlantic and Pacific Oceans",
+          "year": 2022,
+          "fwci": 8.8115,
+          "citations": 55
+        },
+        {
+          "id": "https://openalex.org/W3093460524",
+          "title": "Functional repertoire convergence of distantly related eukaryotic plankton lineages revealed by genome-resolved metagenomics",
+          "year": 2020,
+          "fwci": null,
+          "citations": 54
+        },
+        {
+          "id": "https://openalex.org/W4362640832",
+          "title": "Analysis of the P. lividus sea urchin genome highlights contrasting trends of genomic and regulatory evolution in deuterostomes",
+          "year": 2023,
+          "fwci": 16.3211,
+          "citations": 53
+        },
+        {
+          "id": "https://openalex.org/W3021923993",
+          "title": "An Assessment of Environmental Metabarcoding Protocols Aiming at Favoring Contemporary Biodiversity in Inventories of Deep-Sea Communities",
+          "year": 2020,
+          "fwci": 4.3423,
+          "citations": 42
+        },
+        {
+          "id": "https://openalex.org/W4379055439",
+          "title": "Pervasive tandem duplications and convergent evolution shape coral genomes",
+          "year": 2023,
+          "fwci": 11.7677,
+          "citations": 40
+        },
+        {
+          "id": "https://openalex.org/W4390509767",
+          "title": "Disentangling microbial networks across pelagic zones in the tropical and subtropical global ocean",
+          "year": 2024,
+          "fwci": 13.5706,
+          "citations": 34
+        },
+        {
+          "id": "https://openalex.org/W4383499855",
+          "title": "Disparate genetic divergence patterns in three corals across a pan-Pacific environmental gradient highlight species-specific adaptation",
+          "year": 2023,
+          "fwci": 7.468,
+          "citations": 33
+        },
+        {
+          "id": "https://openalex.org/W3087897432",
+          "title": "A framework for in situ molecular characterization of coral holobionts using nanopore sequencing",
+          "year": 2020,
+          "fwci": 1.7688,
+          "citations": 29
+        },
+        {
+          "id": "https://openalex.org/W4378980547",
+          "title": "Integrative omics framework for characterization of coral reef ecosystems from the Tara Pacific expedition",
+          "year": 2023,
+          "fwci": 5.8839,
+          "citations": 27
+        }
+      ]
+    },
+    {
+      "rank": 10,
+      "name": "Chris Bowler",
+      "openalex_id": "https://openalex.org/A5032942685",
+      "orcid": "0000-0003-3835-6187",
+      "fwci": 8.51,
+      "publications": 161,
+      "citations_ods": 4877,
+      "h_index_ods": 32,
+      "country": "FR",
+      "institution": "Institut de Biologie de l'École Normale Supérieure",
+      "works": [
+        {
+          "id": "https://openalex.org/W3025757981",
+          "title": "Tara Oceans: towards global ocean ecosystems biology",
+          "year": 2020,
+          "fwci": 42.45,
+          "citations": 500
+        },
+        {
+          "id": "https://openalex.org/W4283262943",
+          "title": "Biosynthetic potential of the global ocean microbiome",
+          "year": 2022,
+          "fwci": 35.6085,
+          "citations": 409
+        },
+        {
+          "id": "https://openalex.org/W4311546538",
+          "title": "A 2-million-year-old ecosystem in Greenland uncovered by environmental DNA",
+          "year": 2022,
+          "fwci": 48.1484,
+          "citations": 320
+        },
+        {
+          "id": "https://openalex.org/W4224078476",
+          "title": "Cryptic and abundant marine viruses at the evolutionary origins of Earth’s RNA virome",
+          "year": 2022,
+          "fwci": 42.5392,
+          "citations": 260
+        },
+        {
+          "id": "https://openalex.org/W3162924116",
+          "title": "Deep ocean metagenomes provide insight into the metabolic architecture of bathypelagic microbial communities",
+          "year": 2021,
+          "fwci": 32.4669,
+          "citations": 229
+        },
+        {
+          "id": "https://openalex.org/W4288369446",
+          "title": "Functional repertoire convergence of distantly related eukaryotic plankton lineages abundant in the sunlit ocean",
+          "year": 2022,
+          "fwci": 29.6688,
+          "citations": 189
+        },
+        {
+          "id": "https://openalex.org/W2996972459",
+          "title": "Phytoplankton in the<i>Tara</i>Ocean",
+          "year": 2020,
+          "fwci": 18.6752,
+          "citations": 180
+        },
+        {
+          "id": "https://openalex.org/W3014987583",
+          "title": "Genetic tool development in marine protists: emerging model organisms for experimental cell biology",
+          "year": 2020,
+          "fwci": 9.006,
+          "citations": 172
+        },
+        {
+          "id": "https://openalex.org/W3083681173",
+          "title": "Biogeography of marine giant viruses reveals their interplay with eukaryotes and ecological functions",
+          "year": 2020,
+          "fwci": 12.3821,
+          "citations": 143
+        },
+        {
+          "id": "https://openalex.org/W3195791820",
+          "title": "Environmental vulnerability of the global ocean epipelagic plankton community interactome",
+          "year": 2021,
+          "fwci": 17.7657,
+          "citations": 136
+        },
+        {
+          "id": "https://openalex.org/W3178755055",
+          "title": "Global distribution patterns of marine nitrogen-fixers by imaging and molecular methods",
+          "year": 2021,
+          "fwci": 18.5362,
+          "citations": 131
+        },
+        {
+          "id": "https://openalex.org/W3214432604",
+          "title": "Compendium of 530 metagenome-assembled bacterial and archaeal genomes from the polar Arctic Ocean",
+          "year": 2021,
+          "fwci": 14.7201,
+          "citations": 111
+        },
+        {
+          "id": "https://openalex.org/W4281625021",
+          "title": "Diversity and ecological footprint of Global Ocean RNA viruses",
+          "year": 2022,
+          "fwci": 17.284,
+          "citations": 109
+        },
+        {
+          "id": "https://openalex.org/W3210222892",
+          "title": "Heterotrophic bacterial diazotrophs are more abundant than their cyanobacterial counterparts in metagenomes covering most of the sunlit ocean",
+          "year": 2021,
+          "fwci": 11.6746,
+          "citations": 106
+        },
+        {
+          "id": "https://openalex.org/W4282939275",
+          "title": "The Ocean Gene Atlas v2.0: online exploration of the biogeography and phylogeny of plankton genes",
+          "year": 2022,
+          "fwci": 14.2339,
+          "citations": 97
+        },
+        {
+          "id": "https://openalex.org/W3208473318",
+          "title": "Global drivers of eukaryotic plankton biogeography in the sunlit ocean",
+          "year": 2021,
+          "fwci": 10.315,
+          "citations": 93
+        },
+        {
+          "id": "https://openalex.org/W4287869566",
+          "title": "Genomic evidence for global ocean plankton biogeography shaped by large-scale current systems",
+          "year": 2022,
+          "fwci": 11.5285,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W4210342736",
+          "title": "A robust approach to estimate relative phytoplankton cell abundances from metagenomes",
+          "year": 2022,
+          "fwci": 11.8675,
+          "citations": 75
+        },
+        {
+          "id": "https://openalex.org/W4379057963",
+          "title": "Ecology of Endozoicomonadaceae in three coral genera across the Pacific Ocean",
+          "year": 2023,
+          "fwci": 15.9841,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W3000995922",
+          "title": "Diatoms Are Selective Segregators in Global Ocean Planktonic Communities",
+          "year": 2020,
+          "fwci": 7.3971,
+          "citations": 65
+        }
+      ]
+    },
+    {
+      "rank": 11,
+      "name": "Patrick Wincker",
+      "openalex_id": "https://openalex.org/A5011555000",
+      "orcid": "0000-0001-7562-3454",
+      "fwci": 8.45,
+      "publications": 151,
+      "citations_ods": 4198,
+      "h_index_ods": 33,
+      "country": "FR",
+      "institution": "Commissariat à l'Énergie Atomique et aux Énergies Alternatives",
+      "works": [
+        {
+          "id": "https://openalex.org/W3025757981",
+          "title": "Tara Oceans: towards global ocean ecosystems biology",
+          "year": 2020,
+          "fwci": 42.45,
+          "citations": 500
+        },
+        {
+          "id": "https://openalex.org/W4283262943",
+          "title": "Biosynthetic potential of the global ocean microbiome",
+          "year": 2022,
+          "fwci": 35.6085,
+          "citations": 409
+        },
+        {
+          "id": "https://openalex.org/W3205538970",
+          "title": "Late Quaternary dynamics of Arctic biota from ancient environmental genomics",
+          "year": 2021,
+          "fwci": 17.724,
+          "citations": 223
+        },
+        {
+          "id": "https://openalex.org/W4288369446",
+          "title": "Functional repertoire convergence of distantly related eukaryotic plankton lineages abundant in the sunlit ocean",
+          "year": 2022,
+          "fwci": 29.6688,
+          "citations": 189
+        },
+        {
+          "id": "https://openalex.org/W3083681173",
+          "title": "Biogeography of marine giant viruses reveals their interplay with eukaryotes and ecological functions",
+          "year": 2020,
+          "fwci": 12.3821,
+          "citations": 143
+        },
+        {
+          "id": "https://openalex.org/W3178755055",
+          "title": "Global distribution patterns of marine nitrogen-fixers by imaging and molecular methods",
+          "year": 2021,
+          "fwci": 18.5362,
+          "citations": 131
+        },
+        {
+          "id": "https://openalex.org/W4366401148",
+          "title": "Mirusviruses link herpesviruses to giant viruses",
+          "year": 2023,
+          "fwci": 22.2883,
+          "citations": 113
+        },
+        {
+          "id": "https://openalex.org/W4210413950",
+          "title": "Patterns of eukaryotic diversity from the surface to the deep-ocean sediment",
+          "year": 2022,
+          "fwci": 18.3099,
+          "citations": 112
+        },
+        {
+          "id": "https://openalex.org/W3214432604",
+          "title": "Compendium of 530 metagenome-assembled bacterial and archaeal genomes from the polar Arctic Ocean",
+          "year": 2021,
+          "fwci": 14.7201,
+          "citations": 111
+        },
+        {
+          "id": "https://openalex.org/W4281625021",
+          "title": "Diversity and ecological footprint of Global Ocean RNA viruses",
+          "year": 2022,
+          "fwci": 17.284,
+          "citations": 109
+        },
+        {
+          "id": "https://openalex.org/W3210222892",
+          "title": "Heterotrophic bacterial diazotrophs are more abundant than their cyanobacterial counterparts in metagenomes covering most of the sunlit ocean",
+          "year": 2021,
+          "fwci": 11.6746,
+          "citations": 106
+        },
+        {
+          "id": "https://openalex.org/W4282939275",
+          "title": "The Ocean Gene Atlas v2.0: online exploration of the biogeography and phylogeny of plankton genes",
+          "year": 2022,
+          "fwci": 14.2339,
+          "citations": 97
+        },
+        {
+          "id": "https://openalex.org/W3144995900",
+          "title": "Bioinformatic pipelines combining denoising and clustering tools allow for more comprehensive prokaryotic and eukaryotic metabarcoding",
+          "year": 2021,
+          "fwci": 12.0105,
+          "citations": 93
+        },
+        {
+          "id": "https://openalex.org/W3119958829",
+          "title": "Rapid protein evolution, organellar reductions, and invasive intronic elements in the marine aerobic parasite dinoflagellate Amoebophrya spp",
+          "year": 2021,
+          "fwci": 4.9678,
+          "citations": 92
+        },
+        {
+          "id": "https://openalex.org/W4287869566",
+          "title": "Genomic evidence for global ocean plankton biogeography shaped by large-scale current systems",
+          "year": 2022,
+          "fwci": 11.5285,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3012927825",
+          "title": "Transcriptome reconstruction and functional analysis of eukaryotic marine plankton communities via high-throughput metagenomics and metatranscriptomics",
+          "year": 2020,
+          "fwci": null,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3152699145",
+          "title": "Evaluating sediment and water sampling methods for the estimation of deep-sea biodiversity using environmental DNA",
+          "year": 2021,
+          "fwci": 7.7785,
+          "citations": 76
+        },
+        {
+          "id": "https://openalex.org/W4210342736",
+          "title": "A robust approach to estimate relative phytoplankton cell abundances from metagenomes",
+          "year": 2022,
+          "fwci": 11.8675,
+          "citations": 75
+        },
+        {
+          "id": "https://openalex.org/W4379057963",
+          "title": "Ecology of Endozoicomonadaceae in three coral genera across the Pacific Ocean",
+          "year": 2023,
+          "fwci": 15.9841,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W3095993210",
+          "title": "Cyanorak v2.1: a scalable information system dedicated to the visualization and expert curation of marine and brackish picocyanobacteria genomes",
+          "year": 2020,
+          "fwci": 7.0755,
+          "citations": 69
+        }
+      ]
+    },
+    {
+      "rank": 12,
+      "name": "Nicolas Gruber",
+      "openalex_id": "https://openalex.org/A5033288125",
+      "orcid": "0000-0002-2085-2310",
+      "fwci": 8.18,
+      "publications": 120,
+      "citations_ods": 3770,
+      "h_index_ods": 26,
+      "country": "CH",
+      "institution": "ETH Zurich",
+      "works": [
+        {
+          "id": "https://openalex.org/W3097222573",
+          "title": "Consistency and Challenges in the Ocean Carbon Sink Estimate for the Global Carbon Budget",
+          "year": 2020,
+          "fwci": 24.7794,
+          "citations": 350
+        },
+        {
+          "id": "https://openalex.org/W4200232563",
+          "title": "Biogeochemical extremes and compound events in the ocean",
+          "year": 2021,
+          "fwci": 43.1839,
+          "citations": 327
+        },
+        {
+          "id": "https://openalex.org/W3119596800",
+          "title": "Around one third of current Arctic Ocean primary production sustained by rivers and coastal erosion",
+          "year": 2021,
+          "fwci": 28.0949,
+          "citations": 291
+        },
+        {
+          "id": "https://openalex.org/W3084051547",
+          "title": "Improved Estimates of Changes in Upper Ocean Salinity and the Hydrological Cycle",
+          "year": 2020,
+          "fwci": 25.9586,
+          "citations": 264
+        },
+        {
+          "id": "https://openalex.org/W3093725627",
+          "title": "OceanSODA-ETHZ: a global gridded data set of the surface ocean carbonate system for seasonal to decadal studies of ocean acidification",
+          "year": 2021,
+          "fwci": 39.5328,
+          "citations": 261
+        },
+        {
+          "id": "https://openalex.org/W4317830787",
+          "title": "Trends and variability in the ocean carbon sink",
+          "year": 2023,
+          "fwci": 38.0506,
+          "citations": 260
+        },
+        {
+          "id": "https://openalex.org/W3196970697",
+          "title": "Major restructuring of marine plankton assemblages under global warming",
+          "year": 2021,
+          "fwci": 30.9548,
+          "citations": 227
+        },
+        {
+          "id": "https://openalex.org/W3131576085",
+          "title": "The quiet crossing of ocean tipping points",
+          "year": 2021,
+          "fwci": 15.6948,
+          "citations": 179
+        },
+        {
+          "id": "https://openalex.org/W3205344622",
+          "title": "SeaFlux: harmonization of air–sea CO <sub>2</sub> fluxes from surface <i>p</i> CO <sub>2</sub> data products using a standardized approach",
+          "year": 2021,
+          "fwci": 14.8996,
+          "citations": 162
+        },
+        {
+          "id": "https://openalex.org/W4386620202",
+          "title": "Magnitude, Trends, and Variability of the Global Ocean Carbon Sink From 1985 to 2018",
+          "year": 2023,
+          "fwci": 15.8051,
+          "citations": 107
+        },
+        {
+          "id": "https://openalex.org/W3112856357",
+          "title": "Seasonal Carbon Dynamics in the Near‐Global Ocean",
+          "year": 2020,
+          "fwci": 10.454,
+          "citations": 88
+        },
+        {
+          "id": "https://openalex.org/W4383311700",
+          "title": "Four Decades of Trends and Drivers of Global Surface Ocean Acidification",
+          "year": 2023,
+          "fwci": 22.3475,
+          "citations": 87
+        },
+        {
+          "id": "https://openalex.org/W4385719878",
+          "title": "Decadal Trends in the Oceanic Storage of Anthropogenic Carbon From 1994 to 2014",
+          "year": 2023,
+          "fwci": 21.0631,
+          "citations": 82
+        },
+        {
+          "id": "https://openalex.org/W4391051693",
+          "title": "A Synthesis of Global Coastal Ocean Greenhouse Gas Fluxes",
+          "year": 2024,
+          "fwci": 32.7642,
+          "citations": 81
+        },
+        {
+          "id": "https://openalex.org/W3047709289",
+          "title": "Contrasting Upper and Deep Ocean Oxygen Response to Protracted Global Warming",
+          "year": 2020,
+          "fwci": 5.9737,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W4388573176",
+          "title": "The Southern Ocean Carbon Cycle 1985–2018: Mean, Seasonal Cycle, Trends, and Storage",
+          "year": 2023,
+          "fwci": 17.8674,
+          "citations": 70
+        },
+        {
+          "id": "https://openalex.org/W4365451696",
+          "title": "Recent Trends and Variability in the Oceanic Storage of Dissolved Inorganic Carbon",
+          "year": 2023,
+          "fwci": 14.2175,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W4386140005",
+          "title": "Seasonal Variability of the Surface Ocean Carbon Cycle: A Synthesis",
+          "year": 2023,
+          "fwci": 13.6558,
+          "citations": 55
+        },
+        {
+          "id": "https://openalex.org/W3080090267",
+          "title": "Circulation timescales of Atlantic Water in the Arctic Ocean determined from anthropogenic radionuclides",
+          "year": 2021,
+          "fwci": 3.864,
+          "citations": 45
+        },
+        {
+          "id": "https://openalex.org/W4280574123",
+          "title": "Tracking the Space‐Time Evolution of Ocean Acidification Extremes in the California Current System and Northeast Pacific",
+          "year": 2022,
+          "fwci": 7.445,
+          "citations": 40
+        }
+      ]
+    },
+    {
+      "rank": 13,
+      "name": "Colomban de Vargas",
+      "openalex_id": "https://openalex.org/A5051476078",
+      "orcid": "0000-0002-6476-6019",
+      "fwci": 8.018,
+      "publications": 127,
+      "citations_ods": 3022,
+      "h_index_ods": 26,
+      "country": "FR",
+      "institution": "Station Biologique de Roscoff",
+      "works": [
+        {
+          "id": "https://openalex.org/W3017156868",
+          "title": "Disentangling the mechanisms shaping the surface ocean microbiota",
+          "year": 2020,
+          "fwci": 30.5567,
+          "citations": 288
+        },
+        {
+          "id": "https://openalex.org/W3102193797",
+          "title": "Protist taxonomic and functional diversity in soil, freshwater and marine ecosystems",
+          "year": 2020,
+          "fwci": 9.0895,
+          "citations": 282
+        },
+        {
+          "id": "https://openalex.org/W4224078476",
+          "title": "Cryptic and abundant marine viruses at the evolutionary origins of Earth’s RNA virome",
+          "year": 2022,
+          "fwci": 42.5392,
+          "citations": 260
+        },
+        {
+          "id": "https://openalex.org/W4288369446",
+          "title": "Functional repertoire convergence of distantly related eukaryotic plankton lineages abundant in the sunlit ocean",
+          "year": 2022,
+          "fwci": 29.6688,
+          "citations": 189
+        },
+        {
+          "id": "https://openalex.org/W3083681173",
+          "title": "Biogeography of marine giant viruses reveals their interplay with eukaryotes and ecological functions",
+          "year": 2020,
+          "fwci": 12.3821,
+          "citations": 143
+        },
+        {
+          "id": "https://openalex.org/W3195791820",
+          "title": "Environmental vulnerability of the global ocean epipelagic plankton community interactome",
+          "year": 2021,
+          "fwci": 17.7657,
+          "citations": 136
+        },
+        {
+          "id": "https://openalex.org/W3178755055",
+          "title": "Global distribution patterns of marine nitrogen-fixers by imaging and molecular methods",
+          "year": 2021,
+          "fwci": 18.5362,
+          "citations": 131
+        },
+        {
+          "id": "https://openalex.org/W4210413950",
+          "title": "Patterns of eukaryotic diversity from the surface to the deep-ocean sediment",
+          "year": 2022,
+          "fwci": 18.3099,
+          "citations": 112
+        },
+        {
+          "id": "https://openalex.org/W3214432604",
+          "title": "Compendium of 530 metagenome-assembled bacterial and archaeal genomes from the polar Arctic Ocean",
+          "year": 2021,
+          "fwci": 14.7201,
+          "citations": 111
+        },
+        {
+          "id": "https://openalex.org/W3116773820",
+          "title": "Eukaryotic virus composition can predict the efficiency of carbon export in the global ocean",
+          "year": 2020,
+          "fwci": 9.167,
+          "citations": 94
+        },
+        {
+          "id": "https://openalex.org/W4287869566",
+          "title": "Genomic evidence for global ocean plankton biogeography shaped by large-scale current systems",
+          "year": 2022,
+          "fwci": 11.5285,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W4210342736",
+          "title": "A robust approach to estimate relative phytoplankton cell abundances from metagenomes",
+          "year": 2022,
+          "fwci": 11.8675,
+          "citations": 75
+        },
+        {
+          "id": "https://openalex.org/W4379057963",
+          "title": "Ecology of Endozoicomonadaceae in three coral genera across the Pacific Ocean",
+          "year": 2023,
+          "fwci": 15.9841,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W4287010307",
+          "title": "PlanktoScope: Affordable Modular Quantitative Imaging Platform for Citizen Oceanography",
+          "year": 2022,
+          "fwci": 9.1519,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W3188480145",
+          "title": "Macroscale patterns of oceanic zooplankton composition and size structure",
+          "year": 2021,
+          "fwci": 9.5547,
+          "citations": 64
+        },
+        {
+          "id": "https://openalex.org/W4379054880",
+          "title": "Diversity of the Pacific Ocean coral reef microbiome",
+          "year": 2023,
+          "fwci": 14.4578,
+          "citations": 64
+        },
+        {
+          "id": "https://openalex.org/W3154048072",
+          "title": "High and specific diversity of protists in the deep-sea basins dominated by diplonemids, kinetoplastids, ciliates and foraminiferans",
+          "year": 2021,
+          "fwci": 3.5833,
+          "citations": 63
+        },
+        {
+          "id": "https://openalex.org/W4280600345",
+          "title": "Seasonal dynamics of marine protist communities in tidally mixed coastal waters",
+          "year": 2022,
+          "fwci": 6.4424,
+          "citations": 50
+        },
+        {
+          "id": "https://openalex.org/W4311795228",
+          "title": "Convergent evolution and horizontal gene transfer in Arctic Ocean microalgae",
+          "year": 2022,
+          "fwci": 6.7814,
+          "citations": 44
+        },
+        {
+          "id": "https://openalex.org/W3021923993",
+          "title": "An Assessment of Environmental Metabarcoding Protocols Aiming at Favoring Contemporary Biodiversity in Inventories of Deep-Sea Communities",
+          "year": 2020,
+          "fwci": 4.3423,
+          "citations": 42
+        }
+      ]
+    },
+    {
+      "rank": 14,
+      "name": "Julienne Strœve",
+      "openalex_id": "https://openalex.org/A5072258471",
+      "orcid": "0000-0001-7316-8320",
+      "fwci": 7.451,
+      "publications": 115,
+      "citations_ods": 3552,
+      "h_index_ods": 33,
+      "country": "GB",
+      "institution": "University of Manitoba",
+      "works": [
+        {
+          "id": "https://openalex.org/W3217671231",
+          "title": "New climate models reveal faster and larger increases in Arctic precipitation than previously projected",
+          "year": 2021,
+          "fwci": 25.8037,
+          "citations": 339
+        },
+        {
+          "id": "https://openalex.org/W4213239123",
+          "title": "Overview of the MOSAiC expedition: Snow and sea ice",
+          "year": 2022,
+          "fwci": 246.3437,
+          "citations": 323
+        },
+        {
+          "id": "https://openalex.org/W3047681832",
+          "title": "A Lagrangian Snow‐Evolution System for Sea‐Ice Applications (SnowModel‐LG): Part I—Model Description",
+          "year": 2020,
+          "fwci": 14.0978,
+          "citations": 203
+        },
+        {
+          "id": "https://openalex.org/W3015616568",
+          "title": "Sea Ice Roughness Overlooked as a Key Source of Uncertainty in CryoSat‐2 Ice Freeboard Retrievals",
+          "year": 2020,
+          "fwci": 14.9203,
+          "citations": 180
+        },
+        {
+          "id": "https://openalex.org/W4295763188",
+          "title": "A year-round satellite sea-ice thickness record from CryoSat-2",
+          "year": 2022,
+          "fwci": 21.4215,
+          "citations": 172
+        },
+        {
+          "id": "https://openalex.org/W3043617570",
+          "title": "Sea-ice-free Arctic during the Last Interglacial supports fast future loss",
+          "year": 2020,
+          "fwci": 12.2174,
+          "citations": 150
+        },
+        {
+          "id": "https://openalex.org/W3082374884",
+          "title": "A Lagrangian Snow Evolution System for Sea Ice Applications (SnowModel‐LG): Part II—Analyses",
+          "year": 2020,
+          "fwci": 11.1582,
+          "citations": 128
+        },
+        {
+          "id": "https://openalex.org/W3034441913",
+          "title": "Sea-ice information and forecast needs for industry maritime stakeholders",
+          "year": 2020,
+          "fwci": 6.8124,
+          "citations": 102
+        },
+        {
+          "id": "https://openalex.org/W2998815577",
+          "title": "Arctic Ocean Precipitation From Atmospheric Reanalyses and Comparisons With North Pole Drifting Station Records",
+          "year": 2020,
+          "fwci": 6.5786,
+          "citations": 94
+        },
+        {
+          "id": "https://openalex.org/W3166757769",
+          "title": "Arctic open-water periods are projected to lengthen dramatically by 2100",
+          "year": 2021,
+          "fwci": 7.114,
+          "citations": 84
+        },
+        {
+          "id": "https://openalex.org/W3001504003",
+          "title": "A multi-model CMIP6-PMIP4 study of Arctic sea ice at 127 ka: sea ice data compilation and model differences",
+          "year": 2021,
+          "fwci": 8.5611,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3135028339",
+          "title": "Summer Extreme Cyclone Impacts on Arctic Sea Ice",
+          "year": 2021,
+          "fwci": 7.3573,
+          "citations": 83
+        },
+        {
+          "id": "https://openalex.org/W3170458267",
+          "title": "Faster decline and higher variability in the sea ice thickness of the marginal Arctic seas when accounting for dynamic snow cover",
+          "year": 2021,
+          "fwci": 8.6841,
+          "citations": 81
+        },
+        {
+          "id": "https://openalex.org/W3121876319",
+          "title": "Inter-comparison of snow depth over Arctic sea ice from reanalysis reconstructions and satellite retrieval",
+          "year": 2021,
+          "fwci": 7.114,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W3033120841",
+          "title": "Machine learning approaches to retrieve pan-Arctic melt ponds from visible satellite imagery",
+          "year": 2020,
+          "fwci": 6.3425,
+          "citations": 68
+        },
+        {
+          "id": "https://openalex.org/W3112015453",
+          "title": "Divergence of Arctic shrub growth associated with sea ice decline",
+          "year": 2020,
+          "fwci": 5.4042,
+          "citations": 68
+        },
+        {
+          "id": "https://openalex.org/W2971918490",
+          "title": "Brief communication: Conventional assumptions involving the speed of radar waves in snow introduce systematic underestimates to sea ice thickness and seasonal growth rate estimates",
+          "year": 2020,
+          "fwci": 4.6981,
+          "citations": 67
+        },
+        {
+          "id": "https://openalex.org/W3008283214",
+          "title": "Snow Property Controls on Modeled Ku-Band Altimeter Estimates of First-Year Sea Ice Thickness: Case Studies From the Canadian and Norwegian Arctic",
+          "year": 2020,
+          "fwci": 5.0516,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W4225598432",
+          "title": "Increasing Multiyear Sea Ice Loss in the Beaufort Sea: A New Export Pathway for the Diminishing Multiyear Ice Cover of the Arctic Ocean",
+          "year": 2022,
+          "fwci": 8.2727,
+          "citations": 64
+        },
+        {
+          "id": "https://openalex.org/W4283009657",
+          "title": "Snowfall and snow accumulation during the MOSAiC winter and spring seasons",
+          "year": 2022,
+          "fwci": 7.4571,
+          "citations": 58
+        }
+      ]
+    },
+    {
+      "rank": 15,
+      "name": "Charles A. Stock",
+      "openalex_id": "https://openalex.org/A5078801706",
+      "orcid": "0000-0001-9549-8013",
+      "fwci": 7.062,
+      "publications": 113,
+      "citations_ods": 4542,
+      "h_index_ods": 25,
+      "country": "US",
+      "institution": "NOAA Geophysical Fluid Dynamics Laboratory",
+      "works": [
+        {
+          "id": "https://openalex.org/W3048932873",
+          "title": "The GFDL Earth System Model Version 4.1 (GFDL‐ESM 4.1): Overall Coupled Model Description and Simulation Characteristics",
+          "year": 2020,
+          "fwci": 48.6315,
+          "citations": 1004
+        },
+        {
+          "id": "https://openalex.org/W3040588293",
+          "title": "Twenty-first century ocean warming, acidification, deoxygenation, and upper-ocean nutrient and primary production decline from CMIP6 model projections",
+          "year": 2020,
+          "fwci": 88.3338,
+          "citations": 868
+        },
+        {
+          "id": "https://openalex.org/W3058227715",
+          "title": "Tracking Improvement in Simulated Marine Biogeochemistry Between CMIP5 and CMIP6",
+          "year": 2020,
+          "fwci": 51.1701,
+          "citations": 436
+        },
+        {
+          "id": "https://openalex.org/W3208573340",
+          "title": "Next-generation ensemble projections reveal higher climate risks for marine ecosystems",
+          "year": 2021,
+          "fwci": 22.3567,
+          "citations": 289
+        },
+        {
+          "id": "https://openalex.org/W3080366116",
+          "title": "Ocean Biogeochemistry in GFDL's Earth System Model 4.1 and Its Response to Increasing Atmospheric CO<sub>2</sub>",
+          "year": 2020,
+          "fwci": 19.609,
+          "citations": 206
+        },
+        {
+          "id": "https://openalex.org/W3093589366",
+          "title": "Energy Flow Through Marine Ecosystems: Confronting Transfer Efficiency",
+          "year": 2020,
+          "fwci": 7.0712,
+          "citations": 163
+        },
+        {
+          "id": "https://openalex.org/W4362520934",
+          "title": "Marine heatwaves need clear definitions so coastal communities can adapt",
+          "year": 2023,
+          "fwci": 20.1141,
+          "citations": 136
+        },
+        {
+          "id": "https://openalex.org/W3080563662",
+          "title": "Gelatinous Zooplankton‐Mediated Carbon Flows in the Global Oceans: A Data‐Driven Modeling Study",
+          "year": 2020,
+          "fwci": 32.0599,
+          "citations": 135
+        },
+        {
+          "id": "https://openalex.org/W3139675930",
+          "title": "A Dynamically Downscaled Ensemble of Future Projections for the California Current System",
+          "year": 2021,
+          "fwci": 16.0507,
+          "citations": 119
+        },
+        {
+          "id": "https://openalex.org/W3173877905",
+          "title": "Next-generation regional ocean projections for living marine resource management in a changing climate",
+          "year": 2021,
+          "fwci": 7.678,
+          "citations": 94
+        },
+        {
+          "id": "https://openalex.org/W3019527920",
+          "title": "An ensemble high‐resolution projection of changes in the future habitat of American lobster and sea scallop in the Northeast US continental shelf",
+          "year": 2020,
+          "fwci": 3.1874,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W3135192324",
+          "title": "Climate‐induced decrease in biomass flow in marine food webs may severely affect predators and ecosystem production",
+          "year": 2021,
+          "fwci": 4.9664,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W3191800842",
+          "title": "Simulated Global Coastal Ecosystem Responses to a Half‐Century Increase in River Nitrogen Loads",
+          "year": 2021,
+          "fwci": 8.7851,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W3080952804",
+          "title": "Simple Global Ocean Biogeochemistry With Light, Iron, Nutrients and Gas Version 2 (BLINGv2): Model Description and Simulation Characteristics in GFDL's CM4.0",
+          "year": 2020,
+          "fwci": 6.7221,
+          "citations": 55
+        },
+        {
+          "id": "https://openalex.org/W3117811772",
+          "title": "Anthropogenic climate change impacts on copepod trait biogeography",
+          "year": 2020,
+          "fwci": 5.7893,
+          "citations": 53
+        },
+        {
+          "id": "https://openalex.org/W4280507785",
+          "title": "Global ecological and biogeochemical impacts of pelagic tunicates",
+          "year": 2022,
+          "fwci": 9.4102,
+          "citations": 51
+        },
+        {
+          "id": "https://openalex.org/W3107977568",
+          "title": "Large Pelagic Fish Are Most Sensitive to Climate Change Despite Pelagification of Ocean Food Webs",
+          "year": 2020,
+          "fwci": 2.1585,
+          "citations": 50
+        },
+        {
+          "id": "https://openalex.org/W3010072105",
+          "title": "A regional hindcast model simulating ecosystem dynamics, inorganic carbon chemistry, and ocean acidification in the Gulf of Alaska",
+          "year": 2020,
+          "fwci": 4.2951,
+          "citations": 42
+        },
+        {
+          "id": "https://openalex.org/W4362587203",
+          "title": "The representation of alkalinity and the carbonate pump from CMIP5 to CMIP6 Earth system models and implications for the carbon cycle",
+          "year": 2023,
+          "fwci": 9.9165,
+          "citations": 40
+        },
+        {
+          "id": "https://openalex.org/W4324151706",
+          "title": "Scenario set-up and forcing data for impact model evaluation and impact attribution within the third round of the Inter-Sectoral Model Intercomparison Project (ISIMIP3a)",
+          "year": 2023,
+          "fwci": 8.1924,
+          "citations": 36
+        }
+      ]
+    },
+    {
+      "rank": 16,
+      "name": "Carlos M. Duarte",
+      "openalex_id": "https://openalex.org/A5087569260",
+      "orcid": "0000-0002-1213-1361",
+      "fwci": 6.764,
+      "publications": 307,
+      "citations_ods": 10674,
+      "h_index_ods": 51,
+      "country": "SA",
+      "institution": "King Abdullah University of Science and Technology",
+      "works": [
+        {
+          "id": "https://openalex.org/W3128638349",
+          "title": "The soundscape of the Anthropocene ocean",
+          "year": 2021,
+          "fwci": 98.9802,
+          "citations": 889
+        },
+        {
+          "id": "https://openalex.org/W4285731403",
+          "title": "Marine heatwaves drive recurrent mass mortalities in the Mediterranean Sea",
+          "year": 2022,
+          "fwci": 73.9179,
+          "citations": 498
+        },
+        {
+          "id": "https://openalex.org/W3006909401",
+          "title": "UN Decade on Ecosystem Restoration 2021–2030—What Chance for Success in Restoring Coastal Ecosystems?",
+          "year": 2020,
+          "fwci": 77.814,
+          "citations": 367
+        },
+        {
+          "id": "https://openalex.org/W3022805700",
+          "title": "The Colors of the Ocean Plastics",
+          "year": 2020,
+          "fwci": 6.5942,
+          "citations": 307
+        },
+        {
+          "id": "https://openalex.org/W3096321968",
+          "title": "Exponential increase of plastic burial in mangrove sediments as a major plastic sink",
+          "year": 2020,
+          "fwci": 8.4956,
+          "citations": 299
+        },
+        {
+          "id": "https://openalex.org/W3017156868",
+          "title": "Disentangling the mechanisms shaping the surface ocean microbiota",
+          "year": 2020,
+          "fwci": 30.5567,
+          "citations": 288
+        },
+        {
+          "id": "https://openalex.org/W3119266734",
+          "title": "Impacts of hypoxic events surpass those of future ocean warming and acidification",
+          "year": 2021,
+          "fwci": 38.4069,
+          "citations": 286
+        },
+        {
+          "id": "https://openalex.org/W2112423317",
+          "title": "European seagrasses: an introduction to monitoring and management.",
+          "year": 2024,
+          "fwci": null,
+          "citations": 271
+        },
+        {
+          "id": "https://openalex.org/W4229025788",
+          "title": "Global estimates of the extent and production of macroalgal forests",
+          "year": 2022,
+          "fwci": 40.75,
+          "citations": 252
+        },
+        {
+          "id": "https://openalex.org/W3162924116",
+          "title": "Deep ocean metagenomes provide insight into the metabolic architecture of bathypelagic microbial communities",
+          "year": 2021,
+          "fwci": 32.4669,
+          "citations": 229
+        },
+        {
+          "id": "https://openalex.org/W4295706063",
+          "title": "Global seaweed productivity",
+          "year": 2022,
+          "fwci": 31.1531,
+          "citations": 197
+        },
+        {
+          "id": "https://openalex.org/W4210471397",
+          "title": "Fate and Effects of Macro- and Microplastics in Coastal Wetlands",
+          "year": 2022,
+          "fwci": 7.0616,
+          "citations": 154
+        },
+        {
+          "id": "https://openalex.org/W3128505642",
+          "title": "Seaweed farms provide refugia from ocean acidification",
+          "year": 2021,
+          "fwci": 19.1079,
+          "citations": 139
+        },
+        {
+          "id": "https://openalex.org/W3124285912",
+          "title": "The Potential for Ocean-Based Climate Action: Negative Emissions Technologies and Beyond",
+          "year": 2021,
+          "fwci": 35.5387,
+          "citations": 136
+        },
+        {
+          "id": "https://openalex.org/W3080563662",
+          "title": "Gelatinous Zooplankton‐Mediated Carbon Flows in the Global Oceans: A Data‐Driven Modeling Study",
+          "year": 2020,
+          "fwci": 32.0599,
+          "citations": 135
+        },
+        {
+          "id": "https://openalex.org/W3085748054",
+          "title": "Stocks and losses of soil organic carbon from Chinese vegetated coastal habitats",
+          "year": 2020,
+          "fwci": 7.8803,
+          "citations": 129
+        },
+        {
+          "id": "https://openalex.org/W3017212169",
+          "title": "Golden carbon of Sargassum forests revealed as an opportunity for climate change mitigation",
+          "year": 2020,
+          "fwci": 14.3793,
+          "citations": 121
+        },
+        {
+          "id": "https://openalex.org/W3009958080",
+          "title": "Passive and Active Removal of Marine Microplastics by a Mushroom Coral (Danafungia scruposa)",
+          "year": 2020,
+          "fwci": 3.5871,
+          "citations": 115
+        },
+        {
+          "id": "https://openalex.org/W4398209534",
+          "title": "Carbon export from seaweed forests to deep ocean sinks",
+          "year": 2024,
+          "fwci": 46.6889,
+          "citations": 115
+        },
+        {
+          "id": "https://openalex.org/W3129102053",
+          "title": "Habitat-forming species trap microplastics into coastal sediment sinks",
+          "year": 2021,
+          "fwci": 3.8433,
+          "citations": 111
+        }
+      ]
+    },
+    {
+      "rank": 17,
+      "name": "Guang Pan",
+      "openalex_id": "https://openalex.org/A5059683046",
+      "orcid": "0000-0003-1932-8252",
+      "fwci": 6.745,
+      "publications": 118,
+      "citations_ods": 1969,
+      "h_index_ods": 25,
+      "country": "CN",
+      "institution": "Northwestern Polytechnical University",
+      "works": [
+        {
+          "id": "https://openalex.org/W4313030791",
+          "title": "Multi-UUV Maneuvering Counter-Game for Dynamic Target Scenario Based on Fractional-Order Recurrent Neural Network",
+          "year": 2022,
+          "fwci": 18.3423,
+          "citations": 127
+        },
+        {
+          "id": "https://openalex.org/W3213796784",
+          "title": "Vortex dynamics and hydrodynamic performance enhancement mechanism in batoid fish oscillatory swimming",
+          "year": 2021,
+          "fwci": 62.6961,
+          "citations": 100
+        },
+        {
+          "id": "https://openalex.org/W4282927171",
+          "title": "Robust yaw control of autonomous underwater vehicle based on fractional-order PID controller",
+          "year": 2022,
+          "fwci": 11.2807,
+          "citations": 99
+        },
+        {
+          "id": "https://openalex.org/W4379741793",
+          "title": "Experimental investigation of composite metamaterial for underwater sound absorption",
+          "year": 2023,
+          "fwci": 8.1787,
+          "citations": 81
+        },
+        {
+          "id": "https://openalex.org/W4400301041",
+          "title": "Vibration analysis of the propulsion shaft system considering dynamic misalignment in the outer ring",
+          "year": 2024,
+          "fwci": 13.5875,
+          "citations": 75
+        },
+        {
+          "id": "https://openalex.org/W3047296007",
+          "title": "Collapse of thick-walled subsea pipelines with imperfections subjected to external pressure",
+          "year": 2020,
+          "fwci": 3.8284,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W4283810367",
+          "title": "A Novel Integrated Gliding and Flapping Propulsion Biomimetic Manta-Ray Robot",
+          "year": 2022,
+          "fwci": 6.1628,
+          "citations": 52
+        },
+        {
+          "id": "https://openalex.org/W3047821209",
+          "title": "The effect of variable stiffness of tuna-like fish body and fin on swimming performance",
+          "year": 2020,
+          "fwci": 52.1289,
+          "citations": 52
+        },
+        {
+          "id": "https://openalex.org/W3132659086",
+          "title": "Comparison of hydrodynamic performance and wake vortices of two typical types of pumpjet propulsor",
+          "year": 2021,
+          "fwci": 5.0488,
+          "citations": 47
+        },
+        {
+          "id": "https://openalex.org/W3196284873",
+          "title": "Mechanical characterization of flat faced deformable AUV during water entry impact considering the hydroelastic effects",
+          "year": 2021,
+          "fwci": 4.6334,
+          "citations": 46
+        },
+        {
+          "id": "https://openalex.org/W3010762647",
+          "title": "Experimental and numerical investigation of the frequency-domain characteristics of impact load for AUV during water entry",
+          "year": 2020,
+          "fwci": 4.1405,
+          "citations": 43
+        },
+        {
+          "id": "https://openalex.org/W3004400400",
+          "title": "Computational Model Construction and Analysis of the Hydrodynamics of a Rhinoptera Javanica",
+          "year": 2020,
+          "fwci": 26.1137,
+          "citations": 38
+        },
+        {
+          "id": "https://openalex.org/W4308701124",
+          "title": "A study on the performance of the cavitating flow structure and load characteristics of the vehicle launched underwater",
+          "year": 2022,
+          "fwci": 4.3337,
+          "citations": 37
+        },
+        {
+          "id": "https://openalex.org/W4220679795",
+          "title": "Simulation of the wake vortex and trajectory characteristics of successively launched multiple projectiles",
+          "year": 2022,
+          "fwci": 19.7162,
+          "citations": 36
+        },
+        {
+          "id": "https://openalex.org/W4280636887",
+          "title": "The transient vortex structure in the wake of an axial-symmetric projectile launched underwater",
+          "year": 2022,
+          "fwci": 5.479,
+          "citations": 36
+        },
+        {
+          "id": "https://openalex.org/W4399652796",
+          "title": "Ultra‐broadband sound absorption characteristics in underwater ultra‐thin metamaterial with three layer bubbles",
+          "year": 2024,
+          "fwci": 5.3894,
+          "citations": 34
+        },
+        {
+          "id": "https://openalex.org/W4283379010",
+          "title": "Asymmetrical Oscillating Morphology Hydrodynamic Performance of a Novel Bionic Pectoral Fin",
+          "year": 2022,
+          "fwci": 18.4525,
+          "citations": 33
+        },
+        {
+          "id": "https://openalex.org/W3209755166",
+          "title": "Numerical research on the influence of sail leading edge shapes on the hydrodynamic noise of a submarine",
+          "year": 2021,
+          "fwci": 18.6988,
+          "citations": 32
+        },
+        {
+          "id": "https://openalex.org/W4294591059",
+          "title": "A numerical investigation on thrust and torque production of a batoid fish with asymmetric pectoral fins flapping",
+          "year": 2022,
+          "fwci": 15.902,
+          "citations": 32
+        },
+        {
+          "id": "https://openalex.org/W4283360975",
+          "title": "Course Control of a Manta Robot Based on Amplitude and Phase Differences",
+          "year": 2022,
+          "fwci": 17.8425,
+          "citations": 32
+        }
+      ]
+    },
+    {
+      "rank": 18,
+      "name": "Hai Cheng",
+      "openalex_id": "https://openalex.org/A5023065107",
+      "orcid": "0000-0002-5305-9458",
+      "fwci": 6.645,
+      "publications": 165,
+      "citations_ods": 9728,
+      "h_index_ods": 27,
+      "country": "CN",
+      "institution": "Xi'an Jiaotong University",
+      "works": [
+        {
+          "id": "https://openalex.org/W3015391807",
+          "title": "The IntCal20 Northern Hemisphere Radiocarbon Age Calibration Curve (0–55 cal kBP)",
+          "year": 2020,
+          "fwci": 466.7675,
+          "citations": 7594
+        },
+        {
+          "id": "https://openalex.org/W3136649371",
+          "title": "Increased autumn and winter precipitation during the Last Glacial Maximum in the European Alps",
+          "year": 2021,
+          "fwci": 10.8519,
+          "citations": 101
+        },
+        {
+          "id": "https://openalex.org/W4306770898",
+          "title": "Milankovitch theory and monsoon",
+          "year": 2022,
+          "fwci": 12.6088,
+          "citations": 101
+        },
+        {
+          "id": "https://openalex.org/W3126236066",
+          "title": "Ancient DNA and multimethod dating confirm the late arrival of anatomically modern humans in southern China",
+          "year": 2021,
+          "fwci": 10.4161,
+          "citations": 75
+        },
+        {
+          "id": "https://openalex.org/W3008292239",
+          "title": "Inter-relationship and environmental significance of stalagmite δ13C and δ18O records from Zhenzhu Cave, north China, over the last 130 ka",
+          "year": 2020,
+          "fwci": 3.6419,
+          "citations": 74
+        },
+        {
+          "id": "https://openalex.org/W4401211686",
+          "title": "Mid-Pleistocene climate transition triggered by Antarctic Ice Sheet growth",
+          "year": 2024,
+          "fwci": 22.0632,
+          "citations": 68
+        },
+        {
+          "id": "https://openalex.org/W3162803926",
+          "title": "Interannual oxygen isotope variability in Indian summer monsoon precipitation reflects changes in moisture sources",
+          "year": 2021,
+          "fwci": 4.8236,
+          "citations": 62
+        },
+        {
+          "id": "https://openalex.org/W3092848545",
+          "title": "A multimillennial climatic context for the megafaunal extinctions in Madagascar and Mascarene Islands",
+          "year": 2020,
+          "fwci": 23.4175,
+          "citations": 61
+        },
+        {
+          "id": "https://openalex.org/W3005086036",
+          "title": "Initiation of a stable convective hydroclimatic regime in Central America circa 9000 years BP",
+          "year": 2020,
+          "fwci": 4.6992,
+          "citations": 60
+        },
+        {
+          "id": "https://openalex.org/W4385741766",
+          "title": "High-elevation Tibetan Plateau before India–Eurasia collision recorded by triple oxygen isotopes",
+          "year": 2023,
+          "fwci": 11.2058,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W3213237114",
+          "title": "Penultimate deglaciation Asian monsoon response to North Atlantic circulation collapse",
+          "year": 2021,
+          "fwci": 5.1848,
+          "citations": 56
+        },
+        {
+          "id": "https://openalex.org/W3007734438",
+          "title": "Late Holocene monsoon precipitation changes in southern China and their linkage to Northern Hemisphere temperature",
+          "year": 2020,
+          "fwci": 2.584,
+          "citations": 53
+        },
+        {
+          "id": "https://openalex.org/W3098082834",
+          "title": "East Asian monsoon changes early in the last deglaciation and insights into the interpretation of oxygen isotope changes in the Chinese stalagmite record",
+          "year": 2020,
+          "fwci": 2.3488,
+          "citations": 45
+        },
+        {
+          "id": "https://openalex.org/W3122821748",
+          "title": "New insights towards an integrated understanding of NE Asian monsoon during mid to late Holocene",
+          "year": 2021,
+          "fwci": 3.3761,
+          "citations": 44
+        },
+        {
+          "id": "https://openalex.org/W3009268684",
+          "title": "Quality Evaluation and Characterization of Specific Spoilage Organisms of Spanish Mackerel by High-Throughput Sequencing during 0 °C Cold Chain Logistics",
+          "year": 2020,
+          "fwci": 2.6815,
+          "citations": 43
+        },
+        {
+          "id": "https://openalex.org/W3163545159",
+          "title": "Immediate temperature response in northern Iberia to last deglacial changes in the North Atlantic",
+          "year": 2021,
+          "fwci": 3.8589,
+          "citations": 42
+        },
+        {
+          "id": "https://openalex.org/W4310346451",
+          "title": "Determining key upstream convection and rainout zones affecting δ18O in water vapor and precipitation based on 10-year continuous observations in the East Asian Monsoon region",
+          "year": 2022,
+          "fwci": 4.8812,
+          "citations": 40
+        },
+        {
+          "id": "https://openalex.org/W4283780984",
+          "title": "Rapid northern hemisphere ice sheet melting during the penultimate deglaciation",
+          "year": 2022,
+          "fwci": 4.8807,
+          "citations": 40
+        },
+        {
+          "id": "https://openalex.org/W4220678242",
+          "title": "A high-resolution stalagmite record from Luoshui Cave, Central China over the past 23.5 kyr",
+          "year": 2022,
+          "fwci": 4.3385,
+          "citations": 38
+        },
+        {
+          "id": "https://openalex.org/W4301183143",
+          "title": "Coupled atmosphere-ice-ocean dynamics during Heinrich Stadial 2",
+          "year": 2022,
+          "fwci": 4.6096,
+          "citations": 38
+        }
+      ]
+    },
+    {
+      "rank": 19,
+      "name": "Jerry Tjiputra",
+      "openalex_id": "https://openalex.org/A5063959948",
+      "orcid": "0000-0002-4600-2453",
+      "fwci": 6.585,
+      "publications": 129,
+      "citations_ods": 3744,
+      "h_index_ods": 23,
+      "country": "NO",
+      "institution": "NORCE Research AS",
+      "works": [
+        {
+          "id": "https://openalex.org/W3040588293",
+          "title": "Twenty-first century ocean warming, acidification, deoxygenation, and upper-ocean nutrient and primary production decline from CMIP6 model projections",
+          "year": 2020,
+          "fwci": 88.3338,
+          "citations": 868
+        },
+        {
+          "id": "https://openalex.org/W2993089090",
+          "title": "Carbon–concentration and carbon–climate feedbacks in CMIP6 models and their comparison to CMIP5 models",
+          "year": 2020,
+          "fwci": 44.8194,
+          "citations": 661
+        },
+        {
+          "id": "https://openalex.org/W3058227715",
+          "title": "Tracking Improvement in Simulated Marine Biogeochemistry Between CMIP5 and CMIP6",
+          "year": 2020,
+          "fwci": 51.1701,
+          "citations": 436
+        },
+        {
+          "id": "https://openalex.org/W3004697769",
+          "title": "Is there warming in the pipeline? A multi-model analysis of the Zero Emissions Commitment from CO <sub>2</sub>",
+          "year": 2020,
+          "fwci": 14.189,
+          "citations": 240
+        },
+        {
+          "id": "https://openalex.org/W3000136377",
+          "title": "Ocean biogeochemistry in the Norwegian Earth System Model version 2 (NorESM2)",
+          "year": 2020,
+          "fwci": 13.5723,
+          "citations": 191
+        },
+        {
+          "id": "https://openalex.org/W3117614515",
+          "title": "Compatible Fossil Fuel CO2 Emissions in the CMIP6 Earth System Models’ Historical and Shared Socioeconomic Pathway Experiments of the Twenty-First Century",
+          "year": 2020,
+          "fwci": 6.4746,
+          "citations": 109
+        },
+        {
+          "id": "https://openalex.org/W3004855069",
+          "title": "The Norwegian Earth System Model, NorESM2 – Evaluation of theCMIP6 DECK and historical simulations",
+          "year": 2020,
+          "fwci": 8.7308,
+          "citations": 105
+        },
+        {
+          "id": "https://openalex.org/W3165681011",
+          "title": "NorCPM1 and its contribution to CMIP6 DCPP",
+          "year": 2021,
+          "fwci": 8.1993,
+          "citations": 103
+        },
+        {
+          "id": "https://openalex.org/W4360613429",
+          "title": "Global Surface Ocean Acidification Indicators From 1750 to 2100",
+          "year": 2023,
+          "fwci": 26.0189,
+          "citations": 102
+        },
+        {
+          "id": "https://openalex.org/W3013655453",
+          "title": "Interglacial instability of North Atlantic Deep Water ventilation",
+          "year": 2020,
+          "fwci": 6.9299,
+          "citations": 89
+        },
+        {
+          "id": "https://openalex.org/W3119842029",
+          "title": "Evaluation of ocean dimethylsulfide concentration and emission in CMIP6 models",
+          "year": 2021,
+          "fwci": 6.5109,
+          "citations": 63
+        },
+        {
+          "id": "https://openalex.org/W4294086112",
+          "title": "A functional vulnerability framework for biodiversity conservation",
+          "year": 2022,
+          "fwci": 8.3045,
+          "citations": 61
+        },
+        {
+          "id": "https://openalex.org/W4288536598",
+          "title": "Contrasting projections of the ENSO-driven CO <sub>2</sub> flux variability in the equatorial Pacific under high-warming scenario",
+          "year": 2022,
+          "fwci": 6.3426,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W4386140005",
+          "title": "Seasonal Variability of the Surface Ocean Carbon Cycle: A Synthesis",
+          "year": 2023,
+          "fwci": 13.6558,
+          "citations": 55
+        },
+        {
+          "id": "https://openalex.org/W4362587203",
+          "title": "The representation of alkalinity and the carbonate pump from CMIP5 to CMIP6 Earth system models and implications for the carbon cycle",
+          "year": 2023,
+          "fwci": 9.9165,
+          "citations": 40
+        },
+        {
+          "id": "https://openalex.org/W3045805456",
+          "title": "Dynamics of Spontaneous (Multi) Centennial‐Scale Variations of the Atlantic Meridional Overturning Circulation Strength During the Last Interglacial",
+          "year": 2020,
+          "fwci": 3.0539,
+          "citations": 37
+        },
+        {
+          "id": "https://openalex.org/W3034963209",
+          "title": "Ocean Biogeochemical Predictions—Initialization and Limits of Predictability",
+          "year": 2020,
+          "fwci": 4.2918,
+          "citations": 36
+        },
+        {
+          "id": "https://openalex.org/W4213343942",
+          "title": "Acidification of the Nordic Seas",
+          "year": 2022,
+          "fwci": 6.6616,
+          "citations": 34
+        },
+        {
+          "id": "https://openalex.org/W4387498045",
+          "title": "Irreversible loss in marine ecosystem habitability after a temperature overshoot",
+          "year": 2023,
+          "fwci": 7.9332,
+          "citations": 32
+        },
+        {
+          "id": "https://openalex.org/W4247638436",
+          "title": "NorCPM1 and its contribution to CMIP6 DCPP",
+          "year": 2021,
+          "fwci": 3.2565,
+          "citations": 29
+        }
+      ]
+    },
+    {
+      "rank": 20,
+      "name": "Alessandro Tagliabue",
+      "openalex_id": "https://openalex.org/A5049870717",
+      "orcid": "0000-0002-3572-3634",
+      "fwci": 6.508,
+      "publications": 113,
+      "citations_ods": 3637,
+      "h_index_ods": 30,
+      "country": "GB",
+      "institution": "University of Liverpool",
+      "works": [
+        {
+          "id": "https://openalex.org/W3040588293",
+          "title": "Twenty-first century ocean warming, acidification, deoxygenation, and upper-ocean nutrient and primary production decline from CMIP6 model projections",
+          "year": 2020,
+          "fwci": 88.3338,
+          "citations": 868
+        },
+        {
+          "id": "https://openalex.org/W3058227715",
+          "title": "Tracking Improvement in Simulated Marine Biogeochemistry Between CMIP5 and CMIP6",
+          "year": 2020,
+          "fwci": 51.1701,
+          "citations": 436
+        },
+        {
+          "id": "https://openalex.org/W3215995014",
+          "title": "Persistent Uncertainties in Ocean Net Primary Production Climate Change Projections at Regional Scales Raise Challenges for Assessing Impacts on Ecosystem Services",
+          "year": 2021,
+          "fwci": 25.2225,
+          "citations": 193
+        },
+        {
+          "id": "https://openalex.org/W3194232007",
+          "title": "Earth, Wind, Fire, and Pollution: Aerosol Nutrient Sources and Impacts on Ocean Biogeochemistry",
+          "year": 2021,
+          "fwci": 13.0217,
+          "citations": 165
+        },
+        {
+          "id": "https://openalex.org/W3126916403",
+          "title": "Global Ocean Sediment Composition and Burial Flux in the Deep Sea",
+          "year": 2021,
+          "fwci": 11.334,
+          "citations": 142
+        },
+        {
+          "id": "https://openalex.org/W3002901601",
+          "title": "<sup>230</sup>Th Normalization: New Insights on an Essential Tool for Quantifying Sedimentary Fluxes in the Modern and Quaternary Ocean",
+          "year": 2020,
+          "fwci": 8.1058,
+          "citations": 111
+        },
+        {
+          "id": "https://openalex.org/W4205552208",
+          "title": "Timing and magnitude of climate‐driven range shifts in transboundary fish stocks challenge their management",
+          "year": 2022,
+          "fwci": 8.8349,
+          "citations": 91
+        },
+        {
+          "id": "https://openalex.org/W3138430767",
+          "title": "Iron colloids dominate sedimentary supply to the ocean interior",
+          "year": 2021,
+          "fwci": 10.2502,
+          "citations": 86
+        },
+        {
+          "id": "https://openalex.org/W4321749133",
+          "title": "Multidecadal trend of increasing iron stress in Southern Ocean phytoplankton",
+          "year": 2023,
+          "fwci": 17.6198,
+          "citations": 70
+        },
+        {
+          "id": "https://openalex.org/W4206332467",
+          "title": "Evidence that Pacific tuna mercury levels are driven by marine methylmercury production and anthropogenic inputs",
+          "year": 2022,
+          "fwci": 6.1987,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W4385479491",
+          "title": "Authigenic mineral phases as a driver of the upper-ocean iron cycle",
+          "year": 2023,
+          "fwci": 15.8592,
+          "citations": 62
+        },
+        {
+          "id": "https://openalex.org/W4398222367",
+          "title": "Feedbacks between phytoplankton and nutrient cycles in a warming ocean",
+          "year": 2024,
+          "fwci": 23.4375,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W4307391789",
+          "title": "Manganese Limitation of Phytoplankton Physiology and Productivity in the Southern Ocean",
+          "year": 2022,
+          "fwci": 10.1883,
+          "citations": 56
+        },
+        {
+          "id": "https://openalex.org/W4295008875",
+          "title": "Diazotrophy as a key driver of the response of marine net primary productivity to climate change",
+          "year": 2022,
+          "fwci": 10.1883,
+          "citations": 55
+        },
+        {
+          "id": "https://openalex.org/W3037869914",
+          "title": "Minimal cobalt metabolism in the marine cyanobacterium <i>Prochlorococcus</i>",
+          "year": 2020,
+          "fwci": 5.468,
+          "citations": 54
+        },
+        {
+          "id": "https://openalex.org/W3088526315",
+          "title": "An iron cycle cascade governs the response of equatorial Pacific ecosystems to climate change",
+          "year": 2020,
+          "fwci": 6.1626,
+          "citations": 50
+        },
+        {
+          "id": "https://openalex.org/W4388421205",
+          "title": "‘Oceans are hugely complex’: modelling marine microbes is key to climate forecasts",
+          "year": 2023,
+          "fwci": 9.9105,
+          "citations": 44
+        },
+        {
+          "id": "https://openalex.org/W3116405211",
+          "title": "Taxonomic and nutrient controls on phytoplankton iron quotas in the ocean",
+          "year": 2020,
+          "fwci": 4.6688,
+          "citations": 44
+        },
+        {
+          "id": "https://openalex.org/W3188275581",
+          "title": "An Arctic Strait of Two Halves: The Changing Dynamics of Nutrient Uptake and Limitation Across the Fram Strait",
+          "year": 2021,
+          "fwci": 3.2556,
+          "citations": 43
+        },
+        {
+          "id": "https://openalex.org/W4287307713",
+          "title": "Emergent interactive effects of climate change and contaminants in coastal and ocean ecosystems",
+          "year": 2022,
+          "fwci": 6.0738,
+          "citations": 43
+        }
+      ]
+    },
+    {
+      "rank": 21,
+      "name": "Roderik S. W. van de Wal",
+      "openalex_id": "https://openalex.org/A5022264562",
+      "orcid": "0000-0003-2543-3892",
+      "fwci": 6.429,
+      "publications": 119,
+      "citations_ods": 3420,
+      "h_index_ods": 24,
+      "country": "NL",
+      "institution": "Utrecht University",
+      "works": [
+        {
+          "id": "https://openalex.org/W3002630673",
+          "title": "ISMIP6 Antarctica: a multi-model ensemble of the Antarctic ice sheet evolution over the 21st century",
+          "year": 2020,
+          "fwci": 38.535,
+          "citations": 510
+        },
+        {
+          "id": "https://openalex.org/W3002782576",
+          "title": "The future sea-level contribution of the Greenland ice sheet: a multi-model ensemble study of ISMIP6",
+          "year": 2020,
+          "fwci": 29.6062,
+          "citations": 383
+        },
+        {
+          "id": "https://openalex.org/W3020172758",
+          "title": "Partitioning the Uncertainty of Ensemble Projections of Global Glacier Mass Change",
+          "year": 2020,
+          "fwci": 18.5626,
+          "citations": 273
+        },
+        {
+          "id": "https://openalex.org/W3085649984",
+          "title": "Antarctic ice sheet response to sudden and sustained ice-shelf collapse (ABUMIP)",
+          "year": 2020,
+          "fwci": 22.3221,
+          "citations": 272
+        },
+        {
+          "id": "https://openalex.org/W2946141553",
+          "title": "Projecting Antarctica's contribution to future sea level rise from basal ice shelf melt using linear response functions of 16 ice sheet models (LARMIP-2)",
+          "year": 2020,
+          "fwci": 19.0326,
+          "citations": 201
+        },
+        {
+          "id": "https://openalex.org/W3043823404",
+          "title": "Experimental protocol for sea level projections from ISMIP6 stand-alone ice sheet models",
+          "year": 2020,
+          "fwci": 13.2747,
+          "citations": 183
+        },
+        {
+          "id": "https://openalex.org/W4283321749",
+          "title": "Sea level rise risks and societal adaptation benefits in low-lying coastal areas",
+          "year": 2022,
+          "fwci": 65.849,
+          "citations": 182
+        },
+        {
+          "id": "https://openalex.org/W3159342690",
+          "title": "Future Sea Level Change Under Coupled Model Intercomparison Project Phase 5 and Phase 6 Scenarios From the Greenland and Antarctic Ice Sheets",
+          "year": 2021,
+          "fwci": 15.3126,
+          "citations": 151
+        },
+        {
+          "id": "https://openalex.org/W3172737515",
+          "title": "Uncertainty and Bias in Global to Regional Scale Assessments of Current and Future Coastal Flood Risk",
+          "year": 2021,
+          "fwci": 19.1876,
+          "citations": 137
+        },
+        {
+          "id": "https://openalex.org/W3170121813",
+          "title": "On the Cause of the Mid‐Pleistocene Transition",
+          "year": 2021,
+          "fwci": 9.7668,
+          "citations": 133
+        },
+        {
+          "id": "https://openalex.org/W4311238624",
+          "title": "The evolution of 21st century sea-level projections from IPCC AR5 to AR6 and beyond",
+          "year": 2022,
+          "fwci": 14.4987,
+          "citations": 80
+        },
+        {
+          "id": "https://openalex.org/W3020563660",
+          "title": "Reconstructing the evolution of ice sheets, sea level, and atmospheric CO <sub>2</sub> during the past 3.6 million years",
+          "year": 2021,
+          "fwci": 6.7532,
+          "citations": 78
+        },
+        {
+          "id": "https://openalex.org/W3001087368",
+          "title": "Antarctic Ice Sheet and emission scenario controls on 21st-century extreme sea-level changes",
+          "year": 2020,
+          "fwci": 5.6533,
+          "citations": 73
+        },
+        {
+          "id": "https://openalex.org/W4402229072",
+          "title": "Evolution of the Antarctic Ice Sheet Over the Next Three Centuries From an ISMIP6 Model Ensemble",
+          "year": 2024,
+          "fwci": 21.2868,
+          "citations": 66
+        },
+        {
+          "id": "https://openalex.org/W3180139158",
+          "title": "Projections of Global Delta Land Loss From Sea‐Level Rise in the 21st Century",
+          "year": 2021,
+          "fwci": 7.2713,
+          "citations": 65
+        },
+        {
+          "id": "https://openalex.org/W2968663866",
+          "title": "Brief communication: On calculating the sea-level contribution in marine ice-sheet models",
+          "year": 2020,
+          "fwci": 3.2888,
+          "citations": 52
+        },
+        {
+          "id": "https://openalex.org/W4242831016",
+          "title": "The future sea-level contribution of the Greenland ice sheet: a multi-model ensemble study of ISMIP6",
+          "year": 2020,
+          "fwci": 5.2864,
+          "citations": 51
+        },
+        {
+          "id": "https://openalex.org/W4389470492",
+          "title": "Insights into the vulnerability of Antarctic glaciers from the ISMIP6 ice sheet model ensemble and associated uncertainty",
+          "year": 2023,
+          "fwci": 8.9776,
+          "citations": 46
+        },
+        {
+          "id": "https://openalex.org/W4286110812",
+          "title": "Benchmarking the vertically integrated ice-sheet model IMAU-ICE (version 2.0)",
+          "year": 2022,
+          "fwci": 4.2031,
+          "citations": 33
+        },
+        {
+          "id": "https://openalex.org/W3092611061",
+          "title": "Interglacials of the Quaternary defined by northern hemispheric land ice distribution outside of Greenland",
+          "year": 2020,
+          "fwci": 1.6443,
+          "citations": 30
+        }
+      ]
+    },
+    {
+      "rank": 22,
+      "name": "Mathieu Morlighem",
+      "openalex_id": "https://openalex.org/A5091477268",
+      "orcid": "0000-0001-5219-1310",
+      "fwci": 6.396,
+      "publications": 149,
+      "citations_ods": 5190,
+      "h_index_ods": 37,
+      "country": "US",
+      "institution": "Dartmouth College",
+      "works": [
+        {
+          "id": "https://openalex.org/W3002630673",
+          "title": "ISMIP6 Antarctica: a multi-model ensemble of the Antarctic ice sheet evolution over the 21st century",
+          "year": 2020,
+          "fwci": 38.535,
+          "citations": 510
+        },
+        {
+          "id": "https://openalex.org/W3002782576",
+          "title": "The future sea-level contribution of the Greenland ice sheet: a multi-model ensemble study of ISMIP6",
+          "year": 2020,
+          "fwci": 29.6062,
+          "citations": 383
+        },
+        {
+          "id": "https://openalex.org/W4210269304",
+          "title": "Ice velocity and thickness of the world’s glaciers",
+          "year": 2022,
+          "fwci": 43.2489,
+          "citations": 360
+        },
+        {
+          "id": "https://openalex.org/W3041337723",
+          "title": "The International Bathymetric Chart of the Arctic Ocean Version 4.0",
+          "year": 2020,
+          "fwci": 60.6461,
+          "citations": 313
+        },
+        {
+          "id": "https://openalex.org/W3085649984",
+          "title": "Antarctic ice sheet response to sudden and sustained ice-shelf collapse (ABUMIP)",
+          "year": 2020,
+          "fwci": 22.3221,
+          "citations": 272
+        },
+        {
+          "id": "https://openalex.org/W3119895217",
+          "title": "Ocean forcing drives glacier retreat in Greenland",
+          "year": 2021,
+          "fwci": 22.7895,
+          "citations": 239
+        },
+        {
+          "id": "https://openalex.org/W2946141553",
+          "title": "Projecting Antarctica's contribution to future sea level rise from basal ice shelf melt using linear response functions of 16 ice sheet models (LARMIP-2)",
+          "year": 2020,
+          "fwci": 19.0326,
+          "citations": 201
+        },
+        {
+          "id": "https://openalex.org/W3043823404",
+          "title": "Experimental protocol for sea level projections from ISMIP6 stand-alone ice sheet models",
+          "year": 2020,
+          "fwci": 13.2747,
+          "citations": 183
+        },
+        {
+          "id": "https://openalex.org/W4206786879",
+          "title": "Results of the third Marine Ice Sheet Model Intercomparison Project (MISMIP+)",
+          "year": 2020,
+          "fwci": 14.9206,
+          "citations": 162
+        },
+        {
+          "id": "https://openalex.org/W3128812071",
+          "title": "Ice dynamics will remain a primary driver of Greenland ice sheet mass loss over the next century",
+          "year": 2021,
+          "fwci": 14.2277,
+          "citations": 151
+        },
+        {
+          "id": "https://openalex.org/W3159342690",
+          "title": "Future Sea Level Change Under Coupled Model Intercomparison Project Phase 5 and Phase 6 Scenarios From the Greenland and Antarctic Ice Sheets",
+          "year": 2021,
+          "fwci": 15.3126,
+          "citations": 151
+        },
+        {
+          "id": "https://openalex.org/W4281917531",
+          "title": "The International Bathymetric Chart of the Southern Ocean Version 2",
+          "year": 2022,
+          "fwci": 14.3712,
+          "citations": 122
+        },
+        {
+          "id": "https://openalex.org/W3012046398",
+          "title": "Twenty-first century ocean forcing of the Greenland ice sheet for modelling of sea level contribution",
+          "year": 2020,
+          "fwci": 7.9888,
+          "citations": 108
+        },
+        {
+          "id": "https://openalex.org/W3012843819",
+          "title": "Grounding Line Retreat of Denman Glacier, East Antarctica, Measured With COSMO‐SkyMed Radar Interferometry Data",
+          "year": 2020,
+          "fwci": 7.7538,
+          "citations": 100
+        },
+        {
+          "id": "https://openalex.org/W3044205131",
+          "title": "Bed topography of Princess Elizabeth Land in East Antarctica",
+          "year": 2020,
+          "fwci": 4.5818,
+          "citations": 73
+        },
+        {
+          "id": "https://openalex.org/W3126032942",
+          "title": "Results from the Ice Thickness Models Intercomparison eXperiment Phase 2 (ITMIX2)",
+          "year": 2021,
+          "fwci": 7.355,
+          "citations": 73
+        },
+        {
+          "id": "https://openalex.org/W3126458921",
+          "title": "Topographic Correction of Geothermal Heat Flux in Greenland and Antarctica",
+          "year": 2021,
+          "fwci": 7.8398,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W3195147983",
+          "title": "Widespread Grounding Line Retreat of Totten Glacier, East Antarctica, Over the 21st Century",
+          "year": 2021,
+          "fwci": 7.3573,
+          "citations": 69
+        },
+        {
+          "id": "https://openalex.org/W3104012147",
+          "title": "Centennial response of Greenland’s three largest outlet glaciers",
+          "year": 2020,
+          "fwci": 5.8738,
+          "citations": 67
+        },
+        {
+          "id": "https://openalex.org/W3112125661",
+          "title": "Steep Glacier Bed Knickpoints Mitigate Inland Thinning in Greenland",
+          "year": 2020,
+          "fwci": 6.1087,
+          "citations": 67
+        }
+      ]
+    },
+    {
+      "rank": 23,
+      "name": "Lennart T. Bach",
+      "openalex_id": "https://openalex.org/A5044360827",
+      "orcid": "0000-0003-0202-3671",
+      "fwci": 6.357,
+      "publications": 106,
+      "citations_ods": 2103,
+      "h_index_ods": 25,
+      "country": "AU",
+      "institution": "University of Tasmania",
+      "works": [
+        {
+          "id": "https://openalex.org/W3158966680",
+          "title": "Testing the climate intervention potential of ocean afforestation using the Great Atlantic Sargassum Belt",
+          "year": 2021,
+          "fwci": 24.076,
+          "citations": 179
+        },
+        {
+          "id": "https://openalex.org/W4289223598",
+          "title": "Ocean alkalinity enhancement – avoiding runaway CaCO <sub>3</sub> precipitation during quick and hydrated lime dissolution",
+          "year": 2022,
+          "fwci": 28.6034,
+          "citations": 171
+        },
+        {
+          "id": "https://openalex.org/W4220852212",
+          "title": "Forensic carbon accounting: Assessing the role of seaweeds for carbon sequestration",
+          "year": 2022,
+          "fwci": 24.4125,
+          "citations": 166
+        },
+        {
+          "id": "https://openalex.org/W4311437999",
+          "title": "Assessing the influence of ocean alkalinity enhancement on a coastal phytoplankton community",
+          "year": 2022,
+          "fwci": 27.6238,
+          "citations": 152
+        },
+        {
+          "id": "https://openalex.org/W4281482429",
+          "title": "Enhanced silica export in a future ocean triggers global diatom decline",
+          "year": 2022,
+          "fwci": 17.644,
+          "citations": 103
+        },
+        {
+          "id": "https://openalex.org/W4224220770",
+          "title": "Potential negative effects of ocean afforestation on offshore ecosystems",
+          "year": 2022,
+          "fwci": 13.9093,
+          "citations": 81
+        },
+        {
+          "id": "https://openalex.org/W4382315991",
+          "title": "Toward a consensus framework to evaluate air–sea <scp>CO<sub>2</sub></scp> equilibration for marine <scp>CO<sub>2</sub></scp> removal",
+          "year": 2023,
+          "fwci": 19.2062,
+          "citations": 77
+        },
+        {
+          "id": "https://openalex.org/W3041828544",
+          "title": "Universal response pattern of phytoplankton growth rates to increasing CO<sub>2</sub>",
+          "year": 2020,
+          "fwci": 7.8405,
+          "citations": 74
+        },
+        {
+          "id": "https://openalex.org/W3123502765",
+          "title": "Extreme Levels of Ocean Acidification Restructure the Plankton Community and Biogeochemistry of a Temperate Coastal Ecosystem: A Mesocosm Study",
+          "year": 2021,
+          "fwci": 10.1219,
+          "citations": 62
+        },
+        {
+          "id": "https://openalex.org/W4289885595",
+          "title": "Investigating the effect of nickel concentration on phytoplankton growth to assess potential side-effects of ocean alkalinity enhancement",
+          "year": 2022,
+          "fwci": 10.5797,
+          "citations": 61
+        },
+        {
+          "id": "https://openalex.org/W4321189328",
+          "title": "Quantitative and mechanistic understanding of the open ocean carbonate pump - perspectives for remote sensing and autonomous in situ observation",
+          "year": 2023,
+          "fwci": 14.131,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W4389055824",
+          "title": "Monitoring, reporting, and verification for ocean alkalinity enhancement",
+          "year": 2023,
+          "fwci": 8.2718,
+          "citations": 56
+        },
+        {
+          "id": "https://openalex.org/W3092172295",
+          "title": "Factors controlling plankton community production, export flux, and particulate matter stoichiometry in the coastal upwelling system off Peru",
+          "year": 2020,
+          "fwci": 6.5338,
+          "citations": 55
+        },
+        {
+          "id": "https://openalex.org/W4389055956",
+          "title": "Seawater carbonate chemistry considerations for ocean alkalinity enhancement research: theory, measurements, and calculations",
+          "year": 2023,
+          "fwci": 12.2221,
+          "citations": 49
+        },
+        {
+          "id": "https://openalex.org/W4386009502",
+          "title": "Seaweed biogeochemistry: Global assessment of C:N and C:P ratios and implications for ocean afforestation",
+          "year": 2023,
+          "fwci": 10.3681,
+          "citations": 42
+        },
+        {
+          "id": "https://openalex.org/W4390933587",
+          "title": "The additionality problem of ocean alkalinity enhancement",
+          "year": 2024,
+          "fwci": 7.0874,
+          "citations": 41
+        },
+        {
+          "id": "https://openalex.org/W3208313454",
+          "title": "Effect of Intensity and Mode of Artificial Upwelling on Particle Flux and Carbon Export",
+          "year": 2021,
+          "fwci": 6.8753,
+          "citations": 41
+        },
+        {
+          "id": "https://openalex.org/W4406128139",
+          "title": "Perspectives and challenges of marine carbon dioxide removal",
+          "year": 2025,
+          "fwci": 49.0324,
+          "citations": 36
+        },
+        {
+          "id": "https://openalex.org/W4396944429",
+          "title": "Influence of ocean alkalinity enhancement with olivine or steel slag on a coastal plankton community in Tasmania",
+          "year": 2024,
+          "fwci": 14.7619,
+          "citations": 35
+        },
+        {
+          "id": "https://openalex.org/W3094200860",
+          "title": "Changing carbon-to-nitrogen ratios of organic-matter export under ocean acidification",
+          "year": 2020,
+          "fwci": 3.5466,
+          "citations": 34
+        }
+      ]
+    },
+    {
+      "rank": 24,
+      "name": "Chuanmin Hu",
+      "openalex_id": "https://openalex.org/A5026416332",
+      "orcid": "0000-0003-3949-6560",
+      "fwci": 6.243,
+      "publications": 102,
+      "citations_ods": 3594,
+      "h_index_ods": 30,
+      "country": "US",
+      "institution": "University of South Florida St. Petersburg",
+      "works": [
+        {
+          "id": "https://openalex.org/W4322732304",
+          "title": "Coastal phytoplankton blooms expand and intensify in the 21st century",
+          "year": 2023,
+          "fwci": 146.9451,
+          "citations": 593
+        },
+        {
+          "id": "https://openalex.org/W3133407985",
+          "title": "NASA's surface biology and geology designated observable: A perspective on surface imaging algorithms",
+          "year": 2021,
+          "fwci": 26.8746,
+          "citations": 326
+        },
+        {
+          "id": "https://openalex.org/W3000580613",
+          "title": "The establishment of a pelagic Sargassum population in the tropical Atlantic: Biological consequences of a basin-scale long distance dispersal event",
+          "year": 2020,
+          "fwci": 27.0791,
+          "citations": 233
+        },
+        {
+          "id": "https://openalex.org/W4283012163",
+          "title": "Chronic oiling in global oceans",
+          "year": 2022,
+          "fwci": 8.7433,
+          "citations": 191
+        },
+        {
+          "id": "https://openalex.org/W3164740349",
+          "title": "Nutrient content and stoichiometry of pelagic Sargassum reflects increasing nitrogen availability in the Atlantic Basin",
+          "year": 2021,
+          "fwci": 20.304,
+          "citations": 157
+        },
+        {
+          "id": "https://openalex.org/W3194719203",
+          "title": "Satellite remote sensing of pelagic Sargassum macroalgae: The power of high resolution and deep learning",
+          "year": 2021,
+          "fwci": 18.1525,
+          "citations": 130
+        },
+        {
+          "id": "https://openalex.org/W3003984144",
+          "title": "In search of floating algae and other organisms in global oceans and lakes",
+          "year": 2020,
+          "fwci": 14.5667,
+          "citations": 119
+        },
+        {
+          "id": "https://openalex.org/W3129232093",
+          "title": "Optical Remote Sensing of Oil Spills in the Ocean: What Is Really Possible?",
+          "year": 2021,
+          "fwci": 3.6876,
+          "citations": 93
+        },
+        {
+          "id": "https://openalex.org/W3164917952",
+          "title": "A Machine Learning Approach to Estimate Surface Chlorophyll <i>a</i> Concentrations in Global Oceans From Satellite Measurements",
+          "year": 2020,
+          "fwci": 6.1625,
+          "citations": 78
+        },
+        {
+          "id": "https://openalex.org/W3013918273",
+          "title": "Optical interpretation of oil emulsions in the ocean – Part II: Applications to multi-band coarse-resolution imagery",
+          "year": 2020,
+          "fwci": 2.2684,
+          "citations": 71
+        },
+        {
+          "id": "https://openalex.org/W4296185901",
+          "title": "Climate and Anthropogenic Controls of Seaweed Expansions in the East China Sea and Yellow Sea",
+          "year": 2022,
+          "fwci": 12.54,
+          "citations": 69
+        },
+        {
+          "id": "https://openalex.org/W4313459960",
+          "title": "Mapping Ulva prolifera green tides from space: A revisit on algorithm design and data products",
+          "year": 2023,
+          "fwci": 16.3548,
+          "citations": 66
+        },
+        {
+          "id": "https://openalex.org/W4289636262",
+          "title": "On the capacity of Sentinel-1 synthetic aperture radar in detecting floating macroalgae and other floating matters",
+          "year": 2022,
+          "fwci": 3.2106,
+          "citations": 63
+        },
+        {
+          "id": "https://openalex.org/W4327719368",
+          "title": "Ocean carbon from space: Current status and priorities for the next decade",
+          "year": 2023,
+          "fwci": 15.627,
+          "citations": 62
+        },
+        {
+          "id": "https://openalex.org/W4322486806",
+          "title": "Mapping and quantifying pelagic Sargassum in the Atlantic Ocean using multi-band medium-resolution satellite data and deep learning",
+          "year": 2023,
+          "fwci": 13.3687,
+          "citations": 58
+        },
+        {
+          "id": "https://openalex.org/W3007375293",
+          "title": "An anomalous bi-macroalgal bloom caused by Ulva and Sargassum seaweeds during spring to summer of 2017 in the western Yellow Sea, China",
+          "year": 2020,
+          "fwci": 7.8409,
+          "citations": 58
+        },
+        {
+          "id": "https://openalex.org/W3037870660",
+          "title": "Automatic Extraction of <i>Sargassum</i> Features From Sentinel-2 MSI Images",
+          "year": 2020,
+          "fwci": 7.0963,
+          "citations": 57
+        },
+        {
+          "id": "https://openalex.org/W4200173825",
+          "title": "Spectral characteristics of sea snot reflectance observed from satellites: Implications for remote sensing of marine debris",
+          "year": 2021,
+          "fwci": 8.1918,
+          "citations": 54
+        },
+        {
+          "id": "https://openalex.org/W3147070868",
+          "title": "On the Atlantic pelagic Sargassum's role in carbon fixation and sequestration",
+          "year": 2021,
+          "fwci": 6.3056,
+          "citations": 48
+        },
+        {
+          "id": "https://openalex.org/W4280605470",
+          "title": "Spatio-temporal variability of pelagic Sargassum landings on the northern Mexican Caribbean",
+          "year": 2022,
+          "fwci": 8.0327,
+          "citations": 43
+        }
+      ]
+    }
+  ],
+  "min_h_index": 10,
+  "authors_after_h_index_filter": 24
+}
