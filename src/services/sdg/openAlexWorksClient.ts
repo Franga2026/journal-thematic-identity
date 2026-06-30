@@ -8,7 +8,7 @@ import { sdgLog, sdgWarn } from './diagnostics';
 import type { OpenAlexWorkResult, OpenAlexWorksPage } from './openAlexTypes';
 
 export function buildSdgWorksFilterUrl(sdgId: number, cursor?: string): string {
-  const filter = `sustainable_development_goals.id:https://openalex.org/SDG${sdgId}`;
+  const filter = `sustainable_development_goals.id:https://metadata.un.org/sdg/${sdgId}`;
   const params = new URLSearchParams({
     filter,
     'per-page': String(SDG_WORKS_PER_PAGE),
