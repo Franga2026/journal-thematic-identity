@@ -22,6 +22,7 @@ public/photos/
 # KBART Scopus (~17 MB) — solo scripts Node (enrich:scopus)
 scripts/data/6569_elsevier_scopus_kbart.txt
 data/6569_elsevier_scopus_kbart.txt
+outputs/
 outputs/ods-rankings/.checkpoint-*.json
 outputs/ods-rankings/*.log
 outputs/ods-rankings/*.backup*
