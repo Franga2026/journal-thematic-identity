@@ -635,6 +635,29 @@ export default function CoAuthorModal() {
             )}
           </section>
 
+          {ca.top_coauthors && ca.top_coauthors.length > 0 && (
+            <section className="coauthor-section" aria-labelledby="coauthor-top-coauthors-label">
+              <h3 id="coauthor-top-coauthors-label" className="coauthor-section__label">
+                Principales coautores en este ODS
+              </h3>
+              <ul className="coauthor-top-coauthors">
+                {ca.top_coauthors.map((tc) => (
+                  <li key={tc.openalex_id || tc.name} className="coauthor-top-coauthors__item">
+                    <span className="coauthor-top-coauthors__name">{tc.name}</span>
+                    {tc.institution && (
+                      <span className="coauthor-top-coauthors__meta"> · {tc.institution}</span>
+                    )}
+                    <span className="coauthor-top-coauthors__meta">
+                      {' · '}
+                      {tc.works_together.toLocaleString('es')}{' '}
+                      {tc.works_together === 1 ? 'obra junta' : 'obras juntas'}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           {globalProfile && <CoAuthorGlobalSection profile={globalProfile} />}
         </div>
 
