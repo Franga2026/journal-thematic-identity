@@ -8,6 +8,25 @@
  *   node scripts/ods/build-ods-rankings.mjs --sdg 14 --resume
  */
 
+import '../lib/bootstrapProjectEnv.mjs';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  renameSync,
+  writeFileSync,
+} from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  buildGlobalProfile,
+  fetchAllWorks,
+  OPENALEX_API_KEY,
+  warnIfNoOpenAlexApiKey,
+  withOpenAlexParams,
+} from '../lib/globalProfileFromOpenAlex.mjs';
+
 const FORMAT_VERSION = 3;
 
 /** Latinoamérica hispano/lusoparlante + España + Portugal + Puerto Rico (ISO-3166 alpha-2) */
@@ -22,20 +41,9 @@ const THRESHOLDS = {
   iberoamerica: { min_works: 20, min_h: 5 },
 };
 
-import {
-  copyFileSync,
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  renameSync,
-  writeFileSync,
-} from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { buildGlobalProfile, fetchAllWorks } from '../lib/globalProfileFromOpenAlex.mjs';
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '../..');
+warnIfNoOpenAlexApiKey();
 const OUT_DIR = join(ROOT, 'outputs/ods-rankings');
 
 const OPENALEX_BASE = 'https://api.openalex.org';
@@ -172,12 +180,23 @@ function buildTopCoauthors(works, authorId, authorUrl) {
     }));
 }
 
-async function enrichRankedResearcher(row, delay) {
+async function enrichRankedResearcher(row, delay, sdgNum) {
   const authorId = normalizeAuthorId(row._key || row.openalex_id);
   const authorUrl = row.openalex_id;
   let authorJson = row._authorProfile;
   if (authorId && !authorJson) {
     authorJson = await fetchAuthorProfile(authorId, delay);
+  }
+
+  let odsWorks = row.works;
+  if ((!odsWorks || odsWorks.length === 0) && row._key) {
+    const fetched = await fetchAuthorOdsWorks(
+      sdgNum,
+      row._key,
+      delay,
+      row.publications || 0,
+    );
+    odsWorks = fetched.works;
   }
 
   let careerWorks = [];
@@ -188,13 +207,14 @@ async function enrichRankedResearcher(row, delay) {
       {
         baseUrl: OPENALEX_BASE,
         mailto: MAILTO,
+        apiKey: OPENALEX_API_KEY,
         pageDelayMs: delay,
         sleep,
       },
     );
   }
 
-  const portalWorks = [...(row.works || [])]
+  const portalWorks = [...(odsWorks || [])]
     .sort((a, b) => (b.cited_by_count || 0) - (a.cited_by_count || 0))
     .map(mapWorkToPortalShape);
 
@@ -203,7 +223,7 @@ async function enrichRankedResearcher(row, delay) {
   return {
     ...kpiRest,
     global_profile: authorJson ? buildGlobalProfile(authorJson, careerWorks, SJR_MAP) : null,
-    top_coauthors: buildTopCoauthors(row.works || [], authorId, authorUrl),
+    top_coauthors: buildTopCoauthors(odsWorks || [], authorId, authorUrl),
     works: portalWorks,
   };
 }
@@ -245,9 +265,7 @@ function sdgFilter(sdg) {
 }
 
 function withMailto(url) {
-  const u = new URL(url);
-  u.searchParams.set('mailto', MAILTO);
-  return u.toString();
+  return withOpenAlexParams(url, { mailto: MAILTO, apiKey: OPENALEX_API_KEY });
 }
 
 let httpStats = {
@@ -256,6 +274,7 @@ let httpStats = {
   authors: 0,
   careerWorks: 0,
   rateLimited429: 0,
+  cost_usd: 0,
 };
 
 function resetHttpStats() {
@@ -265,7 +284,15 @@ function resetHttpStats() {
     authors: 0,
     careerWorks: 0,
     rateLimited429: 0,
+    cost_usd: 0,
   };
+}
+
+function trackOpenAlexCost(data) {
+  const cost = Number(data?.meta?.cost_usd);
+  if (Number.isFinite(cost) && cost > 0) {
+    httpStats.cost_usd += cost;
+  }
 }
 
 async function getJSON(url, { delay = 0, retries = 8, category = 'candidatesSweep' } = {}) {
@@ -278,7 +305,11 @@ async function getJSON(url, { delay = 0, retries = 8, category = 'candidatesSwee
     const res = await fetch(withMailto(url), {
       headers: { Accept: 'application/json', 'User-Agent': `UTA-ODS-Rankings (${MAILTO})` },
     });
-    if (res.ok) return res.json();
+    if (res.ok) {
+      const data = await res.json();
+      trackOpenAlexCost(data);
+      return data;
+    }
     if (res.status === 429) httpStats.rateLimited429 += 1;
     if ((res.status === 429 || res.status === 502 || res.status === 503 || res.status === 504) && attempt < retries) {
       const raRaw = Number(res.headers.get('retry-after'));
@@ -555,10 +586,20 @@ function loadCheckpoint(sdg) {
   return JSON.parse(readFileSync(p, 'utf8'));
 }
 
+function slimProcessedRow(row) {
+  const { works: _w, _authorProfile: _ap, ...rest } = row;
+  return rest;
+}
+
+function slimCheckpointState(state) {
+  if (!state?.processed?.length) return state;
+  return { ...state, processed: state.processed.map(slimProcessedRow) };
+}
+
 function saveCheckpoint(sdg, state) {
   const p = checkpointPath(sdg);
   const tmp = `${p}.tmp`;
-  writeFileSync(tmp, JSON.stringify(state, null, 2));
+  writeFileSync(tmp, JSON.stringify(slimCheckpointState(state)));
   renameSync(tmp, p);
 }
 
@@ -715,7 +756,7 @@ async function main() {
   for (const row of enrichKeys.values()) {
     enrichIdx += 1;
     process.stderr.write(`  enrich [${enrichIdx}/${enrichKeys.size}] ${row.name}… `);
-    const enriched = await enrichRankedResearcher(row, args.delay);
+    const enriched = await enrichRankedResearcher(row, args.delay, args.sdg);
     enrichedByKey.set(row._key, enriched);
     process.stderr.write(
       `${enriched.works.length} obras ODS · ${careerWorksLabel(enriched.global_profile)} · ` +
@@ -771,6 +812,9 @@ async function main() {
   console.log(`  authors:            ${httpStats.authors}`);
   console.log(`  works-carrera:      ${httpStats.careerWorks}`);
   console.log(`  respuestas 429:     ${httpStats.rateLimited429}`);
+  console.log(
+    `  costo estimado:     $${httpStats.cost_usd.toFixed(4)} (de $1/día gratis)`,
+  );
   console.log(`\nTop Global (${globalResearchers.length}):`);
   for (const r of globalResearchers) {
     console.log(

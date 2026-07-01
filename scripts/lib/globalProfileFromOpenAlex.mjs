@@ -3,6 +3,32 @@
  * Usado por enrich-coauthor-global.mjs y build-ods-rankings.mjs.
  */
 
+import './bootstrapProjectEnv.mjs';
+
+export const OPENALEX_API_KEY = process.env.OPENALEX_API_KEY || '';
+
+export function warnIfNoOpenAlexApiKey() {
+  if (!OPENALEX_API_KEY) {
+    console.warn(
+      '⚠️ OPENALEX_API_KEY no configurada en .env.local — se usará el tramo sin key ($0.10/día, se bloqueará rápido). Configúrala para el presupuesto de $1/día.',
+    );
+  }
+}
+
+/** @param {URLSearchParams} params */
+export function applyOpenAlexParams(params, { mailto = '', apiKey = process.env.OPENALEX_API_KEY || '' } = {}) {
+  if (mailto) params.set('mailto', mailto);
+  if (apiKey) params.set('api_key', apiKey);
+  return params;
+}
+
+/** @param {string} url */
+export function withOpenAlexParams(url, { mailto = '', apiKey = process.env.OPENALEX_API_KEY || '' } = {}) {
+  const u = new URL(url);
+  applyOpenAlexParams(u.searchParams, { mailto, apiKey });
+  return u.toString();
+}
+
 export const WORK_SELECT = [
   'id',
   'title',
@@ -44,6 +70,7 @@ export async function fetchAllWorks(authorId, fetchFn, options = {}) {
   const {
     baseUrl = 'https://api.openalex.org',
     mailto = '',
+    apiKey = process.env.OPENALEX_API_KEY || '',
     select = WORK_SELECT,
     pageDelayMs = 200,
     sleep = defaultSleep,
@@ -58,7 +85,7 @@ export async function fetchAllWorks(authorId, fetchFn, options = {}) {
       select,
       cursor,
     });
-    if (mailto) params.set('mailto', mailto);
+    applyOpenAlexParams(params, { mailto, apiKey });
     const url = `${baseUrl}/works?${params}`;
     const d = await fetchFn(url);
     const batch = d.results || [];
