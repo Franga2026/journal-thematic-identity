@@ -7,6 +7,28 @@ import ProductionWorkList from '../production/ProductionWorkList';
 import ProductionViewToggle, { type ProductionViewMode } from '../production/ProductionViewToggle';
 import TrendChart from '../researcher/TrendChart';
 
+const Q_COLORS: Record<string, string> = {
+  Q1: '#15803D',
+  Q2: '#0E7E9E',
+  Q3: '#D97706',
+  Q4: '#B5482F',
+};
+
+export interface OdsReferentMetrics {
+  fwci: number | null;
+  publications: number;
+  h_index: number | null;
+  citations: number;
+}
+
+export interface CoAuthorGlobalSectionProps {
+  profile: GlobalProfile;
+  odsReferentLayout?: boolean;
+  odsSdgNum?: number;
+  odsMetrics?: OdsReferentMetrics;
+  showTopWorks?: boolean;
+}
+
 function mapGlobalTopWork(w: GlobalProfile['top_works'][number]): Work {
   const oaOpen =
     w.oa_status != null
@@ -23,7 +45,182 @@ function mapGlobalTopWork(w: GlobalProfile['top_works'][number]): Work {
   };
 }
 
-export default function CoAuthorGlobalSection({ profile: g }: { profile: GlobalProfile }) {
+function fmtNum(n: number | null | undefined, suffix = ''): string {
+  if (n == null || Number.isNaN(n)) return '—';
+  return `${n.toLocaleString('es')}${suffix}`;
+}
+
+function OdsReferentGlobalSection({
+  g,
+  odsSdgNum,
+  odsMetrics,
+}: {
+  g: GlobalProfile;
+  odsSdgNum?: number;
+  odsMetrics?: OdsReferentMetrics;
+}) {
+  const qp = g.cuartiles;
+  const sdgLabel = odsSdgNum != null ? String(odsSdgNum) : '—';
+
+  return (
+    <section className="coauthor-section coauthor-global coauthor-global--ods">
+      <div className="coauthor-zone-label">
+        <span>🌐 Perfil global del investigador</span>
+      </div>
+
+      <div className="coauthor-ods-dual-kpi">
+        <div className="coauthor-ods-kpi-card coauthor-ods-kpi-card--ods">
+          <p className="coauthor-ods-kpi-card__title">Impacto en el ODS {sdgLabel}:</p>
+          <div className="coauthor-ods-kpi-grid">
+            <div className="coauthor-ods-kpi-cell">
+              <span className="coauthor-ods-kpi-cell__value coauthor-ods-kpi-cell__value--green">
+                {odsMetrics?.fwci != null ? `${odsMetrics.fwci.toLocaleString('es')}×` : '—'}
+              </span>
+              <span className="coauthor-ods-kpi-cell__label">FWCI</span>
+            </div>
+            <div className="coauthor-ods-kpi-cell">
+              <span className="coauthor-ods-kpi-cell__value">
+                {fmtNum(odsMetrics?.publications)}
+              </span>
+              <span className="coauthor-ods-kpi-cell__label">Publicaciones</span>
+            </div>
+            <div className="coauthor-ods-kpi-cell">
+              <span className="coauthor-ods-kpi-cell__value">
+                {fmtNum(odsMetrics?.h_index)}
+              </span>
+              <span className="coauthor-ods-kpi-cell__label">H-index</span>
+            </div>
+            <div className="coauthor-ods-kpi-cell">
+              <span className="coauthor-ods-kpi-cell__value">
+                {fmtNum(odsMetrics?.citations)}
+              </span>
+              <span className="coauthor-ods-kpi-cell__label">Citas</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="coauthor-ods-kpi-card coauthor-ods-kpi-card--global">
+          <p className="coauthor-ods-kpi-card__title">Trayectoria total:</p>
+          <div className="coauthor-ods-kpi-grid">
+            <div className="coauthor-ods-kpi-cell">
+              <span className="coauthor-ods-kpi-cell__value">{fmtNum(g.h_index)}</span>
+              <span className="coauthor-ods-kpi-cell__label">H-index</span>
+            </div>
+            <div className="coauthor-ods-kpi-cell">
+              <span className="coauthor-ods-kpi-cell__value">{fmtNum(g.works_count)}</span>
+              <span className="coauthor-ods-kpi-cell__label">Obras</span>
+            </div>
+            <div className="coauthor-ods-kpi-cell">
+              <span className="coauthor-ods-kpi-cell__value">{fmtNum(g.cited_by_count)}</span>
+              <span className="coauthor-ods-kpi-cell__label">Citas</span>
+            </div>
+            <div className="coauthor-ods-kpi-cell">
+              <span className="coauthor-ods-kpi-cell__value coauthor-ods-kpi-cell__value--green">
+                {g.fwci_mean != null ? `${g.fwci_mean.toLocaleString('es')}×` : '—'}
+              </span>
+              <span className="coauthor-ods-kpi-cell__label">FWCI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="coauthor-ods-detail-row">
+        <div className="coauthor-ods-detail-card">
+          {qp && qp.with_quartile > 0 && (
+            <>
+              <p className="cg-sublabel">Cuartiles SJR</p>
+              <div className="coauthor-ods-quartile-bar">
+                {[
+                  { q: 'Q1', c: Q_COLORS.Q1, n: qp.Q1 || 0 },
+                  { q: 'Q2', c: Q_COLORS.Q2, n: qp.Q2 || 0 },
+                  { q: 'Q3', c: Q_COLORS.Q3, n: qp.Q3 || 0 },
+                  { q: 'Q4', c: Q_COLORS.Q4, n: qp.Q4 || 0 },
+                ].map(({ q, c, n }) => {
+                  const pct = qp.with_quartile ? (n / qp.with_quartile) * 100 : 0;
+                  return pct > 0 ? (
+                    <div
+                      key={q}
+                      className="coauthor-ods-quartile-seg"
+                      style={{
+                        width: `${pct}%`,
+                        background: c,
+                      }}
+                    >
+                      {pct > 8 ? n : ''}
+                    </div>
+                  ) : null;
+                })}
+              </div>
+              <p className="coauthor-ods-quartile-legend">
+                {['Q1', 'Q2', 'Q3', 'Q4'].map((q) => {
+                  const n = qp[q as keyof typeof qp] as number || 0;
+                  const pct = qp.with_quartile ? Math.round((n / qp.with_quartile) * 100) : 0;
+                  return `${q} ${pct}%`;
+                }).join(' · ')}
+              </p>
+            </>
+          )}
+        </div>
+
+        <div className="coauthor-ods-detail-card">
+          <p className="cg-sublabel">Citación de élite · percentil mundial</p>
+          <div className="coauthor-ods-elite">
+            <div className="coauthor-ods-elite__item">
+              <span className="coauthor-ods-elite__num">{g.elite.top10}</span>
+              <span className="coauthor-ods-elite__lbl">top 10%</span>
+            </div>
+            <div className="coauthor-ods-elite__item">
+              <span className="coauthor-ods-elite__num">{g.elite.top1}</span>
+              <span className="coauthor-ods-elite__lbl">top 1%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {g.oa.segments.length > 0 && (
+        <div className="coauthor-ods-oa">
+          <div className="researcher-oa-head">
+            <span className="researcher-impact__sublabel" style={{ margin: 0 }}>
+              Acceso abierto
+            </span>
+            <span className="researcher-oa-head__pct">{g.oa.pct}%</span>
+          </div>
+          <div className="researcher-oa-bar">
+            {g.oa.segments.map((s) => (
+              <div
+                key={s.key}
+                style={{ flex: s.count, background: s.color }}
+                title={`${s.label}: ${s.count} (${s.pct}%)`}
+              />
+            ))}
+          </div>
+          <div className="coauthor-ods-oa-legend">
+            {g.oa.segments.map((s) => (
+              <span key={s.key} className="coauthor-ods-oa-legend__item">
+                <span className="coauthor-ods-oa-legend__dot" style={{ background: s.color }} />
+                {s.label} {s.pct}%
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {g.scope.total > 0 && (
+        <p className="coauthor-ods-scope-inline">
+          {g.scope.intl}% intl · {g.scope.natl}% nac · {g.scope.inst}% inst
+        </p>
+      )}
+    </section>
+  );
+}
+
+export default function CoAuthorGlobalSection({
+  profile: g,
+  odsReferentLayout = false,
+  odsSdgNum,
+  odsMetrics,
+  showTopWorks = true,
+}: CoAuthorGlobalSectionProps) {
   const [viewMode, setViewMode] = useState<ProductionViewMode>('list');
   const [sortBy, setSortBy] = useState<SortKey>('citations');
   const [pubSearch, setPubSearch] = useState('');
@@ -37,6 +234,16 @@ export default function CoAuthorGlobalSection({ profile: g }: { profile: GlobalP
     }
     return sortWorks(list, sortBy);
   }, [mappedWorks, pubSearch, sortBy]);
+
+  if (odsReferentLayout) {
+    return (
+      <OdsReferentGlobalSection
+        g={g}
+        odsSdgNum={odsSdgNum}
+        odsMetrics={odsMetrics}
+      />
+    );
+  }
 
   const traj = g.trajectory.slice(-7);
   const trendData = {
@@ -190,45 +397,49 @@ export default function CoAuthorGlobalSection({ profile: g }: { profile: GlobalP
         </div>
       )}
 
-      <div className="cg-prod-head">
-        <span className="cg-prod-title">PRODUCCIÓN CIENTÍFICA</span>
-        <span className="cg-prod-pill">{g.works_count} obras</span>
-        {mappedWorks.length > 0 && (
-          <ProductionViewToggle value={viewMode} onChange={setViewMode} />
-        )}
-      </div>
-      <p className="cg-sublabel cg-sublabel--muted">
-        Obras más citadas (top {g.top_works.length})
-      </p>
-      {mappedWorks.length > 0 && (
-        <div className="cg-prod-tools">
-          <div className="descubridor__sort">
-            <label htmlFor="cg-prod-sort" className="descubridor__sort-label">Ordenar por</label>
-            <select
-              id="cg-prod-sort"
-              className="descubridor__sort-select"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as SortKey)}
-            >
-              <option value="citations">Más citadas</option>
-              <option value="fwci">Mayor FWCI</option>
-              <option value="year">Año (recientes)</option>
-              <option value="quartile">Mejor cuartil</option>
-            </select>
+      {showTopWorks && (
+        <>
+          <div className="cg-prod-head">
+            <span className="cg-prod-title">PRODUCCIÓN CIENTÍFICA</span>
+            <span className="cg-prod-pill">{g.works_count} obras</span>
+            {mappedWorks.length > 0 && (
+              <ProductionViewToggle value={viewMode} onChange={setViewMode} />
+            )}
           </div>
-          <input
-            type="search"
-            className="prod-sort__search"
-            value={pubSearch}
-            onChange={(e) => setPubSearch(e.target.value)}
-            placeholder="Buscar obra…"
-            aria-label="Buscar obra"
-          />
-        </div>
+          <p className="cg-sublabel cg-sublabel--muted">
+            Obras más citadas (top {g.top_works.length})
+          </p>
+          {mappedWorks.length > 0 && (
+            <div className="cg-prod-tools">
+              <div className="descubridor__sort">
+                <label htmlFor="cg-prod-sort" className="descubridor__sort-label">Ordenar por</label>
+                <select
+                  id="cg-prod-sort"
+                  className="descubridor__sort-select"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as SortKey)}
+                >
+                  <option value="citations">Más citadas</option>
+                  <option value="fwci">Mayor FWCI</option>
+                  <option value="year">Año (recientes)</option>
+                  <option value="quartile">Mejor cuartil</option>
+                </select>
+              </div>
+              <input
+                type="search"
+                className="prod-sort__search"
+                value={pubSearch}
+                onChange={(e) => setPubSearch(e.target.value)}
+                placeholder="Buscar obra…"
+                aria-label="Buscar obra"
+              />
+            </div>
+          )}
+          <div className={`coauthor-global__works${viewMode === 'cards' ? ' coauthor-global__works--cards' : ''}`}>
+            <ProductionWorkList works={displayWorks} viewMode={viewMode} variant="openalex" />
+          </div>
+        </>
       )}
-      <div className={`coauthor-global__works${viewMode === 'cards' ? ' coauthor-global__works--cards' : ''}`}>
-        <ProductionWorkList works={displayWorks} viewMode={viewMode} variant="openalex" />
-      </div>
 
       <div className="coauthor-global__foot">
         Perfil de carrera vía OpenAlex · {g.works_count} obras.{' '}

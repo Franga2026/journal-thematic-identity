@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useUI } from '../../context/UIContext';
 import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
@@ -38,6 +39,7 @@ import type { DatasetRecord, Researcher } from '../../shared/types';
 import type { GlobalProfile } from '../../shared/types/globalProfile';
 import { getCoAuthorGlobalProfile } from '../../services/coauthor/coAuthorGlobalProfile';
 import CoAuthorGlobalSection from '../coauthor/CoAuthorGlobalSection';
+import { computeMeanEligibleWorkFwci, getWorkOpenAlexCitations } from '../../utils/workMetrics';
 
 const PAGE_SIZE = 8;
 
@@ -71,6 +73,7 @@ export default function CoAuthorModal() {
   const { openResearcher } = useUI();
   const navigate = useTransitionNavigate();
   const { openLocalResearcherProfile } = useOpenResearcherProfile();
+  const { sdgNum: sdgNumRoute } = useParams();
   const catalog = getData();
 
   const [page, setPage] = useState(0);
@@ -207,21 +210,43 @@ export default function CoAuthorModal() {
     return [...m.entries()].sort((a, b) => b[1] - a[1]);
   }, [allWorks]);
 
+  const isOdsReferent = ca?.metricsScope === 'global_openalex';
+
   const filteredWorks = useMemo(() => {
     let list = [...allWorks];
-    const q = pubSearch.trim().toLowerCase();
-    if (q) {
-      list = list.filter((w) => stripTags(w.t).toLowerCase().includes(q));
+    if (!isOdsReferent) {
+      const q = pubSearch.trim().toLowerCase();
+      if (q) {
+        list = list.filter((w) => stripTags(w.t).toLowerCase().includes(q));
+      }
     }
     if (fieldFilter) {
       list = list.filter((w) => w.field === fieldFilter || w.topic === fieldFilter);
     }
     return sortWorks(list, sortKey);
-  }, [allWorks, pubSearch, fieldFilter, sortKey]);
+  }, [allWorks, pubSearch, fieldFilter, sortKey, isOdsReferent]);
 
   const totalPages = Math.max(1, Math.ceil(filteredWorks.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages - 1);
-  const pageWorks = filteredWorks.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
+  const pageWorks = isOdsReferent
+    ? filteredWorks
+    : filteredWorks.slice(safePage * PAGE_SIZE, safePage * PAGE_SIZE + PAGE_SIZE);
+
+  const odsSdgNum = useMemo(() => {
+    const n = parseInt(String(sdgNumRoute ?? ''), 10);
+    return n >= 1 && n <= 17 ? n : undefined;
+  }, [sdgNumRoute]);
+
+  const odsMetrics = useMemo(() => {
+    const { fwci } = computeMeanEligibleWorkFwci(allWorks);
+    const citations = allWorks.reduce((sum, w) => sum + getWorkOpenAlexCitations(w), 0);
+    return {
+      fwci,
+      publications: allWorks.length,
+      h_index: ca?.h_index ?? null,
+      citations,
+    };
+  }, [allWorks, ca?.h_index]);
 
   const handleOpenResearcherFromWork = useCallback(
     (profileId: string) => {
@@ -360,9 +385,12 @@ export default function CoAuthorModal() {
         </header>
 
         <div className="coauthor-body">
+          {!isOdsReferent && (
           <div className="coauthor-zone-label">
             <span>🔗 Cooperación con la UTA</span>
           </div>
+          )}
+          {!isOdsReferent && (
           <section className="coauthor-section" aria-labelledby="coauthor-metrics-label">
             <h3 id="coauthor-metrics-label" className="coauthor-section__label">
               Métricas de colaboración con UTA
@@ -478,8 +506,36 @@ export default function CoAuthorModal() {
               </>
             )}
           </section>
+          )}
 
-          {utaCoauthorCount > 0 ? (
+          {isOdsReferent && utaCoauthorCount === 0 && (
+            <div className="coauthor-uta-opportunity" role="note">
+              <div className="coauthor-uta-opportunity__icon" aria-hidden>
+                🔗
+              </div>
+              <div className="coauthor-uta-opportunity__body">
+                <h4 className="coauthor-uta-opportunity__title">
+                  Sin colaboración previa con la Universidad de Tarapacá
+                </h4>
+                <p className="coauthor-uta-opportunity__text">
+                  Referente internacional en este ODS. Potencial oportunidad de vinculación para
+                  investigadores UTA.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {isOdsReferent && globalProfile && (
+            <CoAuthorGlobalSection
+              profile={globalProfile}
+              odsReferentLayout
+              odsSdgNum={odsSdgNum}
+              odsMetrics={odsMetrics}
+              showTopWorks={false}
+            />
+          )}
+
+          {!isOdsReferent && utaCoauthorCount > 0 ? (
             <>
               <div className="cg-prod-head">
                 <span className="cg-prod-title">COAUTORES UTA</span>
@@ -531,7 +587,7 @@ export default function CoAuthorModal() {
                 })}
               </div>
             </>
-          ) : (
+          ) : !isOdsReferent ? (
             <div className="coauthor-uta-opportunity" role="note">
               <div className="coauthor-uta-opportunity__icon" aria-hidden>
                 🔗
@@ -546,7 +602,7 @@ export default function CoAuthorModal() {
                 </p>
               </div>
             </div>
-          )}
+          ) : null}
 
           {fieldCounts.length > 0 && (
             <section className="coauthor-section" aria-labelledby="coauthor-lines-label">
@@ -554,6 +610,18 @@ export default function CoAuthorModal() {
                 Áreas temáticas
               </h3>
               <div className="coauthor-line-chips">
+                {isOdsReferent && (
+                  <button
+                    type="button"
+                    className={`coauthor-line-chip ${!fieldFilter ? 'coauthor-line-chip--active' : ''}`}
+                    onClick={() => {
+                      setFieldFilter('');
+                      setPage(0);
+                    }}
+                  >
+                    Todas · {allWorks.length}
+                  </button>
+                )}
                 {fieldCounts.map(([f, n]) => (
                   <button
                     key={f}
@@ -571,10 +639,41 @@ export default function CoAuthorModal() {
             </section>
           )}
 
+          {isOdsReferent && ca.top_coauthors && ca.top_coauthors.length > 0 && (
+            <section className="coauthor-section" aria-labelledby="coauthor-top-coauthors-label">
+              <h3 id="coauthor-top-coauthors-label" className="coauthor-section__label">
+                Principales coautores en este ODS
+              </h3>
+              <div className="coauthor-ods-coauthor-chips">
+                {ca.top_coauthors.map((tc) => {
+                  const label = tc.institution
+                    ? `${tc.name} · ${tc.institution}`
+                    : tc.name;
+                  return (
+                    <div
+                      key={tc.openalex_id || tc.name}
+                      className="coauthor-ods-coauthor-chip"
+                    >
+                      <span className="coauthor-ods-coauthor-chip__avatar" aria-hidden>
+                        {initialsFromName(tc.name)}
+                      </span>
+                      <span className="coauthor-ods-coauthor-chip__label">{label}</span>
+                      <span className="coauthor-ods-coauthor-chip__badge">
+                        {tc.works_together.toLocaleString('es')}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
           <section className="coauthor-section coauthor-publications" aria-labelledby="coauthor-pubs-label">
             <div className="coauthor-panel__head">
               <h3 id="coauthor-pubs-label" className="coauthor-panel__title">
-                Publicaciones indexadas ({filteredWorks.length})
+                {isOdsReferent
+                  ? `Publicaciones en el ODS · ${filteredWorks.length}`
+                  : `Publicaciones indexadas (${filteredWorks.length})`}
               </h3>
               {allWorks.length > 0 && (
                 <div className="coauthor-panel__tools">
@@ -602,16 +701,18 @@ export default function CoAuthorModal() {
                     <option value="quartile">Mejor cuartil</option>
                   </select>
                 </div>
-                <input
-                  className="filter-bar__input coauthor-panel__input"
-                  value={pubSearch}
-                  onChange={(e) => {
-                    setPubSearch(e.target.value);
-                    setPage(0);
-                  }}
-                  placeholder="Buscar publicación..."
-                  aria-label="Buscar publicación"
-                />
+                {!isOdsReferent && (
+                  <input
+                    className="filter-bar__input coauthor-panel__input"
+                    value={pubSearch}
+                    onChange={(e) => {
+                      setPubSearch(e.target.value);
+                      setPage(0);
+                    }}
+                    placeholder="Buscar publicación..."
+                    aria-label="Buscar publicación"
+                  />
+                )}
               </div>
             )}
             {pageWorks.length > 0 ? (
@@ -624,7 +725,9 @@ export default function CoAuthorModal() {
                     onOpenResearcher={handleOpenResearcherFromWork}
                   />
                 </div>
-                <Pagination page={safePage} totalPages={totalPages} onPageChange={setPage} />
+                {!isOdsReferent && (
+                  <Pagination page={safePage} totalPages={totalPages} onPageChange={setPage} />
+                )}
               </>
             ) : (
               <EmptyWorksMessage
@@ -635,7 +738,7 @@ export default function CoAuthorModal() {
             )}
           </section>
 
-          {ca.top_coauthors && ca.top_coauthors.length > 0 && (
+          {!isOdsReferent && ca.top_coauthors && ca.top_coauthors.length > 0 && (
             <section className="coauthor-section" aria-labelledby="coauthor-top-coauthors-label">
               <h3 id="coauthor-top-coauthors-label" className="coauthor-section__label">
                 Principales coautores en este ODS
@@ -658,7 +761,9 @@ export default function CoAuthorModal() {
             </section>
           )}
 
-          {globalProfile && <CoAuthorGlobalSection profile={globalProfile} />}
+          {!isOdsReferent && globalProfile && (
+            <CoAuthorGlobalSection profile={globalProfile} />
+          )}
         </div>
 
         <footer className="coauthor-footer">

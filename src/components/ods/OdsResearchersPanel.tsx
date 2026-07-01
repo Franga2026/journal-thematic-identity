@@ -6,7 +6,8 @@ import { findResearcherByProfileId } from '../../utils/researcherProfile';
 import { getData, getOA } from '../../utils/dataProcessing';
 import { resolveSdgFromRoute } from '../../utils/sdgNormalize';
 import { clearSdgRankingCache } from '../../services/sdg/cache';
-import { getAllOdsRankings } from '../../services/sdg/getResearchersBySdg';
+import { getResearchersBySdg } from '../../services/sdg/getResearchersBySdg';
+import { getOdsGlobalRanking } from '../../services/sdg/getOdsGlobalRanking';
 import { collectPublicationsForSdg } from '../../utils/sdgWorksSource';
 import { workMatchesSdg } from '../../utils/odsResearchers';
 import { cleanOrcid } from '../../utils/helpers';
@@ -50,6 +51,17 @@ function emptyTitleForReason(reason?: string): string {
   }
 }
 
+function applyOdsRows(rows: SdgRankedResearcher[]): TabState {
+  return {
+    rows,
+    loading: false,
+    error: null,
+    emptyMessage: rows.length > 0 ? null : 'No hay investigadores para este ámbito.',
+    emptyTitle: 'Sin investigadores en este ranking',
+    loaded: true,
+  };
+}
+
 function applyResponse(res: SdgResearchersApiResponse): TabState {
   return {
     rows: res.researchers,
@@ -74,8 +86,12 @@ const INITIAL_TAB: TabState = {
   loaded: false,
 };
 
-/** Obras de un autor externo (OpenAlex) en este ODS, desde getOA().authors[...].works. */
+/** Obras ODS del autor: JSON v2 embebido o fallback getOA().authors[...].works. */
 function getExternalOdsWorks(row: SdgRankedResearcher, sdgName: string, sdgNum: number): Work[] {
+  if (row.works && row.works.length > 0) {
+    return row.works;
+  }
+
   const authors = (getOA().authors || {}) as Record<
     string,
     { id?: string; orcid?: string; works?: Work[] }
@@ -128,10 +144,25 @@ export default function OdsResearchersPanel({
 
     let cancelled = false;
 
-    getAllOdsRankings(sdgId)
-      .then(({ local, ibero, global }) => {
+    getResearchersBySdg(sdgId, 'local', { skipCache: true })
+      .then(async (local) => {
         if (cancelled) return;
         setUtaState(applyResponse(local));
+
+        const odsRankings = await getOdsGlobalRanking(sdgId);
+        if (cancelled) return;
+
+        if (odsRankings) {
+          setIberoState(applyOdsRows(odsRankings.iberoamerica));
+          setGlobalState(applyOdsRows(odsRankings.global));
+          return;
+        }
+
+        const [ibero, global] = await Promise.all([
+          getResearchersBySdg(sdgId, 'iberoamerica', { skipCache: true }),
+          getResearchersBySdg(sdgId, 'global', { skipCache: true }),
+        ]);
+        if (cancelled) return;
         setIberoState(applyResponse(ibero));
         setGlobalState(applyResponse(global));
       })
@@ -175,6 +206,8 @@ export default function OdsResearchersPanel({
         h_index: row.h_index_sdg,
         works: getExternalOdsWorks(row, sdgName, sdgId),
         metricsScope: 'global_openalex',
+        global_profile: row.global_profile,
+        top_coauthors: row.top_coauthors,
       });
     }
   };
@@ -269,27 +302,18 @@ export default function OdsResearchersPanel({
       return <EmptyState icon="📭" title={state.emptyTitle} message={state.emptyMessage} />;
     }
 
-    // Buscar el perfil UTA local de cada fila (por id o por ORCID) para mostrar foto.
-    const catalog = getData();
-
     return (
       <div className="grid grid--profiles">
-        {state.rows.map((row) => {
-          const local =
-            (row.uta_researcher_id ? findResearcherByProfileId(catalog, row.uta_researcher_id) : undefined) ||
-            (row.orcid ? findResearcherByProfileId(catalog, row.orcid) : undefined);
-          return (
-            <OdsResearcherCard
-              key={row.id}
-              variant="ranking"
-              row={row}
-              researcher={local}
-              odsWorks={getExternalOdsWorks(row, sdgName, sdgId)}
-              accent={accent}
-              onClick={() => openProfile(row)}
-            />
-          );
-        })}
+        {state.rows.map((row) => (
+          <OdsResearcherCard
+            key={row.id}
+            variant="ranking"
+            row={row}
+            odsWorks={getExternalOdsWorks(row, sdgName, sdgId)}
+            accent={accent}
+            onClick={() => openProfile(row)}
+          />
+        ))}
       </div>
     );
   };
@@ -298,7 +322,7 @@ export default function OdsResearchersPanel({
     return renderUtaResearchersList(utaState, `Investigadores UTA · ${sdgName}…`);
   }
   if (activeTab === 'ibero') {
-    return renderRankingList(iberoState, `Top 10 Iberoamérica · ${sdgName}…`);
+    return renderRankingList(iberoState, `Top Iberoamérica · ${sdgName}…`);
   }
-  return renderRankingList(globalState, `Top 10 Global · ${sdgName}…`);
+  return renderRankingList(globalState, `Top Global · ${sdgName}…`);
 }

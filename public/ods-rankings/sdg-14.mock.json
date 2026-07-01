@@ -1,0 +1,432 @@
+{
+  "sdg": 14,
+  "format_version": 3,
+  "generated_at": "2026-06-30T00:00:00Z",
+  "method": "Mock v3 para UI — rankings Global e Iberoamérica por FWCI, 2020-2025",
+  "period": "2020-2025",
+  "thresholds": {
+    "global": { "min_works": 50, "min_h": 10 },
+    "iberoamerica": { "min_works": 20, "min_h": 5 }
+  },
+  "iberoamerica_countries": [
+    "AR", "BO", "BR", "CL", "CO", "CR", "CU", "DO", "EC", "SV", "GT", "HN",
+    "MX", "NI", "PA", "PY", "PE", "PR", "PT", "ES", "UY", "VE"
+  ],
+  "ibero_group_by_ok": true,
+  "http_stats": {
+    "total": 0,
+    "candidatesSweep": 0,
+    "authors": 0,
+    "careerWorks": 0,
+    "rateLimited429": 0
+  },
+  "rankings": {
+    "global": [
+      {
+        "rank": 1,
+        "name": "Jean-Pierre Gattuso",
+        "openalex_id": "https://openalex.org/A5000000001",
+        "orcid": "0000-0002-4533-4114",
+        "country": "FR",
+        "institution": "Laboratoire d'Océanographie de Villefranche",
+        "fwci": 9.3,
+        "publications": 110,
+        "citations_ods": 3840,
+        "h_index_ods": 22,
+        "global_profile": {
+          "source": "openalex",
+          "fetched_at": "2026-06-30T00:00:00Z",
+          "author_id": "https://openalex.org/A5000000001",
+          "home_country": "FR",
+          "works_count": 412,
+          "cited_by_count": 38200,
+          "h_index": 89,
+          "i10_index": 204,
+          "fwci_mean": 6.8,
+          "elite": {
+            "total": 412,
+            "top10": 148,
+            "top1": 34,
+            "pct10": 36,
+            "pct1": 8
+          },
+          "oa": {
+            "pct": 71,
+            "segments": [
+              { "key": "gold", "label": "Oro", "color": "#EAB308", "count": 132, "pct": 32 },
+              { "key": "green", "label": "Verde", "color": "#15803D", "count": 99, "pct": 24 },
+              { "key": "hybrid", "label": "Híbrido", "color": "#3B82F6", "count": 62, "pct": 15 },
+              { "key": "closed", "label": "Cerrado", "color": "#9CA3AF", "count": 119, "pct": 29 }
+            ]
+          },
+          "scope": {
+            "intl": 65,
+            "natl": 24,
+            "inst": 11,
+            "total": 412
+          },
+          "cuartiles": {
+            "Q1": 290,
+            "Q2": 78,
+            "Q3": 28,
+            "Q4": 16,
+            "with_quartile": 412
+          },
+          "trajectory": [
+            { "year": 2018, "works": 16, "cum_cits": 24000 },
+            { "year": 2019, "works": 18, "cum_cits": 27000 },
+            { "year": 2020, "works": 22, "cum_cits": 30000 },
+            { "year": 2021, "works": 20, "cum_cits": 33000 },
+            { "year": 2022, "works": 24, "cum_cits": 35500 },
+            { "year": 2023, "works": 26, "cum_cits": 37200 },
+            { "year": 2024, "works": 28, "cum_cits": 38200 }
+          ],
+          "top_works": [
+            {
+              "title": "Contrasting futures for ocean and society from CO₂ scenarios",
+              "year": 2015,
+              "cited": 1247,
+              "fwci": 42.0,
+              "journal": "Science",
+              "doi": "https://openalex.org/W2900000001",
+              "oa_status": "gold"
+            },
+            {
+              "title": "Ocean acidification and its potential effects on marine ecosystems",
+              "year": 2020,
+              "cited": 689,
+              "fwci": 18.0,
+              "journal": "Annual Review of Marine Science",
+              "doi": "https://openalex.org/W2900000002",
+              "oa_status": "hybrid"
+            }
+          ]
+        },
+        "top_coauthors": [
+          {
+            "name": "Carlos M. Duarte",
+            "openalex_id": "https://openalex.org/A5000000002",
+            "institution": "KAUST",
+            "country": "SA",
+            "works_together": 31
+          },
+          {
+            "name": "Laurent Bopp",
+            "openalex_id": "https://openalex.org/A5000000010",
+            "institution": "CNRS",
+            "country": "FR",
+            "works_together": 24
+          },
+          {
+            "name": "Nicolas Gruber",
+            "openalex_id": "https://openalex.org/A5000000011",
+            "institution": "ETH Zurich",
+            "country": "CH",
+            "works_together": 19
+          }
+        ],
+        "works": [
+          {
+            "t": "Contrasting futures for ocean and society from CO₂ scenarios",
+            "y": 2015,
+            "c": 1247,
+            "impact": 42.0,
+            "d": "10.1126/science.aac4722",
+            "oa": true,
+            "s": "Science",
+            "a": ["J.-P. Gattuso", "A. Magnan"],
+            "topic": "Acidificación oceánica",
+            "field": "Ciencias Ambientales",
+            "type": "article",
+            "openalex_id": "https://openalex.org/W1",
+            "issn": "0036-8075",
+            "qi": "Q1"
+          },
+          {
+            "t": "Ocean acidification effects on marine ecosystems",
+            "y": 2020,
+            "c": 689,
+            "impact": 18.0,
+            "d": "10.1146/annurev-marine-010419",
+            "oa": true,
+            "s": "Annual Review of Marine Science",
+            "a": ["J.-P. Gattuso", "L. Hansson"],
+            "topic": "Acidificación oceánica",
+            "field": "Ciencias Ambientales",
+            "type": "article",
+            "openalex_id": "https://openalex.org/W2",
+            "issn": "1941-1405",
+            "qi": "Q1"
+          },
+          {
+            "t": "Blue carbon in coastal vegetated ecosystems",
+            "y": 2021,
+            "c": 432,
+            "impact": 15.0,
+            "d": "10.1038/s41561-021",
+            "oa": true,
+            "s": "Nature Geoscience",
+            "a": ["J.-P. Gattuso", "C. Duarte"],
+            "topic": "Carbono azul",
+            "field": "Ciencias de la Tierra",
+            "type": "article",
+            "openalex_id": "https://openalex.org/W3",
+            "issn": "1752-0894",
+            "qi": "Q1"
+          }
+        ]
+      },
+      {
+        "rank": 2,
+        "name": "Test Sin Perfil",
+        "openalex_id": "https://openalex.org/A5000000099",
+        "orcid": null,
+        "country": "US",
+        "institution": "Some University",
+        "fwci": 8.0,
+        "publications": 80,
+        "citations_ods": 1200,
+        "h_index_ods": 18,
+        "global_profile": null,
+        "top_coauthors": [],
+        "works": [
+          {
+            "t": "Work without quartile",
+            "y": 2022,
+            "c": 40,
+            "impact": 3.2,
+            "d": null,
+            "oa": false,
+            "s": "Niche Journal",
+            "a": ["Test Author"],
+            "topic": "Marine biology",
+            "field": "Ciencias Ambientales",
+            "type": "article",
+            "openalex_id": "https://openalex.org/W90",
+            "issn": null,
+            "qi": null
+          }
+        ]
+      }
+    ],
+    "iberoamerica": [
+      {
+        "rank": 1,
+        "name": "María José Fernández",
+        "openalex_id": "https://openalex.org/A5000000050",
+        "orcid": "0000-0003-0000-0050",
+        "country": "ES",
+        "institution": "Universidad de Vigo",
+        "fwci": 4.2,
+        "publications": 34,
+        "citations_ods": 890,
+        "h_index_ods": 14,
+        "global_profile": {
+          "source": "openalex",
+          "fetched_at": "2026-06-30T00:00:00Z",
+          "author_id": "https://openalex.org/A5000000050",
+          "home_country": "ES",
+          "works_count": 98,
+          "cited_by_count": 3200,
+          "h_index": 31,
+          "i10_index": 58,
+          "fwci_mean": 3.1,
+          "elite": {
+            "total": 98,
+            "top10": 22,
+            "top1": 3,
+            "pct10": 22,
+            "pct1": 3
+          },
+          "oa": {
+            "pct": 64,
+            "segments": [
+              { "key": "gold", "label": "Oro", "color": "#EAB308", "count": 27, "pct": 28 },
+              { "key": "green", "label": "Verde", "color": "#15803D", "count": 22, "pct": 22 },
+              { "key": "hybrid", "label": "Híbrido", "color": "#3B82F6", "count": 14, "pct": 14 },
+              { "key": "closed", "label": "Cerrado", "color": "#9CA3AF", "count": 35, "pct": 36 }
+            ]
+          },
+          "scope": {
+            "intl": 55,
+            "natl": 32,
+            "inst": 13,
+            "total": 98
+          },
+          "cuartiles": {
+            "Q1": 61,
+            "Q2": 24,
+            "Q3": 9,
+            "Q4": 4,
+            "with_quartile": 98
+          },
+          "trajectory": [
+            { "year": 2020, "works": 12, "cum_cits": 1800 },
+            { "year": 2021, "works": 14, "cum_cits": 2200 },
+            { "year": 2022, "works": 16, "cum_cits": 2600 },
+            { "year": 2023, "works": 15, "cum_cits": 2950 },
+            { "year": 2024, "works": 18, "cum_cits": 3200 }
+          ],
+          "top_works": [
+            {
+              "title": "Coastal ecosystem resilience in the Atlantic",
+              "year": 2021,
+              "cited": 210,
+              "fwci": 9.1,
+              "journal": "Marine Ecology Progress Series",
+              "doi": "https://openalex.org/W2900000050",
+              "oa_status": "green"
+            }
+          ]
+        },
+        "top_coauthors": [
+          {
+            "name": "Carlos Duarte",
+            "openalex_id": "https://openalex.org/A5000000002",
+            "institution": "KAUST",
+            "country": "SA",
+            "works_together": 8
+          }
+        ],
+        "works": [
+          {
+            "t": "Coastal ecosystem resilience in the Atlantic",
+            "y": 2021,
+            "c": 210,
+            "impact": 9.1,
+            "d": "10.3354/meps",
+            "oa": true,
+            "s": "Marine Ecology Progress Series",
+            "a": ["M.J. Fernández"],
+            "topic": "Ecosistemas costeros",
+            "field": "Ciencias Ambientales",
+            "type": "article",
+            "openalex_id": "https://openalex.org/W50",
+            "issn": "0171-8630",
+            "qi": "Q1"
+          }
+        ]
+      },
+      {
+        "rank": 2,
+        "name": "Camila Rojas",
+        "openalex_id": "https://openalex.org/A5000000060",
+        "orcid": "0000-0002-6000-0060",
+        "country": "CL",
+        "institution": "Universidad de Concepción",
+        "fwci": 3.8,
+        "publications": 28,
+        "citations_ods": 540,
+        "h_index_ods": 12,
+        "global_profile": {
+          "source": "openalex",
+          "fetched_at": "2026-06-30T00:00:00Z",
+          "author_id": "https://openalex.org/A5000000060",
+          "home_country": "CL",
+          "works_count": 76,
+          "cited_by_count": 1850,
+          "h_index": 24,
+          "i10_index": 41,
+          "fwci_mean": 2.9,
+          "elite": {
+            "total": 76,
+            "top10": 14,
+            "top1": 1,
+            "pct10": 18,
+            "pct1": 1
+          },
+          "oa": {
+            "pct": 58,
+            "segments": [
+              { "key": "gold", "label": "Oro", "color": "#EAB308", "count": 15, "pct": 20 },
+              { "key": "green", "label": "Verde", "color": "#15803D", "count": 18, "pct": 24 },
+              { "key": "hybrid", "label": "Híbrido", "color": "#3B82F6", "count": 11, "pct": 14 },
+              { "key": "closed", "label": "Cerrado", "color": "#9CA3AF", "count": 32, "pct": 42 }
+            ]
+          },
+          "scope": {
+            "intl": 48,
+            "natl": 38,
+            "inst": 14,
+            "total": 76
+          },
+          "cuartiles": {
+            "Q1": 42,
+            "Q2": 19,
+            "Q3": 10,
+            "Q4": 5,
+            "with_quartile": 76
+          },
+          "trajectory": [
+            { "year": 2020, "works": 9, "cum_cits": 980 },
+            { "year": 2021, "works": 11, "cum_cits": 1200 },
+            { "year": 2022, "works": 13, "cum_cits": 1450 },
+            { "year": 2023, "works": 12, "cum_cits": 1680 },
+            { "year": 2024, "works": 14, "cum_cits": 1850 }
+          ],
+          "top_works": [
+            {
+              "title": "Upwelling and fisheries productivity off central Chile",
+              "year": 2022,
+              "cited": 98,
+              "fwci": 6.4,
+              "journal": "Progress in Oceanography",
+              "doi": "https://openalex.org/W2900000060",
+              "oa_status": "green"
+            }
+          ]
+        },
+        "top_coauthors": [
+          {
+            "name": "María José Fernández",
+            "openalex_id": "https://openalex.org/A5000000050",
+            "institution": "Universidad de Vigo",
+            "country": "ES",
+            "works_together": 5
+          },
+          {
+            "name": "Jean-Pierre Gattuso",
+            "openalex_id": "https://openalex.org/A5000000001",
+            "institution": "LOV",
+            "country": "FR",
+            "works_together": 3
+          }
+        ],
+        "works": [
+          {
+            "t": "Upwelling and fisheries productivity off central Chile",
+            "y": 2022,
+            "c": 98,
+            "impact": 6.4,
+            "d": "10.1016/j.pocean.2022",
+            "oa": true,
+            "s": "Progress in Oceanography",
+            "a": ["C. Rojas", "P. Torres"],
+            "topic": "Afloramiento costero",
+            "field": "Ciencias del Mar",
+            "type": "article",
+            "openalex_id": "https://openalex.org/W60",
+            "issn": "0079-6611",
+            "qi": "Q1"
+          },
+          {
+            "t": "Microplastics in Humboldt Current surface waters",
+            "y": 2023,
+            "c": 45,
+            "impact": 4.1,
+            "d": "10.1016/j.marpolbul.2023",
+            "oa": false,
+            "s": "Marine Pollution Bulletin",
+            "a": ["C. Rojas"],
+            "topic": "Microplásticos",
+            "field": "Ciencias Ambientales",
+            "type": "article",
+            "openalex_id": "https://openalex.org/W61",
+            "issn": "0025-326X",
+            "qi": "Q2"
+          }
+        ]
+      }
+    ]
+  }
+}

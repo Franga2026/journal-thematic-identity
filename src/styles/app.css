@@ -3228,6 +3228,235 @@ input, select { font-family: var(--font); }
   color: #64748b;
 }
 
+/* ODS referent layout (CoAuthorModal global_openalex) */
+.coauthor-global--ods {
+  margin-top: 12px;
+  padding-top: 0;
+  border-top: none;
+}
+
+.coauthor-ods-dual-kpi {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.coauthor-ods-kpi-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  border-top-width: 3px;
+  border-top-style: solid;
+}
+
+.coauthor-ods-kpi-card--ods {
+  border-top-color: var(--color-text-info, #0E7E9E);
+}
+
+.coauthor-ods-kpi-card--global {
+  border-top-color: var(--color-text-secondary, #64748b);
+}
+
+.coauthor-ods-kpi-card__title {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.coauthor-ods-kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+}
+
+.coauthor-ods-kpi-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.coauthor-ods-kpi-cell__value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--blue-800, #1e3a5f);
+  line-height: 1.1;
+}
+
+.coauthor-ods-kpi-cell__value--green {
+  color: var(--green-700, #15803d);
+}
+
+.coauthor-ods-kpi-cell__label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gray-500, #64748b);
+}
+
+.coauthor-ods-detail-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.coauthor-ods-detail-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.coauthor-ods-quartile-bar {
+  display: flex;
+  height: 22px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.coauthor-ods-quartile-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  min-width: 0;
+}
+
+.coauthor-ods-quartile-legend {
+  margin: 0;
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.coauthor-ods-elite {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
+
+.coauthor-ods-elite__item {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.coauthor-ods-elite__num {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--green-700, #15803d);
+  line-height: 1;
+}
+
+.coauthor-ods-elite__lbl {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.coauthor-ods-oa {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.coauthor-ods-oa-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.coauthor-ods-oa-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.coauthor-ods-oa-legend__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.coauthor-ods-scope-inline {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.coauthor-ods-coauthor-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.coauthor-ods-coauthor-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 12px;
+  color: #334155;
+  max-width: 100%;
+}
+
+.coauthor-ods-coauthor-chip__avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1f4e68;
+  color: #cbe6f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.coauthor-ods-coauthor-chip__label {
+  line-height: 1.3;
+  min-width: 0;
+}
+
+.coauthor-ods-coauthor-chip__badge {
+  flex-shrink: 0;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #0e7490;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 680px) {
+  .coauthor-ods-dual-kpi,
+  .coauthor-ods-detail-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 680px) {
   .cg-uta-coauthors {
     grid-template-columns: 1fr;
