@@ -33,7 +33,9 @@ export interface OdsGlobalRanking {
   iberoamerica: SdgRankedResearcher[];
 }
 
-const MOCK_SDG_ID = 14;
+type OdsRankingSource = 'real' | 'mock' | 'empty';
+
+const EMPTY_RANKING: OdsGlobalRanking = { global: [], iberoamerica: [] };
 
 function mapJsonRow(
   row: OdsRankingJsonResearcher,
@@ -72,33 +74,40 @@ function parseRankingFile(raw: OdsRankingFileV3, sdgId: number): OdsGlobalRankin
   return { global, iberoamerica };
 }
 
+function logRankingSource(sdgId: number, source: OdsRankingSource) {
+  const label = source === 'real' ? 'JSON real' : source === 'mock' ? 'mock' : 'vacío';
+  console.debug(`[getOdsGlobalRanking] SDG ${sdgId}: fuente ${label}`);
+}
+
 /**
  * Rankings ODS precomputados (Global + Iberoamérica).
- * SDG 14: producción en /ods-rankings/sdg-14.json; mock como fallback.
- * Otros ODS: /ods-rankings/sdg-{n}.json cuando exista.
+ * Intenta sdg-{n}.json, luego sdg-{n}.mock.json; si no hay ninguno, devuelve listas vacías.
  */
-async function fetchRankingJson(sdgId: number): Promise<OdsRankingFileV3 | null> {
-  const urls =
-    sdgId === MOCK_SDG_ID
-      ? ['/ods-rankings/sdg-14.json', '/ods-rankings/sdg-14.mock.json']
-      : [`/ods-rankings/sdg-${sdgId}.json`];
+async function fetchRankingJson(
+  sdgId: number,
+): Promise<{ raw: OdsRankingFileV3 | null; source: OdsRankingSource }> {
+  const candidates: { url: string; source: Exclude<OdsRankingSource, 'empty'> }[] = [
+    { url: `/ods-rankings/sdg-${sdgId}.json`, source: 'real' },
+    { url: `/ods-rankings/sdg-${sdgId}.mock.json`, source: 'mock' },
+  ];
 
-  for (const url of urls) {
+  for (const { url, source } of candidates) {
     try {
       const res = await fetch(url);
       if (!res.ok) continue;
       const raw = (await res.json()) as OdsRankingFileV3;
       if (raw.format_version < 3 || raw.sdg !== sdgId) continue;
-      return raw;
+      return { raw, source };
     } catch {
       continue;
     }
   }
-  return null;
+  return { raw: null, source: 'empty' };
 }
 
-export async function getOdsGlobalRanking(sdgId: number): Promise<OdsGlobalRanking | null> {
-  const raw = await fetchRankingJson(sdgId);
-  if (!raw) return null;
-  return parseRankingFile(raw, sdgId);
+export async function getOdsGlobalRanking(sdgId: number): Promise<OdsGlobalRanking> {
+  const { raw, source } = await fetchRankingJson(sdgId);
+  logRankingSource(sdgId, source);
+  if (!raw) return EMPTY_RANKING;
+  return parseRankingFile(raw, sdgId) ?? EMPTY_RANKING;
 }
