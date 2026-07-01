@@ -35,6 +35,25 @@ import { fetchDataCiteUsage, type DataCiteUsage } from '../../utils/datasetUsage
 import { fwciWorkCardTileMeta } from '../../utils/fwciKpiDisplay';
 import { fieldEs, topicLineEs } from '../../utils/fieldEs';
 
+const Q_COLORS: Record<string, string> = {
+  Q1: '#15803D',
+  Q2: '#0E7E9E',
+  Q3: '#D97706',
+  Q4: '#B5482F',
+};
+
+function normalizeQuartile(qi?: string): string | null {
+  if (!qi?.trim()) return null;
+  const match = qi.trim().toUpperCase().match(/^Q?([1-4])$/);
+  if (!match) return null;
+  return `Q${match[1]}`;
+}
+
+function quartileColor(qi: string, qc?: string): string {
+  if (qc?.trim()) return qc.trim();
+  return Q_COLORS[qi] ?? '#64748b';
+}
+
 export const ODS_COLORS: Record<number, string> = {
   1: '#E5243B',
   2: '#DDA63A',
@@ -474,7 +493,8 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
     w.impact != null || w.fwci != null || fwci !== null || fwciEligible;
   const showMetrics = showCitasTile || showFwciTile;
 
-  const metaParts = [year, source].filter(Boolean);
+  const normalizedQi = normalizeQuartile(w.qi);
+  const sjrBadgeColor = normalizedQi ? quartileColor(normalizedQi, w.qc) : null;
 
   const { display: fwciDisplay, note: fwciNote, title: fwciTitle } = fwciWorkCardTileMeta(
     w,
@@ -509,7 +529,7 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
   };
 
   const hasChips =
-    (isEnriched && Boolean(w.qi))
+    (isEnriched && Boolean(normalizedQi))
     || w.oa === true
     || (isEnriched && (w.sdgs || []).length > 0)
     || Boolean(w.field);
@@ -565,8 +585,12 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
         </div>
       )}
 
-      {metaParts.length > 0 && (
-        <p className="work-card__meta-text work-card__meta-text--coauthor">{metaParts.join(' · ')}</p>
+      {(year || source) && (
+        <p className="work-card__meta-text work-card__meta-text--coauthor">
+          {year}
+          {year && source && ' · '}
+          {source && <strong>{source}</strong>}
+        </p>
       )}
 
       {(w.field || w.topic) && (
@@ -600,9 +624,16 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
       <div className="work-card__chips work-card__chips--coauthor">
         {hasChips && (
           <div className="work-card__chips-left">
-            {isEnriched && w.qi && (
-              <span className="work-card__chip work-card__chip--quartile">
-                SJR · {w.qi}
+            {isEnriched && normalizedQi && (
+              <span
+                className="work-card__chip work-card__chip--quartile"
+                style={{
+                  background: sjrBadgeColor ?? undefined,
+                  color: '#fff',
+                  borderColor: 'transparent',
+                }}
+              >
+                SJR {normalizedQi}
               </span>
             )}
             {w.oa === true && (

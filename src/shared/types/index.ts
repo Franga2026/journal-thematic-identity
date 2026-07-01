@@ -229,6 +229,14 @@ export interface CoAuthorProfile {
   publicationListScope?: ResearcherMetricsScope;
   /** Perfil global de carrera (OpenAlex), pre-cacheado por enrich-coauthor-global */
   global_profile?: GlobalProfile;
+  /** Top coautores en obras ODS (ranking JSON v3) */
+  top_coauthors?: Array<{
+    name: string;
+    openalex_id?: string;
+    institution?: string | null;
+    country?: string | null;
+    works_together: number;
+  }>;
 }
 
 // ─── AI Data ───
