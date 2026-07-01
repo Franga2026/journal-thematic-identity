@@ -27,3 +27,4 @@ outputs/ods-rankings/*.log
 outputs/ods-rankings/*.backup*
 outputs/*.png
 outputs/ods-rankings/*.bak*
+.env.local
