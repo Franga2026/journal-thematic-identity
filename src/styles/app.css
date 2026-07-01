@@ -3200,6 +3200,42 @@ input, select { font-family: var(--font); }
   color: #3d6278;
 }
 
+.coauthor-uta-opportunity--ods-band {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--gray-50);
+  border: none;
+}
+
+.coauthor-uta-opportunity--ods-band__icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.coauthor-uta-opportunity--ods-band__text {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #3d6278;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 680px) {
+  .coauthor-uta-opportunity--ods-band__text {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
 .coauthor-top-coauthors {
   list-style: none;
   margin: 0;

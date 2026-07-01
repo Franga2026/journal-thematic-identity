@@ -509,19 +509,14 @@ export default function CoAuthorModal() {
           )}
 
           {isOdsReferent && utaCoauthorCount === 0 && (
-            <div className="coauthor-uta-opportunity" role="note">
-              <div className="coauthor-uta-opportunity__icon" aria-hidden>
+            <div className="coauthor-uta-opportunity coauthor-uta-opportunity--ods-band" role="note">
+              <span className="coauthor-uta-opportunity--ods-band__icon" aria-hidden>
                 🔗
-              </div>
-              <div className="coauthor-uta-opportunity__body">
-                <h4 className="coauthor-uta-opportunity__title">
-                  Sin colaboración previa con la Universidad de Tarapacá
-                </h4>
-                <p className="coauthor-uta-opportunity__text">
-                  Referente internacional en este ODS. Potencial oportunidad de vinculación para
-                  investigadores UTA.
-                </p>
-              </div>
+              </span>
+              <span className="coauthor-uta-opportunity--ods-band__text">
+                Sin colaboración previa con la UTA. Referente internacional en este ODS — oportunidad
+                de vinculación.
+              </span>
             </div>
           )}
 
@@ -604,41 +599,6 @@ export default function CoAuthorModal() {
             </div>
           ) : null}
 
-          {fieldCounts.length > 0 && (
-            <section className="coauthor-section" aria-labelledby="coauthor-lines-label">
-              <h3 id="coauthor-lines-label" className="coauthor-section__label">
-                Áreas temáticas
-              </h3>
-              <div className="coauthor-line-chips">
-                {isOdsReferent && (
-                  <button
-                    type="button"
-                    className={`coauthor-line-chip ${!fieldFilter ? 'coauthor-line-chip--active' : ''}`}
-                    onClick={() => {
-                      setFieldFilter('');
-                      setPage(0);
-                    }}
-                  >
-                    Todas · {allWorks.length}
-                  </button>
-                )}
-                {fieldCounts.map(([f, n]) => (
-                  <button
-                    key={f}
-                    type="button"
-                    className={`coauthor-line-chip ${fieldFilter === f ? 'coauthor-line-chip--active' : ''}`}
-                    onClick={() => {
-                      setFieldFilter((prev) => (prev === f ? '' : f));
-                      setPage(0);
-                    }}
-                  >
-                    {fieldEs(f)} · {n}
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
-
           {isOdsReferent && ca.top_coauthors && ca.top_coauthors.length > 0 && (
             <section className="coauthor-section" aria-labelledby="coauthor-top-coauthors-label">
               <h3 id="coauthor-top-coauthors-label" className="coauthor-section__label">
@@ -664,6 +624,45 @@ export default function CoAuthorModal() {
                     </div>
                   );
                 })}
+              </div>
+            </section>
+          )}
+
+          {fieldCounts.length > 0 && (
+            <section className="coauthor-section" aria-labelledby="coauthor-lines-label">
+              <h3 id="coauthor-lines-label" className="coauthor-section__label">
+                Áreas temáticas
+              </h3>
+              <div className={isOdsReferent ? 'rps-chips' : 'coauthor-line-chips'}>
+                {isOdsReferent && (
+                  <button
+                    type="button"
+                    className={`rps-chip${!fieldFilter ? ' rps-chip--active' : ''}`}
+                    onClick={() => {
+                      setFieldFilter('');
+                      setPage(0);
+                    }}
+                  >
+                    Todas · {allWorks.length}
+                  </button>
+                )}
+                {fieldCounts.map(([f, n]) => (
+                  <button
+                    key={f}
+                    type="button"
+                    className={
+                      isOdsReferent
+                        ? `rps-chip${fieldFilter === f ? ' rps-chip--active' : ''}`
+                        : `coauthor-line-chip ${fieldFilter === f ? 'coauthor-line-chip--active' : ''}`
+                    }
+                    onClick={() => {
+                      setFieldFilter((prev) => (prev === f ? '' : f));
+                      setPage(0);
+                    }}
+                  >
+                    {fieldEs(f)} · {n}
+                  </button>
+                ))}
               </div>
             </section>
           )}
