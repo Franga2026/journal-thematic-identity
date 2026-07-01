@@ -74,22 +74,31 @@ function parseRankingFile(raw: OdsRankingFileV3, sdgId: number): OdsGlobalRankin
 
 /**
  * Rankings ODS precomputados (Global + Iberoamérica).
- * Hoy: mock v3 en public/ods-rankings/sdg-14.mock.json (origen scripts/ods/sdg-14.mock.json).
- * Mañana: fetch a /ods-rankings/sdg-{n}.json en producción.
+ * SDG 14: producción en /ods-rankings/sdg-14.json; mock como fallback.
+ * Otros ODS: /ods-rankings/sdg-{n}.json cuando exista.
  */
-export async function getOdsGlobalRanking(sdgId: number): Promise<OdsGlobalRanking | null> {
-  const url =
+async function fetchRankingJson(sdgId: number): Promise<OdsRankingFileV3 | null> {
+  const urls =
     sdgId === MOCK_SDG_ID
-      ? '/ods-rankings/sdg-14.mock.json'
-      : `/ods-rankings/sdg-${sdgId}.json`;
+      ? ['/ods-rankings/sdg-14.json', '/ods-rankings/sdg-14.mock.json']
+      : [`/ods-rankings/sdg-${sdgId}.json`];
 
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    const raw = (await res.json()) as OdsRankingFileV3;
-    if (raw.format_version < 3 || raw.sdg !== sdgId) return null;
-    return parseRankingFile(raw, sdgId);
-  } catch {
-    return null;
+  for (const url of urls) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      const raw = (await res.json()) as OdsRankingFileV3;
+      if (raw.format_version < 3 || raw.sdg !== sdgId) continue;
+      return raw;
+    } catch {
+      continue;
+    }
   }
+  return null;
+}
+
+export async function getOdsGlobalRanking(sdgId: number): Promise<OdsGlobalRanking | null> {
+  const raw = await fetchRankingJson(sdgId);
+  if (!raw) return null;
+  return parseRankingFile(raw, sdgId);
 }
