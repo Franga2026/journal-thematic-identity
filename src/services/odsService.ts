@@ -32,7 +32,7 @@ export function parseOpenAlexAuthorId(idOrUrl: string): string {
   return match ? match[1].toUpperCase() : raw.replace(/^https?:\/\/openalex\.org\//i, '');
 }
 
-/** Mapeo estándar /authors?search=… (Top 10 Global / Iberoamérica) */
+/** Mapeo estándar /authors?search=… (Top 25 Global / Iberoamérica en rankings persistidos) */
 function mapAuthorFromSearchEndpoint(
   row: OpenAlexAuthorsResponse['results'][0]
 ): OpenAlexAuthorSummary {
@@ -90,7 +90,7 @@ export function normalizeSdgNumber(sdgNumber: number | string | undefined): numb
 export type OdsAuthorScope = 'ibero' | 'global';
 
 /**
- * Top 10 por ODS: /authors?search={nombre ODS en inglés}&filter=has_orcid:true
+ * Top 25 por ODS (legacy search): /authors?search={nombre ODS en inglés}&filter=has_orcid:true
  */
 export function buildTopAuthorsByOdsNameUrl(odsName: string, scope: OdsAuthorScope): string {
   const search = encodeURIComponent(odsName.trim());

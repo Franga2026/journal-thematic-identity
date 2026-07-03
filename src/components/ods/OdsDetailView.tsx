@@ -1,25 +1,58 @@
-import { startTransition, useMemo, useState } from 'react';
+import { startTransition, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { SDG_COLORS, SDG_ES } from '../../utils/constants';
 import { getInstitution } from '../../utils/dataProcessing';
 import { collectPublicationsForSdg } from '../../utils/sdgWorksSource';
 import { resolveSdgFromRoute } from '../../utils/sdgNormalize';
 import { clearSdgRankingCache } from '../../services/sdg/cache';
+import { getOdsGlobalRanking } from '../../services/sdg/getOdsGlobalRanking';
 import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import OdsResearchersPanel, { type OdsResearchersTab } from './OdsResearchersPanel';
-
-const TABS: { key: OdsResearchersTab; label: string }[] = [
-  { key: 'uta', label: 'Investigadores UTA' },
-  { key: 'ibero', label: 'Top 10 Iberoamérica' },
-  { key: 'global', label: 'Top 10 Global' },
-];
 
 export default function OdsDetailView() {
   const { sdgNum } = useParams();
   const navigate = useTransitionNavigate();
   const [activeTab, setActiveTab] = useState<OdsResearchersTab>('uta');
+  const [rankingSizes, setRankingSizes] = useState<{ ibero: number | null; global: number | null }>({
+    ibero: null,
+    global: null,
+  });
 
   const sdgContext = useMemo(() => resolveSdgFromRoute(sdgNum), [sdgNum]);
+
+  useEffect(() => {
+    if (!sdgContext) return;
+    let cancelled = false;
+    getOdsGlobalRanking(sdgContext.sdgNum).then((rankings) => {
+      if (cancelled || !rankings) return;
+      setRankingSizes({
+        ibero: rankings.iberoamerica.length,
+        global: rankings.global.length,
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [sdgContext?.sdgNum]);
+
+  const tabs = useMemo(
+    (): { key: OdsResearchersTab; label: string }[] => [
+      { key: 'uta', label: 'Investigadores UTA' },
+      {
+        key: 'ibero',
+        label:
+          rankingSizes.ibero != null
+            ? `Top ${rankingSizes.ibero} Iberoamérica`
+            : 'Top Iberoamérica',
+      },
+      {
+        key: 'global',
+        label:
+          rankingSizes.global != null ? `Top ${rankingSizes.global} Global` : 'Top Global',
+      },
+    ],
+    [rankingSizes.ibero, rankingSizes.global],
+  );
   const INST = getInstitution();
 
   const instSdg = useMemo(() => {
@@ -74,7 +107,7 @@ export default function OdsDetailView() {
       </header>
 
       <nav className="ods-detail__tabs" role="tablist" aria-label="Investigadores por ODS">
-        {TABS.map(({ key, label }) => (
+        {tabs.map(({ key, label }) => (
           <button
             key={key}
             type="button"

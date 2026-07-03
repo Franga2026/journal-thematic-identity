@@ -126,7 +126,7 @@ input, select { font-family: var(--font); }
   z-index: 1;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 56px 32px 48px;
+  padding: 40px 32px 36px;
   text-align: center;
 }
 
@@ -136,8 +136,8 @@ input, select { font-family: var(--font); }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 45vh;
-  padding: 48px 32px;
+  min-height: 30vh;
+  padding: 40px 32px;
 }
 
 .header--institutional .search-wrapper {
