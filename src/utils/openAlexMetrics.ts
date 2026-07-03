@@ -54,6 +54,7 @@ interface OpenAlexWork {
   publication_year?: number;
   type?: string;
   fwci?: number | null;
+  cited_by_count?: number;
   primary_location?: OpenAlexPrimaryLocation;
 }
 interface WorksListResponse {
@@ -111,6 +112,19 @@ export interface AuthorOA extends AuthorCore {
   fetchedAt: string;
   source: 'openalex';
 }
+
+/** Métricas verificables desde /works (vs agregado inflado de /authors). */
+export interface AuthorWorksMetrics {
+  worksCountReal: number;
+  citedByCountReal: number;
+  hIndexReal: number;
+  worksCountProfile: number;
+  identityFlag: 'possible_merge' | null;
+  mergeRatio: number | null;
+}
+
+/** Perfil /authors con works_count >> obras reales bajo author.id → posible fusión. */
+export const IDENTITY_MERGE_RATIO_THRESHOLD = 2;
 
 export interface FwciOptions {
   sinceYear?: number;
@@ -193,6 +207,77 @@ export class OpenAlexClient {
       cursor = data.meta?.next_cursor ?? null;
     }
   }
+}
+
+/** h-index clásico: mayor h tal que h obras tienen ≥ h citas. */
+export function computeHIndex(citationCounts: number[]): number {
+  const sorted = citationCounts
+    .filter((c) => typeof c === 'number' && c >= 0)
+    .sort((a, b) => b - a);
+  let h = 0;
+  for (let i = 0; i < sorted.length; i++) {
+    if ((sorted[i] ?? 0) >= i + 1) h = i + 1;
+    else break;
+  }
+  return h;
+}
+
+export function detectIdentityMergeFlag(
+  worksCountProfile: number,
+  worksCountReal: number,
+  threshold = IDENTITY_MERGE_RATIO_THRESHOLD,
+): 'possible_merge' | null {
+  if (worksCountProfile <= 0) return null;
+  if (worksCountReal <= 0) return worksCountProfile >= threshold ? 'possible_merge' : null;
+  return worksCountProfile / worksCountReal >= threshold ? 'possible_merge' : null;
+}
+
+/**
+ * Conteos desde /works?filter=authorships.author.id (verificable).
+ * worksCountProfile = agregado previo de /authors (para detectar fusiones).
+ */
+export async function computeAuthorMetricsFromWorks(
+  client: OpenAlexClient,
+  authorId: string,
+  worksCountProfile: number,
+): Promise<AuthorWorksMetrics> {
+  const aid = shortId(authorId);
+  if (!aid) {
+    return {
+      worksCountReal: 0,
+      citedByCountReal: 0,
+      hIndexReal: 0,
+      worksCountProfile,
+      identityFlag: null,
+      mergeRatio: null,
+    };
+  }
+
+  const filter = `authorships.author.id:${aid}`;
+  const countData = await client.get<CountResponse>('/works', {
+    filter,
+    'per-page': '1',
+  });
+  const worksCountReal = countData.meta?.count ?? 0;
+
+  const citations: number[] = [];
+  for await (const w of client.iterWorks(filter, 'cited_by_count')) {
+    citations.push(typeof w.cited_by_count === 'number' ? w.cited_by_count : 0);
+  }
+
+  const citedByCountReal = citations.reduce((s, c) => s + c, 0);
+  const hIndexReal = computeHIndex(citations);
+  const mergeRatio =
+    worksCountReal > 0 ? +(worksCountProfile / worksCountReal).toFixed(2) : null;
+
+  return {
+    worksCountReal,
+    citedByCountReal,
+    hIndexReal,
+    worksCountProfile,
+    identityFlag: detectIdentityMergeFlag(worksCountProfile, worksCountReal),
+    mergeRatio,
+  };
 }
 
 /** Una sola llamada al objeto autor: worksCount, citedByCount, hIndex, etc. */

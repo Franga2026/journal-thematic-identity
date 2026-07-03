@@ -35,6 +35,7 @@ export default function TabRanking() {
         q1p: q1Pct,
         q1Eligible: isQuartileRankEligible(qp) && q1Pct != null,
         oar: oa?.oaRate ?? null,
+        identityFlag: oa?.identity_flag ?? null,
         cpp: wc != null && wc > 0 && cc != null ? +(cc / wc).toFixed(1) : null,
       };
     });
@@ -130,7 +131,17 @@ export default function TabRanking() {
                       </div>
                     )}
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 600 }}>{r.f} {r.l}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6 }}>
+                        {r.f} {r.l}
+                        {r.identityFlag === 'possible_merge' && (
+                          <span
+                            title="Perfil OpenAlex posiblemente fusionado: el agregado /authors difiere mucho de las obras reales bajo este author.id"
+                            style={{ fontSize: 11, color: '#b45309', cursor: 'help' }}
+                          >
+                            ⚠
+                          </span>
+                        )}
+                      </div>
                       {r.t && <div style={{ fontSize: 10, color: '#888' }}>{r.t}</div>}
                     </div>
                   </div>

@@ -8,7 +8,8 @@
  *        (npm run enrich:fwci -- --only=0000-0002-3298-6877)  // un autor
  *
  * Es ADDITIVO: solo escribe fwci / fwciN / oaRate / fwciFetchedAt en authors[orcid].
- * No toca works_count, h_index ni el resto del profile (eso lo arma setup:data).
+ * No toca works_count, h_index ni el resto del profile (eso lo arma setup:data;
+ * works_count/cited_by/h desde /works: npm run enrich:author-metrics).
  *
  * Es IDEMPOTENTE: salta autores cuyo fwciFetchedAt sea reciente (--max-age-days, default 7),
  * salvo --force. Guarda el progreso cada 25 autores (resiliente ante caídas).

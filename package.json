@@ -18,6 +18,7 @@
     "link:works": "tsx scripts/link-autores-uta.mjs",
     "index:citations": "npx vite-node scripts/index-citations.ts",
     "enrich:fwci": "tsx scripts/enrich-fwci.ts",
+    "enrich:author-metrics": "tsx scripts/enrich-author-works-metrics.ts",
     "enrich:datasets": "tsx scripts/enrich-datasets.ts",
     "enrich:dataset-records": "tsx scripts/enrich-dataset-records.ts",
     "enrich:scopus": "tsx scripts/enrich-scopus.ts",
