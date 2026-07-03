@@ -287,6 +287,7 @@ export default function ResearcherModal() {
     setMetricDetail,
     setViewCoAuthor,
     openResearcher,
+    openResearcherKeepingPrevious,
     resolveResearcherProfile,
   } = useApp();
 
@@ -1076,7 +1077,7 @@ export default function ResearcherModal() {
                         className="researcher-affinity-chip"
                         onClick={() => {
                           const r2 = DATA.find((p) => cleanOrcid(p.o) === cleanOrcid(af.orcid));
-                          if (r2) openResearcher(r2);
+                          if (r2) openResearcherKeepingPrevious(r2);
                         }}
                       >
                         {af.name} <strong>({af.score})</strong>
