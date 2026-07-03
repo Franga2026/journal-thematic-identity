@@ -917,14 +917,12 @@ export default function ResearcherModal() {
                       {[
                         { q: 'Q1', c: 'var(--q1)' },
                         { q: 'Q2', c: 'var(--q2)' },
+                        { q: 'Q3', c: 'var(--q3)' },
+                        { q: 'Q4', c: 'var(--q4)' },
                       ].map(({ q, c }) => {
-                        const n = qp[q.toLowerCase() as 'q1'] || 0;
-                        const pct =
-                          qp.q1_pct && q === 'Q1'
-                            ? qp.q1_pct
-                            : qp.with_quartile
-                              ? +(((n / qp.with_quartile) * 100).toFixed(1))
-                              : 0;
+                        const key = q.toLowerCase() as 'q1' | 'q2' | 'q3' | 'q4';
+                        const n = qp[key] || 0;
+                        const pct = qp.with_quartile ? Math.round((n / qp.with_quartile) * 100) : 0;
                         return (
                           <span key={q} className="researcher-quartile-legend">
                             <span className="researcher-quartile-legend__dot" style={{ background: c }} />

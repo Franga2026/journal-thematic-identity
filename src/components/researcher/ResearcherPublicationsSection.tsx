@@ -5,7 +5,6 @@ import { getResearcherUtaId } from '../../utils/helpers';
 import { getEnrichedWorksForResearcher } from '../../utils/researcherWorks';
 import { sortWorks, type SortKey } from '../../utils/sortWorks';
 import ProductionWorkList from '../production/ProductionWorkList';
-import ProductionViewToggle, { type ProductionViewMode } from '../production/ProductionViewToggle';
 import { EmptyState } from '../common/UIComponents';
 
 interface ResearcherPublicationsSectionProps {
@@ -23,7 +22,6 @@ export default function ResearcherPublicationsSection({
 }: ResearcherPublicationsSectionProps) {
   const utaId = getResearcherUtaId(researcher);
   const [sortBy, setSortBy] = useState<SortKey>('citations');
-  const [viewMode, setViewMode] = useState<ProductionViewMode>('list');
 
   const works = useMemo(
     () => getEnrichedWorksForResearcher(researcher),
@@ -66,7 +64,6 @@ export default function ResearcherPublicationsSection({
       <div className="rps-head">
         <div className="rps-head__left">
           <span className="rps-count">{total} publicaciones</span>
-          <ProductionViewToggle value={viewMode} onChange={setViewMode} />
         </div>
         <div className="descubridor__sort">
           <label htmlFor="rps-sort" className="descubridor__sort-label">Ordenar por</label>
@@ -108,7 +105,7 @@ export default function ResearcherPublicationsSection({
         {publicacionesOrdenadas.length > 0 ? (
           <ProductionWorkList
             works={publicacionesOrdenadas as Work[]}
-            viewMode={viewMode}
+            viewMode="cards"
             onOpenResearcher={onOpenResearcher}
             currentResearcher={researcher}
           />
