@@ -6,6 +6,7 @@ import type { TabKey } from '../../shared/types';
 import ErrorBoundary from '../../components/common/ErrorBoundary';
 import { Loading } from '../../components/common/UIComponents';
 import AppLayout from './AppLayout';
+import DescubridorUniversalLayout from './DescubridorUniversalLayout';
 
 const TabPerfiles = lazy(() => import('../../components/tabs/TabPerfiles'));
 const ResearcherProfileRoute = lazy(() => import('./ResearcherProfileRoute'));
@@ -113,15 +114,26 @@ function ModalLayer() {
 export default function AppRouter() {
   return (
     <BrowserRouter future={{ v7_startTransition: true }}>
-      <AppLayout>
-        <Routes>
-          <Route path="/ods/:sdgNum" element={<OdsDetailRoute />} />
-          <Route path="/perfiles/:profileId" element={<ResearcherProfileRouteWrapper />} />
-          <Route path="/:tabKey" element={<TabPage />} />
-          <Route path="/" element={<Navigate to="/perfiles" replace />} />
-          <Route path="*" element={<Navigate to="/perfiles" replace />} />
-        </Routes>
-      </AppLayout>
+      <Routes>
+        <Route path="/descubrir" element={
+          <ErrorBoundary fallbackMessage="Error al cargar el descubridor universal.">
+            <Suspense fallback={<Loading message="Cargando descubridor…" />}>
+              <DescubridorUniversalLayout />
+            </Suspense>
+          </ErrorBoundary>
+        } />
+        <Route path="*" element={
+          <AppLayout>
+            <Routes>
+              <Route path="/ods/:sdgNum" element={<OdsDetailRoute />} />
+              <Route path="/perfiles/:profileId" element={<ResearcherProfileRouteWrapper />} />
+              <Route path="/:tabKey" element={<TabPage />} />
+              <Route path="/" element={<Navigate to="/perfiles" replace />} />
+              <Route path="*" element={<Navigate to="/perfiles" replace />} />
+            </Routes>
+          </AppLayout>
+        } />
+      </Routes>
       <ModalLayer />
     </BrowserRouter>
   );

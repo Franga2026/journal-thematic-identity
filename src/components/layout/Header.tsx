@@ -1,4 +1,4 @@
-import { useCallback, useMemo, type ChangeEvent } from 'react';
+import { useCallback, useMemo, useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { startTransition } from 'react';
 import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import { useUI } from '../../context/UIContext';
@@ -8,8 +8,8 @@ import type { SearchType } from '../../shared/types';
 
 export default function Header() {
   const navigate = useTransitionNavigate();
+  const [inputValue, setInputValue] = useState('');
   const {
-    search,
     setSearch,
     searchType,
     setSearchType,
@@ -19,7 +19,7 @@ export default function Header() {
   } = useUI();
   const { setOnlyOrcid, setSdgFilter } = useFilters();
 
-  const intentMeta = useMemo(() => getSearchIntentMeta(search), [search]);
+  const intentMeta = useMemo(() => getSearchIntentMeta(inputValue), [inputValue]);
 
   const clearDescubridorPresets = useCallback(() => {
     setDescubridorQuartile('');
@@ -28,24 +28,32 @@ export default function Header() {
 
   const applySearch = useCallback(
     (value: string) => {
-      const meta = getSearchIntentMeta(value);
+      const q = value.trim();
+      if (q.length < 2) return;
       startTransition(() => {
-        setSearch(value);
+        setSearch('');
         setOnlyOrcid(false);
         setSdgFilter('');
         resetPage();
         clearDescubridorPresets();
-        navigate(meta.route);
+        navigate(`/descubrir?q=${encodeURIComponent(q)}`);
       });
     },
     [setSearch, setOnlyOrcid, setSdgFilter, resetPage, clearDescubridorPresets, navigate],
   );
 
-  const handleSearch = useCallback(
+  const handleInputChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      applySearch(e.target.value);
+      setInputValue(e.target.value);
     },
-    [applySearch],
+    [],
+  );
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') applySearch(inputValue);
+    },
+    [applySearch, inputValue],
   );
 
   return (
@@ -76,8 +84,9 @@ export default function Header() {
             <input
               className="search-bar__input"
               placeholder="Buscar publicaciones, investigadores, revistas o DOI..."
-              value={search}
-              onChange={handleSearch}
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
               aria-label="Buscar en el portal UTA"
               aria-describedby="search-intent-hint"
             />
@@ -85,12 +94,12 @@ export default function Header() {
               type="button"
               className="search-bar__btn"
               aria-label="Buscar"
-              onClick={() => applySearch(search)}
+              onClick={() => applySearch(inputValue)}
             >
               Buscar
             </button>
           </div>
-          {search.trim() && (
+          {inputValue.trim() && (
             <p id="search-intent-hint" className="search-hint" aria-live="polite">
               <span className="search-hint__badge">{intentMeta.label}</span>
               {intentMeta.hint}

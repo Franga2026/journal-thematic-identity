@@ -358,7 +358,7 @@ export interface InstitutionalMetrics {
 }
 
 // ─── Context State Types ───
-export type TabKey = 'perfiles' | 'unidades' | 'areas' | 'ods' | 'produccion' | 'descubridor' | 'ranking' | 'metricas' | 'informes' | 'fuentes';
+export type TabKey = 'perfiles' | 'unidades' | 'areas' | 'ods' | 'produccion' | 'descubridor' | 'descubrir' | 'ranking' | 'metricas' | 'informes' | 'fuentes';
 export type SearchType = 'concepto' | 'texto';
 export type RankKey = 'fwci' | 'hindex' | 'citas' | 'q1' | 'cpp' | 'oa';
 export type AITabKey = 'chat' | 'comparar' | 'redes' | 'tendencias' | 'oportunidades';

@@ -4604,3 +4604,161 @@ input, select { font-family: var(--font); }
   margin: 8px 0 10px;
 }
 
+/* ─── Descubridor universal (fuera del AppLayout) ─── */
+.discovery-universal-screen {
+  min-height: 100vh;
+  background: #f0f4f8;
+}
+
+.discovery-universal-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e5a78 100%);
+  color: #fff;
+  padding: 16px 20px 24px;
+}
+
+.discovery-universal-header__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+
+.discovery-universal-header__back:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.discovery-universal-header__brand {
+  margin-bottom: 18px;
+}
+
+.discovery-universal-header__title {
+  margin: 0 0 4px;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.discovery-universal-header__subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #93c5fd;
+}
+
+.discovery-universal-header__search {
+  display: flex;
+  gap: 8px;
+  max-width: 720px;
+}
+
+.discovery-universal-header__input {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fff;
+  color: #1a1a1a;
+}
+
+.discovery-universal-header__input:focus {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+.discovery-universal-header__btn {
+  padding: 12px 22px;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.discovery-universal-header__btn:hover {
+  background: #16a34a;
+}
+
+.discovery-universal-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+.tab-descubrir-universal .descubrir-universal__controls {
+  margin-bottom: 16px;
+}
+
+.tab-descubrir-universal .descubrir-universal__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tab-descubrir-universal .descubrir-universal__state {
+  padding: 24px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.tab-descubrir-universal .descubrir-universal__state--error {
+  color: #dc2626;
+}
+
+.tab-descubrir-universal .descubrir-universal__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.tab-descubrir-universal .descubrir-universal__page-btn {
+  padding: 8px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tab-descubrir-universal .descubrir-universal__page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tab-descubrir-universal .descubrir-universal__sort {
+  display: flex;
+  gap: 6px;
+}
+
+.tab-descubrir-universal .descubrir-universal__sort-btn {
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tab-descubrir-universal .descubrir-universal__sort-btn.is-active {
+  background: #1e3a8a;
+  color: #fff;
+  border-color: #1e3a8a;
+}
+
