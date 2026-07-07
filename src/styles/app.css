@@ -4611,9 +4611,10 @@ input, select { font-family: var(--font); }
 }
 
 .discovery-universal-header {
-  background: linear-gradient(135deg, #1e3a8a 0%, #1e5a78 100%);
+  background: #0a1628;
   color: #fff;
   padding: 16px 20px 24px;
+  position: relative;
 }
 
 .discovery-universal-header__back {
@@ -4628,8 +4629,11 @@ input, select { font-family: var(--font); }
   padding: 6px 14px;
   border-radius: 999px;
   cursor: pointer;
-  margin-bottom: 16px;
+  margin-bottom: 0;
   font-family: inherit;
+  position: absolute;
+  left: 20px;
+  top: 16px;
 }
 
 .discovery-universal-header__back:hover {
@@ -4638,7 +4642,8 @@ input, select { font-family: var(--font); }
 }
 
 .discovery-universal-header__brand {
-  margin-bottom: 18px;
+  margin: 8px 0 18px;
+  text-align: center;
 }
 
 .discovery-universal-header__title {
@@ -4658,6 +4663,8 @@ input, select { font-family: var(--font); }
   display: flex;
   gap: 8px;
   max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .discovery-universal-header__input {
@@ -4677,29 +4684,604 @@ input, select { font-family: var(--font); }
 
 .discovery-universal-header__btn {
   padding: 12px 22px;
-  background: #22c55e;
+  background: #0E7E9E;
   color: #fff;
   border: none;
   border-radius: 10px;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
   font-family: inherit;
 }
 
 .discovery-universal-header__btn:hover {
-  background: #16a34a;
+  background: #0c6d88;
 }
 
 .discovery-universal-main {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 16px 48px;
+  padding: 12px 16px 48px;
+}
+
+/* Shell con fondo terciario (mockup dw-wrap) */
+.tab-descubrir-universal.dw-wrap {
+  background: #eef2f5;
+  border-radius: 12px;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+/* ============================================================
+   Descubridor Universal — Capa A: panel de facetas
+   (reemplaza/complementa los estilos de la Capa 1)
+   ============================================================ */
+
+.tab-descubrir-universal .descubrir-universal__layout {
+  display: grid;
+  grid-template-columns: 195px 1fr;
+  gap: 12px;
+  padding: 12px;
+  align-items: start;
+}
+
+.tab-descubrir-universal .descubrir-universal__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: sticky;
+  top: 16px;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet {
+  background: #fff;
+  border: 0.5px solid #e0e6ea;
+  border-radius: 10px;
+  padding: 11px 13px;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet--soon {
+  border-style: dashed;
+  background: #f8fafc;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-hint {
+  font-size: 9px;
+  color: #aab;
+  margin: 0;
+  font-style: italic;
+}
+
+.tab-descubrir-universal .descubrir-universal__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+
+.tab-descubrir-universal .descubrir-universal__sort-row {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.tab-descubrir-universal .descubrir-universal__actions {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 11px;
+  flex-wrap: wrap;
+}
+
+.tab-descubrir-universal .dw-act {
+  font-size: 10.5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.tab-descubrir-universal .dw-act--primary {
+  background: #0E7E9E;
+  color: #fff;
+}
+
+.tab-descubrir-universal .dw-act--primary:hover {
+  background: #0c6d88;
+}
+
+.tab-descubrir-universal .dw-act--ghost {
+  background: #eef4f6;
+  color: #456;
+}
+
+.tab-descubrir-universal .dw-act--dataset {
+  background: #534AB7;
+  color: #fff;
+}
+
+/* Tarjetas enriquecidas (mockup dw-card) */
+.tab-descubrir-universal .dw-card {
+  background: #fff;
+  border: 0.5px solid #e0e6ea;
+  border-radius: 12px;
+  padding: 13px 15px;
+  margin-bottom: 10px;
+}
+
+.tab-descubrir-universal .dw-card--dataset {
+  border-left: 3px solid #534AB7;
+}
+
+.tab-descubrir-universal .dw-card__badges {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.tab-descubrir-universal .dw-badge {
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border: 0.5px solid transparent;
+}
+
+.tab-descubrir-universal .dw-badge--type-article {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+.tab-descubrir-universal .dw-badge--type-chapter {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.tab-descubrir-universal .dw-badge--type-book {
+  background: #fce7f3;
+  color: #9d174d;
+  border-color: #fbcfe8;
+}
+
+.tab-descubrir-universal .dw-badge--type-thesis {
+  background: #e0e7ff;
+  color: #3730a3;
+  border-color: #c7d2fe;
+}
+
+.tab-descubrir-universal .dw-badge--type-preprint {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border-color: #e9d5ff;
+}
+
+.tab-descubrir-universal .dw-badge--type-other {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #e2e8f0;
+}
+
+.tab-descubrir-universal .dw-card__source--book {
+  color: #78350f;
+}
+
+.tab-descubrir-universal .dw-card__source--book em {
+  font-style: normal;
+  font-weight: 600;
+}
+
+.tab-descubrir-universal .dw-badge--type-dataset {
+  background: #e0e7ff;
+  color: #4338ca;
+  border-color: #c7d2fe;
+}
+
+.tab-descubrir-universal .dw-badge--pub {
+  background: #f5f5f4;
+  color: #44403c;
+  border-color: #e7e5e4;
+}
+
+.tab-descubrir-universal .dw-badge--no-quartile {
+  background: #e2e8f0;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.tab-descubrir-universal .dw-badge--quartile {
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
+}
+
+.tab-descubrir-universal .dw-badge--linked-dataset {
+  background: #e0e7ff;
+  color: #4338ca;
+  border-color: #c7d2fe;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tab-descubrir-universal .dw-badge--linked-dataset:hover {
+  background: #c7d2fe;
+  color: #3730a3;
+}
+
+.tab-descubrir-universal .dw-card__year {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-600);
+  margin-left: auto;
+}
+
+.tab-descubrir-universal .dw-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0 0 4px;
+  line-height: 1.35;
+}
+
+.tab-descubrir-universal .dw-card__title--link {
+  display: block;
+  color: #0a6d87;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tab-descubrir-universal .dw-card__title--link:hover {
+  color: #0c6d88;
+  text-decoration: underline;
+}
+
+.tab-descubrir-universal .dw-card__meta {
+  font-size: 12px;
+  color: var(--gray-700);
+  margin: 0 0 6px;
+  line-height: 1.45;
+}
+
+.tab-descubrir-universal .dw-card__source {
+  font-style: italic;
+}
+
+.tab-descubrir-universal .dw-card__source--dataset {
+  font-style: normal;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.tab-descubrir-universal .dw-card__field {
+  color: #0a6d87;
+  font-weight: 500;
+}
+
+.tab-descubrir-universal .dw-card__abstract {
+  font-size: 13px;
+  color: var(--gray-800);
+  line-height: 1.55;
+  margin: 0 0 10px;
+}
+
+.tab-descubrir-universal .dw-fair {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 9px;
+  padding: 6px 8px;
+  background: #f4faf6;
+  border-radius: 7px;
+  border: 0.5px solid #d4eadb;
+}
+
+.tab-descubrir-universal .dw-fair__label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.35px;
+  color: #15803D;
+  text-transform: uppercase;
+  margin-right: 2px;
+}
+
+.tab-descubrir-universal .dw-fair__pill {
+  font-size: 9.5px;
+  color: #667;
+  background: #fff;
+  border: 0.5px solid #dce8e0;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.tab-descubrir-universal .dw-fair__pill strong {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.tab-descubrir-universal .dw-fair__val--high { color: #15803D; }
+.tab-descubrir-universal .dw-fair__val--mid { color: #B45309; }
+.tab-descubrir-universal .dw-fair__val--low { color: #78716C; }
+
+.tab-descubrir-universal .dw-fair__overall {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.tab-descubrir-universal .dw-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 9px;
+  border-top: 0.5px solid #eef2f4;
+  flex-wrap: wrap;
+}
+
+.tab-descubrir-universal .dw-card__metric {
+  font-size: 10px;
+  color: #7a94a0;
+}
+
+.tab-descubrir-universal .dw-card__metric strong {
+  font-size: 13px;
+  font-weight: 500;
+  color: #14314e;
+}
+
+.tab-descubrir-universal .dw-card__metric--link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tab-descubrir-universal .dw-card__metric--link:hover strong {
+  color: #0E7E9E;
+  text-decoration: underline;
+}
+
+.tab-descubrir-universal .dw-card__actions {
+  margin-left: auto;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.tab-descubrir-universal .dw-db-icon {
+  flex-shrink: 0;
+}
+
+/* Mini-análisis */
+.tab-descubrir-universal .dw-analysis {
+  background: #fff;
+  border: 0.5px solid #e0e6ea;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 11px;
+}
+
+.tab-descubrir-universal .dw-analysis__title {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #7a94a0;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 9px;
+}
+
+.tab-descubrir-universal .dw-analysis__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.tab-descubrir-universal .dw-analysis__stat {
+  background: #f4f6f8;
+  border-radius: 8px;
+  padding: 9px;
+  text-align: center;
+}
+
+.tab-descubrir-universal .dw-analysis__stat-val {
+  font-size: 17px;
+  font-weight: 500;
+  color: #14314e;
+}
+
+.tab-descubrir-universal .dw-analysis__stat-val--green { color: #15803D; }
+.tab-descubrir-universal .dw-analysis__stat-val--teal { color: #0E7E9E; }
+.tab-descubrir-universal .dw-analysis__stat-val--purple { color: #534AB7; }
+
+.tab-descubrir-universal .dw-analysis__stat-lbl {
+  font-size: 9px;
+  color: #889;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+  color: var(--gray-600);
+  margin: 0 0 8px;
+}
+
+/* Opción de faceta (checkbox + label + conteo) */
+.tab-descubrir-universal .descubrir-universal__facet-opt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--gray-800);
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-opt:last-child {
+  margin-bottom: 0;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-opt input {
+  flex-shrink: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-count {
+  margin-left: auto;
+  color: var(--gray-600);
+  font-size: 11px;
+  font-weight: 600;
+  flex: 0 0 auto;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-more {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 4px 0;
+  border: none;
+  background: none;
+  font-size: 10px;
+  font-weight: 500;
+  color: #0E7E9E;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.tab-descubrir-universal .descubrir-universal__facet-more:hover {
+  color: #0c6d88;
+  text-decoration: underline;
+}
+
+/* Botones de orden y FWCI (verticales) */
+.tab-descubrir-universal .descubrir-universal__sort-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.tab-descubrir-universal .descubrir-universal__sort-btn,
+.tab-descubrir-universal .descubrir-universal__fwci-btn {
+  font-size: 12px;
+  padding: 6px 11px;
+  border-radius: 6px;
+  border: 0.5px solid #d6e0e4;
+  background: #fff;
+  color: #556;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, color 0.12s;
+  font-family: inherit;
+}
+
+.tab-descubrir-universal .descubrir-universal__sort-btn:hover,
+.tab-descubrir-universal .descubrir-universal__fwci-btn:hover {
+  background: #f4f8fa;
+}
+
+.tab-descubrir-universal .descubrir-universal__sort-btn.is-active {
+  background: #14314e;
+  color: #fff;
+  border-color: #14314e;
+}
+
+.tab-descubrir-universal .descubrir-universal__fwci-btn.is-active {
+  background: #eafaf3;
+  color: #0F6E56;
+  border-color: #b6e5d3;
+}
+
+/* Columna de contenido */
+.tab-descubrir-universal .descubrir-universal__content {
+  min-width: 0;
 }
 
 .tab-descubrir-universal .descubrir-universal__controls {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+}
+
+.tab-descubrir-universal .descubrir-universal__meta {
+  font-size: 12px;
+  color: #556;
+}
+
+/* Chips de filtro activo */
+.tab-descubrir-universal .descubrir-universal__chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.tab-descubrir-universal .descubrir-universal__chip {
+  font-size: 11px;
+  background: #e6f1fb;
+  color: #185FA5;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tab-descubrir-universal .descubrir-universal__chip:hover {
+  background: #d5e7f8;
+}
+
+.tab-descubrir-universal .descubrir-universal__chip--clear {
+  background: transparent;
+  color: #889;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 820px) {
+  .tab-descubrir-universal .descubrir-universal__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-descubrir-universal .descubrir-universal__sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .tab-descubrir-universal .descubrir-universal__facet {
+    flex: 1;
+    min-width: 150px;
+  }
 }
 
 .tab-descubrir-universal .descubrir-universal__grid {
@@ -4739,26 +5321,5 @@ input, select { font-family: var(--font); }
 .tab-descubrir-universal .descubrir-universal__page-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-}
-
-.tab-descubrir-universal .descubrir-universal__sort {
-  display: flex;
-  gap: 6px;
-}
-
-.tab-descubrir-universal .descubrir-universal__sort-btn {
-  padding: 6px 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  background: #fff;
-  font-size: 12px;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.tab-descubrir-universal .descubrir-universal__sort-btn.is-active {
-  background: #1e3a8a;
-  color: #fff;
-  border-color: #1e3a8a;
 }
 
