@@ -1,0 +1,922 @@
+{
+  "generated_at": "",
+  "summary": {
+    "uta_with_orcid": 199,
+    "anid_found": 130,
+    "rate_pct": 65.3,
+    "not_found": 67,
+    "ambiguous": 2
+  },
+  "entries": [
+    {
+      "anid_id": "4358",
+      "orcid": "0000-0002-3022-2371",
+      "rut": "03539232-7",
+      "uta_name": "Ligia Gargallo Gonzalez",
+      "anid_name": "Ligia Gargallo Gonzalez"
+    },
+    {
+      "anid_id": "26544",
+      "orcid": "0000-0003-3542-296X",
+      "rut": "04105653-3",
+      "uta_name": "Gloria Calaf Sarrat",
+      "anid_name": "Gloria Monserrat Calaf Sarrat"
+    },
+    {
+      "anid_id": "29694",
+      "orcid": "0000-0001-5228-1180",
+      "rut": "04284161-7",
+      "uta_name": "Francisco Rothhammer Engel",
+      "anid_name": "Francisco Javier Rothhammer Engel"
+    },
+    {
+      "anid_id": "46004",
+      "orcid": "0000-0001-9098-9243",
+      "rut": "04892498-0",
+      "uta_name": "Eliana Belmonte Schwarzbaum",
+      "anid_name": "mercedes eliana belmonte schwarzbaum"
+    },
+    {
+      "anid_id": "16976",
+      "orcid": "0000-0002-2666-8725",
+      "rut": "05831904-K",
+      "uta_name": "Omar Espinoza Navarro",
+      "anid_name": "Omar René Espinoza Navarro"
+    },
+    {
+      "anid_id": "6955",
+      "orcid": "0000-0002-3702-8408",
+      "rut": "05950398-7",
+      "uta_name": "Calogero Santoro Vargas",
+      "anid_name": "Calogero Mauricio Santoro Vargas"
+    },
+    {
+      "anid_id": "3624",
+      "orcid": "0000-0001-5467-4180",
+      "rut": "05962414-8",
+      "uta_name": "Victor Ayala Bravo",
+      "anid_name": "Víctor Ayala Bravo"
+    },
+    {
+      "anid_id": "5934",
+      "orcid": "0000-0002-0403-8538",
+      "rut": "06236537-4",
+      "uta_name": "Sergio Gonzalez Miranda",
+      "anid_name": "Sergio Alberto González Miranda"
+    },
+    {
+      "anid_id": "3443",
+      "orcid": "0000-0002-5861-182X",
+      "rut": "06243987-4",
+      "uta_name": "Heriberto Román Flores",
+      "anid_name": "HERIBERTO EDUARDO ROMÁN FLORES"
+    },
+    {
+      "anid_id": "8598",
+      "orcid": "0000-0002-6146-6870",
+      "rut": "06291544-7",
+      "uta_name": "Alejandro Cuadra Peralta",
+      "anid_name": "Alejandro Adrian Cuadra Peralta"
+    },
+    {
+      "anid_id": "43863",
+      "orcid": "0000-0002-9925-8102",
+      "rut": "06305793-2",
+      "uta_name": "Jorge Lagos Caamaño",
+      "anid_name": "jorge luis lagos caamaño"
+    },
+    {
+      "anid_id": "26060",
+      "orcid": "0000-0003-4885-9714",
+      "rut": "06482369-8",
+      "uta_name": "Leonardo Figueroa Tagle",
+      "anid_name": "Leonardo Fernando Figueroa Tagle"
+    },
+    {
+      "anid_id": "31327",
+      "orcid": "0000-0001-6550-5323",
+      "rut": "06715095-3",
+      "uta_name": "Arnaldo Vilaxa Olcay",
+      "anid_name": "Arnaldo Victor Vilaxa Olcay"
+    },
+    {
+      "anid_id": "5907",
+      "orcid": "0000-0001-9921-9253",
+      "rut": "07177740-5",
+      "uta_name": "Bernardo Arriaza Torres",
+      "anid_name": "Bernardo Tomas Arriaza Torres"
+    },
+    {
+      "anid_id": "32114",
+      "orcid": "0000-0002-7141-2710",
+      "rut": "07438466-8",
+      "uta_name": "Claudio Gonzalez Rojas",
+      "anid_name": "Claudio  Hernan Gonzalez  Rojas"
+    },
+    {
+      "anid_id": "3387",
+      "orcid": "0000-0001-6702-067X",
+      "rut": "07516961-2",
+      "uta_name": "Pilar Mazuela Aguila",
+      "anid_name": "PILAR CAROLINA MAZUELA AGUILA"
+    },
+    {
+      "anid_id": "4975",
+      "orcid": "0000-0002-5717-5317",
+      "rut": "07651723-1",
+      "uta_name": "Juan Flores Araya",
+      "anid_name": "Juan Cesar Flores Araya"
+    },
+    {
+      "anid_id": "27785",
+      "orcid": "0000-0002-7128-8174",
+      "rut": "07683725-2",
+      "uta_name": "Daniel Moraga Muñoz",
+      "anid_name": "Daniel Elías Moraga Muñoz"
+    },
+    {
+      "anid_id": "30355",
+      "orcid": "0000-0002-7829-0998",
+      "rut": "08533904-4",
+      "uta_name": "Juan Antonio Vega Vargas",
+      "anid_name": "Juan Antonio Vega Vargas"
+    },
+    {
+      "anid_id": "33508",
+      "orcid": "0000-0003-2068-5281",
+      "rut": "08582610-7",
+      "uta_name": "Ana María Naranjo Gárate",
+      "anid_name": "Ana Maria Naranjo Garate"
+    },
+    {
+      "anid_id": "50860",
+      "orcid": "0000-0003-4361-0725",
+      "rut": "08656846-2",
+      "uta_name": "Carlos Humberto Soto Saavedra",
+      "anid_name": "CARLOS HUMBERTO SOTO SAAVEDRA"
+    },
+    {
+      "anid_id": "19712",
+      "orcid": "0000-0001-7525-2980",
+      "rut": "08707862-0",
+      "uta_name": "Oscar German Espinoza Díaz",
+      "anid_name": "Oscar Germán Espinoza Díaz"
+    },
+    {
+      "anid_id": "9950",
+      "orcid": "0000-0001-7230-5485",
+      "rut": "08878842-7",
+      "uta_name": "Alfonso Díaz Aguad",
+      "anid_name": "Alfonso Alejandro Díaz Aguad"
+    },
+    {
+      "anid_id": "3852",
+      "orcid": "0000-0001-8921-3413",
+      "rut": "09051757-0",
+      "uta_name": "Marko Antonio Rojas Medar",
+      "anid_name": "Marko Antonio Rojas Medar"
+    },
+    {
+      "anid_id": "4626",
+      "orcid": "0000-0003-4861-002X",
+      "rut": "09070708-6",
+      "uta_name": "Emilio Rodriguez Ponce",
+      "anid_name": "Emilio Rene Rodriguez Ponce"
+    },
+    {
+      "anid_id": "31065",
+      "orcid": "0000-0002-6673-2816",
+      "rut": "09360806-2",
+      "uta_name": "Galia Fernanda Meneses Riquelme",
+      "anid_name": "Galia Fernanda  Meneses Riquelme"
+    },
+    {
+      "anid_id": "4974",
+      "orcid": "0000-0002-1452-7618",
+      "rut": "09384607-9",
+      "uta_name": "Germán Sepúlveda Chavera",
+      "anid_name": "German F. Sepulveda Chavera"
+    },
+    {
+      "anid_id": "39176",
+      "orcid": "0000-0002-9490-8604",
+      "rut": "09472877-0",
+      "uta_name": "Ester Echenique Llovet",
+      "anid_name": "Ester Echenique Llovet"
+    },
+    {
+      "anid_id": "43173",
+      "orcid": "0000-0002-3535-6205",
+      "rut": "09852126-7",
+      "uta_name": "Jorge Bernal Peralta",
+      "anid_name": "JORGE FRANCISCO BERNAL PERALTA"
+    },
+    {
+      "anid_id": "52123",
+      "orcid": "0000-0002-9482-7353",
+      "rut": "10500391-9",
+      "uta_name": "Nelson Agustin Lara Henriquez",
+      "anid_name": "Nelson Agustín Lara Henriquez"
+    },
+    {
+      "anid_id": "47597",
+      "orcid": "0000-0002-2764-4450",
+      "rut": "10587828-1",
+      "uta_name": "Daniela Gonzalez Erber",
+      "anid_name": "Daniela Caterina González Erber"
+    },
+    {
+      "anid_id": "20429",
+      "orcid": "0000-0001-8411-2568",
+      "rut": "10604338-8",
+      "uta_name": "Roberto Dufraix Tapia",
+      "anid_name": "Roberto Augusto Dufraix Tapia"
+    },
+    {
+      "anid_id": "9884",
+      "orcid": "0000-0003-2640-2705",
+      "rut": "10662714-2",
+      "uta_name": "Carlos Mondaca Rojas",
+      "anid_name": "Carlos Enrique Mondaca Rojas"
+    },
+    {
+      "anid_id": "37775",
+      "orcid": "0000-0002-7594-9558",
+      "rut": "10706903-8",
+      "uta_name": "Sau-Lyn Lee Maturana",
+      "anid_name": "Sau-lyn Lee Maturana"
+    },
+    {
+      "anid_id": "35905",
+      "orcid": "0000-0001-7532-6302",
+      "rut": "10994165-4",
+      "uta_name": "Cristina R. Alfaro Vergara",
+      "anid_name": "Cristina Roxana Alfaro Vergara"
+    },
+    {
+      "anid_id": "51843",
+      "orcid": "0000-0001-9250-6102",
+      "rut": "10996273-2",
+      "uta_name": "Samuel Fuentealba Pérez",
+      "anid_name": "Samuel Octavio Fuentealba Pérez"
+    },
+    {
+      "anid_id": "28581",
+      "orcid": "0000-0001-7864-6678",
+      "rut": "11610049-5",
+      "uta_name": "Paola Gioanna Muzatto Negron",
+      "anid_name": "Paola Gioanna Muzatto Negrón"
+    },
+    {
+      "anid_id": "37351",
+      "orcid": "0000-0002-2363-1919",
+      "rut": "11815383-9",
+      "uta_name": "Raúl A. Bustos González",
+      "anid_name": "Raul Antonio Bustos Gonzalez"
+    },
+    {
+      "anid_id": "37348",
+      "orcid": "0000-0002-2953-663X",
+      "rut": "12007233-1",
+      "uta_name": "Mauricio Arriagada Benitez",
+      "anid_name": "Mauricio Javier Arriagada Benítez"
+    },
+    {
+      "anid_id": "11905",
+      "orcid": "0000-0001-9325-6459",
+      "rut": "12087971-5",
+      "uta_name": "Francisco Ganga Contreras",
+      "anid_name": "Francisco Anibal Ganga Contreras"
+    },
+    {
+      "anid_id": "22050",
+      "orcid": "0000-0002-8008-5408",
+      "rut": "12112696-6",
+      "uta_name": "Mónica Navarrete Alvarez",
+      "anid_name": "MONICA ISABEL NAVARRETE ALVAREZ"
+    },
+    {
+      "anid_id": "32493",
+      "orcid": "0000-0002-1491-9312",
+      "rut": "12134291-K",
+      "uta_name": "Michel Jean Pierre Valdés Montecinos",
+      "anid_name": "Michel Jean Pierre Valdés Montecinos"
+    },
+    {
+      "anid_id": "51330",
+      "orcid": "0000-0002-3487-7105",
+      "rut": "12209769-2",
+      "uta_name": "Italo Marchioni  Choque",
+      "anid_name": "Italo Andrés Marchioni Choque"
+    },
+    {
+      "anid_id": "9629",
+      "orcid": "0000-0002-5519-416X",
+      "rut": "12265631-4",
+      "uta_name": "Javiera Carmona Jimenez",
+      "anid_name": "Javiera Antonia Carmona Jiménez"
+    },
+    {
+      "anid_id": "7041",
+      "orcid": "0000-0003-0154-6446",
+      "rut": "12267871-7",
+      "uta_name": "Carlos Donoso Rojas",
+      "anid_name": "Carlos David Donoso Rojas"
+    },
+    {
+      "anid_id": "29528",
+      "orcid": "0000-0001-9067-9341",
+      "rut": "12434998-2",
+      "uta_name": "Pedro Hecht López",
+      "anid_name": "Pedro Fernando Hecht Lopez"
+    },
+    {
+      "anid_id": "21518",
+      "orcid": "0000-0002-4743-4864",
+      "rut": "12435807-8",
+      "uta_name": "Carlos Omar Choque Mariño",
+      "anid_name": "CARLOS OMAR CHOQUE MARIÑO"
+    },
+    {
+      "anid_id": "10934",
+      "orcid": "0000-0002-2565-5850",
+      "rut": "12436627-5",
+      "uta_name": "Carlos Ubeda de la Cerda",
+      "anid_name": "Carlos Arturo Ubeda De La Cerda"
+    },
+    {
+      "anid_id": "15672",
+      "orcid": "0000-0002-4614-8380",
+      "rut": "12437691-2",
+      "uta_name": "Alejandra Caqueo Urizar",
+      "anid_name": "Alejandra Andrea Caqueo Urízar"
+    },
+    {
+      "anid_id": "9132",
+      "orcid": "0000-0002-7974-762X",
+      "rut": "12450066-4",
+      "uta_name": "Carolina Guzman Valenzuela",
+      "anid_name": "Carolina Guzmán Valenzuela"
+    },
+    {
+      "anid_id": "17830",
+      "orcid": "0000-0001-5080-1672",
+      "rut": "12451865-2",
+      "uta_name": "Alberto Díaz Araya",
+      "anid_name": "ALBERTO EUGENIO DIAZ ARAYA"
+    },
+    {
+      "anid_id": "3775",
+      "orcid": "0000-0001-6949-2312",
+      "rut": "12475236-1",
+      "uta_name": "Carolina Stefoni Espinoza",
+      "anid_name": "Carolina Stefoni Espinoza"
+    },
+    {
+      "anid_id": "46525",
+      "orcid": "0000-0002-2902-7296",
+      "rut": "12609326-8",
+      "uta_name": "Eugenio German Sánchez Espinoza",
+      "anid_name": "Eugenio German Sánchez Espinoza"
+    },
+    {
+      "anid_id": "51114",
+      "orcid": "0009-0008-9281-2212",
+      "rut": "12610844-3",
+      "uta_name": "Sheyla Andrea Villanueva Cuevas",
+      "anid_name": "Sheyla Andrea Villanueva Cuevas"
+    },
+    {
+      "anid_id": "7577",
+      "orcid": "0000-0002-5355-3157",
+      "rut": "12661529-9",
+      "uta_name": "Héctor Vargas Ortiz",
+      "anid_name": "Héctor Andrés Vargas Ortiz"
+    },
+    {
+      "anid_id": "6238",
+      "orcid": "0000-0001-7318-1947",
+      "rut": "12721280-5",
+      "uta_name": "Daniela Valenzuela Reyes",
+      "anid_name": "Daniela Paz Valenzuela Reyes"
+    },
+    {
+      "anid_id": "8686",
+      "orcid": "0000-0002-7474-6441",
+      "rut": "12833261-8",
+      "uta_name": "Rodrigo Daniel Ruz Zagal",
+      "anid_name": "Rodrigo Daniel Ruz Zagal"
+    },
+    {
+      "anid_id": "11588",
+      "orcid": "0000-0001-8203-1932",
+      "rut": "12834510-8",
+      "uta_name": "Cristian Ivor Castro Rodríguez",
+      "anid_name": "Cristian Ivor Castro Rodriguez"
+    },
+    {
+      "anid_id": "7874",
+      "orcid": "0000-0003-3633-5673",
+      "rut": "13006075-7",
+      "uta_name": "Pamela Zapata Sepulveda",
+      "anid_name": "Pamela Yanina Zapata Sepúlveda"
+    },
+    {
+      "anid_id": "21752",
+      "orcid": "0000-0003-4311-9135",
+      "rut": "13007343-3",
+      "uta_name": "Cristian Pinto Cortez",
+      "anid_name": "CRISTIAN GUSTAVO PINTO CORTEZ"
+    },
+    {
+      "anid_id": "7519",
+      "orcid": "0000-0002-9409-1147",
+      "rut": "13109566-K",
+      "uta_name": "Adriana Aranguiz Acuña",
+      "anid_name": "Adriana Paz Aránguiz Acuña"
+    },
+    {
+      "anid_id": "22253",
+      "orcid": "0000-0003-2835-1526",
+      "rut": "13133882-1",
+      "uta_name": "Tommy Rioja Soto",
+      "anid_name": "TOMMY CHRISTIAN RIOJA SOTO"
+    },
+    {
+      "anid_id": "30604",
+      "orcid": "0009-0008-2257-6736",
+      "rut": "13211268-1",
+      "uta_name": "Marisell Correa Butron",
+      "anid_name": "Marisell Brigitte Correa Butrón"
+    },
+    {
+      "anid_id": "23237",
+      "orcid": "0000-0002-9858-8804",
+      "rut": "13214782-5",
+      "uta_name": "Alvaro Daniel Espinoza Collao",
+      "anid_name": "Alvaro Daniel Espinoza Collao"
+    },
+    {
+      "anid_id": "5785",
+      "orcid": "0000-0002-6487-8096",
+      "rut": "13333313-4",
+      "uta_name": "David Laroze Navarrete",
+      "anid_name": "David Nicolas  Laroze Navarrete"
+    },
+    {
+      "anid_id": "41927",
+      "orcid": "0000-0002-7067-5551",
+      "rut": "13429979-7",
+      "uta_name": "Paola Andrea Contreras Hernandez",
+      "anid_name": "Paola Andrea Contreras Hernandez"
+    },
+    {
+      "anid_id": "17809",
+      "orcid": "0000-0003-4262-3786",
+      "rut": "13471908-7",
+      "uta_name": "Manuel Prieto Montt",
+      "anid_name": "Manuel Prieto"
+    },
+    {
+      "anid_id": "19560",
+      "orcid": "0000-0002-0980-7519",
+      "rut": "13564204-5",
+      "uta_name": "Nanette Liberona Concha",
+      "anid_name": "Nanette Paz Liberona Concha"
+    },
+    {
+      "anid_id": "20309",
+      "orcid": "0000-0003-2327-6643",
+      "rut": "13637909-7",
+      "uta_name": "Kristopher Chandia Valenzuela",
+      "anid_name": "Kristopher Jonathan Chandía Valenzuela"
+    },
+    {
+      "anid_id": "20146",
+      "orcid": "0000-0002-8832-8419",
+      "rut": "13639303-0",
+      "uta_name": "Raúl Antonio Herrera Acuña",
+      "anid_name": "Raúl Antonio Herrera Acuña"
+    },
+    {
+      "anid_id": "19518",
+      "orcid": "0000-0002-4771-3345",
+      "rut": "13640915-8",
+      "uta_name": "Carlos Piñones Rivera",
+      "anid_name": "Carlos Daniel Piñones Rivera"
+    },
+    {
+      "anid_id": "19572",
+      "orcid": "0000-0001-8820-0258",
+      "rut": "13642110-7",
+      "uta_name": "Cristian Ovando Santana",
+      "anid_name": "Cristian Andrés Ovando Santana"
+    },
+    {
+      "anid_id": "8599",
+      "orcid": "0000-0001-6990-7709",
+      "rut": "13669551-7",
+      "uta_name": "Constanza Veloso Besio",
+      "anid_name": "Constanza Beatriz Veloso Besio"
+    },
+    {
+      "anid_id": "37847",
+      "orcid": "0000-0003-2552-1681",
+      "rut": "13679511-2",
+      "uta_name": "Andrea Alejandra Chamorro Pérez",
+      "anid_name": "Andrea Alejandra Chamorro Pérez"
+    },
+    {
+      "anid_id": "35107",
+      "orcid": "0000-0002-5844-6975",
+      "rut": "13744348-1",
+      "uta_name": "Dailet Fredes Collarte",
+      "anid_name": "Dailet De Lourdes Fredes Collarte"
+    },
+    {
+      "anid_id": "36953",
+      "orcid": "0000-0003-0137-9051",
+      "rut": "13862771-3",
+      "uta_name": "Viviana Villarroel Carrasco",
+      "anid_name": "Viviana Carolina Villarroel Carrasco"
+    },
+    {
+      "anid_id": "43499",
+      "orcid": "0000-0001-5163-6541",
+      "rut": "13903205-5",
+      "uta_name": "Claudia Moraga Contreras",
+      "anid_name": "Claudia Andrea Moraga Contreras"
+    },
+    {
+      "anid_id": "46701",
+      "orcid": "0000-0001-5335-576X",
+      "rut": "13976493-5",
+      "uta_name": "Jorge J. Díaz Ramirez",
+      "anid_name": "Jorge Jonathan Díaz Ramírez"
+    },
+    {
+      "anid_id": "36513",
+      "orcid": "0000-0002-2486-1628",
+      "rut": "14104442-7",
+      "uta_name": "Macarena Fuentes Guajardo",
+      "anid_name": "Macarena Andrea Fuentes Guajardo"
+    },
+    {
+      "anid_id": "6185",
+      "orcid": "0000-0001-6170-0818",
+      "rut": "14134877-9",
+      "uta_name": "Gonzalo Valdés González",
+      "anid_name": "Gonzalo Valdes"
+    },
+    {
+      "anid_id": "5596",
+      "orcid": "0000-0002-2096-7839",
+      "rut": "14208450-3",
+      "uta_name": "Carmen A. Araneda Guirriman",
+      "anid_name": "Carmen Aurora Araneda Guirriman"
+    },
+    {
+      "anid_id": "30485",
+      "orcid": "0000-0002-7628-1270",
+      "rut": "14438479-2",
+      "uta_name": "Jaime Silva  Rojas",
+      "anid_name": "Jaime Eduardo Silva Rojas"
+    },
+    {
+      "anid_id": "20781",
+      "orcid": "0000-0003-4918-5387",
+      "rut": "14478195-3",
+      "uta_name": "Norman Garrido Cabezas",
+      "anid_name": "Norman Garrido Cabezas"
+    },
+    {
+      "anid_id": "4232",
+      "orcid": "0000-0001-7732-4183",
+      "rut": "14482971-9",
+      "uta_name": "Liliana Pedraja Rejas",
+      "anid_name": "Liliana Marina Pedraja Rejas"
+    },
+    {
+      "anid_id": "7751",
+      "orcid": "0000-0002-8377-2967",
+      "rut": "14671015-8",
+      "uta_name": "Edgar Estupiñan Pulido",
+      "anid_name": "EDGAR ALBERTO ESTUPINAN PULIDO"
+    },
+    {
+      "anid_id": "29717",
+      "orcid": "0000-0003-1230-7395",
+      "rut": "15007404-5",
+      "uta_name": "Vanessa Jara Labarthé",
+      "anid_name": "Vanessa Jara Labarthé"
+    },
+    {
+      "anid_id": "37929",
+      "orcid": "0000-0002-1962-7335",
+      "rut": "15008651-5",
+      "uta_name": "Luis Rodríguez Cisterna",
+      "anid_name": "Luis Hernán Rodríguez Cisterna"
+    },
+    {
+      "anid_id": "49410",
+      "orcid": "0000-0001-8176-9070",
+      "rut": "15014930-4",
+      "uta_name": "Manuel Barraza Rodriguez",
+      "anid_name": "Manuel  Alejandro Barraza Rodríguez"
+    },
+    {
+      "anid_id": "13346",
+      "orcid": "0000-0003-3380-389X",
+      "rut": "15018055-4",
+      "uta_name": "Claudio Andres Quezada Romegialli",
+      "anid_name": "Claudio Andrés Quezada Romegialli"
+    },
+    {
+      "anid_id": "33042",
+      "orcid": "0000-0003-4475-1175",
+      "rut": "15039512-7",
+      "uta_name": "Marcos Carmona Halty",
+      "anid_name": "Marcos Carmona Halty"
+    },
+    {
+      "anid_id": "22220",
+      "orcid": "0000-0001-7897-5834",
+      "rut": "15095759-1",
+      "uta_name": "Nicolas Neill Herrera",
+      "anid_name": "Nicolás Andrés Neill Herrera"
+    },
+    {
+      "anid_id": "40610",
+      "orcid": "0000-0002-2275-0481",
+      "rut": "15315084-2",
+      "uta_name": "Andrea Paz Alvarado Urbina",
+      "anid_name": "Andrea Paz Alvarado Urbina"
+    },
+    {
+      "anid_id": "36041",
+      "orcid": "0000-0003-1039-3197",
+      "rut": "15339475-K",
+      "uta_name": "Patricio Muñoz Torres",
+      "anid_name": "Patricio Alberto Muñoz Torres"
+    },
+    {
+      "anid_id": "32850",
+      "orcid": "0000-0002-0149-1302",
+      "rut": "15371977-2",
+      "uta_name": "Barbara Rojas Ayala",
+      "anid_name": "Bárbara Rojas Ayala"
+    },
+    {
+      "anid_id": "45530",
+      "orcid": "0000-0002-0802-7641",
+      "rut": "15382740-0",
+      "uta_name": "Matias Calderon Seguel",
+      "anid_name": "Matías Calderón Seguel"
+    },
+    {
+      "anid_id": "48749",
+      "orcid": "0000-0003-0116-5555",
+      "rut": "15686973-2",
+      "uta_name": "Luza Pablo Guicharrousse",
+      "anid_name": "Pablo Guicharrousse Luza"
+    },
+    {
+      "anid_id": "34776",
+      "orcid": "0000-0002-2530-0443",
+      "rut": "15693825-4",
+      "uta_name": "Alejandra Andrea Roman Lay",
+      "anid_name": "ALEJANDRA ANDREA ROMAN LAY"
+    },
+    {
+      "anid_id": "28773",
+      "orcid": "0000-0003-2947-4739",
+      "rut": "15805086-2",
+      "uta_name": "José Nicolás Berrios Riquelme",
+      "anid_name": "José Nicolás Berríos Riquelme"
+    },
+    {
+      "anid_id": "27539",
+      "orcid": "0000-0002-3523-1197",
+      "rut": "15869497-2",
+      "uta_name": "Roxana Chiappa Baros",
+      "anid_name": "Roxana Patricia Chiappa Baros"
+    },
+    {
+      "anid_id": "22250",
+      "orcid": "0000-0002-6682-8092",
+      "rut": "15935266-8",
+      "uta_name": "Ignacio Jara Parra",
+      "anid_name": "Ignacio Alonso Jara Parra"
+    },
+    {
+      "anid_id": "36766",
+      "orcid": "0000-0002-3298-6877",
+      "rut": "15994576-6",
+      "uta_name": "Gonzalo Quintana Zunino",
+      "anid_name": "Gonzalo Renato Quintana Zunino"
+    },
+    {
+      "anid_id": "35121",
+      "orcid": "0000-0003-1328-9635",
+      "rut": "16266140-K",
+      "uta_name": "Patricia Palma Maturana",
+      "anid_name": "Patricia Nataly Palma Maturana"
+    },
+    {
+      "anid_id": "38164",
+      "orcid": "0000-0003-2441-8260",
+      "rut": "16284972-7",
+      "uta_name": "Julio Labraña Vargas",
+      "anid_name": "Julio Roberto Labraña Vargas"
+    },
+    {
+      "anid_id": "18868",
+      "orcid": "0000-0001-5407-3158",
+      "rut": "16771149-9",
+      "uta_name": "Rodrigo Ferrer Urbina",
+      "anid_name": "Rodrigo Ferrer Urbina"
+    },
+    {
+      "anid_id": "48248",
+      "orcid": "0000-0002-3201-6790",
+      "rut": "17011959-2",
+      "uta_name": "Boris Engerl Atenas Nuñez",
+      "anid_name": "Boris Engerl Atenas Núñez"
+    },
+    {
+      "anid_id": "41924",
+      "orcid": "0000-0002-5084-0556",
+      "rut": "17013156-8",
+      "uta_name": "Diego A. Nocetti Garcia",
+      "anid_name": "Diego Andrés Nocetti García"
+    },
+    {
+      "anid_id": "30211",
+      "orcid": "0000-0003-1781-8565",
+      "rut": "17115344-1",
+      "uta_name": "Giuliani Coluccio Piñones",
+      "anid_name": "Giuliani Paolo Coluccio Piñones"
+    },
+    {
+      "anid_id": "35712",
+      "orcid": "0000-0002-0163-9119",
+      "rut": "17369726-0",
+      "uta_name": "Juan Ventura Ventura",
+      "anid_name": "Juan Nicolas Ventura Ventura"
+    },
+    {
+      "anid_id": "37689",
+      "orcid": "0000-0002-2915-309X",
+      "rut": "21518997-K",
+      "uta_name": "Laura Perez Fuentes",
+      "anid_name": "Laura Milena Pérez Fuentes"
+    },
+    {
+      "anid_id": "5118",
+      "orcid": "0000-0002-1819-0872",
+      "rut": "21627536-5",
+      "uta_name": "Alexander Neaman",
+      "anid_name": "Alexander Neaman"
+    },
+    {
+      "anid_id": "53600",
+      "orcid": "0009-0002-7021-5739",
+      "rut": "21631616-9",
+      "uta_name": "Adriana Sapiro Santalla",
+      "anid_name": "Adriana Karem Sapiro Santalla"
+    },
+    {
+      "anid_id": "3444",
+      "orcid": "0000-0002-0694-1755",
+      "rut": "21645591-6",
+      "uta_name": "Yurilev Chalco Cano",
+      "anid_name": "Yurilev Chalco Cano"
+    },
+    {
+      "anid_id": "8088",
+      "orcid": "0000-0001-7477-9000",
+      "rut": "21787480-7",
+      "uta_name": "Mauro Bologna",
+      "anid_name": "Mauro Bologna"
+    },
+    {
+      "anid_id": "35253",
+      "orcid": "0000-0001-6775-5748",
+      "rut": "23252698-K",
+      "uta_name": "Vagner De Sousa Beserra",
+      "anid_name": "Vagner de Sousa Beserra"
+    },
+    {
+      "anid_id": "20152",
+      "orcid": "0000-0001-8617-5626",
+      "rut": "23978333-3",
+      "uta_name": "Edward Fabian Mosso Solano",
+      "anid_name": "Edward Fabián Mosso Solano"
+    },
+    {
+      "anid_id": "33236",
+      "orcid": "0000-0003-2800-150X",
+      "rut": "24221393-9",
+      "uta_name": "Ana María Cabanas Plana",
+      "anid_name": "Ana  María Cabanas Plana"
+    },
+    {
+      "anid_id": "18049",
+      "orcid": "0000-0002-4333-839X",
+      "rut": "24298812-4",
+      "uta_name": "Yoelsy Leyva Nodal",
+      "anid_name": "Yoelsy Leyva Nodal"
+    },
+    {
+      "anid_id": "29399",
+      "orcid": "0000-0001-5744-6618",
+      "rut": "24316069-3",
+      "uta_name": "Katherine Acosta García",
+      "anid_name": "KATHERINE ACOSTA GARCÍA"
+    },
+    {
+      "anid_id": "32893",
+      "orcid": "0000-0002-3771-4694",
+      "rut": "24690468-5",
+      "uta_name": "Saravanan Rajendran",
+      "anid_name": "Saravanan Rajendran"
+    },
+    {
+      "anid_id": "42215",
+      "orcid": "0000-0002-8762-4021",
+      "rut": "24906444-0",
+      "uta_name": "Luca Sitzia",
+      "anid_name": "Luca Sitzia"
+    },
+    {
+      "anid_id": "20964",
+      "orcid": "0000-0001-7875-4951",
+      "rut": "25343512-7",
+      "uta_name": "Roberto Espinosa Oliva",
+      "anid_name": "Roberto Espinosa Oliva"
+    },
+    {
+      "anid_id": "21030",
+      "orcid": "0000-0002-2222-6137",
+      "rut": "25374897-4",
+      "uta_name": "Oliver Meseguer Ruiz",
+      "anid_name": "Oliver Meseguer Ruiz"
+    },
+    {
+      "anid_id": "22481",
+      "orcid": "0000-0001-6753-0565",
+      "rut": "25532596-5",
+      "uta_name": "Giovanni Otalora Patiño",
+      "anid_name": "Giovanni Otalora Patiño"
+    },
+    {
+      "anid_id": "29352",
+      "orcid": "0000-0002-6717-756X",
+      "rut": "26222133-4",
+      "uta_name": "Cesar Cisneros Puebla",
+      "anid_name": "césar antonio cisneros puebla"
+    },
+    {
+      "anid_id": "22773",
+      "orcid": "0000-0003-1692-5561",
+      "rut": "26253941-5",
+      "uta_name": "Anton Tiutiunnyk",
+      "anid_name": "Anton Tiutiunnyk"
+    },
+    {
+      "anid_id": "32343",
+      "orcid": "0000-0003-0568-5750",
+      "rut": "27416647-9",
+      "uta_name": "Sonia Kabana",
+      "anid_name": "Sonia Kabana"
+    },
+    {
+      "anid_id": "39581",
+      "orcid": "0000-0003-1557-8684",
+      "rut": "27520015-8",
+      "uta_name": "Andres Mauricio Velez Pereira",
+      "anid_name": "Andrés Mauricio Vélez Pereira"
+    },
+    {
+      "anid_id": "49477",
+      "orcid": "0000-0002-0776-6725",
+      "rut": "27540971-5",
+      "uta_name": "Atul Sagade",
+      "anid_name": "Atul Abhimanyu Sagade"
+    },
+    {
+      "anid_id": "46403",
+      "orcid": "0009-0005-1560-2965",
+      "rut": "27768492-6",
+      "uta_name": "Lalitha Gnanasekaran",
+      "anid_name": "Lalitha Gnanasekaran"
+    },
+    {
+      "anid_id": "39199",
+      "orcid": "0000-0002-1647-0360",
+      "rut": "27890752-K",
+      "uta_name": "Shalini Thakur",
+      "anid_name": "Shalini Thakur"
+    }
+  ]
+}
