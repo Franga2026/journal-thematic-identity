@@ -6,8 +6,8 @@ React + Vite. **Sin backend en este repo.** Los datos del portal son JSON estát
 React → JSON locales (src/*.json) → initDataStore → Contexts → Tabs
 ```
 
-> **No usar** *catalogador-ia* ni su FastAPI (`GET /records`, etc.). Es otro proyecto.  
-> **Do not infer APIs from other repositories in the workspace.**
+> **No usar** *catalogador-ia* ni su FastAPI (`GET /records`, etc.). Es **otro proyecto** — no comparte código, puertos ni `.env` con este repo.  
+> El descubridor OpenAlex usa solo `cris-discovery-api/` + `VITE_DISCOVERY_API_URL` (ver `.cursor/rules/no-catalogador-ia.mdc`).
 
 ## Proyecto activo
 
@@ -117,6 +117,8 @@ La API key **no** va en el frontend. Solo servidor: `ANTHROPIC_API_KEY` y opcion
 El cliente usa siempre **`POST /api/ai/*`** (`src/api/aiApi.ts`).
 
 **Despliegue Vercel, variables, curl y Worker:** [docs/DEPLOY-AI.md](docs/DEPLOY-AI.md)
+
+**Repositorio ANID (OAI-PMH, API REST, conteos UTA):** [docs/repositorio-anid-oai.md](docs/repositorio-anid-oai.md)
 
 UI: **Resumen IA** (obras), **Analizar con IA** (perfiles), análisis ODS/coautores, chat en pestaña **IA**.
 
