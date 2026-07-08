@@ -17,6 +17,8 @@ const API_BASE =
 export interface WorkAuthor {
   name: string;
   orcid?: string | null;
+  author_id?: string | null;   // OpenAlex Author ID (A…) — para match UTA
+  position?: string | null;     // "first" | "middle" | "last"
 }
 
 export interface LinkedDataset {
@@ -37,6 +39,8 @@ export interface WorkResult {
   is_oa: boolean;
   oa_status?: string | null;
   oa_url?: string | null;
+  pdf_url?: string | null;
+  best_oa_repo?: string | null;
   journal?: string | null;
   publisher?: string | null;
   field?: string | null;
@@ -245,8 +249,10 @@ export function workResultToWork(r: WorkResult): any {
     s: r.journal ?? undefined,
     tp: r.type ?? undefined,
     oa: r.is_oa,
-    oa_status: r.oa_status ?? undefined,   // Capa A: ahora sí se mapea
-    ou: r.oa_url ?? undefined,
+    oa_status: r.oa_status ?? undefined,
+    ou: r.pdf_url ?? r.oa_url ?? undefined,
+    u: r.oa_url ?? r.pdf_url ?? undefined,
+    pdf_url: r.pdf_url ?? undefined,
     d: doi,
     a: (r.authors || []).map((au) => au.name),
     fwci: r.fwci ?? undefined,
