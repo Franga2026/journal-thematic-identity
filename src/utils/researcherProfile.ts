@@ -1,6 +1,10 @@
 import type { Researcher } from '../shared/types';
 import type { OpenAlexAuthorSummary } from '../shared/types/openalex';
 import { cleanOrcid } from './helpers';
+import { getData } from './dataProcessing';
+import { parseOpenAlexAuthorId } from './openAlexAuthorId';
+import { buildAuthorIdAttributionMaps, type OrcidAuthorIdMapFile, type UtaAuthorAttribution } from './orcidAuthorIdMap';
+import orcidAuthorIdMapFile from '../data/orcid-authorid-map.json';
 
 /** ORCID de 16 dígitos (con guiones) desde URL OpenAlex */
 export function extractOrcidFromOpenAlex(orcidField: string | null | undefined): string | undefined {
@@ -77,4 +81,47 @@ export function getOpenAlexAuthorProfilePath(author: OpenAlexAuthorSummary): str
   if (author.orcid?.trim()) return `/perfiles/${author.orcid}`;
   if (author.openAlexId) return `/perfiles/${author.openAlexId}`;
   return `/perfiles/${encodeURIComponent(author.id)}`;
+}
+
+const ORCID_MAP = (orcidAuthorIdMapFile as OrcidAuthorIdMapFile).map ?? {};
+
+let _reverseByAuthorId: Map<string, UtaAuthorAttribution> | null = null;
+let _reverseCatalogSize = 0;
+
+function getUtaReverseByAuthorId(catalog: Researcher[]) {
+  if (_reverseByAuthorId && _reverseCatalogSize === catalog.length) {
+    return _reverseByAuthorId;
+  }
+  const { reverseByAuthorId } = buildAuthorIdAttributionMaps(catalog, ORCID_MAP);
+  _reverseByAuthorId = reverseByAuthorId;
+  _reverseCatalogSize = catalog.length;
+  return reverseByAuthorId;
+}
+
+/** Resuelve author.id OpenAlex (A…) → investigador UTA vía orcid-authorid-map.json. */
+export function findResearcherByOpenAlexAuthorId(
+  authorId: string,
+  catalog: Researcher[] = getData(),
+): Researcher | undefined {
+  const parsed = parseOpenAlexAuthorId(authorId);
+  if (!parsed) return undefined;
+
+  const reverse = catalog === getData()
+    ? getUtaReverseByAuthorId(catalog)
+    : buildAuthorIdAttributionMaps(catalog, ORCID_MAP).reverseByAuthorId;
+
+  const attr = reverse.get(parsed);
+  if (!attr) return undefined;
+
+  return (
+    catalog.find((r) => (r.id || '').trim() === attr.rut)
+    ?? findResearcherByProfileId(catalog, attr.orcid)
+  );
+}
+
+export function isUtaOpenAlexAuthorId(
+  authorId: string,
+  catalog: Researcher[] = getData(),
+): boolean {
+  return !!findResearcherByOpenAlexAuthorId(authorId, catalog);
 }

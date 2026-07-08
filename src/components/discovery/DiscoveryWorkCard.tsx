@@ -1,7 +1,9 @@
 import { memo, useEffect, useState } from 'react';
+import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
 import { getWorkAccessUrl } from '../../utils/workAccess';
 import type { WorkResult } from '../../services/discovery/universalSearch';
 import { workResultToWork, displayableChipLabel } from '../../services/discovery/universalSearch';
+import { enrichAuthors, utaLeadershipLabel } from '../../services/discovery/enrichUniversalAuthors';
 import WorkCitationPanel from '../cards/WorkCitationPanel';
 import { fetchDataCiteUsage, type DataCiteUsage } from '../../utils/datasetUsage';
 import { fetchFairScores, type FairScores } from '../../utils/datasetFair';
@@ -44,35 +46,49 @@ function openAlexWorkUrl(openalexId?: string | null): string | null {
   return id ? `https://openalex.org/works/${id}` : null;
 }
 
-function DwMetric({
+function DwMetricTile({
   label,
   value,
+  variant,
+  badge,
+  badgeBelow,
   href,
   title,
 }: {
   label: string;
   value: string;
+  variant: 'fwci' | 'neutral';
+  badge?: string;
+  badgeBelow?: boolean;
   href?: string | null;
   title?: string;
 }) {
-  const inner = (
-    <>
-      {label} <strong>{value}</strong>
-    </>
+  const tile = (
+    <div className={`dw-tile dw-tile--${variant}`}>
+      <div className="dw-tile__top">
+        <span className="dw-tile__value">{value}</span>
+        {badge ? (
+          <span className={`dw-tile__badge${badgeBelow ? ' dw-tile__badge--below' : ''}`}>
+            {badge}
+          </span>
+        ) : null}
+      </div>
+      <div className="dw-tile__label">{label}</div>
+    </div>
   );
   if (!href) {
-    return <span className="dw-card__metric" title={title}>{inner}</span>;
+    return <span title={title}>{tile}</span>;
   }
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="dw-card__metric dw-card__metric--link"
+      className="dw-tile__link"
       title={title ?? `Ver ${label} en OpenAlex`}
       aria-label={`Ver ${label} en OpenAlex`}
     >
-      {inner}
+      {tile}
     </a>
   );
 }
@@ -111,6 +127,7 @@ const Q_COLORS: Record<string, string> = {
 };
 
 const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult }) {
+  const { openLocalResearcherProfile } = useOpenResearcherProfile();
   const isDataset = r.type === 'dataset';
   const isChapter = r.type === 'book-chapter';
   const isBook = r.type === 'book';
@@ -121,13 +138,22 @@ const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult
   };
   const w = workResultToWork(r);
   const accessUrl = getWorkAccessUrl(w);
-  const authors = (r.authors || []).map((a) => a.name);
-  const visibleAuthors = authors.slice(0, 3).join(', ');
-  const moreAuthors = authors.length > 3 ? ` +${authors.length - 3}` : '';
+  const enriched = enrichAuthors(r.authors);
+  const visible = enriched.slice(0, 3);
+  const moreCount = enriched.length > 3 ? enriched.length - 3 : 0;
+  const hasUta = enriched.some((a) => a.utaResearcher != null);
   const oaKey = r.oa_status || (r.is_oa ? 'gold' : 'closed');
   const oaLabel = OA_LABELS[oaKey] || oaKey;
   const oaColor = OA_COLORS[oaKey] || '#999';
   const fwci = r.fwci != null ? r.fwci.toFixed(2) : '—';
+  const fwciNum = r.fwci;
+  const fwciBelow = fwciNum != null && fwciNum < 1;
+  const fwciTileVariant = fwciBelow ? 'neutral' : 'fwci';
+  const fwciBadge = fwciNum == null
+    ? undefined
+    : fwciBelow
+      ? 'bajo media'
+      : `${fwciNum.toFixed(2)}× media`;
   const [usage, setUsage] = useState<DataCiteUsage | null>(null);
   const [fair, setFair] = useState<FairScores | null>(null);
 
@@ -172,7 +198,7 @@ const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult
       : '';
 
   return (
-    <article className={`dw-card${isDataset ? ' dw-card--dataset' : ''}`}>
+    <article className={`dw-card${isDataset ? ' dw-card--dataset' : ''}${hasUta ? ' dw-card--uta' : ''}`}>
       <div className="dw-card__badges">
         <span className={`dw-badge ${typeInfo.style}`}>
           {isDataset && <DbIcon size={9} />}
@@ -229,8 +255,37 @@ const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult
       )}
 
       <p className="dw-card__meta">
-        {visibleAuthors && <span>{visibleAuthors}{moreAuthors}</span>}
-        {visibleAuthors && (r.journal || r.field) && ' · '}
+        {visible.length > 0 && (
+          <span className="dw-card__authors">
+            {visible.map((a, i) => (
+              <span key={a.authorId ?? `${a.name}-${i}`}>
+                {a.utaResearcher ? (
+                  <button
+                    type="button"
+                    className="dw-card__author dw-card__author--uta"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openLocalResearcherProfile(a.utaResearcher!);
+                    }}
+                    title={`Ver ficha UTA de ${a.name}`}
+                  >
+                    {a.name}
+                    {utaLeadershipLabel(a.position) && (
+                      <span className="dw-card__author-badge">
+                        {utaLeadershipLabel(a.position)}
+                      </span>
+                    )}
+                  </button>
+                ) : (
+                  <span className="dw-card__author">{a.name}</span>
+                )}
+                {i < visible.length - 1 && <span className="dw-card__author-sep">, </span>}
+              </span>
+            ))}
+            {moreCount > 0 && <span className="dw-card__author-more"> +{moreCount}</span>}
+          </span>
+        )}
+        {visible.length > 0 && (r.journal || r.field) && ' · '}
         {isDataset && r.journal ? (
           <span className="dw-card__source dw-card__source--dataset">
             <DbIcon size={10} /> {r.journal}
@@ -248,7 +303,7 @@ const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult
         ) : null}
         {r.field && (
           <>
-            {(visibleAuthors || r.journal) && ' · '}
+            {(visible.length > 0 || r.journal) && ' · '}
             <span className="dw-card__field">{r.field}</span>
           </>
         )}
@@ -261,13 +316,24 @@ const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult
       {isDataset && fair && <FairStrip scores={fair} />}
 
       <div className="dw-card__footer">
-        <DwMetric label="FWCI" value={fwci} href={oaWorkUrl} />
-        <DwMetric
-          label={usesLabel}
-          value={usesDisplay}
-          href={linkCites ? oaWorkUrl : undefined}
-          title={isDataset && usage ? 'Vistas + descargas (DataCite · Make Data Count)' : undefined}
-        />
+        <div className="dw-card__metrics">
+          <DwMetricTile
+            label="FWCI"
+            value={fwci}
+            variant={fwciTileVariant}
+            badge={fwciBadge}
+            badgeBelow={fwciBelow}
+            href={oaWorkUrl}
+            title={fwciNum == null ? 'FWCI no disponible en OpenAlex' : undefined}
+          />
+          <DwMetricTile
+            label={usesLabel}
+            value={usesDisplay}
+            variant="neutral"
+            href={linkCites ? oaWorkUrl : undefined}
+            title={isDataset && usage ? 'Vistas + descargas (DataCite · Make Data Count)' : undefined}
+          />
+        </div>
         <div className="dw-card__actions">
           <WorkCitationPanel work={w} compact ghost />
           {accessUrl && (

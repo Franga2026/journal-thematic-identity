@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import {
   extractOrcidFromOpenAlex,
   findResearcherByProfileId,
+  findResearcherByOpenAlexAuthorId,
+  isUtaOpenAlexAuthorId,
   getOrcidRecordUrl,
   getResearcherProfilePath,
   getOpenAlexAuthorProfilePath,
@@ -71,5 +73,15 @@ describe('researcherProfile', () => {
         works_count: 1,
       })
     ).toBe('/perfiles/0000-0002-1825-0097');
+  });
+
+  it('findResearcherByOpenAlexAuthorId resolves UTA via orcid-authorid-map', () => {
+    const catalog: Researcher[] = [
+      { id: '12345678-9', f: 'Francisco', l: 'Rothhammer Engel', o: '0000-0001-5228-1180' },
+    ];
+    const hit = findResearcherByOpenAlexAuthorId('A5022063392', catalog);
+    expect(hit?.l).toMatch(/Rothhammer/i);
+    expect(isUtaOpenAlexAuthorId('A5022063392', catalog)).toBe(true);
+    expect(isUtaOpenAlexAuthorId('A9999999999', catalog)).toBe(false);
   });
 });
