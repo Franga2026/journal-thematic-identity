@@ -23,6 +23,7 @@ import json
 import time
 import hashlib
 import asyncio
+import logging
 from pathlib import Path
 from typing import Optional
 
@@ -36,6 +37,7 @@ from pydantic import BaseModel
 # ----------------------------------------------------------------------
 OPENALEX_API_KEY = os.environ.get("OPENALEX_API_KEY", "").strip()
 OPENALEX_BASE = "https://api.openalex.org"
+logger = logging.getLogger(__name__)
 CONTACT_EMAIL = os.environ.get("OPENALEX_CONTACT_EMAIL", "").strip()
 
 ALLOWED_ORIGINS = os.environ.get(
@@ -51,7 +53,7 @@ RATE_LIMIT_WINDOW = int(os.environ.get("RATE_LIMIT_WINDOW", "60"))
 # host_organization (editorial), abstract_inverted_index e ISSN.
 SELECT_FIELDS = (
     "id,display_name,title,publication_year,doi,type,cited_by_count,"
-    "fwci,open_access,primary_location,primary_topic,authorships,"
+    "fwci,open_access,primary_location,best_oa_location,primary_topic,authorships,"
     "abstract_inverted_index"
 )
 
@@ -92,6 +94,8 @@ app.add_middleware(
 # Caché y rate limit en memoria
 # ----------------------------------------------------------------------
 _cache: dict[str, tuple[float, dict]] = {}
+_autocomplete_cache: dict[str, tuple[float, list]] = {}
+AUTOCOMPLETE_TTL = 300
 _linked_ds_cache: dict[str, tuple[float, tuple[list[LinkedDataset], int]]] = {}
 _rate: dict[str, list[float]] = {}
 
@@ -144,6 +148,8 @@ def _check_rate(ip: str) -> bool:
 class WorkAuthor(BaseModel):
     name: str
     orcid: Optional[str] = None
+    author_id: Optional[str] = None       # OpenAlex Author ID corto (A…) — clave para match UTA
+    position: Optional[str] = None         # first | middle | last (author_position de OpenAlex)
 
 
 class LinkedDataset(BaseModel):
@@ -164,6 +170,8 @@ class WorkResult(BaseModel):
     is_oa: bool = False
     oa_status: Optional[str] = None
     oa_url: Optional[str] = None
+    pdf_url: Optional[str] = None          # PDF en mejor ubicación OA (best_oa_location)
+    best_oa_repo: Optional[str] = None     # Repositorio / fuente OA (display_name)
     journal: Optional[str] = None
     publisher: Optional[str] = None        # editorial / repositorio (Capa A)
     field: Optional[str] = None            # área temática (Capa A)
@@ -204,6 +212,22 @@ class FacetsResponse(BaseModel):
     repositories: list[FacetBucket] = []
     dataset_repositories: list[FacetBucket] = []
     quartiles: list[FacetBucket] = []      # Capa B: SJR Q1–Q4
+
+
+class AutocompleteItem(BaseModel):
+    id: str
+    display_name: str
+    hint: Optional[str] = None
+    entity_type: str
+    cited_by_count: int = 0
+    works_count: int = 0
+    external_id: Optional[str] = None
+
+
+class AutocompleteResponse(BaseModel):
+    query: str
+    results: list[AutocompleteItem]
+    cached: bool = False
 
 
 # ----------------------------------------------------------------------
@@ -423,6 +447,36 @@ def _dataset_access_url(w: dict) -> Optional[str]:
     return f"https://openalex.org/works/{oa_id}" if oa_id else None
 
 
+def _parse_best_oa_location(w: dict) -> tuple[Optional[str], Optional[str], Optional[str]]:
+    """
+    Extrae pdf_url, nombre del repositorio/fuente OA y URL de acceso mejorada
+    desde best_oa_location de OpenAlex.
+    """
+    bol = w.get("best_oa_location") or {}
+    if not isinstance(bol, dict):
+        return None, None, None
+
+    pdf_raw = bol.get("pdf_url")
+    pdf_url = str(pdf_raw).strip() if pdf_raw else None
+
+    source = bol.get("source") or {}
+    best_oa_repo = None
+    if isinstance(source, dict):
+        best_oa_repo = (
+            _sanitize_display_label(source.get("display_name"))
+            or _sanitize_display_label(source.get("host_organization_name"))
+        )
+
+    access_url = None
+    for key in ("pdf_url", "landing_page_url"):
+        val = bol.get(key)
+        if val:
+            access_url = str(val).strip()
+            break
+
+    return pdf_url or None, best_oa_repo, access_url or None
+
+
 async def _fetch_linked_datasets(
     client: httpx.AsyncClient,
     work_id: str,
@@ -485,14 +539,26 @@ async def _enrich_linked_datasets(
         wr.linked_datasets_count = count
 
 
-def normalize_work(w: dict) -> WorkResult:
-    authors = []
-    for a in (w.get("authorships") or [])[:5]:
+def _normalize_authors(w: dict, limit: int = 25) -> list[WorkAuthor]:
+    """
+    Extrae autores con OpenAlex Author ID y posición.
+    Límite 25 (antes 5) para no perder autores UTA en papers con muchos coautores.
+    """
+    out: list[WorkAuthor] = []
+    for a in (w.get("authorships") or [])[:limit]:
         au = a.get("author") or {}
-        authors.append(WorkAuthor(
+        aid = str(au.get("id") or "").rsplit("/", 1)[-1] or None
+        out.append(WorkAuthor(
             name=au.get("display_name") or "—",
             orcid=(au.get("orcid") or "").rsplit("/", 1)[-1] or None,
+            author_id=aid,
+            position=a.get("author_position"),
         ))
+    return out
+
+
+def normalize_work(w: dict) -> WorkResult:
+    authors = _normalize_authors(w)
 
     primary = w.get("primary_location") or {}
     source = (primary.get("source") or {}) if isinstance(primary, dict) else {}
@@ -507,7 +573,19 @@ def normalize_work(w: dict) -> WorkResult:
     oa = w.get("open_access") or {}
     is_oa = bool(oa.get("is_oa"))
     oa_status = oa.get("oa_status")
-    oa_url = oa.get("oa_url")
+    pdf_url, best_oa_repo, best_oa_access = _parse_best_oa_location(w)
+    oa_url = oa.get("oa_url") or best_oa_access
+    if not oa_url:
+        primary = w.get("primary_location") or {}
+        if isinstance(primary, dict):
+            for key in ("pdf_url", "landing_page_url"):
+                if primary.get(key):
+                    oa_url = str(primary[key])
+                    break
+    if not pdf_url and isinstance(w.get("primary_location"), dict):
+        pl_pdf = (w.get("primary_location") or {}).get("pdf_url")
+        if pl_pdf:
+            pdf_url = str(pl_pdf).strip() or None
 
     doi = w.get("doi")
     if doi and doi.startswith("https://doi.org/"):
@@ -534,6 +612,8 @@ def normalize_work(w: dict) -> WorkResult:
         is_oa=is_oa,
         oa_status=oa_status,
         oa_url=oa_url,
+        pdf_url=pdf_url,
+        best_oa_repo=best_oa_repo,
         journal=journal,
         publisher=publisher,
         field=field,
@@ -576,13 +656,12 @@ def build_filters(
     if work_type and not ds_repo_id and not (repo_id and work_type == "dataset"):
         types = [t.strip() for t in work_type.split("|") if t.strip()]
         if types == ["book-chapter"]:
-            filters.append("type:book-chapter|article|review|letter|editorial")
-            filters.append("primary_location.source.type:book|ebook")
+            filters.append("type:book-chapter")
         elif types == ["book"]:
             filters.append("type:book")
         elif types and all(t in JOURNAL_WORK_TYPES or t == "preprint" for t in types):
             filters.append(f"type:{work_type}")
-            filters.append("primary_location.source.type:!book,!ebook")
+            filters.append("primary_location.source.type:!book|!ebook")
         else:
             filters.append(f"type:{work_type}")
     if oa_status:
@@ -891,6 +970,9 @@ async def _group_by(client, q, filters, group_field, group_limit: int = 25):
     # Con group_by, per-page controla CUÁNTOS GRUPOS devuelve la API (máx 200),
     # no cuántas obras. OpenAlex ordena los grupos por key (alfabético), así que
     # los ordenamos por count en el proxy para quedarnos con los más frecuentes.
+    #
+    # TOLERANTE A FALLOS: si esta faceta falla (400, timeout, etc.), devuelve
+    # lista vacía en vez de tumbar las demás facetas del endpoint /facets.
     params = {
         "search": q,
         "group_by": group_field,
@@ -901,7 +983,26 @@ async def _group_by(client, q, filters, group_field, group_limit: int = 25):
         params["filter"] = ",".join(filters)
     if CONTACT_EMAIL:
         params["mailto"] = CONTACT_EMAIL
-    data = await _openalex_get(client, f"{OPENALEX_BASE}/works", params)
+    try:
+        resp = await client.get(f"{OPENALEX_BASE}/works", params=params)
+        if resp.status_code != 200:
+            hint = resp.text[:200]
+            try:
+                body = resp.json()
+                hint = body.get("message") or body.get("error") or hint
+            except Exception:
+                pass
+            logger.warning(
+                "[facets] group_by '%s' devolvió %s: %s",
+                group_field,
+                resp.status_code,
+                hint,
+            )
+            return [], 0.0
+        data = resp.json()
+    except Exception as e:
+        logger.warning("[facets] group_by '%s' falló: %s", group_field, e)
+        return [], 0.0
     cost = float((data.get("meta") or {}).get("cost_usd", 0.0) or 0.0)
     groups = data.get("group_by") or []
     groups.sort(key=lambda g: g.get("count", 0), reverse=True)
@@ -939,10 +1040,22 @@ async def facets(
             _group_by(client, q, repo_filters, "primary_location.source.host_organization", 50),
             _group_by(client, q, dataset_repo_filters, "primary_location.source.host_organization", 50),
             _group_by(client, q, base_filters, "primary_location.source.issn", 200),
+            return_exceptions=True,
         )
 
+    def _safe_group_result(r):
+        return r if isinstance(r, tuple) else ([], 0.0)
+
     (types_raw, c1), (oa_raw, c2), (fields_raw, c3), (pubs_raw, c4), \
-        (repos_raw, c5), (ds_repos_raw, c6), (issn_raw, c7) = results
+        (repos_raw, c5), (ds_repos_raw, c6), (issn_raw, c7) = (
+            _safe_group_result(results[0]),
+            _safe_group_result(results[1]),
+            _safe_group_result(results[2]),
+            _safe_group_result(results[3]),
+            _safe_group_result(results[4]),
+            _safe_group_result(results[5]),
+            _safe_group_result(results[6]),
+        )
     total_cost = c1 + c2 + c3 + c4 + c5 + c6 + c7
     quartiles = _aggregate_quartile_buckets(issn_raw)
 
@@ -1013,8 +1126,102 @@ async def facets(
 
 
 # ----------------------------------------------------------------------
+# Autocomplete (type-ahead)
+# ----------------------------------------------------------------------
+_AUTOCOMPLETE_ENTITIES = frozenset(
+    {"works", "authors", "sources", "institutions", "concepts", "topics"}
+)
+
+
+@app.get("/autocomplete", response_model=AutocompleteResponse)
+async def autocomplete(
+    q: str = Query(..., min_length=1, description="Texto parcial a autocompletar"),
+    entity: str = Query(
+        "",
+        description=(
+            "Filtrar por tipo: works|authors|sources|institutions|concepts|topics. "
+            "Vacío = general (mezcla todo)."
+        ),
+    ),
+    limit: int = Query(8, ge=1, le=25),
+):
+    """Type-ahead sobre OpenAlex (autores, revistas, instituciones, conceptos, obras)."""
+    q_clean = q.strip()
+    if len(q_clean) < 1:
+        return AutocompleteResponse(query=q_clean, results=[])
+
+    path = "autocomplete"
+    if entity and entity in _AUTOCOMPLETE_ENTITIES:
+        path = f"autocomplete/{entity}"
+
+    cache_key = f"{path}:{q_clean.lower()}:{limit}"
+    now = time.time()
+    cached = _autocomplete_cache.get(cache_key)
+    if cached:
+        ts, cached_items = cached
+        if now - ts < AUTOCOMPLETE_TTL:
+            return AutocompleteResponse(
+                query=q_clean,
+                results=[AutocompleteItem(**it) for it in cached_items],
+                cached=True,
+            )
+
+    params: dict[str, str] = {"q": q_clean}
+    if OPENALEX_API_KEY:
+        params["api_key"] = OPENALEX_API_KEY
+    if CONTACT_EMAIL:
+        params["mailto"] = CONTACT_EMAIL
+
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.get(f"{OPENALEX_BASE}/{path}", params=params)
+            if resp.status_code != 200:
+                logger.warning(
+                    "[autocomplete] '%s' q=%r devolvió %s",
+                    path, q_clean, resp.status_code,
+                )
+                return AutocompleteResponse(query=q_clean, results=[])
+            data = resp.json()
+    except Exception as e:
+        logger.warning("[autocomplete] error: %s", e)
+        return AutocompleteResponse(query=q_clean, results=[])
+
+    items: list[dict] = []
+    for r in (data.get("results") or [])[:limit]:
+        oid = str(r.get("id", "")).rsplit("/", 1)[-1]
+        items.append({
+            "id": oid,
+            "display_name": r.get("display_name") or "",
+            "hint": r.get("hint"),
+            "entity_type": r.get("entity_type") or "work",
+            "cited_by_count": r.get("cited_by_count") or 0,
+            "works_count": r.get("works_count") or 0,
+            "external_id": r.get("external_id"),
+        })
+
+    _autocomplete_cache[cache_key] = (now, items)
+    return AutocompleteResponse(
+        query=q_clean,
+        results=[AutocompleteItem(**it) for it in items],
+        cached=False,
+    )
+
+
+# ----------------------------------------------------------------------
 # Salud y uso
 # ----------------------------------------------------------------------
+@app.get("/")
+async def root():
+    return {
+        "service": "cris-discovery-api",
+        "docs": "/docs",
+        "health": "/health",
+        "search": "/search?q=...",
+        "facets": "/facets?q=...",
+        "autocomplete": "/autocomplete?q=...",
+    }
+
+
 @app.get("/health")
 async def health():
     sjr = _load_sjr_map()

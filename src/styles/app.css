@@ -4665,10 +4665,17 @@ input, select { font-family: var(--font); }
   max-width: 720px;
   width: 100%;
   margin: 0 auto;
+  position: relative;
+}
+
+.discovery-universal-header__input-wrap {
+  flex: 1;
+  position: relative;
 }
 
 .discovery-universal-header__input {
-  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
   padding: 12px 16px;
   border: none;
   border-radius: 10px;
@@ -4680,6 +4687,73 @@ input, select { font-family: var(--font); }
 .discovery-universal-header__input:focus {
   outline: 2px solid #93c5fd;
   outline-offset: 2px;
+}
+
+.discovery-autocomplete {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  max-height: 360px;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.discovery-autocomplete__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+.discovery-autocomplete__item:hover,
+.discovery-autocomplete__item--active {
+  background: #f1f5f9;
+}
+
+.discovery-autocomplete__icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 1px;
+}
+
+.discovery-autocomplete__body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.discovery-autocomplete__name {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.discovery-autocomplete__hint {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .discovery-universal-header__btn {
@@ -4955,6 +5029,55 @@ input, select { font-family: var(--font); }
   line-height: 1.45;
 }
 
+.tab-descubrir-universal .dw-card--uta {
+  box-shadow: inset 3px 0 0 #0E7E9E;
+}
+
+/* Autores UTA enriquecidos en DiscoveryWorkCard */
+.tab-descubrir-universal .dw-card__authors {
+  display: inline;
+}
+
+.tab-descubrir-universal .dw-card__author {
+  font: inherit;
+  color: inherit;
+}
+
+.tab-descubrir-universal button.dw-card__author--uta {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #0E7E9E;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline;
+}
+
+.tab-descubrir-universal button.dw-card__author--uta:hover {
+  text-decoration: underline;
+}
+
+.tab-descubrir-universal .dw-card__author-badge {
+  font-size: 8.5px;
+  background: #eafaf3;
+  color: #0F6E56;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+  font-weight: 500;
+  vertical-align: middle;
+}
+
+.tab-descubrir-universal .dw-card__author-sep {
+  color: inherit;
+}
+
+.tab-descubrir-universal .dw-card__author-more {
+  color: #889;
+}
+
 .tab-descubrir-universal .dw-card__source {
   font-style: italic;
 }
@@ -5023,35 +5146,77 @@ input, select { font-family: var(--font); }
   font-weight: 600;
 }
 
-.tab-descubrir-universal .dw-card__footer {
+/* ============================================================
+   Tiles de métricas destacadas — DiscoveryWorkCard
+   Reemplaza el estilo plano .dw-card__metric por tiles con fondo.
+   Paleta: FWCI verde (#0F6E56 sobre #eafaf3), citas navy (#14314e sobre #eef4f6).
+   ============================================================ */
+
+.tab-descubrir-universal .dw-card__footer,
+.tab-descubrir-universal .dw-card__metrics {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 9px;
-  border-top: 0.5px solid #eef2f4;
+  gap: 8px;
+  align-items: stretch;
   flex-wrap: wrap;
 }
 
-.tab-descubrir-universal .dw-card__metric {
-  font-size: 10px;
-  color: #7a94a0;
+.tab-descubrir-universal .dw-card__footer {
+  padding-top: 9px;
+  border-top: 0.5px solid #eef2f4;
 }
 
-.tab-descubrir-universal .dw-card__metric strong {
-  font-size: 13px;
-  font-weight: 500;
-  color: #14314e;
+.tab-descubrir-universal .dw-tile {
+  border-radius: 8px;
+  padding: 7px 13px;
+  min-width: 64px;
 }
 
-.tab-descubrir-universal .dw-card__metric--link {
+.tab-descubrir-universal .dw-tile--fwci    { background: #eafaf3; }
+.tab-descubrir-universal .dw-tile--neutral { background: #eef4f6; }
+
+.tab-descubrir-universal .dw-tile__top {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.tab-descubrir-universal .dw-tile__value {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1;
+}
+.tab-descubrir-universal .dw-tile--fwci    .dw-tile__value { color: #0F6E56; }
+.tab-descubrir-universal .dw-tile--neutral .dw-tile__value { color: #14314e; }
+
+.tab-descubrir-universal .dw-tile__badge {
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #c6ecd9;
+  color: #0F6E56;
+  white-space: nowrap;
+}
+/* FWCI bajo la media mundial (<1): tono neutro, no verde */
+.tab-descubrir-universal .dw-tile__badge--below {
+  background: #e8e6df;
+  color: #6b6a63;
+}
+
+.tab-descubrir-universal .dw-tile__label {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+.tab-descubrir-universal .dw-tile--fwci    .dw-tile__label { color: #5a8a76; }
+.tab-descubrir-universal .dw-tile--neutral .dw-tile__label { color: #5a7a88; }
+
+.tab-descubrir-universal .dw-tile__link {
   text-decoration: none;
-  cursor: pointer;
+  display: inline-block;
+  color: inherit;
 }
-
-.tab-descubrir-universal .dw-card__metric--link:hover strong {
-  color: #0E7E9E;
-  text-decoration: underline;
-}
+.tab-descubrir-universal .dw-tile__link:hover .dw-tile { filter: brightness(0.98); }
 
 .tab-descubrir-universal .dw-card__actions {
   margin-left: auto;
