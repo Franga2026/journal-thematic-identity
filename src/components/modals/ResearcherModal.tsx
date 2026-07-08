@@ -35,6 +35,7 @@ import {
 } from '../../utils/orcidEducationDisplay';
 import { downloadReportBlob, ReportApiError, requestReport } from '../../api/reportApi';
 import { getEnrichedWorksForResearcher } from '../../utils/researcherWorks';
+import { getAnidLinkageForResearcher, getAnidProfileUrl } from '../../utils/anidLinkage';
 import { computeCollabMetrics } from '../../services/report/reportCollabMetrics';
 import ResearcherPublicationsSection from '../researcher/ResearcherPublicationsSection';
 import OpenAlexResearcherProfile from './OpenAlexResearcherProfile';
@@ -546,6 +547,7 @@ export default function ResearcherModal() {
   const orcidUrl = getOrcidRecordUrl(selected.o);
   const openAlexUrl = getResearcherOpenAlexUrl(selected);
   const op = getOrcidProfile(selected);
+  const anidLinkage = getAnidLinkageForResearcher(selected);
   const AI = getAI();
 
   const affinityList = (AI?.affinity || {})[researcherOrcid] || [];
@@ -741,6 +743,21 @@ export default function ResearcherModal() {
                     title="Ver autor en OpenAlex"
                   >
                     OpenAlex
+                  </a>
+                )}
+                {anidLinkage && (
+                  <a
+                    href={getAnidProfileUrl(anidLinkage.anid_id)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="researcher-hero__chip researcher-hero__chip--anid"
+                    title={
+                      anidLinkage.anid_name
+                        ? `Abrir CV ANID (${anidLinkage.anid_name})`
+                        : 'Abrir CV en Portal del Investigador ANID'
+                    }
+                  >
+                    ANID: {anidLinkage.anid_id}
                   </a>
                 )}
                 {oa && (
