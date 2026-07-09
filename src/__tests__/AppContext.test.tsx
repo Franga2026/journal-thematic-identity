@@ -84,6 +84,38 @@ describe('AppContext', () => {
     expect(result.current.selected).toBeNull();
   });
 
+  it('returns to previous OpenAlex profile when closing nested coauthor modal', () => {
+    const { result } = useAppHook();
+    const authorA = {
+      id: 'A111',
+      openAlexId: 'A111',
+      display_name: 'Autor A',
+      cited_by_count: 10,
+      works_count: 5,
+    };
+    const authorB = {
+      id: 'A222',
+      openAlexId: 'A222',
+      display_name: 'Autor B',
+      cited_by_count: 20,
+      works_count: 8,
+    };
+
+    act(() => result.current.openOpenAlexResearcher('A111', authorA));
+    expect(result.current.openAlexAuthorId).toBe('A111');
+
+    act(() => result.current.openOpenAlexResearcherKeepingPrevious('A222', authorB));
+    expect(result.current.openAlexAuthorId).toBe('A222');
+    expect(result.current.openAlexAuthor?.display_name).toBe('Autor B');
+
+    act(() => result.current.closeResearcher());
+    expect(result.current.openAlexAuthorId).toBe('A111');
+    expect(result.current.openAlexAuthor?.display_name).toBe('Autor A');
+
+    act(() => result.current.closeResearcher());
+    expect(result.current.openAlexAuthorId).toBeNull();
+  });
+
   it('goPerfiles navigates to perfiles tab and resets page', () => {
     const { result } = useAppHook();
     act(() => {

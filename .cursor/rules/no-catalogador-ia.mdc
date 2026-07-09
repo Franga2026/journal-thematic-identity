@@ -1,0 +1,36 @@
+---
+description: No mezclar Catalogador IA con directorio-uta 7 (proyectos distintos)
+alwaysApply: true
+---
+
+# Separación obligatoria: directorio-uta 7 ≠ Catalogador IA
+
+## Regla
+
+**Nunca mezclar, reutilizar ni confundir** el proyecto **Catalogador IA** con **directorio-uta 7**. Son repositorios/servicios **independientes** sin relación funcional.
+
+## directorio-uta 7 (este repo)
+
+- Portal React/Vite de investigadores UTA.
+- Datos locales en `src/*.json` (gitignored).
+- Descubridor universal OpenAlex:
+  - Frontend: `src/services/discovery/universalSearch.ts`
+  - Proxy propio: `cris-discovery-api/` (FastAPI → OpenAlex)
+  - Variable: `VITE_DISCOVERY_API_URL` (ej. `http://localhost:8002`)
+
+## Catalogador IA (NO es este proyecto)
+
+- Otro producto (multi-tenant, catálogo, `GET /records`, etc.).
+- **No** usar su FastAPI, puertos ni `.env` para el descubridor universal.
+- Puertos típicos ocupados por Catalogador (8000, 8001): **no** asumir que son el proxy OpenAlex.
+
+## Al depurar conexión OpenAlex
+
+1. Verificar que corre **`cris-discovery-api`** (`uvicorn main:app --port 8002` o el puerto en `.env.local`).
+2. Probar: `curl "http://localhost:8002/search?q=test&per_page=1"` → JSON con `total` y `results`.
+3. **No** apuntar `VITE_DISCOVERY_API_URL` al Catalogador IA.
+
+## Al copiar archivos desde `~/Downloads`
+
+- Preferir versiones con `useSearchParams` (URL `?q=`), **no** `useUI().search`.
+- `TabDescubrirUniversal_2.tsx` o la versión del repo; **no** `TabDescubrirUniversal.tsx` viejo del Downloads si usa `UIContext`.
