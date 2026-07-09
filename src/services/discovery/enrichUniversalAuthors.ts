@@ -12,7 +12,7 @@
  * un Map en memoria, sin fetch.
  */
 
-import { findResearcherByOpenAlexAuthorId } from '../../utils/researcherProfile';
+import { findResearcherByOpenAlexAuthorId, findResearcherByProfileId } from '../../utils/researcherProfile';
 import { getData } from '../../utils/dataProcessing';
 import type { Researcher } from '../../shared/types';
 import type { WorkAuthor } from './universalSearch';
@@ -38,6 +38,9 @@ export function enrichAuthors(
     let utaResearcher: Researcher | null = null;
     if (a.author_id) {
       utaResearcher = findResearcherByOpenAlexAuthorId(a.author_id, catalog) ?? null;
+    }
+    if (!utaResearcher && a.orcid) {
+      utaResearcher = findResearcherByProfileId(catalog, a.orcid) ?? null;
     }
     return {
       name: a.name,
