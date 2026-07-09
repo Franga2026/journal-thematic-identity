@@ -19,7 +19,7 @@ import type { Researcher } from '../../shared/types';
 export function useOpenResearcherProfile() {
   const navigate = useTransitionNavigate();
   const location = useLocation();
-  const { openResearcher, openOpenAlexResearcher } = useUI();
+  const { openResearcher, openOpenAlexResearcher, openOpenAlexResearcherKeepingPrevious } = useUI();
 
   const openLocalResearcherProfile = useCallback(
     (researcher: Researcher) => {
@@ -32,16 +32,17 @@ export function useOpenResearcherProfile() {
   );
 
   const openOpenAlexProfile = useCallback(
-    (author: OpenAlexAuthorSummary) => {
+    (author: OpenAlexAuthorSummary, options?: { keepPrevious?: boolean }) => {
       const profileId = author.orcid?.trim() || author.openAlexId || author.id;
-      // Pasamos también el objeto completo: la ficha externa se pinta con estos
-      // datos (de la fila del ranking) sin depender de la API de OpenAlex.
-      openOpenAlexResearcher(profileId, author);
+      const open = options?.keepPrevious
+        ? openOpenAlexResearcherKeepingPrevious
+        : openOpenAlexResearcher;
+      open(profileId, author);
       if (shouldSyncProfileRoute(location.pathname)) {
         navigate(getOpenAlexAuthorProfilePath(author));
       }
     },
-    [openOpenAlexResearcher, navigate, location.pathname]
+    [openOpenAlexResearcher, openOpenAlexResearcherKeepingPrevious, navigate, location.pathname],
   );
 
   const openProfileById = useCallback(

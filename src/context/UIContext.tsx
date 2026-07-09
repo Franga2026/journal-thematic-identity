@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, type ReactNode, type Dispatch, type SetStateAction } from 'react';
+import { createContext, useContext, useState, useCallback, useRef, useEffect, type ReactNode, type Dispatch, type SetStateAction } from 'react';
 import type { Researcher, CoAuthorProfile, TabKey, SearchType, AITabKey, MetricKey, ChatMessage } from '../shared/types';
 import type { OpenAlexAuthorSummary } from '../shared/types/openalex';
 import { getData } from '../utils/dataProcessing';
@@ -28,6 +28,8 @@ interface UIState {
   /** Datos completos del autor externo (de la fila del ranking), para pintar la ficha sin red */
   openAlexAuthor: OpenAlexAuthorSummary | null;
   openOpenAlexResearcher: (authorIdOrUrl: string, summary?: OpenAlexAuthorSummary | null) => void;
+  /** Abre ficha OpenAlex recordando la actual para volver con closeResearcher (un nivel). */
+  openOpenAlexResearcherKeepingPrevious: (authorIdOrUrl: string, summary?: OpenAlexAuthorSummary | null) => void;
   /** Abre ficha UTA o dispara fetch OpenAlex según profileId en URL */
   resolveResearcherProfile: (profileId: string) => void;
   closeResearcher: () => void;
@@ -61,6 +63,11 @@ interface UIState {
 
 const UIContext = createContext<UIState | null>(null);
 
+interface OpenAlexNavEntry {
+  authorId: string;
+  summary: OpenAlexAuthorSummary | null;
+}
+
 export function UIProvider({ children }: { children: ReactNode }) {
   const [tab, setTab] = useState<TabKey>('perfiles');
   const [search, setSearch] = useState('');
@@ -73,6 +80,17 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [previousResearcher, setPreviousResearcher] = useState<Researcher | null>(null);
   const [openAlexAuthorId, setOpenAlexAuthorId] = useState<string | null>(null);
   const [openAlexAuthor, setOpenAlexAuthor] = useState<OpenAlexAuthorSummary | null>(null);
+  const [openAlexNavStack, setOpenAlexNavStack] = useState<OpenAlexNavEntry[]>([]);
+  const openAlexAuthorIdRef = useRef(openAlexAuthorId);
+  const openAlexAuthorRef = useRef(openAlexAuthor);
+
+  useEffect(() => {
+    openAlexAuthorIdRef.current = openAlexAuthorId;
+  }, [openAlexAuthorId]);
+
+  useEffect(() => {
+    openAlexAuthorRef.current = openAlexAuthor;
+  }, [openAlexAuthor]);
   const [modalTopic, setModalTopic] = useState('');
   const [viewCoAuthor, setViewCoAuthor] = useState<CoAuthorProfile | null>(null);
   const [metricDetail, setMetricDetail] = useState<MetricKey | null>(null);
@@ -90,6 +108,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const resetPage = useCallback(() => setPage(0), []);
   const openResearcher = useCallback((r: Researcher) => {
     setPreviousResearcher(null);
+    setOpenAlexNavStack([]);
     setOpenAlexAuthorId(null);
     setOpenAlexAuthor(null);
     setSelected(r);
@@ -100,6 +119,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const openResearcherKeepingPrevious = useCallback(
     (next: Researcher) => {
       setPreviousResearcher((prev) => prev ?? selected ?? null);
+      setOpenAlexNavStack([]);
       setOpenAlexAuthorId(null);
       setOpenAlexAuthor(null);
       setSelected(next);
@@ -111,6 +131,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   );
   const openOpenAlexResearcher = useCallback(
     (authorIdOrUrl: string, summary?: OpenAlexAuthorSummary | null) => {
+      setOpenAlexNavStack([]);
       setSelected(null);
       setOpenAlexAuthorId(authorIdOrUrl.trim());
       setOpenAlexAuthor(summary ?? null);
@@ -118,7 +139,24 @@ export function UIProvider({ children }: { children: ReactNode }) {
       setReportText('');
       setMetricDetail(null);
     },
-    []
+    [],
+  );
+
+  const openOpenAlexResearcherKeepingPrevious = useCallback(
+    (authorIdOrUrl: string, summary?: OpenAlexAuthorSummary | null) => {
+      const currentId = openAlexAuthorIdRef.current;
+      const currentSummary = openAlexAuthorRef.current;
+      if (currentId) {
+        setOpenAlexNavStack((prev) => [...prev, { authorId: currentId, summary: currentSummary }]);
+      }
+      setSelected(null);
+      setOpenAlexAuthorId(authorIdOrUrl.trim());
+      setOpenAlexAuthor(summary ?? null);
+      setModalTopic('');
+      setReportText('');
+      setMetricDetail(null);
+    },
+    [],
   );
 
   const resolveResearcherProfile = useCallback((profileId: string) => {
@@ -127,6 +165,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setReportText('');
     setMetricDetail(null);
     setOpenAlexAuthor(null);
+    setOpenAlexNavStack([]);
 
     if (isOpenAlexAuthorId(key)) {
       setSelected(null);
@@ -144,6 +183,17 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setOpenAlexAuthorId(key);
   }, []);
   const closeResearcher = useCallback(() => {
+    if (openAlexNavStack.length > 0) {
+      const prev = openAlexNavStack[openAlexNavStack.length - 1];
+      setOpenAlexNavStack((stack) => stack.slice(0, -1));
+      setSelected(null);
+      setOpenAlexAuthorId(prev.authorId);
+      setOpenAlexAuthor(prev.summary);
+      setModalTopic('');
+      setReportText('');
+      setMetricDetail(null);
+      return;
+    }
     if (previousResearcher) {
       setSelected(previousResearcher);
       setPreviousResearcher(null);
@@ -160,7 +210,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setModalTopic('');
     setReportText('');
     setMetricDetail(null);
-  }, [previousResearcher]);
+  }, [openAlexNavStack, previousResearcher]);
   const goPerfiles = useCallback(() => { setTab('perfiles'); setPage(0); }, []);
   const goOrcid = useCallback(() => { setTab('perfiles'); setPage(0); }, []);
 
@@ -169,7 +219,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
     page, setPage, resetPage,
     descubridorQuartile, setDescubridorQuartile,
     descubridorAccess, setDescubridorAccess,
-    selected, openResearcher, openResearcherKeepingPrevious, openAlexAuthorId, openAlexAuthor, openOpenAlexResearcher, resolveResearcherProfile, closeResearcher,
+    selected, openResearcher, openResearcherKeepingPrevious, openAlexAuthorId, openAlexAuthor, openOpenAlexResearcher, openOpenAlexResearcherKeepingPrevious, resolveResearcherProfile, closeResearcher,
     modalTopic, setModalTopic, viewCoAuthor, setViewCoAuthor,
     metricDetail, setMetricDetail, reportText, setReportText,
     reportLoading, setReportLoading,
