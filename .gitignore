@@ -30,3 +30,4 @@ outputs/*.png
 outputs/ods-rankings/*.bak*
 .env.local
 cris-discovery-api/.env
+.github/workflows/
