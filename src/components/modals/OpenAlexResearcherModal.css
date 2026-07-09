@@ -132,6 +132,9 @@
 }
 
 .vb-gcap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 11px;
   color: #556;
   margin-top: 2px;

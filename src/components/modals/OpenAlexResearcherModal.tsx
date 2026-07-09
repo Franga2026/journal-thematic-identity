@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import FwciInfoTooltip from './FwciInfoTooltip';
+import './fwci-info-tooltip.css';
 import type { Researcher } from '../../shared/types';
 import type { OpenAlexAuthorKpis } from '../../services/discovery/computeOpenAlexAuthorKpis';
 import type {
@@ -101,7 +103,7 @@ function FwciGauge({ fwci, fwciN }: { fwci: number | null; fwciN: number }) {
           × media
         </text>
       </svg>
-      <div className="vb-gcap">FWCI</div>
+      <div className="vb-gcap">FWCI <FwciInfoTooltip /></div>
       <div className="vb-gsub">
         {fwciN > 0 ? `sobre ${fwciN.toLocaleString('es-CL')} obras` : 'sin datos FWCI'}
       </div>

@@ -1,0 +1,94 @@
+/* ============================================================
+   FwciInfoTooltip — ícono ⓘ + panel con la definición del FWCI
+   ============================================================ */
+
+.vb-fwci-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.vb-fwci-info__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #7BA9B5;
+  cursor: pointer;
+  line-height: 0;
+  transition: color 0.15s;
+}
+.vb-fwci-info__btn:hover,
+.vb-fwci-info__btn:focus-visible {
+  color: #0E7E9E;
+  outline: none;
+}
+
+.vb-fwci-info__panel {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  background: #fff;
+  border: 0.5px solid #d6e6ec;
+  border-left: 3px solid #0E7E9E;
+  border-radius: 10px;
+  padding: 11px 13px;
+  box-shadow: 0 8px 24px rgba(20, 49, 78, 0.16);
+  z-index: 20;
+  text-align: left;
+  animation: vb-fwci-fade 0.12s ease-out;
+}
+
+@keyframes vb-fwci-fade {
+  from { opacity: 0; transform: translateX(-50%) translateY(3px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.vb-fwci-info__panel::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #fff;
+}
+
+.vb-fwci-info__text {
+  display: block;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #334;
+}
+.vb-fwci-info__text strong { color: #14314e; }
+
+.vb-fwci-info__ex {
+  display: block;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 0.5px solid #e3eef2;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #0F6E56;
+}
+.vb-fwci-info__ex strong { color: #0F6E56; }
+
+@media (max-width: 480px) {
+  .vb-fwci-info__panel {
+    width: 210px;
+    left: auto;
+    right: -8px;
+    transform: none;
+    animation: none;
+  }
+  .vb-fwci-info__panel::after {
+    left: auto;
+    right: 14px;
+    transform: none;
+  }
+}
