@@ -12,6 +12,9 @@ import {
   SDG_NUMBER_TO_NAME,
 } from '../utils/constants';
 import { buildUtaResearchersForSdg, filterWorksBySdg, type UtaResearcherSdgRow } from '../utils/odsResearchers';
+import type { AuthorWorkLite } from './discovery/computeOpenAlexAuthorKpis';
+import type { WorkForEcosystem } from './discovery/computeAuthorEcosystem';
+import { getScimagoQuartileMap, quartileForOpenAlexWork } from '../utils/scimagoQuartileBrowser';
 
 export { getResearchersBySdg, normalizeSdgId } from './sdg/getResearchersBySdg';
 
@@ -179,10 +182,23 @@ export async function fetchOpenAlexAuthor(authorIdOrOrcid: string): Promise<Open
   }
   const row = await openAlexFetch<OpenAlexAuthorsResponse['results'][0]>(path);
   const base = mapAuthorFromAuthorsEndpoint(row);
+  const inst = row.last_known_institutions?.[0];
+  const countsByYear = (row.counts_by_year || [])
+    .filter((c) => typeof c.year === 'number')
+    .map((c) => ({
+      year: c.year as number,
+      works_count: c.works_count ?? 0,
+      cited_by_count: c.cited_by_count ?? 0,
+    }))
+    .sort((a, b) => a.year - b.year);
   return {
     ...base,
     orcid: extractOrcidFromOpenAlex(row.orcid) || base.orcid,
     topics: extractTopicNames(row as { topics?: unknown; x_concepts?: unknown }),
+    counts_by_year: countsByYear,
+    last_known_institution: inst
+      ? { display_name: inst.display_name, country_code: inst.country_code }
+      : undefined,
   };
 }
 
@@ -222,10 +238,15 @@ export async function fetchOpenAlexAuthorByName(name: string): Promise<OpenAlexA
   if (!best) return null;
 
   const baseDetail = mapAuthorFromSearchEndpoint(best);
-  return {
-    ...baseDetail,
-    topics: extractTopicNames(best as { topics?: unknown; x_concepts?: unknown }),
-  };
+  try {
+    const full = await fetchOpenAlexAuthor(baseDetail.openAlexId || baseDetail.id);
+    return full;
+  } catch {
+    return {
+      ...baseDetail,
+      topics: extractTopicNames(best as { topics?: unknown; x_concepts?: unknown }),
+    };
+  }
 }
 
 
@@ -240,7 +261,7 @@ export async function fetchAuthorFwci(input: {
   orcid?: string;
   oaId?: string;
   maxPages?: number;
-}): Promise<{ fwci: number | null; works: number }> {
+}): Promise<{ fwci: number | null; works: number; worksLite: AuthorWorkLite[]; worksSampled: number }> {
   const orcid = (input.orcid || '').replace(/^https?:\/\/orcid\.org\//i, '').trim();
   const oaId = (input.oaId || '').replace(/^https?:\/\/openalex\.org\//i, '').trim();
   const maxPages = input.maxPages ?? 5;
@@ -251,20 +272,30 @@ export async function fetchAuthorFwci(input: {
   } else if (oaId) {
     filter = `authorships.author.id:https://openalex.org/${oaId}`;
   } else {
-    return { fwci: null, works: 0 };
+    return { fwci: null, works: 0, worksLite: [], worksSampled: 0 };
   }
 
   let cursor = '*';
   let sum = 0;
   let count = 0;
+  const worksLite: AuthorWorkLite[] = [];
   for (let page = 0; page < maxPages; page += 1) {
-    const path = `/works?filter=${filter}&select=fwci&per-page=200&cursor=${encodeURIComponent(cursor)}`;
+    const path = `/works?filter=${filter}&select=fwci,open_access,type&per-page=200&cursor=${encodeURIComponent(cursor)}`;
     const data = await openAlexFetch<{
-      results?: Array<{ fwci?: number | null }>;
+      results?: Array<{
+        fwci?: number | null;
+        open_access?: { is_oa?: boolean };
+        type?: string;
+      }>;
       meta?: { next_cursor?: string };
     }>(path);
     const results = data.results || [];
     for (const r of results) {
+      worksLite.push({
+        fwci: r.fwci ?? null,
+        is_oa: r.open_access?.is_oa ?? null,
+        type: r.type ?? null,
+      });
       if (typeof r.fwci === 'number') {
         sum += r.fwci;
         count += 1;
@@ -275,7 +306,21 @@ export async function fetchAuthorFwci(input: {
     cursor = next;
   }
 
-  return { fwci: count > 0 ? sum / count : null, works: count };
+  return {
+    fwci: count > 0 ? sum / count : null,
+    works: count,
+    worksLite,
+    worksSampled: worksLite.length,
+  };
+}
+
+export type QuartileLabel = 'Q1' | 'Q2' | 'Q3' | 'Q4';
+
+export interface OpenAlexWorkAuthorship {
+  author_id: string | null;
+  name: string;
+  institution: string | null;
+  country: string | null;
 }
 
 export interface OpenAlexWorkItem {
@@ -292,6 +337,219 @@ export interface OpenAlexWorkItem {
   issue: string | null;
   pages: string | null;
   docType: string | null;
+  issn_l: string | null;
+  oa_status: string | null;
+  quartile: QuartileLabel | null;
+  field: string | null;
+  authorships: OpenAlexWorkAuthorship[];
+  pdfUrl: string | null;
+  oaUrl: string | null;
+  landingUrl: string | null;
+  bestOaRepo: string | null;
+}
+
+const AUTHOR_WORKS_SELECT =
+  'id,title,publication_year,cited_by_count,fwci,doi,open_access,type,primary_location,best_oa_location,authorships,primary_topic,biblio';
+
+type RawOpenAlexWork = {
+  id?: string;
+  title?: string | null;
+  publication_year?: number | null;
+  cited_by_count?: number | null;
+  fwci?: number | null;
+  doi?: string | null;
+  type?: string | null;
+  open_access?: { is_oa?: boolean; oa_status?: string | null; oa_url?: string | null } | null;
+  primary_location?: {
+    pdf_url?: string | null;
+    landing_page_url?: string | null;
+    source?: {
+      display_name?: string | null;
+      issn_l?: string | null;
+      issn?: string[] | null;
+      type?: string | null;
+    } | null;
+  } | null;
+  best_oa_location?: {
+    pdf_url?: string | null;
+    landing_page_url?: string | null;
+    source?: {
+      display_name?: string | null;
+      host_organization_name?: string | null;
+    } | null;
+  } | null;
+  primary_topic?: { field?: { display_name?: string | null } | null } | null;
+  authorships?: Array<{
+    author?: { id?: string | null; display_name?: string | null } | null;
+    raw_author_name?: string | null;
+    institutions?: Array<{
+      display_name?: string | null;
+      country_code?: string | null;
+    } | null> | null;
+  } | null>;
+  biblio?: {
+    volume?: string | null;
+    issue?: string | null;
+    first_page?: string | null;
+    last_page?: string | null;
+  } | null;
+};
+
+function parseAuthorships(
+  rows: RawOpenAlexWork['authorships'],
+): OpenAlexWorkAuthorship[] {
+  return (rows || []).map((a) => {
+    const author = a?.author || {};
+    const inst = (a?.institutions || []).find((i) => i?.display_name) || a?.institutions?.[0];
+    const authorId = (author.id || '').replace(/^https?:\/\/openalex\.org\//i, '') || null;
+    return {
+      author_id: authorId,
+      name: author.display_name || a?.raw_author_name || '—',
+      institution: inst?.display_name ?? null,
+      country: inst?.country_code ?? null,
+    };
+  });
+}
+
+function parseBestOaLocation(w: RawOpenAlexWork): {
+  pdfUrl: string | null;
+  landingUrl: string | null;
+  bestOaRepo: string | null;
+} {
+  const bol = w.best_oa_location || {};
+  const pdfRaw = bol.pdf_url;
+  const pdfUrl = pdfRaw ? String(pdfRaw).trim() : null;
+  const landingRaw = bol.landing_page_url;
+  const landingUrl = landingRaw ? String(landingRaw).trim() : null;
+  const source = bol.source || {};
+  const bestOaRepo =
+    (source.display_name && String(source.display_name).trim())
+    || (source.host_organization_name && String(source.host_organization_name).trim())
+    || null;
+  return { pdfUrl, landingUrl, bestOaRepo };
+}
+
+async function mapRawOpenAlexWorks(results: RawOpenAlexWork[]): Promise<OpenAlexWorkItem[]> {
+  const quartileMap = await getScimagoQuartileMap();
+  return results.map((r) => {
+    const source = r.primary_location?.source || {};
+    const authors = parseAuthorships(r.authorships);
+    const fp = r.biblio?.first_page || '';
+    const lp = r.biblio?.last_page || '';
+    const pages = fp && lp ? `${fp}-${lp}` : fp || lp || null;
+    const doi = r.doi || null;
+    const quartile = quartileForOpenAlexWork(quartileMap, {
+      type: r.type,
+      doi,
+      primary_location: r.primary_location,
+    });
+    const { pdfUrl: bolPdf, landingUrl: bolLanding, bestOaRepo } = parseBestOaLocation(r);
+    const oaUrl = r.open_access?.oa_url ? String(r.open_access.oa_url).trim() : null;
+    const primaryPdf = r.primary_location?.pdf_url ? String(r.primary_location.pdf_url).trim() : null;
+    const primaryLanding = r.primary_location?.landing_page_url
+      ? String(r.primary_location.landing_page_url).trim()
+      : null;
+    const workId = (r.id || '').replace(/^https?:\/\/openalex\.org\//i, '');
+    return {
+      id: workId,
+      title: r.title || '(sin titulo)',
+      year: r.publication_year ?? null,
+      venue: source.display_name || null,
+      citedByCount: r.cited_by_count ?? 0,
+      fwci: typeof r.fwci === 'number' ? r.fwci : null,
+      doiUrl: doi,
+      isOpenAccess: !!r.open_access?.is_oa,
+      oa_status: r.open_access?.oa_status ?? null,
+      authors: authors.map((a) => a.name),
+      volume: r.biblio?.volume || null,
+      issue: r.biblio?.issue || null,
+      pages,
+      docType: r.type || null,
+      issn_l: source.issn_l ?? null,
+      quartile,
+      field: r.primary_topic?.field?.display_name ?? null,
+      authorships: authors,
+      pdfUrl: bolPdf || primaryPdf || oaUrl,
+      oaUrl: oaUrl || bolLanding || bolPdf || primaryLanding || primaryPdf,
+      landingUrl: bolLanding || primaryLanding,
+      bestOaRepo,
+    };
+  });
+}
+
+export function openAlexWorkToEcosystem(w: OpenAlexWorkItem): WorkForEcosystem {
+  return {
+    title: w.title,
+    year: w.year,
+    journal: w.venue,
+    issn_l: w.issn_l,
+    fwci: w.fwci,
+    cited_by_count: w.citedByCount,
+    is_oa: w.isOpenAccess,
+    oa_status: w.oa_status,
+    type: w.docType,
+    quartile: w.quartile,
+    field: w.field,
+    doi: w.doiUrl,
+    openalex_id: w.id,
+    pdf_url: w.pdfUrl,
+    oa_url: w.oaUrl,
+    landing_url: w.landingUrl,
+    best_oa_repo: w.bestOaRepo,
+    authorships: w.authorships,
+  };
+}
+
+export function openAlexWorkToLite(w: OpenAlexWorkItem): AuthorWorkLite {
+  return {
+    fwci: w.fwci,
+    is_oa: w.isOpenAccess,
+    type: w.docType,
+  };
+}
+
+function authorWorksFilter(orcid: string, oaId: string): string | null {
+  if (orcid) return `authorships.author.orcid:https://orcid.org/${orcid}`;
+  if (oaId) return `authorships.author.id:https://openalex.org/${oaId}`;
+  return null;
+}
+
+/**
+ * Muestra de obras (cursor) para KPIs y ecosistema — misma pasada, campos completos.
+ */
+export async function fetchAuthorWorksSample(input: {
+  orcid?: string;
+  oaId?: string;
+  maxPages?: number;
+}): Promise<{ works: OpenAlexWorkItem[]; total: number }> {
+  const orcid = (input.orcid || '').replace(/^https?:\/\/orcid\.org\//i, '').trim();
+  const oaId = (input.oaId || '').replace(/^https?:\/\/openalex\.org\//i, '').trim();
+  const maxPages = input.maxPages ?? 5;
+  const filter = authorWorksFilter(orcid, oaId);
+  if (!filter) return { works: [], total: 0 };
+
+  let cursor = '*';
+  const raw: RawOpenAlexWork[] = [];
+  let total = 0;
+
+  for (let page = 0; page < maxPages; page += 1) {
+    const path =
+      `/works?filter=${filter}&select=${AUTHOR_WORKS_SELECT}` +
+      `&sort=publication_year:desc&per-page=200&cursor=${encodeURIComponent(cursor)}`;
+    const data = await openAlexFetch<{
+      results?: RawOpenAlexWork[];
+      meta?: { next_cursor?: string; count?: number };
+    }>(path);
+    if (typeof data.meta?.count === 'number') total = data.meta.count;
+    const batch = data.results || [];
+    raw.push(...batch);
+    const next = data.meta?.next_cursor;
+    if (!next || !batch.length) break;
+    cursor = next;
+  }
+
+  const works = await mapRawOpenAlexWorks(raw);
+  return { works, total: total || works.length };
 }
 
 /**
@@ -310,69 +568,19 @@ export async function fetchAuthorWorks(input: {
   const oaId = (input.oaId || '').replace(/^https?:\/\/openalex\.org\//i, '').trim();
   const page = Math.max(1, input.page ?? 1);
   const perPage = input.perPage ?? 25;
+  const filter = authorWorksFilter(orcid, oaId);
+  if (!filter) return { works: [], total: 0 };
 
-  let filter: string;
-  if (orcid) {
-    filter = `authorships.author.orcid:https://orcid.org/${orcid}`;
-  } else if (oaId) {
-    filter = `authorships.author.id:https://openalex.org/${oaId}`;
-  } else {
-    return { works: [], total: 0 };
-  }
-
-  const select =
-    'id,title,publication_year,cited_by_count,fwci,doi,open_access,primary_location,authorships,biblio,type';
-  const path = `/works?filter=${filter}&select=${select}&sort=publication_year:desc&per-page=${perPage}&page=${page}`;
+  const path =
+    `/works?filter=${filter}&select=${AUTHOR_WORKS_SELECT}` +
+    `&sort=publication_year:desc&per-page=${perPage}&page=${page}`;
 
   const data = await openAlexFetch<{
-    results?: Array<{
-      id?: string;
-      title?: string | null;
-      publication_year?: number | null;
-      cited_by_count?: number | null;
-      fwci?: number | null;
-      doi?: string | null;
-      type?: string | null;
-      open_access?: { is_oa?: boolean } | null;
-      primary_location?: { source?: { display_name?: string } | null } | null;
-      authorships?: Array<{
-        author?: { display_name?: string } | null;
-        raw_author_name?: string | null;
-      } | null>;
-      biblio?: {
-        volume?: string | null;
-        issue?: string | null;
-        first_page?: string | null;
-        last_page?: string | null;
-      } | null;
-    }>;
+    results?: RawOpenAlexWork[];
     meta?: { count?: number };
   }>(path);
 
-  const works: OpenAlexWorkItem[] = (data.results || []).map((r) => {
-    const authors = (r.authorships || [])
-      .map((a) => a?.author?.display_name || a?.raw_author_name || '')
-      .filter(Boolean) as string[];
-    const fp = r.biblio?.first_page || '';
-    const lp = r.biblio?.last_page || '';
-    const pages = fp && lp ? `${fp}-${lp}` : fp || lp || null;
-    return {
-      id: (r.id || '').replace(/^https?:\/\/openalex\.org\//i, ''),
-      title: r.title || '(sin titulo)',
-      year: r.publication_year ?? null,
-      venue: r.primary_location?.source?.display_name || null,
-      citedByCount: r.cited_by_count ?? 0,
-      fwci: typeof r.fwci === 'number' ? r.fwci : null,
-      doiUrl: r.doi || null,
-      isOpenAccess: !!r.open_access?.is_oa,
-      authors,
-      volume: r.biblio?.volume || null,
-      issue: r.biblio?.issue || null,
-      pages,
-      docType: r.type || null,
-    };
-  });
-
+  const works = await mapRawOpenAlexWorks(data.results || []);
   return { works, total: data.meta?.count ?? works.length };
 }
 
