@@ -27,6 +27,15 @@ export interface OpenAlexWorksGroupByResponse {
 export interface OpenAlexAuthorDetail extends OpenAlexAuthorSummary {
   orcid?: string;
   topics?: string[];
+  counts_by_year?: Array<{
+    year: number;
+    works_count: number;
+    cited_by_count: number;
+  }>;
+  last_known_institution?: {
+    display_name?: string;
+    country_code?: string;
+  };
 }
 
 export interface OpenAlexAuthorsResponse {
@@ -37,6 +46,11 @@ export interface OpenAlexAuthorsResponse {
     works_count?: number;
     orcid?: string;
     summary_stats?: { h_index?: number };
+    counts_by_year?: Array<{
+      year?: number;
+      works_count?: number;
+      cited_by_count?: number;
+    }>;
     last_known_institutions?: Array<{
       display_name?: string;
       country_code?: string;

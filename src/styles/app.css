@@ -5043,6 +5043,53 @@ input, select { font-family: var(--font); }
   color: inherit;
 }
 
+.tab-descubrir-universal .dw-card__author--plain {
+  color: #889;
+}
+
+.tab-descubrir-universal a.dw-card__author--linked {
+  text-decoration: none;
+  display: inline;
+  cursor: pointer;
+}
+
+.tab-descubrir-universal a.dw-card__author--uta {
+  color: #0E7E9E;
+  font-weight: 600;
+}
+
+.tab-descubrir-universal a.dw-card__author--uta:hover {
+  text-decoration: underline;
+}
+
+.tab-descubrir-universal a.dw-card__author--external {
+  color: #5a6a7a;
+  font-weight: 500;
+}
+
+.tab-descubrir-universal a.dw-card__author--external:hover {
+  color: #0E7E9E;
+  text-decoration: underline;
+}
+
+.tab-descubrir-universal .dw-card__author-ficha {
+  font-size: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  background: #e6f1fb;
+  color: #185FA5;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.tab-descubrir-universal a.dw-card__author--uta .dw-card__author-ficha {
+  background: #eafaf3;
+  color: #0F6E56;
+}
+
 .tab-descubrir-universal button.dw-card__author--uta {
   background: none;
   border: none;
@@ -5056,6 +5103,23 @@ input, select { font-family: var(--font); }
 }
 
 .tab-descubrir-universal button.dw-card__author--uta:hover {
+  text-decoration: underline;
+}
+
+.tab-descubrir-universal button.dw-card__author--external {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #5a6a7a;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline;
+}
+
+.tab-descubrir-universal button.dw-card__author--external:hover {
+  color: #0E7E9E;
   text-decoration: underline;
 }
 
