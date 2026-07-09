@@ -11,11 +11,23 @@ const ITEM: OpenAlexWorkItem = {
   fwci: 1.42,
   doiUrl: 'https://doi.org/10.1234/x',
   isOpenAccess: true,
+  pdfUrl: 'https://doi.org/10.1234/x',
+  oaUrl: 'https://doi.org/10.1234/x',
+  landingUrl: 'https://doi.org/10.1234/x',
+  bestOaRepo: 'Repo',
   authors: ['A. Author', 'B. Coauthor'],
   volume: '12',
   issue: '3',
   pages: '10-20',
   docType: 'article',
+  issn_l: '00280836',
+  oa_status: 'gold',
+  quartile: 'Q1',
+  field: 'Medicine',
+  authorships: [
+    { author_id: 'A1', name: 'A. Author', institution: 'UTA', country: 'CL' },
+    { author_id: 'A2', name: 'B. Coauthor', institution: 'Other', country: 'US' },
+  ],
 };
 
 describe('workItemToWork', () => {

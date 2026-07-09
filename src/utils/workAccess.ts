@@ -73,6 +73,43 @@ export function getWorkAccessUrl(work: WorkLike | null | undefined): string | nu
   );
 }
 
+export interface WorkResourceLink {
+  key: 'pdf' | 'doi' | 'landing' | 'oa' | 'openalex';
+  label: string;
+  href: string;
+}
+
+/** Enlaces de acceso disponibles para una obra (PDF, DOI, landing OA, etc.). */
+export function getWorkResourceLinks(work: WorkLike | null | undefined): WorkResourceLink[] {
+  const w = normalizeWorkFields(work);
+  const links: WorkResourceLink[] = [];
+  const seen = new Set<string>();
+
+  const push = (key: WorkResourceLink['key'], label: string, href?: string | null) => {
+    const url = (href || '').trim();
+    if (!url || seen.has(url)) return;
+    seen.add(url);
+    links.push({ key, label, href: url });
+  };
+
+  const pdfUrl = w.pdf_url || w.primary_location?.pdf_url || w.ou || '';
+  const oaUrl = w.open_access?.oa_url || '';
+  const landingUrl = w.primary_location?.landing_page_url || w.u || '';
+  const doiUrl = normDoiUrl(w.d || w.doi);
+  const openAlexId = parseOpenAlexId(w.openalex_id);
+  const openAlexUrl = openAlexId ? `https://openalex.org/works/${openAlexId}` : '';
+
+  push('pdf', 'PDF', pdfUrl);
+  push('doi', 'DOI', doiUrl);
+  push('landing', 'Publicador', landingUrl);
+  if (oaUrl && oaUrl !== pdfUrl && oaUrl !== landingUrl) {
+    push('oa', 'OA', oaUrl);
+  }
+  push('openalex', 'OpenAlex', openAlexUrl);
+
+  return links;
+}
+
 function workMatchKey(w: WorkLike): string {
   const doi = normDoi(w.d || w.doi);
   if (doi) return `doi:${doi}`;

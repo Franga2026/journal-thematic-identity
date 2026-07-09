@@ -1,9 +1,13 @@
 import { memo, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
 import { getWorkAccessUrl } from '../../utils/workAccess';
+import { authorHasProfileLink, getAuthorProfilePath } from '../../utils/authorProfileLink';
 import type { WorkResult } from '../../services/discovery/universalSearch';
 import { workResultToWork, displayableChipLabel } from '../../services/discovery/universalSearch';
+import type { OpenAlexAuthorSummary } from '../../shared/types/openalex';
 import { enrichAuthors, utaLeadershipLabel } from '../../services/discovery/enrichUniversalAuthors';
+import type { EnrichedAuthor } from '../../services/discovery/enrichUniversalAuthors';
 import WorkCitationPanel from '../cards/WorkCitationPanel';
 import { fetchDataCiteUsage, type DataCiteUsage } from '../../utils/datasetUsage';
 import { fetchFairScores, type FairScores } from '../../utils/datasetFair';
@@ -127,7 +131,9 @@ const Q_COLORS: Record<string, string> = {
 };
 
 const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult }) {
-  const { openLocalResearcherProfile } = useOpenResearcherProfile();
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('q') || '';
+  const { openLocalResearcherProfile, openOpenAlexProfile } = useOpenResearcherProfile();
   const isDataset = r.type === 'dataset';
   const isChapter = r.type === 'book-chapter';
   const isBook = r.type === 'book';
@@ -197,6 +203,25 @@ const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult
       ? `${linkedCount} datasets`
       : '';
 
+  const openAuthorProfile = (author: EnrichedAuthor) => {
+    if (author.utaResearcher) {
+      openLocalResearcherProfile(author.utaResearcher);
+      return;
+    }
+    const oaId = author.authorId?.trim();
+    const orcid = author.orcid?.trim();
+    if (!oaId && !orcid) return;
+    const summary: OpenAlexAuthorSummary = {
+      id: oaId || orcid || author.name,
+      openAlexId: oaId || orcid || author.name,
+      display_name: author.name,
+      orcid: orcid || undefined,
+      cited_by_count: 0,
+      works_count: 0,
+    };
+    openOpenAlexProfile(summary);
+  };
+
   return (
     <article className={`dw-card${isDataset ? ' dw-card--dataset' : ''}${hasUta ? ' dw-card--uta' : ''}`}>
       <div className="dw-card__badges">
@@ -254,34 +279,50 @@ const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult
         <h3 className="dw-card__title">{titleText}</h3>
       )}
 
-      <p className="dw-card__meta">
+      <div className="dw-card__meta">
         {visible.length > 0 && (
           <span className="dw-card__authors">
-            {visible.map((a, i) => (
+            {visible.map((a, i) => {
+              const hasLink = authorHasProfileLink(a);
+              const profileHref = getAuthorProfilePath(a, '/descubrir', searchQuery);
+              return (
               <span key={a.authorId ?? `${a.name}-${i}`}>
-                {a.utaResearcher ? (
-                  <button
-                    type="button"
-                    className="dw-card__author dw-card__author--uta"
+                {hasLink && profileHref ? (
+                  <a
+                    href={profileHref}
+                    className={
+                      a.utaResearcher
+                        ? 'dw-card__author dw-card__author--linked dw-card__author--uta'
+                        : 'dw-card__author dw-card__author--linked dw-card__author--external'
+                    }
                     onClick={(e) => {
                       e.stopPropagation();
-                      openLocalResearcherProfile(a.utaResearcher!);
+                      e.preventDefault();
+                      openAuthorProfile(a);
                     }}
-                    title={`Ver ficha UTA de ${a.name}`}
+                    title={
+                      a.utaResearcher
+                        ? `Ver ficha UTA de ${a.name}`
+                        : `Ver ficha bibliométrica de ${a.name}`
+                    }
                   >
-                    {a.name}
-                    {utaLeadershipLabel(a.position) && (
+                    <span className="dw-card__author-name">{a.name}</span>
+                    <span className="dw-card__author-ficha">ficha</span>
+                    {a.utaResearcher && utaLeadershipLabel(a.position) && (
                       <span className="dw-card__author-badge">
                         {utaLeadershipLabel(a.position)}
                       </span>
                     )}
-                  </button>
+                  </a>
                 ) : (
-                  <span className="dw-card__author">{a.name}</span>
+                  <span className="dw-card__author dw-card__author--plain" title="Sin ficha disponible">
+                    {a.name}
+                  </span>
                 )}
                 {i < visible.length - 1 && <span className="dw-card__author-sep">, </span>}
               </span>
-            ))}
+            );
+            })}
             {moreCount > 0 && <span className="dw-card__author-more"> +{moreCount}</span>}
           </span>
         )}
@@ -307,7 +348,7 @@ const DiscoveryWorkCard = memo(function DiscoveryWorkCard({ r }: { r: WorkResult
             <span className="dw-card__field">{r.field}</span>
           </>
         )}
-      </p>
+      </div>
 
       {r.abstract && (
         <p className="dw-card__abstract">{r.abstract}</p>

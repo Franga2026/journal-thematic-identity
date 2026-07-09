@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   getWorkAccessUrl,
   getWorkNavigationUrl,
+  getWorkResourceLinks,
   mergeWorkLinkMetadata,
   mergeWorksWithCatalog,
   normalizeWorkFields,
@@ -47,6 +48,19 @@ describe('workAccess', () => {
     const catalog: Work[] = [{ t: 'A full', d: 'https://doi.org/10.1234/a', ou: 'https://pdf.test' }];
     const out = mergeWorksWithCatalog(locals, catalog);
     expect(out[0].ou).toBe('https://pdf.test');
+  });
+
+  it('getWorkResourceLinks exposes PDF, DOI and OpenAlex when available', () => {
+    const links = getWorkResourceLinks({
+      pdf_url: 'https://repo.test/paper.pdf',
+      d: '10.1234/abc',
+      u: 'https://journal.test/article',
+      open_access: { oa_url: 'https://oa.test/landing' },
+      openalex_id: 'W999',
+    });
+    expect(links.map((l) => l.key)).toEqual(['pdf', 'doi', 'landing', 'oa', 'openalex']);
+    expect(links[0].href).toBe('https://repo.test/paper.pdf');
+    expect(links[1].href).toBe('https://doi.org/10.1234/abc');
   });
 
   it('getWorkNavigationUrl falls back to Scholar', () => {
