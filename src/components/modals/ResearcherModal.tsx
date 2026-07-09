@@ -1,6 +1,6 @@
 import { useMemo, useCallback, useState, useEffect } from 'react';
 import { startTransition } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTransitionNavigate } from '../../app/hooks/useTransitionNavigate';
 import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
 import { useApp } from '../../context/AppContext';
@@ -277,6 +277,7 @@ const METHOD_NOTES: Partial<Record<MetricKey, string>> = {
 export default function ResearcherModal() {
   const navigate = useTransitionNavigate();
   const location = useLocation();
+  const [, setSearchParams] = useSearchParams();
   const { openLocalResearcherProfile } = useOpenResearcherProfile();
   const {
     selected,
@@ -488,11 +489,18 @@ export default function ResearcherModal() {
   const handleCloseProfile = useCallback(() => {
     startTransition(() => {
       closeResearcher();
-      if (/^\/perfiles\/[^/]+/.test(location.pathname)) {
+      if (location.pathname === '/descubrir') {
+        setSearchParams((prev) => {
+          const next = new URLSearchParams(prev);
+          if (!next.has('autor')) return prev;
+          next.delete('autor');
+          return next;
+        }, { replace: true });
+      } else if (/^\/perfiles\/[^/]+/.test(location.pathname)) {
         navigate('/perfiles');
       }
     });
-  }, [closeResearcher, navigate, location.pathname]);
+  }, [closeResearcher, navigate, location.pathname, setSearchParams]);
 
   const handleExecutiveReport = useCallback(async () => {
     if (!selected?.o || reportLoading) return;

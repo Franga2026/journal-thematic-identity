@@ -11,11 +11,13 @@
  */
 
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import TabDescubrirUniversal from '../../components/tabs/TabDescubrirUniversal';
 import { INSTITUTION } from '../../config/institution.config';
 import { useOpenResearcherProfile } from '../hooks/useOpenResearcherProfile';
+import { useUI } from '../../context/UIContext';
 import { findResearcherByOpenAlexAuthorId } from '../../utils/researcherProfile';
+import { cleanOrcid } from '../../utils/helpers';
 import {
   autocompleteItemToAuthorSummary,
   createDebouncedAutocomplete,
@@ -32,9 +34,13 @@ function formatCount(n: number): string {
 
 export default function DescubridorUniversalLayout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const urlQuery = searchParams.get('q') || '';
-  const { openLocalResearcherProfile, openOpenAlexProfile } = useOpenResearcherProfile();
+  const urlAutor = searchParams.get('autor') || '';
+  const { openLocalResearcherProfile, openOpenAlexProfile, openProfileById } = useOpenResearcherProfile();
+  const { selected, openAlexAuthorId } = useUI();
+  const deepLinkHandled = useRef(false);
 
   const [inputValue, setInputValue] = useState(urlQuery);
   const [suggestions, setSuggestions] = useState<AutocompleteItem[]>([]);
@@ -52,6 +58,43 @@ export default function DescubridorUniversalLayout() {
   useEffect(() => {
     setInputValue(urlQuery);
   }, [urlQuery]);
+
+  // Abrir ficha desde enlace persistente ?autor=
+  useEffect(() => {
+    const autorId = urlAutor.trim();
+    if (!autorId) {
+      deepLinkHandled.current = false;
+      return;
+    }
+    if (selected || openAlexAuthorId) return;
+    if (deepLinkHandled.current) return;
+    deepLinkHandled.current = true;
+    openProfileById(autorId);
+  }, [urlAutor, selected, openAlexAuthorId, openProfileById]);
+
+  // Mantener ?autor= sincronizado con el modal abierto
+  useEffect(() => {
+    if (location.pathname !== '/descubrir') return;
+
+    const activeId = selected
+      ? (cleanOrcid(selected.o) || (selected.id || '').trim() || null)
+      : openAlexAuthorId;
+
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      const currentAutor = next.get('autor') || '';
+
+      if (activeId) {
+        if (currentAutor === activeId) return prev;
+        next.set('autor', activeId);
+      } else {
+        if (!currentAutor) return prev;
+        next.delete('autor');
+        deepLinkHandled.current = false;
+      }
+      return next;
+    }, { replace: true });
+  }, [selected, openAlexAuthorId, location.pathname, setSearchParams]);
 
   useEffect(() => {
     if (inputValue.trim().length >= 2) {
