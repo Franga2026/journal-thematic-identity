@@ -59,6 +59,12 @@ interface UIState {
   setCompQ: (s: string) => void;
   goPerfiles: () => void;
   goOrcid: () => void;
+  modalStack: ModalEntry[];
+  pushModal: (entry: ModalEntry) => void;
+  popModal: () => void;
+  resetModalStack: (entry: ModalEntry | null) => void;
+  closeAllModals: () => void;
+  topModal: ModalEntry | null;
 }
 
 const UIContext = createContext<UIState | null>(null);
@@ -67,6 +73,11 @@ interface OpenAlexNavEntry {
   authorId: string;
   summary: OpenAlexAuthorSummary | null;
 }
+
+export type ModalEntry =
+  | { kind: 'uta'; researcher: Researcher; topic?: string | null }
+  | { kind: 'openalex'; authorId: string; summary: OpenAlexAuthorSummary | null }
+  | { kind: 'coauthor'; profile: CoAuthorProfile };
 
 export function UIProvider({ children }: { children: ReactNode }) {
   const [tab, setTab] = useState<TabKey>('perfiles');
@@ -81,6 +92,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [openAlexAuthorId, setOpenAlexAuthorId] = useState<string | null>(null);
   const [openAlexAuthor, setOpenAlexAuthor] = useState<OpenAlexAuthorSummary | null>(null);
   const [openAlexNavStack, setOpenAlexNavStack] = useState<OpenAlexNavEntry[]>([]);
+  const [modalStack, setModalStack] = useState<ModalEntry[]>([]);
   const openAlexAuthorIdRef = useRef(openAlexAuthorId);
   const openAlexAuthorRef = useRef(openAlexAuthor);
 
@@ -211,6 +223,20 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setReportText('');
     setMetricDetail(null);
   }, [openAlexNavStack, previousResearcher]);
+  const pushModal = useCallback((entry: ModalEntry) => {
+    setModalStack((s) => [...s, entry]);
+  }, []);
+  const popModal = useCallback(() => {
+    setModalStack((s) => s.slice(0, -1));
+  }, []);
+  const resetModalStack = useCallback((entry: ModalEntry | null) => {
+    setModalStack(entry ? [entry] : []);
+  }, []);
+  const closeAllModals = useCallback(() => {
+    setModalStack([]);
+  }, []);
+  const topModal: ModalEntry | null =
+    modalStack.length > 0 ? modalStack[modalStack.length - 1] : null;
   const goPerfiles = useCallback(() => { setTab('perfiles'); setPage(0); }, []);
   const goOrcid = useCallback(() => { setTab('perfiles'); setPage(0); }, []);
 
@@ -227,6 +253,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
     chatIn, setChatIn, chatLoading, setChatLoading,
     comp1, setComp1, comp2, setComp2, compQ, setCompQ,
     goPerfiles, goOrcid,
+    modalStack, pushModal, popModal, resetModalStack, closeAllModals, topModal,
   };
 
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
