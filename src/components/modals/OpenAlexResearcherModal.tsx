@@ -77,7 +77,7 @@ function FwciGauge({ fwci, fwciN }: { fwci: number | null; fwciN: number }) {
   const display = fwci != null ? fwci.toFixed(1).replace('.', ',') : '—';
 
   return (
-    <div>
+    <div className="vb-fwci-gauge">
       <svg viewBox="0 0 120 90" width="130" role="img" aria-label={`FWCI ${display}`}>
         <path
           d="M 12 78 A 48 48 0 0 1 108 78"
@@ -116,6 +116,26 @@ function typeLabel(type: string | null): string {
   if (type === 'book' || type === 'book-chapter') return 'LIBRO';
   if (type === 'preprint') return 'PREPRINT';
   return 'ARTÍCULO';
+}
+
+/** Obra en la grilla de producción (openAlexId = W-id de OpenAlex). */
+type WorkItem = FeaturedWork & {
+  openAlexId: string | null;
+};
+
+function workOpenAlexUrl(openAlexId: string | null | undefined): string | null {
+  const key = (openAlexId || '').trim().replace(/^https?:\/\/openalex\.org\//i, '');
+  if (!key) return null;
+  const id = /^W/i.test(key) ? key.toUpperCase() : `W${key}`;
+  if (!/^W\d+$/i.test(id)) return null;
+  return `https://openalex.org/${id}`;
+}
+
+function toWorkItem(work: FeaturedWork): WorkItem {
+  return {
+    ...work,
+    openAlexId: work.openalex_id ?? null,
+  };
 }
 
 export interface OpenAlexResearcherModalProps {
@@ -455,60 +475,90 @@ export default function OpenAlexResearcherModal({
 }
 
 function WorkCardMini({ work: w }: { work: FeaturedWork }) {
-  const isDataset = w.type === 'dataset';
+  const item = toWorkItem(w);
+  const isDataset = item.type === 'dataset';
   const typeBg = isDataset ? '#EEEDFE' : '#e6f1fb';
   const typeColor = isDataset ? '#534AB7' : '#185FA5';
+  const openAlexUrl = workOpenAlexUrl(item.openAlexId);
   const resourceLinks = getWorkResourceLinks({
-    t: w.title,
-    d: w.doi ?? undefined,
-    openalex_id: w.openalex_id ?? undefined,
-    pdf_url: w.pdf_url ?? undefined,
-    ou: w.pdf_url ?? undefined,
-    u: w.landing_url ?? undefined,
-    open_access: w.oa_url ? { oa_url: w.oa_url, is_oa: w.is_oa } : undefined,
+    t: item.title,
+    d: item.doi ?? undefined,
+    openalex_id: item.openAlexId ?? undefined,
+    pdf_url: item.pdf_url ?? undefined,
+    ou: item.pdf_url ?? undefined,
+    u: item.landing_url ?? undefined,
+    open_access: item.oa_url ? { oa_url: item.oa_url, is_oa: item.is_oa } : undefined,
     primary_location: {
-      pdf_url: w.pdf_url ?? undefined,
-      landing_page_url: w.landing_url ?? undefined,
+      pdf_url: item.pdf_url ?? undefined,
+      landing_page_url: item.landing_url ?? undefined,
     },
   });
+
+  const metricsBody = (
+    <>
+      {item.fwci != null && (
+        <span className="vb-wc-mi">
+          FWCI <strong style={{ color: '#0F6E56' }}>{item.fwci.toFixed(1).replace('.', ',')}</strong>
+        </span>
+      )}
+      <span className="vb-wc-mi">
+        {isDataset ? 'USOS' : 'CITAS'}{' '}
+        <strong style={{ color: '#14314e' }}>{item.cited_by_count.toLocaleString('es-CL')}</strong>
+      </span>
+    </>
+  );
 
   return (
     <div className={`vb-wc${isDataset ? ' vb-wc--dataset' : ''}`}>
       <div className="vb-wc-badges">
         <span className="vb-badge" style={{ background: typeBg, color: typeColor }}>
-          {typeLabel(w.type)}
+          {typeLabel(item.type)}
         </span>
-        {w.quartile && (
-          <span className="vb-badge" style={{ background: Q_COLORS[w.quartile], color: '#fff' }}>
-            {w.quartile}
+        {item.quartile && (
+          <span className="vb-badge" style={{ background: Q_COLORS[item.quartile], color: '#fff' }}>
+            {item.quartile}
           </span>
         )}
-        {w.is_oa && (
+        {item.is_oa && (
           <span className="vb-badge" style={{ background: '#639922', color: '#fff' }}>OA</span>
         )}
       </div>
-      <div className="vb-wc-title">{w.title}</div>
+      <div className="vb-wc-title">{item.title}</div>
       <div className="vb-wc-meta">
-        {w.year && <>{w.year} · </>}
-        {w.journal && <em>{w.journal}</em>}
-        {w.best_oa_repo && (
+        {item.year && <>{item.year} · </>}
+        {item.journal && <em>{item.journal}</em>}
+        {item.best_oa_repo && (
           <>
-            {(w.year || w.journal) && ' · '}
-            <span className="vb-wc-repo">{w.best_oa_repo}</span>
+            {(item.year || item.journal) && ' · '}
+            <span className="vb-wc-repo">{item.best_oa_repo}</span>
           </>
         )}
       </div>
-      <div className="vb-wc-m">
-        {w.fwci != null && (
-          <span className="vb-wc-mi">
-            FWCI <strong style={{ color: '#0F6E56' }}>{w.fwci.toFixed(1).replace('.', ',')}</strong>
+      {openAlexUrl ? (
+        <a
+          className="vb-wc-m vb-wc-m--link"
+          href={openAlexUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Ver obra en OpenAlex (FWCI y citas)"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {metricsBody}
+          <span className="vb-wc-source" aria-hidden>
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path
+                d="M4 2h6v6M10 2 5.5 6.5M7 10H2V5"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </span>
-        )}
-        <span className="vb-wc-mi">
-          {isDataset ? 'USOS' : 'CITAS'}{' '}
-          <strong style={{ color: '#14314e' }}>{w.cited_by_count.toLocaleString('es-CL')}</strong>
-        </span>
-      </div>
+        </a>
+      ) : (
+        <div className="vb-wc-m">{metricsBody}</div>
+      )}
       {resourceLinks.length > 0 && (
         <div className="vb-wc-links">
           {resourceLinks.map((link) => (

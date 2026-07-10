@@ -43,6 +43,7 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
+  border-radius: 18px 18px 0 0;
 }
 
 .vb-hero__body {
@@ -129,6 +130,12 @@
   grid-template-columns: 150px 1fr;
   gap: 18px;
   align-items: start;
+  overflow: visible;
+}
+
+.vb-fwci-gauge {
+  position: relative;
+  overflow: visible;
 }
 
 .vb-gcap {
@@ -565,6 +572,34 @@
   font-size: 13px;
   margin-left: 2px;
   font-weight: 600;
+}
+
+/* Métricas de obra enlazadas a OpenAlex */
+.vb-wc-m--link {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+  margin: 6px -4px 0;
+  padding: 4px 4px 0;
+  transition: background 0.12s;
+  cursor: pointer;
+}
+.vb-wc-m--link:hover {
+  background: #f2f8fa;
+}
+.vb-wc-m--link:hover .vb-wc-source {
+  color: #0E7E9E;
+}
+
+.vb-wc-source {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  color: #b9c6cc;
+  transition: color 0.12s;
 }
 
 .vb-wc-repo {
