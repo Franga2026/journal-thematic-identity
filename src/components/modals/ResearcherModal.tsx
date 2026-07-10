@@ -478,12 +478,12 @@ export default function ResearcherModal() {
       const target = getCoAuthorClickTarget(ref, getData());
       if (!target) return;
       if (target.kind === 'uta') {
-        openLocalResearcherProfile(target.researcher);
+        openResearcherKeepingPrevious(target.researcher);
         return;
       }
       setViewCoAuthor(target.profile);
     },
-    [openLocalResearcherProfile, setViewCoAuthor],
+    [openResearcherKeepingPrevious, setViewCoAuthor],
   );
 
   const handleCloseProfile = useCallback(() => {

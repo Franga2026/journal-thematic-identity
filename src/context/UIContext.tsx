@@ -21,7 +21,7 @@ interface UIState {
   setDescubridorAccess: (a: '' | 'open' | 'closed') => void;
   selected: Researcher | null;
   openResearcher: (r: Researcher) => void;
-  /** Abre ficha UTA recordando la actual para volver con closeResearcher (un nivel). */
+  /** Abre ficha UTA apilando la actual; closeResearcher hace pop (cadena A→B→C…). */
   openResearcherKeepingPrevious: (r: Researcher) => void;
   /** ORCID, RUT o OpenAlex A-id para ficha externa (fetch en ResearcherModal) */
   openAlexAuthorId: string | null;
@@ -88,7 +88,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const [descubridorAccess, setDescubridorAccess] = useState<'' | 'open' | 'closed'>('');
 
   const [selected, setSelected] = useState<Researcher | null>(null);
-  const [previousResearcher, setPreviousResearcher] = useState<Researcher | null>(null);
+  const [researcherStack, setResearcherStack] = useState<Researcher[]>([]);
   const [openAlexAuthorId, setOpenAlexAuthorId] = useState<string | null>(null);
   const [openAlexAuthor, setOpenAlexAuthor] = useState<OpenAlexAuthorSummary | null>(null);
   const [openAlexNavStack, setOpenAlexNavStack] = useState<OpenAlexNavEntry[]>([]);
@@ -119,7 +119,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
 
   const resetPage = useCallback(() => setPage(0), []);
   const openResearcher = useCallback((r: Researcher) => {
-    setPreviousResearcher(null);
+    setResearcherStack([]);
     setOpenAlexNavStack([]);
     setOpenAlexAuthorId(null);
     setOpenAlexAuthor(null);
@@ -128,19 +128,18 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setReportText('');
     setMetricDetail(null);
   }, []);
-  const openResearcherKeepingPrevious = useCallback(
-    (next: Researcher) => {
-      setPreviousResearcher((prev) => prev ?? selected ?? null);
-      setOpenAlexNavStack([]);
-      setOpenAlexAuthorId(null);
-      setOpenAlexAuthor(null);
-      setSelected(next);
-      setModalTopic('');
-      setReportText('');
-      setMetricDetail(null);
-    },
-    [selected],
-  );
+  const openResearcherKeepingPrevious = useCallback((next: Researcher) => {
+    setSelected((current) => {
+      if (current) setResearcherStack((s) => [...s, current]);
+      return next;
+    });
+    setOpenAlexNavStack([]);
+    setOpenAlexAuthorId(null);
+    setOpenAlexAuthor(null);
+    setModalTopic('');
+    setReportText('');
+    setMetricDetail(null);
+  }, []);
   const openOpenAlexResearcher = useCallback(
     (authorIdOrUrl: string, summary?: OpenAlexAuthorSummary | null) => {
       setOpenAlexNavStack([]);
@@ -206,9 +205,10 @@ export function UIProvider({ children }: { children: ReactNode }) {
       setMetricDetail(null);
       return;
     }
-    if (previousResearcher) {
-      setSelected(previousResearcher);
-      setPreviousResearcher(null);
+    if (researcherStack.length > 0) {
+      const prev = researcherStack[researcherStack.length - 1];
+      setResearcherStack((stack) => stack.slice(0, -1));
+      setSelected(prev);
       setOpenAlexAuthorId(null);
       setOpenAlexAuthor(null);
       setModalTopic('');
@@ -222,7 +222,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setModalTopic('');
     setReportText('');
     setMetricDetail(null);
-  }, [openAlexNavStack, previousResearcher]);
+  }, [openAlexNavStack, researcherStack]);
   const pushModal = useCallback((entry: ModalEntry) => {
     setModalStack((s) => [...s, entry]);
   }, []);
