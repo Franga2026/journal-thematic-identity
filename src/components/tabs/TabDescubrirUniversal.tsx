@@ -6,6 +6,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { parseOpenAlexAuthorId } from '../../utils/openAlexAuthorId';
 import DiscoveryWorkCard from '../discovery/DiscoveryWorkCard';
 import {
   searchWorks,
@@ -160,6 +161,10 @@ function DiscoveryFacetBlock({
 export default function TabDescubrirUniversal() {
   const [searchParams] = useSearchParams();
   const q = searchParams.get('q') || '';
+  const authorId = useMemo(() => {
+    const raw = searchParams.get('author') || '';
+    return parseOpenAlexAuthorId(raw);
+  }, [searchParams]);
 
   const [sort, setSort] = useState<SortMode>('relevance');
   const [page, setPage] = useState(1);
@@ -173,19 +178,28 @@ export default function TabDescubrirUniversal() {
   const lastKey = useRef<string>('');
 
   const runSearch = useCallback(
-    async (query: string, pageArg: number, sortArg: SortMode, f: ActiveFilters) => {
+    async (
+      query: string,
+      pageArg: number,
+      sortArg: SortMode,
+      f: ActiveFilters,
+      authorArg: string,
+    ) => {
       const trimmed = query.trim();
-      if (trimmed.length < 2) {
+      const author = authorArg.trim();
+      if (trimmed.length < 2 && !author) {
         setData(null); setError(null); return;
       }
-      const key = JSON.stringify([trimmed.toLowerCase(), pageArg, sortArg, f]);
+      const key = JSON.stringify([trimmed.toLowerCase(), author, pageArg, sortArg, f]);
       if (key === lastKey.current) return;
       lastKey.current = key;
 
       setLoading(true); setError(null);
       try {
         const res = await searchWorks({
-          q: trimmed, page: pageArg, perPage: 25, sort: sortArg,
+          q: trimmed.length >= 2 ? trimmed : undefined,
+          authorId: author || undefined,
+          page: pageArg, perPage: 25, sort: sortArg,
           type: f.type || undefined,
           oaStatus: f.oaStatus || undefined,
           field: f.field || undefined,
@@ -217,23 +231,30 @@ export default function TabDescubrirUniversal() {
   }, []);
 
   useEffect(() => {
-    if (q && q.trim().length >= 2) {
+    const trimmedQ = q.trim();
+    const hasQ = trimmedQ.length >= 2;
+    const hasAuthor = Boolean(authorId);
+
+    if (hasQ || hasAuthor) {
       setPage(1);
       setFilters(EMPTY_FILTERS);
       lastKey.current = '';
-      runSearch(q, 1, sort, EMPTY_FILTERS);
-      loadFacets(q);
+      const sortArg: SortMode = hasQ ? sort : (sort === 'relevance' ? 'citations' : sort);
+      if (!hasQ && sort === 'relevance') setSort('citations');
+      runSearch(trimmedQ, 1, sortArg, EMPTY_FILTERS, authorId);
+      if (hasQ) loadFacets(trimmedQ);
+      else setFacets(null);
     } else {
       setData(null); setFacets(null); setError(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q]);
+  }, [q, authorId]);
 
   const applyFilters = (next: ActiveFilters) => {
     setFilters(next);
     setPage(1);
     lastKey.current = '';
-    runSearch(q, 1, sort, next);
+    runSearch(q, 1, sort, next, authorId);
   };
 
   const toggleFilter = (kind: StringFilterKey, value: string) => {
@@ -263,14 +284,14 @@ export default function TabDescubrirUniversal() {
 
   const handleSortChange = (next: SortMode) => {
     setSort(next); setPage(1); lastKey.current = '';
-    runSearch(q, 1, next, filters);
+    runSearch(q, 1, next, filters, authorId);
   };
 
   const goToPage = (next: number) => {
     if (next < 1) return;
     setPage(next);
     lastKey.current = '';
-    runSearch(q, next, sort, filters);
+    runSearch(q, next, sort, filters, authorId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -283,7 +304,7 @@ export default function TabDescubrirUniversal() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `descubridor-${q.slice(0, 40).replace(/\s+/g, '-')}.bib`;
+    a.download = `descubridor-${(q || authorId).slice(0, 40).replace(/\s+/g, '-')}.bib`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -403,6 +424,11 @@ export default function TabDescubrirUniversal() {
         </aside>
 
         <div className="descubrir-universal__content">
+          {authorId && (
+            <p className="descubrir-universal__facet-hint descubrir-universal__author-filter">
+              Filtrando obras por autor OpenAlex · {authorId}
+            </p>
+          )}
           {data && (
             <div className="descubrir-universal__toolbar">
               <span className="descubrir-universal__meta">
@@ -477,10 +503,12 @@ export default function TabDescubrirUniversal() {
           )}
           {!loading && !error && data && data.results.length === 0 && (
             <div className="descubrir-universal__state">
-              No se encontraron resultados para “{data.query}” con estos filtros.
+              No se encontraron resultados
+              {data.query ? ` para “${data.query}”` : authorId ? ` del autor ${authorId}` : ''}
+              {' '}con estos filtros.
             </div>
           )}
-          {!loading && !error && !data && (
+          {!loading && !error && !data && !authorId && (
             <div className="descubrir-universal__state">
               Escribe un término y presiona Buscar para explorar 474 millones de obras.
             </div>

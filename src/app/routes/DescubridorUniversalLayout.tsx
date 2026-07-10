@@ -123,7 +123,11 @@ export default function DescubridorUniversalLayout() {
     (q: string) => {
       const trimmed = q.trim();
       if (trimmed.length < 2) return;
-      setSearchParams({ q: trimmed });
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.set('q', trimmed);
+        return next;
+      });
       setDropdownOpen(false);
       setActiveIndex(-1);
       setSuggestions([]);

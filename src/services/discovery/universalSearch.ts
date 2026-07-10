@@ -67,7 +67,8 @@ export interface SearchResponse {
 export type SortMode = 'relevance' | 'citations' | 'date' | 'date_asc';
 
 export interface SearchParams {
-  q: string;
+  q?: string;
+  authorId?: string;
   page?: number;
   perPage?: number;
   yearFrom?: number;
@@ -119,8 +120,10 @@ const _sessionCache = new Map<string, SearchResponse>();
 const _facetsCache = new Map<string, FacetsResponse>();
 
 function cacheKey(p: SearchParams): string {
+  const q = p.q?.trim().toLowerCase() ?? '';
+  const authorId = p.authorId?.trim() ?? '';
   return JSON.stringify([
-    p.q.trim().toLowerCase(), p.page ?? 1, p.perPage ?? 25,
+    q, authorId, p.page ?? 1, p.perPage ?? 25,
     p.yearFrom ?? null, p.yearTo ?? null, p.openAccess ?? null,
     p.type ?? null, p.oaStatus ?? null, p.field ?? null,
     p.publisher ?? null, p.repository ?? null, p.datasetRepository ?? null,
@@ -137,9 +140,10 @@ export function clearSessionCache(): void {
 // Búsqueda principal
 // ---------------------------------------------------------------------------
 export async function searchWorks(params: SearchParams): Promise<SearchResponse> {
-  const q = params.q?.trim();
-  if (!q || q.length < 2) {
-    throw new DiscoveryError('Ingresa al menos 2 caracteres para buscar.', 400);
+  const q = params.q?.trim() ?? '';
+  const authorId = params.authorId?.trim().replace(/^https?:\/\/openalex\.org\//i, '') ?? '';
+  if (q.length < 2 && !authorId) {
+    throw new DiscoveryError("Se requiere 'q' o 'author_id'.", 400);
   }
 
   const key = cacheKey(params);
@@ -147,7 +151,8 @@ export async function searchWorks(params: SearchParams): Promise<SearchResponse>
   if (hit) return { ...hit, cached: true };
 
   const usp = new URLSearchParams();
-  usp.set('q', q);
+  if (q.length >= 2) usp.set('q', q);
+  if (authorId) usp.set('author_id', authorId);
   if (params.page) usp.set('page', String(params.page));
   if (params.perPage) usp.set('per_page', String(params.perPage));
   if (params.yearFrom) usp.set('year_from', String(params.yearFrom));

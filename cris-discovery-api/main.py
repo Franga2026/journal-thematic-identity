@@ -640,6 +640,7 @@ def build_filters(
     repository: Optional[str],
     dataset_repository: Optional[str],
     fwci_min: Optional[float],
+    author_id: Optional[str] = None,
 ) -> list[str]:
     filters = []
     if year_from and year_to:
@@ -679,6 +680,11 @@ def build_filters(
         filters.append(f"primary_location.source.host_organization:{pub_id}")
     if fwci_min:
         filters.append(f"fwci:>{fwci_min}")
+    if author_id:
+        # OpenAlex filtra obras por autor con authorships.author.id
+        clean_id = author_id.replace('https://openalex.org/', '').strip()
+        if clean_id:
+            filters.append(f"authorships.author.id:{clean_id}")
     return filters
 
 
@@ -721,7 +727,7 @@ async def _try_openalex_get(
 
 async def _fetch_oa_works(
     client: httpx.AsyncClient,
-    q: str,
+    q: Optional[str],
     filters: list[str],
     sort: str,
     page: int,
@@ -733,14 +739,19 @@ async def _fetch_oa_works(
         "date": "publication_date:desc",
         "date_asc": "publication_date:asc",
     }
+    sort_key = sort
+    if not q and sort == "relevance":
+        # OpenAlex exige ?search= para ordenar por relevance_score
+        sort_key = "citations"
     params = {
-        "search": q,
         "page": page,
         "per-page": per_page,
-        "sort": sort_map[sort],
+        "sort": sort_map[sort_key],
         "api_key": OPENALEX_API_KEY,
         "select": SELECT_FIELDS,
     }
+    if q:
+        params["search"] = q
     if filters:
         params["filter"] = ",".join(filters)
     if CONTACT_EMAIL:
@@ -750,7 +761,7 @@ async def _fetch_oa_works(
 
 async def _try_fetch_oa_works(
     client: httpx.AsyncClient,
-    q: str,
+    q: Optional[str],
     filters: list[str],
     sort: str,
     page: int,
@@ -763,14 +774,18 @@ async def _try_fetch_oa_works(
         "date": "publication_date:desc",
         "date_asc": "publication_date:asc",
     }
+    sort_key = sort
+    if not q and sort == "relevance":
+        sort_key = "citations"
     params = {
-        "search": q,
         "page": page,
         "per-page": per_page,
-        "sort": sort_map[sort],
+        "sort": sort_map[sort_key],
         "api_key": OPENALEX_API_KEY,
         "select": SELECT_FIELDS,
     }
+    if q:
+        params["search"] = q
     if filters:
         params["filter"] = ",".join(filters)
     if CONTACT_EMAIL:
@@ -780,7 +795,7 @@ async def _try_fetch_oa_works(
 
 async def _issns_for_quartile_in_query(
     client: httpx.AsyncClient,
-    q: str,
+    q: Optional[str],
     filters: list[str],
     quartile: str,
     max_issns: int | None = None,
@@ -825,7 +840,7 @@ async def _issns_for_quartile_in_query(
 
 async def _search_with_quartile(
     client: httpx.AsyncClient,
-    q: str,
+    q: Optional[str],
     filters: list[str],
     sort: str,
     quartile: str,
@@ -880,7 +895,7 @@ async def _search_with_quartile(
 # ----------------------------------------------------------------------
 @app.get("/search", response_model=SearchResponse)
 async def search(
-    q: str = Query(..., min_length=2),
+    q: Optional[str] = Query(None, min_length=2),
     page: int = Query(1, ge=1, le=200),
     per_page: int = Query(25, ge=1, le=50),
     year_from: Optional[int] = Query(None, ge=1800),
@@ -894,14 +909,21 @@ async def search(
     dataset_repository: Optional[str] = Query(None),
     fwci_min: Optional[float] = Query(None, ge=0),
     quartile: Optional[str] = Query(None, pattern="^Q[1-4]$"),
+    author_id: Optional[str] = Query(None),
     sort: str = Query("relevance", pattern="^(relevance|citations|date|date_asc)$"),
 ):
     if not OPENALEX_API_KEY:
         raise HTTPException(status_code=500, detail="Sin OPENALEX_API_KEY.")
 
+    q_norm = q.strip() if q else None
+    if q_norm == "":
+        q_norm = None
+    if not q_norm and not author_id:
+        raise HTTPException(status_code=400, detail="Se requiere 'q' o 'author_id'")
+
     cache_key = hashlib.sha256(
-        f"search|{q}|{page}|{per_page}|{year_from}|{year_to}|{open_access}|"
-        f"{type}|{oa_status}|{field}|{publisher}|{repository}|{dataset_repository}|{fwci_min}|{quartile}|{sort}".encode()
+        f"search|{q_norm}|{page}|{per_page}|{year_from}|{year_to}|{open_access}|"
+        f"{type}|{oa_status}|{field}|{publisher}|{repository}|{dataset_repository}|{fwci_min}|{quartile}|{author_id}|{sort}".encode()
     ).hexdigest()
 
     cached = _cache_get(cache_key)
@@ -909,18 +931,18 @@ async def search(
         return {**cached, "cached": True}
 
     filters = build_filters(year_from, year_to, open_access, type, oa_status,
-                            field, publisher, repository, dataset_repository, fwci_min)
+                            field, publisher, repository, dataset_repository, fwci_min, author_id)
 
     try:
         async with httpx.AsyncClient(timeout=45.0) as client:
             if quartile:
                 results, filtered_total, q_cost = await _search_with_quartile(
-                    client, q, filters, sort, quartile, page, per_page,
+                    client, q_norm, filters, sort, quartile, page, per_page,
                 )
                 meta_cost = q_cost
                 total = filtered_total
             else:
-                data = await _fetch_oa_works(client, q, filters, sort, page, per_page)
+                data = await _fetch_oa_works(client, q_norm, filters, sort, page, per_page)
                 meta = data.get("meta") or {}
                 results = [normalize_work(w) for w in (data.get("results") or [])]
                 meta_cost = float(meta.get("cost_usd", 0.0) or 0.0)
@@ -930,7 +952,7 @@ async def search(
         raise HTTPException(status_code=502, detail=f"Error al contactar OpenAlex: {e}")
 
     payload = SearchResponse(
-        query=q,
+        query=q_norm or "",
         total=total,
         page=page,
         per_page=per_page,
@@ -1025,7 +1047,7 @@ async def facets(
     if cached:
         return {**cached, "cached": True}
 
-    base_filters = build_filters(year_from, year_to, None, None, None, None, None, None, None, None)
+    base_filters = build_filters(year_from, year_to, None, None, None, None, None, None, None, None, None)
     repo_filters = base_filters + ["type:!dataset"]
     dataset_repo_filters = base_filters + ["type:dataset"]
 
