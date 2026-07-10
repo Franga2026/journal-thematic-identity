@@ -21,11 +21,13 @@ export default function FwciInfoTooltip() {
       {open && (
         <div className="vb-fwci-info__panel" role="tooltip">
           <span className="vb-fwci-info__text">
-            <strong>FWCI</strong> (Field-Weighted Citation Impact): impacto de citación
-            normalizado por campo, año y tipo de obra. <strong>1,0 = promedio mundial.</strong>
+            <strong>Field-Weighted Citation Impact:</strong> mide las citas de un
+            trabajo relativas al promedio mundial de su campo, año y tipo. Un valor
+            de 1,0 representa el promedio global.
           </span>
           <span className="vb-fwci-info__ex">
-            <strong>Ej.:</strong> FWCI 2,5 → la obra recibió 2,5× las citas esperadas para su disciplina.
+            <strong>Ejemplo:</strong> FWCI 1,8 = 80% más citas que el promedio de su
+            disciplina.
           </span>
         </div>
       )}

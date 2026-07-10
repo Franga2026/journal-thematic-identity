@@ -1,5 +1,9 @@
 /* ============================================================
-   FwciInfoTooltip — ícono ⓘ + panel con la definición del FWCI
+   FIX del tooltip FWCI que se cortaba por el borde del modal.
+   Problema: el panel estaba centrado sobre el ícono (left:50%),
+   pero como el ícono queda muy a la izquierda del modal, el panel
+   se desbordaba. Solución: anclar el panel por su borde IZQUIERDO
+   al ícono, de modo que crezca hacia la derecha (hacia adentro).
    ============================================================ */
 
 .vb-fwci-info {
@@ -29,34 +33,47 @@
 
 .vb-fwci-info__panel {
   position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: calc(100% + 10px);
+  left: -8px;
+  transform: none;
   width: 260px;
+  max-width: calc(100vw - 40px);
   background: #fff;
   border: 0.5px solid #d6e6ec;
   border-left: 3px solid #0E7E9E;
   border-radius: 10px;
   padding: 11px 13px;
   box-shadow: 0 8px 24px rgba(20, 49, 78, 0.16);
-  z-index: 20;
+  z-index: 40;
   text-align: left;
   animation: vb-fwci-fade 0.12s ease-out;
 }
 
 @keyframes vb-fwci-fade {
-  from { opacity: 0; transform: translateX(-50%) translateY(3px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .vb-fwci-info__panel::after {
   content: '';
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 14px;
+  transform: none;
   border: 6px solid transparent;
   border-top-color: #fff;
+}
+
+@media (max-width: 480px) {
+  .vb-fwci-info__panel {
+    width: 220px;
+    left: -8px;
+    right: auto;
+  }
+  .vb-fwci-info__panel::after {
+    left: 14px;
+    right: auto;
+  }
 }
 
 .vb-fwci-info__text {
@@ -77,18 +94,3 @@
   color: #0F6E56;
 }
 .vb-fwci-info__ex strong { color: #0F6E56; }
-
-@media (max-width: 480px) {
-  .vb-fwci-info__panel {
-    width: 210px;
-    left: auto;
-    right: -8px;
-    transform: none;
-    animation: none;
-  }
-  .vb-fwci-info__panel::after {
-    left: auto;
-    right: 14px;
-    transform: none;
-  }
-}
