@@ -15,7 +15,6 @@ import './OpenAlexResearcherModal.css';
 import { getData } from '../../utils/dataProcessing';
 import { findResearcherByProfileId, findResearcherByOpenAlexAuthorId } from '../../utils/researcherProfile';
 import { useUI } from '../../context/UIContext';
-import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
 import type { OpenAlexAuthorDetail, OpenAlexAuthorSummary } from '../../shared/types/openalex';
 import type { Researcher } from '../../shared/types';
 import type { EcosystemCoauthor } from '../../services/discovery/computeAuthorEcosystem';
@@ -52,8 +51,7 @@ export default function OpenAlexResearcherProfile({
   onClose,
   onUtaMatch,
 }: OpenAlexResearcherProfileProps) {
-  const { openAlexAuthor } = useUI();
-  const { openLocalResearcherProfile, openOpenAlexProfile } = useOpenResearcherProfile();
+  const { openAlexAuthor, pushModal } = useUI();
 
   const [author, setAuthor] = useState<OpenAlexAuthorDetail | null>(
     openAlexAuthor ? detailFromSummary(openAlexAuthor) : null,
@@ -261,7 +259,7 @@ export default function OpenAlexResearcherProfile({
       onUtaMatch(researcher);
       return;
     }
-    openLocalResearcherProfile(researcher);
+    pushModal({ kind: 'uta', researcher });
   };
 
   const handleOpenCoauthor = (c: EcosystemCoauthor) => {
@@ -276,7 +274,11 @@ export default function OpenAlexResearcherProfile({
       cited_by_count: 0,
       works_count: 0,
     };
-    openOpenAlexProfile(summary, { keepPrevious: true });
+    pushModal({
+      kind: 'openalex',
+      authorId: summary.openAlexId ?? summary.id,
+      summary,
+    });
   };
 
   const canLoadMore = worksTotal > productionWorks.length && !worksLoading;

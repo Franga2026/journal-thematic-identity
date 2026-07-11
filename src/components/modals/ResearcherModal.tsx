@@ -288,9 +288,9 @@ export default function ResearcherModal() {
     metricDetail,
     setMetricDetail,
     setViewCoAuthor,
-    openResearcher,
     openResearcherKeepingPrevious,
     resolveResearcherProfile,
+    pushModal,
   } = useApp();
 
   const [datasetsExpanded, setDatasetsExpanded] = useState(false);
@@ -538,7 +538,8 @@ export default function ResearcherModal() {
         onClose={handleCloseProfile}
         onUtaMatch={(r) => {
           startTransition(() => {
-            openResearcher(r);
+            // Apila UTA encima del externo que ya está en modalStack
+            pushModal({ kind: 'uta', researcher: r });
             if (shouldSyncProfileRoute(location.pathname)) {
               const orcid = (r.o || '').replace(/https?:\/\/orcid\.org\//i, '').trim();
               if (orcid) navigate(`/perfiles/${orcid}`);

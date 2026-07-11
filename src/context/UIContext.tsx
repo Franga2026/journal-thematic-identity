@@ -140,17 +140,79 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setReportText('');
     setMetricDetail(null);
   }, []);
+  const pushModal = useCallback((entry: ModalEntry) => {
+    setModalStack((s) => [...s, entry]);
+    // Dual-write: el modal correspondiente se muestra vía estado legacy
+    if (entry.kind === 'uta') {
+      setSelected(entry.researcher);
+      setOpenAlexAuthorId(null);
+    } else if (entry.kind === 'openalex') {
+      setOpenAlexAuthorId(entry.authorId);
+      setOpenAlexAuthor(entry.summary ?? null);
+      setSelected(null);
+    } else if (entry.kind === 'coauthor') {
+      setViewCoAuthor(entry.profile);
+    }
+  }, []);
+  const popModal = useCallback(() => {
+    setModalStack((s) => {
+      const next = s.slice(0, -1);
+      const top = next[next.length - 1] ?? null;
+      // Restaura el estado legacy según el nuevo tope (o limpia si vacío)
+      if (!top) {
+        setSelected(null); setOpenAlexAuthorId(null);
+        setOpenAlexAuthor(null); setViewCoAuthor(null);
+      } else if (top.kind === 'uta') {
+        setSelected(top.researcher); setOpenAlexAuthorId(null); setViewCoAuthor(null);
+      } else if (top.kind === 'openalex') {
+        setOpenAlexAuthorId(top.authorId); setOpenAlexAuthor(top.summary ?? null);
+        setSelected(null); setViewCoAuthor(null);
+      } else if (top.kind === 'coauthor') {
+        setViewCoAuthor(top.profile);
+      }
+      return next;
+    });
+  }, []);
+  const resetModalStack = useCallback((entry: ModalEntry | null) => {
+    setModalStack(entry ? [entry] : []);
+    if (!entry) {
+      setSelected(null);
+      setOpenAlexAuthorId(null);
+      setOpenAlexAuthor(null);
+      setViewCoAuthor(null);
+      return;
+    }
+    if (entry.kind === 'uta') {
+      setSelected(entry.researcher);
+      setOpenAlexAuthorId(null);
+    } else if (entry.kind === 'openalex') {
+      setOpenAlexAuthorId(entry.authorId);
+      setOpenAlexAuthor(entry.summary ?? null);
+      setSelected(null);
+    } else if (entry.kind === 'coauthor') {
+      setViewCoAuthor(entry.profile);
+    }
+  }, []);
+  const closeAllModals = useCallback(() => {
+    setModalStack([]);
+    setSelected(null);
+    setOpenAlexAuthorId(null);
+    setOpenAlexAuthor(null);
+    setViewCoAuthor(null);
+  }, []);
+
   const openOpenAlexResearcher = useCallback(
     (authorIdOrUrl: string, summary?: OpenAlexAuthorSummary | null) => {
+      const authorId = authorIdOrUrl.trim();
       setOpenAlexNavStack([]);
-      setSelected(null);
-      setOpenAlexAuthorId(authorIdOrUrl.trim());
-      setOpenAlexAuthor(summary ?? null);
+      setResearcherStack([]);
+      // Empieza pila nueva con el externo como base
+      resetModalStack({ kind: 'openalex', authorId, summary: summary ?? null });
       setModalTopic('');
       setReportText('');
       setMetricDetail(null);
     },
-    [],
+    [resetModalStack],
   );
 
   const openOpenAlexResearcherKeepingPrevious = useCallback(
@@ -194,6 +256,13 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setOpenAlexAuthorId(key);
   }, []);
   const closeResearcher = useCallback(() => {
+    if (modalStack.length > 0) {
+      popModal();
+      setModalTopic('');
+      setReportText('');
+      setMetricDetail(null);
+      return;
+    }
     if (openAlexNavStack.length > 0) {
       const prev = openAlexNavStack[openAlexNavStack.length - 1];
       setOpenAlexNavStack((stack) => stack.slice(0, -1));
@@ -222,19 +291,7 @@ export function UIProvider({ children }: { children: ReactNode }) {
     setModalTopic('');
     setReportText('');
     setMetricDetail(null);
-  }, [openAlexNavStack, researcherStack]);
-  const pushModal = useCallback((entry: ModalEntry) => {
-    setModalStack((s) => [...s, entry]);
-  }, []);
-  const popModal = useCallback(() => {
-    setModalStack((s) => s.slice(0, -1));
-  }, []);
-  const resetModalStack = useCallback((entry: ModalEntry | null) => {
-    setModalStack(entry ? [entry] : []);
-  }, []);
-  const closeAllModals = useCallback(() => {
-    setModalStack([]);
-  }, []);
+  }, [modalStack, popModal, openAlexNavStack, researcherStack]);
   const topModal: ModalEntry | null =
     modalStack.length > 0 ? modalStack[modalStack.length - 1] : null;
   const goPerfiles = useCallback(() => { setTab('perfiles'); setPage(0); }, []);
