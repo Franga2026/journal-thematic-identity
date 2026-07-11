@@ -2,10 +2,14 @@
 // scopusIndex.ts — Set de ISSN indexados en Scopus, construido desde el KBART
 // -----------------------------------------------------------------------------
 // Lado NODE (lo usa el script de enriquecimiento). NO importar en componentes React:
-// el KBART pesa ~17 MB. El front solo lee el `scopusIndexedRate` ya calculado.
+// el KBART pesa ~17 MB y este módulo usa `node:fs`.
 //
 // Fuente: KBART de cobertura de Scopus (6569_elsevier_scopus_kbart.txt).
 // Ubicación esperada: scripts/data/6569_elsevier_scopus_kbart.txt (fuera del bundle).
+//
+// URLs Scopus por ISSN (browser): ver `scopusUrlLookup.ts` + public/data/scopus_index.json
+// (generado con `npm run build:scopus-index`). No mezclar aquí: el JSON ~12 MB
+// no debe entrar al bundle vía import estático ni arrastrar node:fs al front.
 // =============================================================================
 
 import { readFileSync } from 'node:fs';

@@ -674,6 +674,29 @@
   padding: 16px 0 4px;
 }
 
+/* Chip Scopus clicable (enlace a title_url del KBART) */
+.vb-badge-scopus {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  background: #E8622C;          /* naranja Scopus */
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.12s;
+  line-height: 1.4;
+}
+.vb-badge-scopus:hover {
+  background: #c9501f;
+}
+.vb-badge-scopus svg {
+  flex: 0 0 auto;
+}
+
 .vb-all-works {
   max-height: 360px;
   overflow-y: auto;
