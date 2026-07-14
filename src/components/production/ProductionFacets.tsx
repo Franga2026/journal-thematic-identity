@@ -1,53 +1,84 @@
-import { useMemo } from 'react';
-import { buildWorkFacets } from '../../utils/dataProcessing';
 import { typeLabelEs } from '../../utils/constants';
 import { fieldEs } from '../../utils/fieldEs';
+import type { WorksFacetBucket } from '../../services/catalog/fetchWorks';
 import FacetCard, { useFacetMax } from './FacetCard';
-import type { Work } from '../../shared/types';
+
+type FacetItem = { name: string; count: number; label?: string };
+
+const QUARTILE_ORDER = ['Q1', 'Q2', 'Q3', 'Q4', 'sin_datos'];
+
+function toItems(buckets: WorksFacetBucket[] | undefined): FacetItem[] {
+  return (buckets || []).map((b) => ({ name: b.key, count: b.count }));
+}
+
+function quartileLabel(key: string): string {
+  if (key === 'sin_datos') return 'sin datos';
+  return key;
+}
+
+function sortQuartileItems(items: FacetItem[]): FacetItem[] {
+  return [...items].sort(
+    (a, b) => QUARTILE_ORDER.indexOf(a.name) - QUARTILE_ORDER.indexOf(b.name)
+  );
+}
 
 interface ProductionFacetsProps {
-  worksForYears: Work[];
-  worksForTypes: Work[];
-  worksForAccess: Work[];
-  worksForTopics: Work[];
+  facets: {
+    year?: WorksFacetBucket[];
+    type?: WorksFacetBucket[];
+    quartile?: WorksFacetBucket[];
+    access?: WorksFacetBucket[];
+    field?: WorksFacetBucket[];
+  };
   workYear: string;
   workType: string;
+  workQuartile: string;
   workAccess: '' | 'open' | 'closed';
   workTopic: string;
   setWorkYear: (y: string) => void;
   setWorkType: (t: string) => void;
+  setWorkQuartile: (q: string) => void;
   setWorkAccess: (a: '' | 'open' | 'closed') => void;
   setWorkTopic: (t: string) => void;
   onFilterChange: () => void;
 }
 
 export default function ProductionFacets({
-  worksForYears,
-  worksForTypes,
-  worksForAccess,
-  worksForTopics,
+  facets,
   workYear,
   workType,
+  workQuartile,
   workAccess,
   workTopic,
   setWorkYear,
   setWorkType,
+  setWorkQuartile,
   setWorkAccess,
   setWorkTopic,
   onFilterChange,
 }: ProductionFacetsProps) {
-  const yearFacets = useMemo(() => buildWorkFacets(worksForYears).years, [worksForYears]);
-  const typeFacets = useMemo(() => buildWorkFacets(worksForTypes).types, [worksForTypes]);
-  const accessFacets = useMemo(() => buildWorkFacets(worksForAccess).access, [worksForAccess]);
-  const topicFacets = useMemo(() => buildWorkFacets(worksForTopics).topics, [worksForTopics]);
+  const yearFacets = toItems(facets.year);
+  const typeFacets = toItems(facets.type);
+  const quartileFacets = sortQuartileItems(toItems(facets.quartile));
+  const accessFacets = toItems(facets.access);
+  const topicFacets = toItems(facets.field);
   const yearMax = useFacetMax(yearFacets);
   const typeMax = useFacetMax(typeFacets);
+  const quartileMax = useFacetMax(quartileFacets);
 
   const typeItems = typeFacets.map((t) => ({
     name: t.name,
     count: t.count,
     label: typeLabelEs(t.name),
   }));
+
+  const quartileItems = quartileFacets
+    .filter((q) => q.count > 0)
+    .map((q) => ({
+      name: q.name,
+      count: q.count,
+      label: quartileLabel(q.name),
+    }));
 
   const accessItems = accessFacets
     .filter((a) => a.count > 0)
@@ -70,7 +101,18 @@ export default function ProductionFacets({
         }}
       />
       <FacetCard
-        title="Type"
+        title="Cuartil"
+        items={quartileItems}
+        selected={workQuartile}
+        maxCount={quartileMax}
+        limit={5}
+        onSelect={(name) => {
+          setWorkQuartile(workQuartile === name ? '' : name);
+          onFilterChange();
+        }}
+      />
+      <FacetCard
+        title="Tipo"
         items={typeItems}
         selected={workType}
         maxCount={typeMax}

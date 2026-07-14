@@ -55,8 +55,10 @@ function normalizeQuartile(qi?: string): string | null {
 
 /** Carga el índice una vez (idempotente) y resuelve URL Scopus de la obra. */
 function useScopusUrlForWork(work: Work | null | undefined): string | null {
+  const fromApi = (work as Work & { scopus_url?: string | null })?.scopus_url?.trim();
   const [, setTick] = useState(0);
   useEffect(() => {
+    if (fromApi) return;
     let cancelled = false;
     void loadScopusUrlIndex().then(() => {
       if (!cancelled) setTick((n) => n + 1);
@@ -64,7 +66,8 @@ function useScopusUrlForWork(work: Work | null | undefined): string | null {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [fromApi]);
+  if (fromApi) return fromApi;
   return work ? getScopusUrlForWork(work) : null;
 }
 

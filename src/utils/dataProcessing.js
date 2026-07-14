@@ -452,9 +452,11 @@ export function filterWorks({
   field = '',
   topic = '',
   sdg = '',
+  quartile = '',
 } = {}) {
   const q = search.toLowerCase().trim();
   const accessMode = access || (oa ? 'open' : '');
+  const qv = (quartile || '').trim().toUpperCase().replace(/\s+/g, '_');
   return (_AW || []).filter((w) => {
     const mt =
       !q ||
@@ -469,7 +471,16 @@ export function filterWorks({
     const mf = !field || w.field === field;
     const mtopic = !topic || w.topic === topic || w.field === topic;
     const ms = !sdg || (w.sdgs && w.sdgs.some((s) => s === sdg));
-    return mt && my && mtp && moa && mf && mtopic && ms;
+    let mq = true;
+    if (qv) {
+      const wq = (w.qi || '').toString().trim().toUpperCase();
+      if (qv === 'SIN_DATOS' || qv === 'NONE' || qv === 'NULL') {
+        mq = !wq;
+      } else {
+        mq = wq === qv || wq === qv.replace(/^Q/, '') || `Q${wq}` === qv;
+      }
+    }
+    return mt && my && mtp && moa && mf && mtopic && ms && mq;
   });
 }
 
@@ -480,6 +491,7 @@ export function buildWorkFacets(works, { limit = 8 } = {}) {
   const topics = {};
   const fields = {};
   const publishers = {};
+  const quartiles = { Q1: 0, Q2: 0, Q3: 0, Q4: 0, sin_datos: 0 };
   let open = 0;
   let closed = 0;
 
@@ -492,6 +504,9 @@ export function buildWorkFacets(works, { limit = 8 } = {}) {
     if (topicKey) topics[topicKey] = (topics[topicKey] || 0) + 1;
     if (w.field) fields[w.field] = (fields[w.field] || 0) + 1;
     if (w.pub) publishers[w.pub] = (publishers[w.pub] || 0) + 1;
+    const qi = (w.qi || '').toString().trim().toUpperCase();
+    if (qi === 'Q1' || qi === 'Q2' || qi === 'Q3' || qi === 'Q4') quartiles[qi] += 1;
+    else quartiles.sin_datos += 1;
   });
 
   const toSorted = (map, numericKey = false) =>
@@ -499,12 +514,17 @@ export function buildWorkFacets(works, { limit = 8 } = {}) {
       .map(([name, count]) => ({ name: numericKey ? String(name) : name, count }))
       .sort((a, b) => (numericKey ? Number(b.name) - Number(a.name) : b.count - a.count));
 
+  const quartileOrder = ['Q1', 'Q2', 'Q3', 'Q4', 'sin_datos'];
+
   return {
     years: toSorted(years, true),
     types: toSorted(types),
     topics: toSorted(topics),
     fields: toSorted(fields),
     publishers: toSorted(publishers),
+    quartiles: quartileOrder
+      .filter((k) => quartiles[k] > 0)
+      .map((name) => ({ name, count: quartiles[name] })),
     access: [
       { name: 'open', count: open },
       { name: 'closed', count: closed },

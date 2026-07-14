@@ -67,6 +67,9 @@ export interface Work {
   cr_issn?: string[];
   /** ISSN(s) Pure — string CSV (ej. '2352-409X,2352-4103') */
   up_issn?: string;
+  /** URL OpenURL Scopus (API /sources backfill) */
+  scopus_url?: string | null;
+  in_scopus?: boolean;
   /** Vínculos UTA confirmados por ORCID en authorships OpenAlex */
   autores_uta?: UtaAuthorLink[];
   /** Authorships estilo OpenAlex (si vienen enriquecidas en all-works.json) */
@@ -438,6 +441,12 @@ export interface FiltersState {
   setWorkType: (t: string) => void;
   workOA: boolean;
   setWorkOA: (o: boolean) => void;
+  workAccess: '' | 'open' | 'closed';
+  setWorkAccess: (a: '' | 'open' | 'closed') => void;
+  workQuartile: string;
+  setWorkQuartile: (q: string) => void;
+  workTopic: string;
+  setWorkTopic: (t: string) => void;
   workField: string;
   setWorkField: (f: string) => void;
   workSdg: string;
