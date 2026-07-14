@@ -1,25 +1,78 @@
 /**
- * scopusUrlLookup.ts — URL de revista en Scopus por ISSN (índice compacto).
+ * scopusUrlLookup.ts (v2) — resuelve por ISSN o por título.
  *
- * Separado de `scopusIndex.ts` (Node + KBART crudo / Set para enrich:scopus)
- * para poder usarlo en el browser sin arrastrar `node:fs`.
- *
- * Fuente: `public/data/scopus_index.json` — array de ISSN `XXXX-XXXX`
- * (generado por `scripts/build-scopus-index.mjs`).
- *
- * URL reconstruida:
- *   https://www.scopus.com/scopus/openurl/link.url?svc.citedby=1&rft.issn=XXXX-XXXX
- *
- * Uso:
- *   await loadScopusUrlIndex();
- *   const url = getScopusUrl(work.issn_l);
+ * Índice en `public/data/scopus_index.json` (fetch bajo demanda; no va al bundle).
+ * Generado por `scripts/build-scopus-index.mjs`.
  */
 
-/** Plantilla OpenURL Scopus (cited-by) por ISSN. */
-export const SCOPUS_ISSN_URL_TEMPLATE =
-  'https://www.scopus.com/scopus/openurl/link.url?svc.citedby=1&rft.issn=';
+export interface ScopusIndexV2 {
+  byIssn: string[];
+  byTitle: Record<string, string>;
+}
 
-/** Normaliza un ISSN al formato XXXX-XXXX (igual criterio que el builder). */
+/** Base OpenURL completa que Scopus exige (verificada contra el KBART). */
+export const SCOPUS_OPENURL_BASE =
+  'https://www.scopus.com/scopus/openurl/link.url' +
+  '?ctx_ver=Z39.88-2004' +
+  '&ctx_enc=info:ofi/enc:UTF-8' +
+  '&svc_val_fmt=info:ofi/fmt:kev:mtx:sch_svc' +
+  '&svc.source=yes' +
+  '&rft_val_fmt=info:ofi/fmt:kev:mtx:journal';
+
+/** @deprecated Usar SCOPUS_OPENURL_BASE + buildScopusUrlByIssn. */
+export const SCOPUS_ISSN_URL_TEMPLATE = `${SCOPUS_OPENURL_BASE}&rft.issn=`;
+
+let SCOPUS_DATA: ScopusIndexV2 | null = null;
+let ISSN_SET: Set<string> = new Set();
+let BY_TITLE: Record<string, string> = {};
+let _loading: Promise<void> | null = null;
+
+function applyIndex(data: ScopusIndexV2 | string[] | null): void {
+  if (data == null) {
+    SCOPUS_DATA = null;
+    ISSN_SET = new Set();
+    BY_TITLE = {};
+    return;
+  }
+  if (Array.isArray(data)) {
+    // Compat v1: string[]
+    SCOPUS_DATA = { byIssn: data, byTitle: {} };
+    ISSN_SET = new Set(data);
+    BY_TITLE = {};
+    return;
+  }
+  SCOPUS_DATA = {
+    byIssn: data.byIssn ?? [],
+    byTitle: data.byTitle ?? {},
+  };
+  ISSN_SET = new Set(SCOPUS_DATA.byIssn);
+  BY_TITLE = { ...SCOPUS_DATA.byTitle };
+}
+
+function parseFetchedJson(raw: unknown): void {
+  if (Array.isArray(raw)) {
+    applyIndex(raw.filter((x): x is string => typeof x === 'string'));
+    return;
+  }
+  if (raw && typeof raw === 'object') {
+    const obj = raw as Record<string, unknown>;
+    if (Array.isArray(obj.byIssn) || (obj.byTitle && typeof obj.byTitle === 'object')) {
+      const byIssn = Array.isArray(obj.byIssn)
+        ? obj.byIssn.filter((x): x is string => typeof x === 'string')
+        : [];
+      const byTitle: Record<string, string> = {};
+      if (obj.byTitle && typeof obj.byTitle === 'object') {
+        for (const [k, v] of Object.entries(obj.byTitle as Record<string, unknown>)) {
+          if (typeof v === 'string') byTitle[k] = v;
+        }
+      }
+      applyIndex({ byIssn, byTitle });
+      return;
+    }
+  }
+  applyIndex({ byIssn: [], byTitle: {} });
+}
+
 export function normIssnHyphenated(raw: string | null | undefined): string | null {
   if (!raw) return null;
   const s = raw.replace(/[^0-9Xx]/g, '').toUpperCase();
@@ -27,19 +80,49 @@ export function normIssnHyphenated(raw: string | null | undefined): string | nul
   return `${s.slice(0, 4)}-${s.slice(4)}`;
 }
 
-/** Construye la URL Scopus a partir de un ISSN ya normalizado (XXXX-XXXX). */
-export function buildScopusUrl(issnHyphenated: string): string {
-  return `${SCOPUS_ISSN_URL_TEMPLATE}${issnHyphenated}`;
+/** @deprecated Preferir normIssnHyphenated. */
+export const normIssn = normIssnHyphenated;
+
+export function buildScopusUrlByIssn(issn: string): string {
+  return `${SCOPUS_OPENURL_BASE}&rft.issn=${issn}`;
 }
 
-let _issnSet: Set<string> | null = null;
-let _loading: Promise<void> | null = null;
+export function buildScopusUrlByTitle(encodedTitle: string): string {
+  return `${SCOPUS_OPENURL_BASE}&rft.title=${encodedTitle}`;
+}
+
+export function buildScopusUrl(issnHyphenated: string): string {
+  return buildScopusUrlByIssn(issnHyphenated);
+}
+
+export type ScopusUrlIndexTestInput =
+  | Iterable<string>
+  | ScopusIndexV2
+  | null;
+
+/** @internal — tests / inyección sin fetch. */
+export function setScopusUrlIndexForTests(input: ScopusUrlIndexTestInput): void {
+  _loading = null;
+  if (input == null) {
+    applyIndex(null);
+    return;
+  }
+  if (Array.isArray(input)) {
+    applyIndex([...input]);
+    return;
+  }
+  if (typeof input === 'object' && ('byIssn' in input || 'byTitle' in input)) {
+    applyIndex(input as ScopusIndexV2);
+    return;
+  }
+  applyIndex([...(input as Iterable<string>)]);
+}
 
 /**
- * Carga la lista de ISSN indexados. Idempotente; cachea un Set en memoria.
+ * Carga el índice desde `/data/scopus_index.json` (public/). Idempotente.
  */
 export async function loadScopusUrlIndex(): Promise<void> {
-  if (_issnSet) return;
+  if (SCOPUS_DATA) return;
   if (_loading) return _loading;
 
   _loading = fetch('/data/scopus_index.json')
@@ -48,45 +131,50 @@ export async function loadScopusUrlIndex(): Promise<void> {
       return r.json();
     })
     .then((data: unknown) => {
-      // Formato nuevo: string[]. Compat: objeto { ISSN → url } del índice viejo.
-      if (Array.isArray(data)) {
-        _issnSet = new Set(data.filter((x): x is string => typeof x === 'string'));
-      } else if (data && typeof data === 'object') {
-        _issnSet = new Set(Object.keys(data as Record<string, unknown>));
-      } else {
-        _issnSet = new Set();
-      }
+      parseFetchedJson(data);
     })
     .catch((err) => {
       console.warn('[scopusUrlLookup] No se pudo cargar scopus_index.json:', err);
-      _issnSet = new Set();
+      applyIndex({ byIssn: [], byTitle: {} });
+    })
+    .finally(() => {
+      _loading = null;
     });
 
   return _loading;
 }
 
-/** @internal — tests / inyección sin fetch. */
-export function setScopusUrlIndexForTests(issns: Iterable<string> | null): void {
-  _issnSet = issns ? new Set(issns) : null;
-  _loading = null;
-}
+/** Alias del snippet de diseño. */
+export const loadScopusIndex = loadScopusUrlIndex;
 
 /**
- * Devuelve la URL de la revista en Scopus para un ISSN dado, o null si
- * no está en el índice (o el ISSN es inválido / el índice no cargó).
+ * Devuelve la URL de la revista en Scopus, o null si no está indexada /
+ * el índice aún no cargó.
  */
 export function getScopusUrl(issn: string | null | undefined): string | null {
+  if (!SCOPUS_DATA) return null;
   const norm = normIssnHyphenated(issn);
-  if (!norm || !_issnSet || !_issnSet.has(norm)) return null;
-  return buildScopusUrl(norm);
+  if (!norm) return null;
+  if (BY_TITLE[norm]) {
+    return buildScopusUrlByTitle(BY_TITLE[norm]);
+  }
+  if (ISSN_SET.has(norm)) {
+    return buildScopusUrlByIssn(norm);
+  }
+  return null;
 }
 
-/** ¿La revista (por ISSN) está indexada en Scopus según el índice compacto? */
-export function isScopusIndexedByUrl(issn: string | null | undefined): boolean {
-  return getScopusUrl(issn) !== null;
+/** ¿La revista está indexada en Scopus (por ISSN o por título)? */
+export function isScopusIndexed(issn: string | null | undefined): boolean {
+  if (!SCOPUS_DATA) return false;
+  const norm = normIssnHyphenated(issn);
+  if (!norm) return false;
+  return ISSN_SET.has(norm) || Boolean(BY_TITLE[norm]);
 }
 
-/** Primera URL Scopus entre varios ISSN candidatos (issn[] + issn_l). */
+/** Alias histórico. */
+export const isScopusIndexedByUrl = isScopusIndexed;
+
 export function getScopusUrlFromIssns(
   issns: Array<string | null | undefined>,
 ): string | null {
