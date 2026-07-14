@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useOpenResearcherProfile } from '../../app/hooks/useOpenResearcherProfile';
 import { useApp } from '../../context/AppContext';
 import type { Researcher } from '../../shared/types';
-import { PAGE_SIZE, SDG_ES } from '../../utils/constants';
+import { SDG_ES } from '../../utils/constants';
 import { Pagination, EmptyState } from '../common/UIComponents';
 import ResearcherProfileCard from '../researcher/ResearcherProfileCard';
 
@@ -11,11 +11,9 @@ export default function TabPerfiles() {
   const {
     dept, setDept, onlyOrcid, sdgFilter, areaFilter,
     setSdgFilter, setAreaFilter, setOnlyOrcid,
-    filtered, page, setPage,
-    DEPTS, deptCounts, goPerfiles, resetPage,
+    page, setPage, pageData, totalPages, filteredTotal, orcidTotal,
+    DEPTS, deptCounts, goPerfiles, resetPage, researchersLoading,
   } = useApp();
-
-  const [soloOrcid, setSoloOrcid] = useState(false);
 
   const openResearcherProfile = useCallback(
     (r: Researcher) => openLocalResearcherProfile(r),
@@ -33,40 +31,26 @@ export default function TabPerfiles() {
     setSdgFilter('');
     setAreaFilter('');
     setOnlyOrcid(false);
-    setSoloOrcid(false);
   }, [goPerfiles, setDept, setSdgFilter, setAreaFilter, setOnlyOrcid]);
 
   const title = areaFilter
     ? `Área: ${areaFilter}`
     : sdgFilter
     ? `ODS: ${SDG_ES[sdgFilter] || sdgFilter}`
-    : soloOrcid || onlyOrcid
+    : onlyOrcid
     ? 'Investigadores con ORCID'
     : dept
     ? dept
     : 'Perfiles';
 
-  const orcidCount = useMemo(
-    () => filtered.filter((r) => r.o).length,
-    [filtered]
-  );
-
-  const visibles = useMemo(
-    () => (soloOrcid ? filtered.filter((r) => r.o) : filtered),
-    [filtered, soloOrcid]
-  );
-
-  const totalPages = Math.max(1, Math.ceil(visibles.length / PAGE_SIZE));
-  const pageData = visibles.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+  const toggleSoloOrcid = useCallback(() => {
+    setOnlyOrcid(!onlyOrcid);
+    resetPage();
+  }, [onlyOrcid, setOnlyOrcid, resetPage]);
 
   useEffect(() => {
     if (page > totalPages - 1) setPage(0);
   }, [page, totalPages, setPage]);
-
-  const toggleSoloOrcid = useCallback(() => {
-    setSoloOrcid((v) => !v);
-    resetPage();
-  }, [resetPage]);
 
   return (
     <>
@@ -75,21 +59,21 @@ export default function TabPerfiles() {
         <h2 style={{ fontSize: 18, fontWeight: 600, margin: 0, display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
           {title}
           <span style={{ fontSize: 13, fontWeight: 400, color: '#888' }}>
-            ({visibles.length})
+            ({researchersLoading ? '…' : filteredTotal})
           </span>
-          {orcidCount > 0 && (
+          {orcidTotal > 0 && (
             <button
               type="button"
-              className={`tp-chip-orcid${soloOrcid ? ' is-active' : ''}`}
+              className={`tp-chip-orcid${onlyOrcid ? ' is-active' : ''}`}
               onClick={toggleSoloOrcid}
-              title={soloOrcid ? 'Quitar filtro ORCID' : 'Ver solo investigadores con ORCID'}
+              title={onlyOrcid ? 'Quitar filtro ORCID' : 'Ver solo investigadores con ORCID'}
             >
-              {orcidCount} ORCID
+              {orcidTotal} ORCID
             </button>
           )}
         </h2>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-          {(soloOrcid || onlyOrcid || sdgFilter || areaFilter || dept) && (
+          {(onlyOrcid || sdgFilter || areaFilter || dept) && (
             <button className="btn btn--ghost" onClick={clearFilters} style={{ fontSize: 12, padding: '5px 12px' }}>
               ✕ Limpiar
             </button>
@@ -116,7 +100,7 @@ export default function TabPerfiles() {
         <div className="grid grid--profiles">
           {pageData.map((r, i) => (
             <ResearcherProfileCard
-              key={r.o || `${r.f}-${r.l}-${i}`}
+              key={r.o || r.id || `${r.f}-${r.l}-${i}`}
               researcher={r}
               onClick={openResearcherProfile}
             />
@@ -125,8 +109,12 @@ export default function TabPerfiles() {
       ) : (
         <EmptyState
           icon="🔍"
-          title="No se encontraron resultados"
-          message="Intente con otros términos de búsqueda o filtros."
+          title={researchersLoading ? 'Cargando…' : 'No se encontraron resultados'}
+          message={
+            researchersLoading
+              ? 'Consultando el catálogo institucional.'
+              : 'Intente con otros términos de búsqueda o filtros.'
+          }
         />
       )}
 

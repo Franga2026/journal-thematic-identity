@@ -446,10 +446,13 @@ export interface FiltersState {
   setWorkPage: (p: number) => void;
   cSearch: string;
   setCSearch: (s: string) => void;
-  // Computed
+  // Computed (catálogo: API Postgres o fallback local)
   filtered: Researcher[];
+  filteredTotal: number;
+  orcidTotal: number;
   totalPages: number;
   pageData: Researcher[];
+  researchersLoading: boolean;
 }
 
 // ─── Data Context (read-only) ───

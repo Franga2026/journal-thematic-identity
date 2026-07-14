@@ -1,7 +1,7 @@
 """
 Catálogo institucional (Postgres) — investigadores, unidades y analytics.
 
-GET /researchers                    lista (filtros: unit, has_orcid, q)
+GET /researchers                    lista (q, unit, has_orcid, sdg, field, sort, page)
 GET /researchers/{local_id}         detalle + métricas honestas (NULL ≠ 0)
 GET /researchers/{id}/works         obras del investigador
 GET /units                          32 unidades + cobertura ORCID
@@ -10,7 +10,7 @@ GET /analytics/collaboration        internacional / nacional / institucional / s
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -58,10 +58,11 @@ class ResearcherDetail(ResearcherSummary):
 
 
 class ResearchersListResponse(BaseModel):
+    items: list[ResearcherSummary]
     total: int
     page: int
     per_page: int
-    results: list[ResearcherSummary]
+    pages: int
 
 
 class WorkItem(BaseModel):
@@ -195,49 +196,105 @@ def _resolve_researcher(conn, key: str) -> dict:
 # ---------------------------------------------------------------------------
 @router.get("/researchers", response_model=ResearchersListResponse)
 def list_researchers(
-    unit: Optional[int] = Query(None, description="ID de unidad (units.id)"),
-    unit_name: Optional[str] = Query(None, description="Nombre (ILIKE) de unidad"),
-    has_orcid: Optional[bool] = Query(None, description="true = con ORCID, false = sin"),
-    q: Optional[str] = Query(None, min_length=2, description="Buscar en nombre"),
+    q: Optional[str] = Query(
+        None, min_length=2, description="Nombre (pg_trgm + unaccent)"
+    ),
+    unit: Optional[str] = Query(
+        None, description="Nombre de unidad (parcial, sin tildes)"
+    ),
+    has_orcid: Optional[bool] = Query(
+        None, description="true = con ORCID, false = sin"
+    ),
+    sdg: Optional[int] = Query(
+        None, ge=1, le=17, description="ODS 1..17 (obra con ese SDG)"
+    ),
+    field: Optional[str] = Query(
+        None, description="Área temática OpenAlex (topics.field)"
+    ),
     page: int = Query(1, ge=1),
-    per_page: int = Query(50, ge=1, le=200),
+    per_page: int = Query(24, ge=1, le=200),
+    sort: Literal["name", "h_index"] = Query(
+        "name", description="name | h_index"
+    ),
 ):
     where: list[str] = ["1=1"]
-    params: list[Any] = []
+    where_params: list[Any] = []
+    order_bits: list[str] = []
+    order_params: list[Any] = []
 
-    if unit is not None:
-        where.append(
-            "EXISTS (SELECT 1 FROM researcher_units ru "
-            "WHERE ru.researcher_id = r.id AND ru.unit_id = %s)"
-        )
-        params.append(unit)
-
-    if unit_name:
+    if unit:
         where.append(
             "EXISTS ("
             "  SELECT 1 FROM researcher_units ru"
             "  JOIN units u ON u.id = ru.unit_id"
-            "  WHERE ru.researcher_id = r.id AND u.name ILIKE %s"
+            "  WHERE ru.researcher_id = r.id"
+            "    AND unaccent(u.name) ILIKE unaccent(%s)"
             ")"
         )
-        params.append(f"%{unit_name}%")
+        where_params.append(f"%{unit.strip()}%")
 
     if has_orcid is True:
         where.append("r.orcid IS NOT NULL")
     elif has_orcid is False:
         where.append("r.orcid IS NULL")
 
+    if sdg is not None:
+        where.append(
+            "EXISTS ("
+            "  SELECT 1 FROM authorships a"
+            "  JOIN work_sdgs ws ON ws.work_id = a.work_id"
+            "  WHERE a.researcher_id = r.id AND ws.sdg_id = %s"
+            ")"
+        )
+        where_params.append(sdg)
+
+    if field:
+        where.append(
+            "EXISTS ("
+            "  SELECT 1 FROM authorships a"
+            "  JOIN works w ON w.id = a.work_id"
+            "  JOIN topics t ON t.id = w.primary_topic_id"
+            "  WHERE a.researcher_id = r.id"
+            "    AND unaccent(t.field) ILIKE unaccent(%s)"
+            ")"
+        )
+        where_params.append(field.strip())
+
     if q:
-        where.append("r.full_name ILIKE %s")
-        params.append(f"%{q}%")
+        q_clean = q.strip()
+        # pg_trgm: typos ("rothamer") + unaccent ("Nunez" → "Núñez")
+        where.append("unaccent(r.full_name) %% unaccent(%s)")
+        where_params.append(q_clean)
+        order_bits.append(
+            "similarity(unaccent(r.full_name), unaccent(%s)) DESC"
+        )
+        order_params.append(q_clean)
+
+    if sort == "h_index":
+        order_bits.extend(
+            [
+                "r.h_index DESC NULLS LAST",
+                "r.last_name NULLS LAST",
+                "r.first_name NULLS LAST",
+            ]
+        )
+    else:
+        order_bits.extend(
+            ["r.last_name NULLS LAST", "r.first_name NULLS LAST"]
+        )
 
     where_sql = " AND ".join(where)
+    order_sql = ", ".join(order_bits)
     offset = (page - 1) * per_page
 
     with get_conn() as conn:
+        # Default trgm ≈ 0.3 deja fuera typos cortos (rothamer→Rothhammer ≈ 0.24).
+        if q:
+            conn.execute("SELECT set_limit(0.2)")
+
         total = conn.execute(
             f"SELECT COUNT(*) AS c FROM researchers r WHERE {where_sql}",
-            params,
+            where_params,
         ).fetchone()["c"]
 
         rows = conn.execute(
@@ -247,20 +304,22 @@ def list_researchers(
                    r.h_index, r.works_count, r.cited_by_count
             FROM researchers r
             WHERE {where_sql}
-            ORDER BY r.last_name NULLS LAST, r.first_name NULLS LAST
+            ORDER BY {order_sql}
             LIMIT %s OFFSET %s
             """,
-            [*params, per_page, offset],
+            [*where_params, *order_params, per_page, offset],
         ).fetchall()
 
         units_map = _fetch_units_for(conn, [r["id"] for r in rows])
 
-    results = [
-        _row_to_summary(r, units_map.get(r["id"], []))
-        for r in rows
-    ]
+    items = [_row_to_summary(r, units_map.get(r["id"], [])) for r in rows]
+    pages = (total + per_page - 1) // per_page if per_page else 0
     return ResearchersListResponse(
-        total=total, page=page, per_page=per_page, results=results
+        items=items,
+        total=total,
+        page=page,
+        per_page=per_page,
+        pages=pages,
     )
 
 
