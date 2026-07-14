@@ -2,13 +2,15 @@ import { useMemo, useState } from 'react';
 import type { Researcher, Work } from '../../shared/types';
 import { fieldEs } from '../../utils/fieldEs';
 import { getResearcherUtaId } from '../../utils/helpers';
-import { getEnrichedWorksForResearcher } from '../../utils/researcherWorks';
 import { sortWorks, type SortKey } from '../../utils/sortWorks';
 import ProductionWorkList from '../production/ProductionWorkList';
 import { EmptyState } from '../common/UIComponents';
 
 interface ResearcherPublicationsSectionProps {
   researcher: Researcher;
+  /** Obras ya cargadas (p. ej. via loadAuthorWorks). */
+  works: Work[];
+  loading?: boolean;
   modalTopic: string;
   onTopicChange: (topic: string) => void;
   onOpenResearcher?: (profileId: string) => void;
@@ -16,17 +18,14 @@ interface ResearcherPublicationsSectionProps {
 
 export default function ResearcherPublicationsSection({
   researcher,
+  works,
+  loading = false,
   modalTopic,
   onTopicChange,
   onOpenResearcher,
 }: ResearcherPublicationsSectionProps) {
   const utaId = getResearcherUtaId(researcher);
   const [sortBy, setSortBy] = useState<SortKey>('citations');
-
-  const works = useMemo(
-    () => getEnrichedWorksForResearcher(researcher),
-    [researcher, utaId],
-  );
 
   const total = works.length;
 
@@ -55,6 +54,16 @@ export default function ResearcherPublicationsSection({
         icon="📄"
         title="Sin identificador UTA"
         message="Este perfil no tiene RUT ni ORCID para vincular publicaciones del repositorio global."
+      />
+    );
+  }
+
+  if (loading) {
+    return (
+      <EmptyState
+        icon="⏳"
+        title="Cargando publicaciones…"
+        message="Obteniendo las obras vinculadas a este investigador."
       />
     );
   }

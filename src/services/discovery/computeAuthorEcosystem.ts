@@ -75,6 +75,7 @@ export interface FeaturedWork {
   title: string;
   year: number | null;
   journal: string | null;
+  issn_l: string | null;
   cited_by_count: number;
   fwci: number | null;
   quartile: 'Q1' | 'Q2' | 'Q3' | 'Q4' | null;
@@ -94,6 +95,7 @@ function toFeaturedWork(w: WorkForEcosystem): FeaturedWork {
     title: w.title,
     year: w.year,
     journal: w.journal,
+    issn_l: w.issn_l ?? null,
     cited_by_count: w.cited_by_count,
     fwci: w.fwci,
     quartile: w.quartile,

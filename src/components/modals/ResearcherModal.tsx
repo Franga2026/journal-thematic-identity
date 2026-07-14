@@ -17,7 +17,7 @@ import {
 } from '../../utils/dataProcessing';
 import { getOrcidRecordUrl, shouldSyncProfileRoute, getProfileRoutePath } from '../../utils/researcherProfile';
 import { getCoAuthorClickTarget, isCoAuthorClickable } from '../../utils/coAuthorProfileResolver';
-import type { CoAuthorRef, MetricKey, Researcher } from '../../shared/types';
+import type { CoAuthorRef, MetricKey, Researcher, Work } from '../../shared/types';
 import { cleanOrcid, getInitials } from '../../utils/helpers';
 import { downloadMetricReport } from '../../utils/reportGenerator';
 import { KPI_PROVENANCE } from '../../utils/provenance';
@@ -34,7 +34,7 @@ import {
   normalizeOrcidEducation,
 } from '../../utils/orcidEducationDisplay';
 import { downloadReportBlob, ReportApiError, requestReport } from '../../api/reportApi';
-import { getEnrichedWorksForResearcher } from '../../utils/researcherWorks';
+import { loadEnrichedWorksForResearcher } from '../../utils/researcherWorks';
 import { getAnidLinkageForResearcher, getAnidProfileUrl } from '../../utils/anidLinkage';
 import { computeCollabMetrics } from '../../services/report/reportCollabMetrics';
 import ResearcherPublicationsSection from '../researcher/ResearcherPublicationsSection';
@@ -322,10 +322,31 @@ export default function ResearcherModal() {
     [authorDatasets],
   );
 
-  const impactWorks = useMemo(
-    () => (selected ? getEnrichedWorksForResearcher(selected) : []),
-    [selected],
-  );
+  const [impactWorks, setImpactWorks] = useState<Work[]>([]);
+  const [loadingWorks, setLoadingWorks] = useState(false);
+
+  useEffect(() => {
+    if (!selected?.id) {
+      setImpactWorks([]);
+      setLoadingWorks(false);
+      return;
+    }
+    let cancelled = false;
+    setLoadingWorks(true);
+    void loadEnrichedWorksForResearcher(selected)
+      .then((works) => {
+        if (!cancelled) setImpactWorks(works);
+      })
+      .catch(() => {
+        if (!cancelled) setImpactWorks([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingWorks(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selected?.id]);
 
   const elite = useMemo(() => {
     const total = impactWorks.length;
@@ -1117,6 +1138,8 @@ export default function ResearcherModal() {
             <h3 className="researcher-section__title">Producción Científica</h3>
             <ResearcherPublicationsSection
               researcher={selected}
+              works={impactWorks}
+              loading={loadingWorks}
               modalTopic={modalTopic}
               onTopicChange={setModalTopic}
               onOpenResearcher={handleOpenResearcherFromWork}

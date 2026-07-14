@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import FwciInfoTooltip from './FwciInfoTooltip';
 import './fwci-info-tooltip.css';
 import type { Researcher } from '../../shared/types';
@@ -13,6 +13,7 @@ import type {
 import { sortWorksForDisplay } from '../../services/discovery/computeAuthorEcosystem';
 import { findResearcherByOpenAlexAuthorId } from '../../utils/researcherProfile';
 import { getWorkResourceLinks } from '../../utils/workAccess';
+import { getScopusUrl, loadScopusUrlIndex } from '../../utils/scopusUrlLookup';
 
 const Q_COLORS: Record<string, string> = {
   Q1: '#15803D',
@@ -111,13 +112,6 @@ function FwciGauge({ fwci, fwciN }: { fwci: number | null; fwciN: number }) {
   );
 }
 
-function typeLabel(type: string | null): string {
-  if (type === 'dataset') return 'DATASET';
-  if (type === 'book' || type === 'book-chapter') return 'LIBRO';
-  if (type === 'preprint') return 'PREPRINT';
-  return 'ARTÍCULO';
-}
-
 /** Obra en la grilla de producción (openAlexId = W-id de OpenAlex). */
 type WorkItem = FeaturedWork & {
   openAlexId: string | null;
@@ -178,6 +172,11 @@ export default function OpenAlexResearcherModal({
   onLoadMoreWorks,
 }: OpenAlexResearcherModalProps) {
   const [sortMode, setSortMode] = useState<WorkSortMode>('fwci');
+  const [, setScopusReady] = useState(0);
+
+  useEffect(() => {
+    void loadScopusUrlIndex().then(() => setScopusReady((n) => n + 1));
+  }, []);
 
   const displayedWorks = useMemo(
     () => sortWorksForDisplay(worksPool, sortMode),
@@ -477,9 +476,8 @@ export default function OpenAlexResearcherModal({
 function WorkCardMini({ work: w }: { work: FeaturedWork }) {
   const item = toWorkItem(w);
   const isDataset = item.type === 'dataset';
-  const typeBg = isDataset ? '#EEEDFE' : '#e6f1fb';
-  const typeColor = isDataset ? '#534AB7' : '#185FA5';
   const openAlexUrl = workOpenAlexUrl(item.openAlexId);
+  const scopusUrl = getScopusUrl(item.issn_l);
   const resourceLinks = getWorkResourceLinks({
     t: item.title,
     d: item.doi ?? undefined,
@@ -511,9 +509,6 @@ function WorkCardMini({ work: w }: { work: FeaturedWork }) {
   return (
     <div className={`vb-wc${isDataset ? ' vb-wc--dataset' : ''}`}>
       <div className="vb-wc-badges">
-        <span className="vb-badge" style={{ background: typeBg, color: typeColor }}>
-          {typeLabel(item.type)}
-        </span>
         {item.quartile && (
           <span className="vb-badge" style={{ background: Q_COLORS[item.quartile], color: '#fff' }}>
             {item.quartile}
@@ -521,6 +516,33 @@ function WorkCardMini({ work: w }: { work: FeaturedWork }) {
         )}
         {item.is_oa && (
           <span className="vb-badge" style={{ background: '#639922', color: '#fff' }}>OA</span>
+        )}
+        {scopusUrl && (
+          <a
+            className="vb-badge-scopus"
+            href={scopusUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Ver revista en Scopus"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <svg
+              width="10"
+              height="10"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            Scopus
+          </a>
         )}
       </div>
       <div className="vb-wc-title">{item.title}</div>
