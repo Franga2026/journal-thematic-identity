@@ -1,9 +1,10 @@
 """
-Catálogo institucional (Postgres) — investigadores, unidades y analytics.
+Catálogo institucional (Postgres) — investigadores, obras, unidades y analytics.
 
 GET /researchers                    lista (q, unit, has_orcid, sdg, field, sort, page)
 GET /researchers/{local_id}         detalle + métricas honestas (NULL ≠ 0)
 GET /researchers/{id}/works         obras del investigador
+GET /works                          producción (filtros, sort, facetas)
 GET /units                          32 unidades + cobertura ORCID
 GET /analytics/collaboration        internacional / nacional / institucional / sin_datos
 """
@@ -87,6 +88,41 @@ class ResearcherWorksResponse(BaseModel):
     page: int
     per_page: int
     results: list[WorkItem]
+
+
+class FacetCount(BaseModel):
+    key: str
+    count: int
+
+
+class WorksFacets(BaseModel):
+    year: list[FacetCount] = Field(default_factory=list)
+    type: list[FacetCount] = Field(default_factory=list)
+    quartile: list[FacetCount] = Field(default_factory=list)
+
+
+class WorksListItem(BaseModel):
+    openalex_id: Optional[str] = None
+    title: str
+    year: Optional[int] = None
+    doi: Optional[str] = None
+    type: Optional[str] = None
+    cited_by_count: Optional[int] = None
+    fwci: Optional[float] = None
+    is_oa: Optional[bool] = None
+    oa_status: Optional[str] = None
+    journal: Optional[str] = None
+    sjr_quartile: Optional[str] = None
+    field: Optional[str] = None
+
+
+class WorksListResponse(BaseModel):
+    items: list[WorksListItem]
+    total: int
+    page: int
+    per_page: int
+    pages: int
+    facets: WorksFacets
 
 
 class UnitCoverage(BaseModel):
@@ -419,6 +455,229 @@ def get_researcher_works(
         page=page,
         per_page=per_page,
         results=results,
+    )
+
+
+def _works_filter_sql(
+    *,
+    q: Optional[str],
+    year_from: Optional[int],
+    year_to: Optional[int],
+    type: Optional[str],
+    is_oa: Optional[bool],
+    quartile: Optional[str],
+    unit: Optional[str],
+    researcher: Optional[str],
+    sdg: Optional[int],
+    field: Optional[str],
+) -> tuple[str, list[Any], list[Any]]:
+    """Devuelve (WHERE, where_params, order_extra_params para similarity)."""
+    where: list[str] = ["1=1"]
+    params: list[Any] = []
+    order_params: list[Any] = []
+
+    if q:
+        q_clean = q.strip()
+        where.append(
+            "("
+            "  unaccent(w.title) ILIKE unaccent(%s)"
+            "  OR unaccent(w.title) %% unaccent(%s)"
+            ")"
+        )
+        params.extend([f"%{q_clean}%", q_clean])
+        order_params.append(q_clean)
+
+    if year_from is not None:
+        where.append("w.publication_year >= %s")
+        params.append(year_from)
+    if year_to is not None:
+        where.append("w.publication_year <= %s")
+        params.append(year_to)
+
+    if type:
+        where.append("w.type = %s")
+        params.append(type.strip())
+
+    if is_oa is True:
+        where.append("w.is_oa IS TRUE")
+    elif is_oa is False:
+        where.append("w.is_oa IS NOT TRUE")
+
+    if quartile:
+        where.append("s.sjr_quartile = %s")
+        params.append(quartile.upper())
+
+    if unit:
+        where.append(
+            "EXISTS ("
+            "  SELECT 1 FROM authorships a"
+            "  JOIN researcher_units ru ON ru.researcher_id = a.researcher_id"
+            "  JOIN units u ON u.id = ru.unit_id"
+            "  WHERE a.work_id = w.id"
+            "    AND unaccent(u.name) ILIKE unaccent(%s)"
+            ")"
+        )
+        params.append(f"%{unit.strip()}%")
+
+    if researcher:
+        where.append(
+            "EXISTS ("
+            "  SELECT 1 FROM authorships a"
+            "  JOIN researchers r ON r.id = a.researcher_id"
+            "  WHERE a.work_id = w.id AND r.local_id = %s"
+            ")"
+        )
+        params.append(researcher.strip())
+
+    if sdg is not None:
+        where.append(
+            "EXISTS ("
+            "  SELECT 1 FROM work_sdgs ws"
+            "  WHERE ws.work_id = w.id AND ws.sdg_id = %s"
+            ")"
+        )
+        params.append(sdg)
+
+    if field:
+        where.append("unaccent(t.field) ILIKE unaccent(%s)")
+        params.append(field.strip())
+
+    return " AND ".join(where), params, order_params
+
+
+@router.get("/works", response_model=WorksListResponse)
+def list_works(
+    q: Optional[str] = Query(None, min_length=2, description="Título (pg_trgm + unaccent)"),
+    year_from: Optional[int] = Query(None),
+    year_to: Optional[int] = Query(None),
+    type: Optional[str] = Query(None, description="article, review, …"),
+    is_oa: Optional[bool] = Query(None),
+    quartile: Optional[str] = Query(None, description="Q1–Q4 (sources.sjr_quartile)"),
+    unit: Optional[str] = Query(None, description="Unidad (nombre parcial)"),
+    researcher: Optional[str] = Query(None, description="local_id / RUT"),
+    sdg: Optional[int] = Query(None, ge=1, le=17),
+    field: Optional[str] = Query(None, description="Área OpenAlex (topics.field)"),
+    sort: Literal["year", "citations", "fwci"] = Query("year"),
+    page: int = Query(1, ge=1),
+    per_page: int = Query(50, ge=1, le=200),
+):
+    """Producción institucional con facetas sobre los filtros activos."""
+    where_sql, where_params, order_params = _works_filter_sql(
+        q=q,
+        year_from=year_from,
+        year_to=year_to,
+        type=type,
+        is_oa=is_oa,
+        quartile=quartile,
+        unit=unit,
+        researcher=researcher,
+        sdg=sdg,
+        field=field,
+    )
+
+    if sort == "citations":
+        order_sql = "w.cited_by_count DESC NULLS LAST, w.publication_year DESC NULLS LAST"
+    elif sort == "fwci":
+        order_sql = "w.fwci DESC NULLS LAST, w.cited_by_count DESC NULLS LAST"
+    else:
+        order_sql = "w.publication_year DESC NULLS LAST, w.cited_by_count DESC NULLS LAST"
+
+    if q:
+        order_sql = (
+            "similarity(unaccent(w.title), unaccent(%s)) DESC, " + order_sql
+        )
+
+    from_sql = """
+        FROM works w
+        LEFT JOIN sources s ON s.id = w.source_id
+        LEFT JOIN topics t ON t.id = w.primary_topic_id
+    """
+    offset = (page - 1) * per_page
+
+    with get_conn() as conn:
+        if q:
+            conn.execute("SELECT set_limit(0.2)")
+
+        total = conn.execute(
+            f"SELECT COUNT(*) AS c {from_sql} WHERE {where_sql}",
+            where_params,
+        ).fetchone()["c"]
+
+        rows = conn.execute(
+            f"""
+            SELECT w.openalex_id, w.title, w.publication_year AS year, w.doi,
+                   w.type, w.cited_by_count, w.fwci, w.is_oa, w.oa_status,
+                   s.name AS journal, s.sjr_quartile, t.field
+            {from_sql}
+            WHERE {where_sql}
+            ORDER BY {order_sql}
+            LIMIT %s OFFSET %s
+            """,
+            [*where_params, *order_params, per_page, offset],
+        ).fetchall()
+
+        # Facetas sobre el mismo conjunto filtrado
+        year_rows = conn.execute(
+            f"""
+            SELECT w.publication_year::text AS key, COUNT(*) AS count
+            {from_sql}
+            WHERE {where_sql} AND w.publication_year IS NOT NULL
+            GROUP BY w.publication_year
+            ORDER BY w.publication_year DESC
+            """,
+            where_params,
+        ).fetchall()
+        type_rows = conn.execute(
+            f"""
+            SELECT w.type AS key, COUNT(*) AS count
+            {from_sql}
+            WHERE {where_sql} AND w.type IS NOT NULL
+            GROUP BY w.type
+            ORDER BY count DESC, w.type
+            """,
+            where_params,
+        ).fetchall()
+        quartile_rows = conn.execute(
+            f"""
+            SELECT s.sjr_quartile AS key, COUNT(*) AS count
+            {from_sql}
+            WHERE {where_sql} AND s.sjr_quartile IS NOT NULL
+            GROUP BY s.sjr_quartile
+            ORDER BY s.sjr_quartile
+            """,
+            where_params,
+        ).fetchall()
+
+    items = [
+        WorksListItem(
+            openalex_id=r.get("openalex_id"),
+            title=r["title"],
+            year=r.get("year"),
+            doi=r.get("doi"),
+            type=r.get("type"),
+            cited_by_count=r.get("cited_by_count"),
+            fwci=float(r["fwci"]) if r.get("fwci") is not None else None,
+            is_oa=r.get("is_oa"),
+            oa_status=r.get("oa_status"),
+            journal=r.get("journal"),
+            sjr_quartile=r.get("sjr_quartile"),
+            field=r.get("field"),
+        )
+        for r in rows
+    ]
+    pages = (total + per_page - 1) // per_page if per_page else 0
+    facets = WorksFacets(
+        year=[FacetCount(key=r["key"], count=r["count"]) for r in year_rows],
+        type=[FacetCount(key=r["key"], count=r["count"]) for r in type_rows],
+        quartile=[FacetCount(key=r["key"], count=r["count"]) for r in quartile_rows],
+    )
+    return WorksListResponse(
+        items=items,
+        total=total,
+        page=page,
+        per_page=per_page,
+        pages=pages,
+        facets=facets,
     )
 
 

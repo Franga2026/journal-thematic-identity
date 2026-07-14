@@ -1248,6 +1248,7 @@ async def root():
         "facets": "/facets?q=...",
         "autocomplete": "/autocomplete?q=...",
         "researchers": "/researchers",
+        "works": "/works",
         "units": "/units",
         "collaboration": "/analytics/collaboration",
     }

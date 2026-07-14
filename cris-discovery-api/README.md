@@ -30,6 +30,7 @@ Abre la documentación interactiva en http://localhost:8000/docs
 | Endpoint | Qué hace |
 |----------|----------|
 | `GET /search?q=...` | Búsqueda OpenAlex en vivo |
+| `GET /works` | Producción (`q`, años, tipo, OA, cuartil, unidad, researcher, sdg, field, sort + facetas) |
 | `GET /researchers` | Catálogo local (`q`, `unit`, `has_orcid`, `sdg`, `field`, `sort`, `page`, `per_page`) |
 | `GET /researchers/{local_id}` | Investigador + métricas (NULL ≠ 0) |
 | `GET /researchers/{id}/works` | Obras del investigador |
