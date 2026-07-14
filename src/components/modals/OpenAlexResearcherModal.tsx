@@ -13,7 +13,7 @@ import type {
 import { sortWorksForDisplay } from '../../services/discovery/computeAuthorEcosystem';
 import { findResearcherByOpenAlexAuthorId } from '../../utils/researcherProfile';
 import { getWorkResourceLinks } from '../../utils/workAccess';
-import { getScopusUrl, loadScopusUrlIndex } from '../../utils/scopusUrlLookup';
+import { getScopusUrlForWork, loadScopusUrlIndex } from '../../utils/scopusUrlLookup';
 
 const Q_COLORS: Record<string, string> = {
   Q1: '#15803D',
@@ -477,7 +477,7 @@ function WorkCardMini({ work: w }: { work: FeaturedWork }) {
   const item = toWorkItem(w);
   const isDataset = item.type === 'dataset';
   const openAlexUrl = workOpenAlexUrl(item.openAlexId);
-  const scopusUrl = getScopusUrl(item.issn_l);
+  const scopusUrl = getScopusUrlForWork(item);
   const resourceLinks = getWorkResourceLinks({
     t: item.title,
     d: item.doi ?? undefined,

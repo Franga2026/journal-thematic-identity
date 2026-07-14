@@ -184,3 +184,65 @@ export function getScopusUrlFromIssns(
   }
   return null;
 }
+
+/**
+ * Extracción de ISSN desde obras del corpus local + lookup en Scopus.
+ *
+ * PROBLEMA: el modal pedía getScopusUrl(work.issn_l), pero `issn_l` NO existe
+ * en el corpus local (works-lite.json ni works/{id}.json). Los ISSN sí están,
+ * en otros dos campos:
+ *
+ *   cr_issn (Crossref)  → array:  ['1042-0533', '1520-6300']
+ *   up_issn (Unpaywall) → string: '1042-0533,1520-6300'
+ *
+ * Además, una revista suele tener DOS ISSN (impreso y electrónico) y Scopus
+ * puede indexar cualquiera de ellos, así que hay que probarlos todos.
+ *
+ * Cobertura: 7.870 de 9.127 obras (86%) tienen al menos un ISSN.
+ */
+
+/**
+ * Devuelve TODOS los ISSN de una obra, vengan de donde vengan.
+ * Normaliza (trim) y deduplica.
+ */
+export function getWorkIssns(work: unknown): string[] {
+  const w = work as Record<string, unknown> | null | undefined;
+  if (!w) return [];
+  const out = new Set<string>();
+  const add = (v: unknown) => {
+    if (typeof v !== 'string') return;
+    const s = v.trim();
+    if (s) out.add(s);
+  };
+  // 1. issn_l — primero (Descubridor / OpenAlex en vivo; ausente en corpus local)
+  add(w.issn_l as string);
+  // 2. cr_issn (Crossref) — normalmente un array
+  const cr = w.cr_issn;
+  if (Array.isArray(cr)) cr.forEach(add);
+  else if (typeof cr === 'string') cr.split(',').forEach(add);
+  // 3. up_issn (Unpaywall) — string separado por comas
+  const up = w.up_issn;
+  if (typeof up === 'string') up.split(',').forEach(add);
+  else if (Array.isArray(up)) up.forEach(add);
+  return [...out];
+}
+
+/**
+ * URL de Scopus para una obra: prueba todos sus ISSN y devuelve la primera
+ * revista que esté indexada. null si ninguna lo está (→ no se pinta el chip).
+ *
+ * Requiere que loadScopusUrlIndex() ya se haya resuelto (el modal lo llama
+ * al montar); getScopusUrl es síncrono y lee del índice en memoria.
+ */
+export function getScopusUrlForWork(work: unknown): string | null {
+  for (const issn of getWorkIssns(work)) {
+    const url = getScopusUrl(issn);
+    if (url) return url;
+  }
+  return null;
+}
+
+/** ¿Alguna de las revistas de esta obra está indexada en Scopus? */
+export function isWorkInScopus(work: unknown): boolean {
+  return getScopusUrlForWork(work) !== null;
+}
