@@ -32,6 +32,9 @@ from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from catalog import router as catalog_router
+from db import db_ok
+
 # ----------------------------------------------------------------------
 # Configuración
 # ----------------------------------------------------------------------
@@ -89,6 +92,9 @@ app.add_middleware(
     allow_methods=["GET"],
     allow_headers=["*"],
 )
+
+# Catálogo institucional (Postgres): /researchers, /units, /analytics/*
+app.include_router(catalog_router)
 
 # ----------------------------------------------------------------------
 # Caché y rate limit en memoria
@@ -1241,15 +1247,20 @@ async def root():
         "search": "/search?q=...",
         "facets": "/facets?q=...",
         "autocomplete": "/autocomplete?q=...",
+        "researchers": "/researchers",
+        "units": "/units",
+        "collaboration": "/analytics/collaboration",
     }
 
 
 @app.get("/health")
 async def health():
     sjr = _load_sjr_map()
+    postgres = db_ok()
     return {
-        "status": "ok",
+        "status": "ok" if postgres else "degraded",
         "has_key": bool(OPENALEX_API_KEY),
+        "postgres": postgres,
         "sjr_map_loaded": len(sjr),
         "sjr_map_path": str(SJR_MAP_PATH),
     }

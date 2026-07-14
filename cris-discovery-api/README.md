@@ -29,8 +29,13 @@ Abre la documentación interactiva en http://localhost:8000/docs
 
 | Endpoint | Qué hace |
 |----------|----------|
-| `GET /search?q=...` | Búsqueda principal (ver parámetros abajo) |
-| `GET /health` | Estado del proxy y si tiene key configurada |
+| `GET /search?q=...` | Búsqueda OpenAlex en vivo |
+| `GET /researchers` | Catálogo local (filtros: `unit`, `has_orcid`, `q`) |
+| `GET /researchers/{local_id}` | Investigador + métricas (NULL ≠ 0) |
+| `GET /researchers/{id}/works` | Obras del investigador |
+| `GET /units` | 32 unidades + cobertura ORCID |
+| `GET /analytics/collaboration` | Obras por alcance: internacional / nacional / institucional |
+| `GET /health` | Estado del proxy, Postgres y key |
 | `GET /usage` | Saldo/uso restante en OpenAlex |
 
 ## Parámetros de `/search`
