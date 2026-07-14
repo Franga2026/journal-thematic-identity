@@ -77,8 +77,11 @@ class WorkItem(BaseModel):
     is_oa: Optional[bool] = None
     oa_status: Optional[str] = None
     journal: Optional[str] = None
+    source_name: Optional[str] = None
     sjr_quartile: Optional[str] = None
     author_position: Optional[int] = None
+    in_scopus: bool = False
+    scopus_url: Optional[str] = None
 
 
 class ResearcherWorksResponse(BaseModel):
@@ -99,6 +102,8 @@ class WorksFacets(BaseModel):
     year: list[FacetCount] = Field(default_factory=list)
     type: list[FacetCount] = Field(default_factory=list)
     quartile: list[FacetCount] = Field(default_factory=list)
+    access: list[FacetCount] = Field(default_factory=list)
+    field: list[FacetCount] = Field(default_factory=list)
 
 
 class WorksListItem(BaseModel):
@@ -111,9 +116,12 @@ class WorksListItem(BaseModel):
     fwci: Optional[float] = None
     is_oa: Optional[bool] = None
     oa_status: Optional[str] = None
-    journal: Optional[str] = None
+    journal: Optional[str] = None  # alias de source_name
+    source_name: Optional[str] = None
     sjr_quartile: Optional[str] = None
     field: Optional[str] = None
+    in_scopus: bool = False
+    scopus_url: Optional[str] = None
 
 
 class WorksListResponse(BaseModel):
@@ -420,7 +428,8 @@ def get_researcher_works(
             f"""
             SELECT w.openalex_id, w.title, w.publication_year AS year, w.doi,
                    w.type, w.cited_by_count, w.fwci, w.is_oa, w.oa_status,
-                   s.name AS journal, s.sjr_quartile, a.author_position
+                   s.name AS journal, s.sjr_quartile, a.author_position,
+                   COALESCE(s.in_scopus, false) AS in_scopus, s.scopus_url
             FROM authorships a
             JOIN works w ON w.id = a.work_id
             LEFT JOIN sources s ON s.id = w.source_id
@@ -443,8 +452,11 @@ def get_researcher_works(
             is_oa=r.get("is_oa"),
             oa_status=r.get("oa_status"),
             journal=r.get("journal"),
+            source_name=r.get("journal"),
             sjr_quartile=r.get("sjr_quartile"),
             author_position=r.get("author_position"),
+            in_scopus=bool(r.get("in_scopus")),
+            scopus_url=r.get("scopus_url"),
         )
         for r in rows
     ]
@@ -504,8 +516,15 @@ def _works_filter_sql(
         where.append("w.is_oa IS NOT TRUE")
 
     if quartile:
-        where.append("s.sjr_quartile = %s")
-        params.append(quartile.upper())
+        qv = quartile.strip().upper().replace(" ", "_")
+        if qv in ("SIN_DATOS", "NONE", "NULL", "UNKNOWN"):
+            where.append("(s.sjr_quartile IS NULL)")
+        else:
+            # Acepta "Q1" o "1"
+            if qv in ("1", "2", "3", "4"):
+                qv = f"Q{qv}"
+            where.append("s.sjr_quartile = %s")
+            params.append(qv)
 
     if unit:
         where.append(
@@ -607,7 +626,8 @@ def list_works(
             f"""
             SELECT w.openalex_id, w.title, w.publication_year AS year, w.doi,
                    w.type, w.cited_by_count, w.fwci, w.is_oa, w.oa_status,
-                   s.name AS journal, s.sjr_quartile, t.field
+                   s.name AS journal, s.sjr_quartile, t.field,
+                   COALESCE(s.in_scopus, false) AS in_scopus, s.scopus_url
             {from_sql}
             WHERE {where_sql}
             ORDER BY {order_sql}
@@ -637,13 +657,50 @@ def list_works(
             """,
             where_params,
         ).fetchall()
+        # Faceta cuartil sin el filtro de cuartil (para ver Q1–Q4 + sin_datos juntos)
+        where_sql_no_q, where_params_no_q, _ = _works_filter_sql(
+            q=q,
+            year_from=year_from,
+            year_to=year_to,
+            type=type,
+            is_oa=is_oa,
+            quartile=None,
+            unit=unit,
+            researcher=researcher,
+            sdg=sdg,
+            field=field,
+        )
         quartile_rows = conn.execute(
             f"""
-            SELECT s.sjr_quartile AS key, COUNT(*) AS count
+            SELECT COALESCE(s.sjr_quartile, 'sin_datos') AS key, COUNT(*) AS count
             {from_sql}
-            WHERE {where_sql} AND s.sjr_quartile IS NOT NULL
-            GROUP BY s.sjr_quartile
-            ORDER BY s.sjr_quartile
+            WHERE {where_sql_no_q}
+            GROUP BY 1
+            ORDER BY CASE COALESCE(s.sjr_quartile, 'sin_datos')
+              WHEN 'Q1' THEN 1 WHEN 'Q2' THEN 2 WHEN 'Q3' THEN 3
+              WHEN 'Q4' THEN 4 ELSE 5 END
+            """,
+            where_params_no_q,
+        ).fetchall()
+        access_rows = conn.execute(
+            f"""
+            SELECT CASE WHEN w.is_oa IS TRUE THEN 'open' ELSE 'closed' END AS key,
+                   COUNT(*) AS count
+            {from_sql}
+            WHERE {where_sql}
+            GROUP BY 1
+            ORDER BY key
+            """,
+            where_params,
+        ).fetchall()
+        field_rows = conn.execute(
+            f"""
+            SELECT t.field AS key, COUNT(*) AS count
+            {from_sql}
+            WHERE {where_sql} AND t.field IS NOT NULL
+            GROUP BY t.field
+            ORDER BY count DESC, t.field
+            LIMIT 40
             """,
             where_params,
         ).fetchall()
@@ -660,8 +717,11 @@ def list_works(
             is_oa=r.get("is_oa"),
             oa_status=r.get("oa_status"),
             journal=r.get("journal"),
+            source_name=r.get("journal"),
             sjr_quartile=r.get("sjr_quartile"),
             field=r.get("field"),
+            in_scopus=bool(r.get("in_scopus")),
+            scopus_url=r.get("scopus_url"),
         )
         for r in rows
     ]
@@ -670,6 +730,8 @@ def list_works(
         year=[FacetCount(key=r["key"], count=r["count"]) for r in year_rows],
         type=[FacetCount(key=r["key"], count=r["count"]) for r in type_rows],
         quartile=[FacetCount(key=r["key"], count=r["count"]) for r in quartile_rows],
+        access=[FacetCount(key=r["key"], count=r["count"]) for r in access_rows],
+        field=[FacetCount(key=r["key"], count=r["count"]) for r in field_rows],
     )
     return WorksListResponse(
         items=items,
