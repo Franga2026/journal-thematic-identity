@@ -863,6 +863,11 @@ input, select { font-family: var(--font); }
   white-space: nowrap;
   flex-shrink: 0;
 }
+.researcher-card__nodata {
+  color: #a8b2b8;
+  font-size: 11px;
+  font-style: italic;
+}
 
 .researcher-card__orcid-link {
   text-decoration: none;

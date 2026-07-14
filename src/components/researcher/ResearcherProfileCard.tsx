@@ -25,7 +25,7 @@ const ResearcherProfileCard = memo(function ResearcherProfileCard({
   const orcidId = cleanOrcid(r.o);
   const hasOrcid = Boolean(orcidId);
   const orcidUrl = getOrcidRecordUrl(r.o);
-  const hIndex = oa?.h_index ?? 0;
+  const hIndex = oa?.h_index ?? null; // null = no lo encontramos en OpenAlex
 
   const handlePhotoError = (e: SyntheticEvent<HTMLImageElement>) => {
     const img = e.currentTarget;
@@ -97,7 +97,11 @@ const ResearcherProfileCard = memo(function ResearcherProfileCard({
             ) : (
               <span className="chip chip--no-orcid">No ORCID</span>
             )}
-            <span className="researcher-card__metrics">h={hIndex}</span>
+            {hIndex !== null ? (
+              <span className="researcher-card__metrics">h={hIndex}</span>
+            ) : (
+              <span className="researcher-card__nodata">sin datos</span>
+            )}
           </div>
         )}
       </div>
