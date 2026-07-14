@@ -453,9 +453,16 @@ export interface FiltersState {
 }
 
 // ─── Data Context (read-only) ───
+export interface DeptOrcidCoverage {
+  total: number;
+  conOrcid: number;
+  pct: number;
+}
+
 export interface DataState {
   DATA: Researcher[];
   INST: InstitutionOA;
   DEPTS: string[];
   deptCounts: Record<string, number>;
+  deptOrcid: Record<string, DeptOrcidCoverage>;
 }

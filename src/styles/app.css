@@ -1933,27 +1933,58 @@ input, select { font-family: var(--font); }
 
 /* ─── Unit Card ─── */
 .unit-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 20px 22px;
   cursor: pointer;
-  padding: 16px 18px;
 }
 
-.unit-card__name { font-size: 13px; font-weight: 600; color: var(--blue-700); }
-.unit-card__count { font-size: 11px; color: #888; margin-top: 2px; }
-
-.unit-card__badge {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--blue-50);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--blue-700);
+.unit-card__name {
+  font-size: 16.5px;
+  color: #14314e;
   font-weight: 700;
-  font-size: 13px;
+  line-height: 1.32;
+  margin-bottom: 9px;
+}
+
+.unit-card__count {
+  font-size: 13.5px;
+  color: #4a5a63;
+  font-weight: 500;
+}
+
+.unit-card__orcid {
+  font-weight: 700;
+}
+
+.units-lead {
+  font-size: 14px;
+  color: #5a6b72;
+  font-weight: 500;
+  margin: 0 0 24px;
+}
+
+.units-lead b {
+  color: #0F6E56;
+  font-weight: 700;
+}
+
+.units-legend {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 12px;
+  color: #5a6b72;
+  font-weight: 500;
+}
+
+.units-legend span {
+  margin: 0 13px;
+}
+
+.units-legend .dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 5px;
 }
 
 /* ─── Metric Detail Panel ─── */

@@ -235,6 +235,27 @@ export function getDeptCounts() {
   return c;
 }
 
+/**
+ * Cobertura ORCID por unidad.
+ * Devuelve { [unidad]: { total, conOrcid, pct } }
+ * Cuenta sobre el catálogo (_DATA), campo `o` (ORCID) y `dp[0].d` (unidad).
+ */
+export function getDeptOrcidCoverage() {
+  const out = {};
+  for (const r of (_DATA || [])) {
+    const u = (r.dp || [])[0]?.d;
+    if (!u) continue;
+    if (!out[u]) out[u] = { total: 0, conOrcid: 0, pct: 0 };
+    out[u].total++;
+    if (cleanOrcid(r.o)) out[u].conOrcid++;
+  }
+  for (const u of Object.keys(out)) {
+    const e = out[u];
+    e.pct = e.total ? Math.round((100 * e.conOrcid) / e.total) : 0;
+  }
+  return out;
+}
+
 export function getOrcidCount() {
   return _DATA.filter((p) => p.o).length;
 }
