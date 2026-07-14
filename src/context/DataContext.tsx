@@ -1,12 +1,14 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
-import { getData, getInstitution, getDepartments, getDeptCounts, getDeptOrcidCoverage } from '../utils/dataProcessing';
-import type { Researcher, InstitutionOA } from '../shared/types';
+import {
+  getData,
+  getInstitution,
+  getDepartments,
+  getDeptCounts,
+  getDeptOrcidCoverage,
+} from '../utils/dataProcessing';
+import type { Researcher, InstitutionOA, DeptOrcidCoverage } from '../shared/types';
 
-export type DeptOrcidCoverage = {
-  total: number;
-  conOrcid: number;
-  pct: number;
-};
+export type { DeptOrcidCoverage };
 
 interface DataState {
   DATA: Researcher[];
@@ -18,10 +20,15 @@ interface DataState {
 
 const DataContext = createContext<DataState | null>(null);
 
+/**
+ * Lee el store ya hidratado por bootstrapData → initData.
+ * Unidades vienen de GET /units si el API respondió; si no, del JSON.
+ * TabUnidades / useApp() no cambian.
+ */
 export function DataProvider({ children }: { children: ReactNode }) {
   const DATA = getData() as Researcher[];
   const INST = getInstitution() as InstitutionOA;
-  const DEPTS = useMemo(() => getDepartments(), []);
+  const DEPTS = useMemo(() => getDepartments() as string[], []);
   const deptCounts = useMemo(() => getDeptCounts() as Record<string, number>, []);
   const deptOrcid = useMemo(
     () => getDeptOrcidCoverage() as Record<string, DeptOrcidCoverage>,

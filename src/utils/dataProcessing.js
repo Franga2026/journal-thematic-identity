@@ -20,6 +20,12 @@ let _CITATIONS = {};
 let _AW_BY_TITLE = {};
 /** @type {Record<string, { fetchedAt?: string, records?: import('../shared/types').DatasetRecord[] }>} */
 let _DATASETS = {};
+/**
+ * Filas crudas de GET /units (`{ id, name, total, with_orcid, pct }`).
+ * Vacío → getters caen al cómputo desde _DATA (JSON / tests).
+ * @type {Array<{ id?: number, name: string, total?: number, with_orcid?: number, pct?: number|null }>}
+ */
+let _UNITS = [];
 
 function parseOpenAlexAuthorId(oaId) {
   if (!oaId) return '';
@@ -129,7 +135,20 @@ function patchFwciDistributionsFromOA() {
   };
 }
 
-export function initData({ DATA, OA, AW, OD, AI, COAUTHORS, METRICS, RES_METRICS, CITATIONS, DATASETS }) {
+export function initData(payload = {}) {
+  const {
+    DATA,
+    OA,
+    AW,
+    OD,
+    AI,
+    COAUTHORS,
+    METRICS,
+    RES_METRICS,
+    CITATIONS,
+    DATASETS,
+    UNITS,
+  } = payload;
   _DATA = DATA || [];
   _OA = OA || {};
   _AW = AW || [];
@@ -142,6 +161,14 @@ export function initData({ DATA, OA, AW, OD, AI, COAUTHORS, METRICS, RES_METRICS
   _CITATIONS = CITATIONS || {};
   _DATASETS = DATASETS || {};
   setWorkCitationsIndex(_CITATIONS);
+
+  // Unidades: filas de GET /units (results) o array directo.
+  const unitRows = Array.isArray(UNITS?.results)
+    ? UNITS.results
+    : Array.isArray(UNITS)
+      ? UNITS
+      : [];
+  _UNITS = unitRows.filter((u) => u?.name);
 
   // Build title index for work enrichment (rebuilt after linkAutoresUta below)
   function rebuildAwByTitle() {
@@ -222,10 +249,14 @@ export function getDatasetsForAuthor(orcid) {
 // ─── Computed Values ───
 
 export function getDepartments() {
+  if (_UNITS.length) return _UNITS.map((u) => u.name);
   return [...new Set(_DATA.flatMap((p) => (p.dp || []).map((d) => d?.d).filter(Boolean)))].sort();
 }
 
 export function getDeptCounts() {
+  if (_UNITS.length) {
+    return Object.fromEntries(_UNITS.map((u) => [u.name, u.total ?? 0]));
+  }
   const c = {};
   _DATA.forEach((p) =>
     (p.dp || []).forEach((d) => {
@@ -237,10 +268,22 @@ export function getDeptCounts() {
 
 /**
  * Cobertura ORCID por unidad.
- * Devuelve { [unidad]: { total, conOrcid, pct } }
- * Cuenta sobre el catálogo (_DATA), campo `o` (ORCID) y `dp[0].d` (unidad).
+ * Preferencia: filas de GET /units (bootstrap → UNITS).
+ * Fallback: cómputo sobre _DATA (`o` + `dp[0].d`).
  */
 export function getDeptOrcidCoverage() {
+  if (_UNITS.length) {
+    return Object.fromEntries(
+      _UNITS.map((u) => [
+        u.name,
+        {
+          total: u.total ?? 0,
+          conOrcid: u.with_orcid ?? 0,
+          pct: u.pct != null ? Math.round(Number(u.pct)) : 0,
+        },
+      ])
+    );
+  }
   const out = {};
   for (const r of (_DATA || [])) {
     const u = (r.dp || [])[0]?.d;
