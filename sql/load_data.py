@@ -21,6 +21,7 @@ Uso:
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -207,7 +208,10 @@ def main():
     ap.add_argument("--data-dir", required=True, help="Carpeta con los JSON (src/)")
     ap.add_argument(
         "--dsn",
-        default="postgresql://postgres:victoria@localhost:5432/cris_victoria",
+        default=os.environ.get(
+            "CRIS_DB_DSN",
+            "postgresql://postgres:victoria@localhost:5432/cris_victoria",
+        ),
     )
     args = ap.parse_args()
 
