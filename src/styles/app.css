@@ -4089,6 +4089,18 @@ input, select { font-family: var(--font); }
   border-color: #bbf7d0;
 }
 
+:is(.work-card--discovery, .work-card--production, .work-card--coauthor, .work-card--coauthor-lite) .work-card__chip--scopus {
+  background: #FDF0EA;
+  color: #E8622C;
+  border-color: transparent;
+  text-decoration: none;
+}
+
+:is(.work-card--discovery, .work-card--production, .work-card--coauthor, .work-card--coauthor-lite) .work-card__chip--scopus:hover {
+  background: #E8622C;
+  color: #fff;
+}
+
 :is(.work-card--discovery, .work-card--production, .work-card--coauthor, .work-card--coauthor-lite) .work-card__chip--ods {
   background: #fef0d6;
   color: #92400e;

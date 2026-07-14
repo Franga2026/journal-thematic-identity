@@ -8,6 +8,9 @@ import {
   isScopusIndexed,
   isScopusIndexedByUrl,
   getScopusUrlFromIssns,
+  getWorkIssns,
+  getScopusUrlForWork,
+  isWorkInScopus,
   setScopusUrlIndexForTests,
   SCOPUS_OPENURL_BASE,
 } from '../utils/scopusUrlLookup';
@@ -64,6 +67,33 @@ describe('scopusUrlLookup', () => {
       'rft.title=Brain+Sciences',
     );
     expect(getScopusUrlFromIssns([null, 'nope'])).toBe(null);
+  });
+
+  it('getWorkIssns junta issn_l + cr_issn + up_issn (corpus sin issn_l)', () => {
+    expect(
+      getWorkIssns({
+        issn_l: null,
+        cr_issn: ['1042-0533', '1520-6300'],
+        up_issn: '1042-0533,1520-6300',
+      }).sort(),
+    ).toEqual(['1042-0533', '1520-6300']);
+    expect(getWorkIssns({ issn_l: '0366-0826' })).toEqual(['0366-0826']);
+  });
+
+  it('getScopusUrlForWork prueba todos los ISSN de la obra', () => {
+    expect(
+      getScopusUrlForWork({
+        cr_issn: ['9999-9999', '0366-0826'],
+        up_issn: '1111-1111',
+      }),
+    ).toBe(EXPECTED_0366);
+    expect(getScopusUrlForWork({ cr_issn: ['9999-9999'] })).toBe(null);
+  });
+
+  it('isWorkInScopus es true si algún ISSN está indexado', () => {
+    expect(isWorkInScopus({ cr_issn: ['9999-9999', '0366-0826'] })).toBe(true);
+    expect(isWorkInScopus({ up_issn: '9999-9999' })).toBe(false);
+    expect(isWorkInScopus({ issn_l: null, cr_issn: null })).toBe(false);
   });
 
   it('sin índice cargado / override null → null', () => {

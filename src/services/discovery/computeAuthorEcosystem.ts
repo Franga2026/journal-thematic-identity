@@ -4,6 +4,7 @@
 
 import { getData } from '../../utils/dataProcessing';
 import { findResearcherByOpenAlexAuthorId } from '../../utils/researcherProfile';
+import { getWorkIssns } from '../../utils/scopusUrlLookup';
 
 export interface WorkAuthorshipEco {
   author_id: string | null;
@@ -17,6 +18,10 @@ export interface WorkForEcosystem {
   year: number | null;
   journal: string | null;
   issn_l: string | null;
+  /** Crossref / OpenAlex issn[] (print + online). */
+  cr_issn?: string[] | string | null;
+  /** Unpaywall ISSN(s), a menudo CSV. */
+  up_issn?: string | null;
   fwci: number | null;
   cited_by_count: number;
   is_oa: boolean;
@@ -76,6 +81,8 @@ export interface FeaturedWork {
   year: number | null;
   journal: string | null;
   issn_l: string | null;
+  cr_issn?: string[] | string | null;
+  up_issn?: string | null;
   cited_by_count: number;
   fwci: number | null;
   quartile: 'Q1' | 'Q2' | 'Q3' | 'Q4' | null;
@@ -95,7 +102,9 @@ function toFeaturedWork(w: WorkForEcosystem): FeaturedWork {
     title: w.title,
     year: w.year,
     journal: w.journal,
-    issn_l: w.issn_l ?? null,
+    issn_l: getWorkIssns(w)[0] ?? null, // el primero disponible
+    cr_issn: w.cr_issn ?? null,
+    up_issn: w.up_issn ?? null,
     cited_by_count: w.cited_by_count,
     fwci: w.fwci,
     quartile: w.quartile,

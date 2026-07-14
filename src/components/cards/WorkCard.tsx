@@ -34,6 +34,10 @@ import {
 import { fetchDataCiteUsage, type DataCiteUsage } from '../../utils/datasetUsage';
 import { fwciWorkCardTileMeta } from '../../utils/fwciKpiDisplay';
 import { fieldEs, topicLineEs } from '../../utils/fieldEs';
+import {
+  getScopusUrlForWork,
+  loadScopusUrlIndex,
+} from '../../utils/scopusUrlLookup';
 
 const Q_COLORS: Record<string, string> = {
   Q1: '#15803D',
@@ -47,6 +51,38 @@ function normalizeQuartile(qi?: string): string | null {
   const match = qi.trim().toUpperCase().match(/^Q?([1-4])$/);
   if (!match) return null;
   return `Q${match[1]}`;
+}
+
+/** Carga el índice una vez (idempotente) y resuelve URL Scopus de la obra. */
+function useScopusUrlForWork(work: Work | null | undefined): string | null {
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    let cancelled = false;
+    void loadScopusUrlIndex().then(() => {
+      if (!cancelled) setTick((n) => n + 1);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  return work ? getScopusUrlForWork(work) : null;
+}
+
+function ScopusChip({ work }: { work: Work }) {
+  const scopusUrl = useScopusUrlForWork(work);
+  if (!scopusUrl) return null;
+  return (
+    <a
+      href={scopusUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="work-card__chip work-card__chip--scopus"
+      onClick={(e) => e.stopPropagation()}
+      title="Ver la revista en Scopus"
+    >
+      Scopus
+    </a>
+  );
 }
 
 function quartileColor(qi: string, qc?: string): string {
@@ -495,6 +531,7 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
 
   const normalizedQi = normalizeQuartile(w.qi);
   const sjrBadgeColor = normalizedQi ? quartileColor(normalizedQi, w.qc) : null;
+  const scopusUrl = useScopusUrlForWork(w);
 
   const { display: fwciDisplay, note: fwciNote, title: fwciTitle } = fwciWorkCardTileMeta(
     w,
@@ -532,7 +569,8 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
     (isEnriched && Boolean(normalizedQi))
     || w.oa === true
     || (isEnriched && (w.sdgs || []).length > 0)
-    || Boolean(w.field);
+    || Boolean(w.field)
+    || Boolean(scopusUrl);
 
   return (
     <article className={`work-card work-card--coauthor${isEnriched ? '' : ' work-card--coauthor-lite'}`}>
@@ -642,6 +680,7 @@ const CoAuthorWorkCard = memo(function CoAuthorWorkCard({
                 Acceso abierto
               </span>
             )}
+            <ScopusChip work={w} />
             {isEnriched && (w.sdgs || []).map((sdg) => (
               <SdgChip key={sdg} sdg={sdg} />
             ))}
@@ -1106,6 +1145,9 @@ const WorkCard = memo(function WorkCard({
           ))}
           {isOpenAccess && !showWorkHeader && (
             <span className="work-card__chip work-card__chip--oa">Acceso abierto</span>
+          )}
+          {(variant === 'discovery' || variant === 'production') && (
+            <ScopusChip work={w} />
           )}
           {variant === 'discovery' && leadership && (
             <span className="work-card__chip work-card__chip--leadership">{leadership}</span>

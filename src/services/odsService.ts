@@ -14,6 +14,7 @@ import {
 import { buildUtaResearchersForSdg, filterWorksBySdg, type UtaResearcherSdgRow } from '../utils/odsResearchers';
 import type { AuthorWorkLite } from './discovery/computeOpenAlexAuthorKpis';
 import type { WorkForEcosystem } from './discovery/computeAuthorEcosystem';
+import { getWorkIssns } from '../utils/scopusUrlLookup';
 import { getScimagoQuartileMap, quartileForOpenAlexWork } from '../utils/scimagoQuartileBrowser';
 
 export { getResearchersBySdg, normalizeSdgId } from './sdg/getResearchersBySdg';
@@ -338,6 +339,8 @@ export interface OpenAlexWorkItem {
   pages: string | null;
   docType: string | null;
   issn_l: string | null;
+  /** ISSN print/online de OpenAlex `source.issn`. */
+  cr_issn?: string[] | null;
   oa_status: string | null;
   quartile: QuartileLabel | null;
   field: string | null;
@@ -466,6 +469,7 @@ async function mapRawOpenAlexWorks(results: RawOpenAlexWork[]): Promise<OpenAlex
       pages,
       docType: r.type || null,
       issn_l: source.issn_l ?? null,
+      cr_issn: Array.isArray(source.issn) ? source.issn.filter(Boolean) as string[] : null,
       quartile,
       field: r.primary_topic?.field?.display_name ?? null,
       authorships: authors,
@@ -482,7 +486,8 @@ export function openAlexWorkToEcosystem(w: OpenAlexWorkItem): WorkForEcosystem {
     title: w.title,
     year: w.year,
     journal: w.venue,
-    issn_l: w.issn_l,
+    issn_l: getWorkIssns(w)[0] ?? null, // el primero disponible
+    cr_issn: w.cr_issn ?? null,
     fwci: w.fwci,
     cited_by_count: w.citedByCount,
     is_oa: w.isOpenAccess,
