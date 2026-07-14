@@ -5,7 +5,7 @@ GET /researchers                    lista (filtros: unit, has_orcid, q)
 GET /researchers/{local_id}         detalle + métricas honestas (NULL ≠ 0)
 GET /researchers/{id}/works         obras del investigador
 GET /units                          32 unidades + cobertura ORCID
-GET /analytics/collaboration        internacional / nacional / institucional
+GET /analytics/collaboration        internacional / nacional / institucional / sin_datos
 """
 
 from __future__ import annotations
@@ -390,10 +390,18 @@ def list_units():
 # ---------------------------------------------------------------------------
 # Analytics
 # ---------------------------------------------------------------------------
-SCOPES = ("internacional", "nacional", "institucional")
+SCOPES = ("internacional", "nacional", "institucional", "sin_datos")
 
 
 class CollaborationScopeCounts(BaseModel):
+    internacional: int = 0
+    nacional: int = 0
+    institucional: int = 0
+    sin_datos: int = 0
+
+
+class CollaborationPct(BaseModel):
+    """Porcentajes sobre obras clasificables (excluye sin_datos)."""
     internacional: int = 0
     nacional: int = 0
     institucional: int = 0
@@ -404,13 +412,17 @@ class CollaborationYearRow(BaseModel):
     internacional: int = 0
     nacional: int = 0
     institucional: int = 0
+    sin_datos: int = 0
     total: int = 0
 
 
 class CollaborationAnalyticsResponse(BaseModel):
-    total: int
+    total_works: int
+    classified: int
+    unclassified: int
     by_scope: CollaborationScopeCounts
-    pct: CollaborationScopeCounts
+    pct: CollaborationPct
+    note: str
     by_year: Optional[list[CollaborationYearRow]] = None
 
 
@@ -460,9 +472,7 @@ def analytics_collaboration(
             by_y: dict[int, dict[str, int]] = {}
             for r in yraw:
                 y = int(r["year"])
-                bucket = by_y.setdefault(
-                    y, {s: 0 for s in SCOPES}
-                )
+                bucket = by_y.setdefault(y, {s: 0 for s in SCOPES})
                 scope = r["collaboration_scope"]
                 if scope in bucket:
                     bucket[scope] = r["c"]
@@ -472,6 +482,7 @@ def analytics_collaboration(
                     internacional=b["internacional"],
                     nacional=b["nacional"],
                     institucional=b["institucional"],
+                    sin_datos=b["sin_datos"],
                     total=sum(b.values()),
                 )
                 for y, b in sorted(by_y.items())
@@ -482,18 +493,29 @@ def analytics_collaboration(
         scope = r["collaboration_scope"]
         if scope in counts:
             counts[scope] = r["c"]
-    total = sum(counts.values())
+
+    total_works = sum(counts.values())
+    unclassified = counts["sin_datos"]
+    classified = total_works - unclassified
 
     def _pct(n: int) -> int:
-        return round(100.0 * n / total) if total else 0
+        return round(100.0 * n / classified) if classified else 0
+
+    note = (
+        f"{unclassified} obras sin datos de afiliación (no indexadas en OpenAlex); "
+        f"los porcentajes se calculan sobre las {classified:,} clasificables".replace(",", ".")
+    )
 
     return CollaborationAnalyticsResponse(
-        total=total,
+        total_works=total_works,
+        classified=classified,
+        unclassified=unclassified,
         by_scope=CollaborationScopeCounts(**counts),
-        pct=CollaborationScopeCounts(
+        pct=CollaborationPct(
             internacional=_pct(counts["internacional"]),
             nacional=_pct(counts["nacional"]),
             institucional=_pct(counts["institucional"]),
         ),
+        note=note,
         by_year=year_rows,
     )

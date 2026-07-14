@@ -313,8 +313,9 @@ LEFT JOIN researchers r ON r.id = ru.researcher_id
 GROUP BY u.id, u.institution_id, u.name;
 
 
--- Colaboración internacional por obra (la base del Observatorio)
--- Esto HOY ES IMPOSIBLE en el navegador. Aquí es una consulta.
+-- Colaboración por obra (la base del Observatorio).
+-- LEFT JOIN: obras sin authorships → 'sin_datos' (honestidad; no inventar
+-- institucional). Antes has_internal/has_external pueden derivarse de authorships.
 CREATE VIEW v_work_collaboration AS
 SELECT
   w.id                                    AS work_id,
@@ -322,13 +323,13 @@ SELECT
   w.publication_year,
   COUNT(DISTINCT a.institution_country)   AS countries,
   COUNT(DISTINCT a.institution_ror)       AS institutions,
-  BOOL_OR(a.is_internal)                  AS has_internal,
-  BOOL_OR(NOT a.is_internal)              AS has_external,
   CASE
+    -- Sin datos de afiliación → no se puede clasificar. Honestidad.
+    WHEN COUNT(a.id) = 0                           THEN 'sin_datos'
     WHEN COUNT(DISTINCT a.institution_country) > 1 THEN 'internacional'
     WHEN COUNT(DISTINCT a.institution_ror) > 1     THEN 'nacional'
     ELSE 'institucional'
   END                                     AS collaboration_scope
 FROM works w
-JOIN authorships a ON a.work_id = w.id
+LEFT JOIN authorships a ON a.work_id = w.id
 GROUP BY w.id, w.institution_id, w.publication_year;
