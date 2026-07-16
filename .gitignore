@@ -43,4 +43,4 @@ src/backups/
 data/openalex-snapshot/
 cris-discovery-api/logs/
 cris-discovery-api/data/
-load_openalex_sources.py
+/load_openalex_sources.py
