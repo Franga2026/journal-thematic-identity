@@ -38,3 +38,9 @@ public/data/work-citations.json
 public/data/coauthor-profiles.json
 public/data/openalex.json
 src/backups/
+
+# OpenAlex snapshot local (~160MB+) y logs de Discovery Cite
+data/openalex-snapshot/
+cris-discovery-api/logs/
+cris-discovery-api/data/
+load_openalex_sources.py

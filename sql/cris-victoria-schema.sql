@@ -166,6 +166,43 @@ CREATE TABLE topics (
 CREATE INDEX idx_topics_field ON topics(field);
 
 
+-- Taxonomía maestra OpenAlex (IDs reales; sync via scripts/sync_topics.py)
+CREATE TABLE IF NOT EXISTS openalex_topics (
+  topic_id      TEXT PRIMARY KEY,       -- T14423
+  name          TEXT NOT NULL,
+  subfield_id   TEXT,                   -- subfields/2202
+  subfield_name TEXT,
+  field_id      TEXT,                   -- fields/22
+  field_name    TEXT,
+  domain_name   TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_topics_subfield ON openalex_topics(subfield_id);
+CREATE INDEX IF NOT EXISTS idx_oa_topics_field ON openalex_topics(field_id);
+CREATE INDEX IF NOT EXISTS idx_oa_topics_name ON openalex_topics(lower(name));
+
+
+-- Universo mundial de revistas OpenAlex (snapshot parquet; scripts/load_openalex_sources.py)
+CREATE TABLE IF NOT EXISTS openalex_sources (
+  source_id       TEXT PRIMARY KEY,       -- S137773608
+  name            TEXT,
+  issns           TEXT[],
+  issn_l          TEXT,
+  is_oa           BOOLEAN,
+  is_in_doaj      BOOLEAN,
+  works_count     INTEGER,
+  cited_by_count  BIGINT,
+  counts_by_year  JSONB,
+  topics          JSONB,
+  homepage_url    TEXT,
+  type            TEXT,
+  updated_date    TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_oa_sources_issns ON openalex_sources USING GIN (issns);
+CREATE INDEX IF NOT EXISTS idx_oa_sources_type ON openalex_sources (type);
+
+
 -- =============================================================================
 -- OBRAS
 -- =============================================================================
