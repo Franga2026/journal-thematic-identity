@@ -395,7 +395,7 @@ def save_metrics(
                     r["name"],
                     issn_map.get(r["source_id"]) or [],
                     year,
-                    None,
+                    round(r["share"], 4) if r.get("share") is not None else None,
                     r["docs"],
                     round(r["score"], 4),
                     r["percentile"],
@@ -405,6 +405,55 @@ def save_metrics(
             )
     conn.commit()
     return len(universo)
+
+
+def belonging_share(topics, subfield_id: str) -> float:
+    """Fracción de la producción de la revista en el subfield (vía topics)."""
+    if not topics:
+        return 0.0
+    if isinstance(topics, str):
+        topics = json.loads(topics)
+    total = sum((t.get("count", 0) or 0) for t in topics)
+    if not total:
+        return 0.0
+    needles = {subfield_id}
+    if subfield_id.startswith("subfields/"):
+        needles.add(subfield_id.split("/", 1)[1])
+    else:
+        needles.add(f"subfields/{subfield_id}")
+    in_sf = sum(
+        (t.get("count", 0) or 0)
+        for t in topics
+        if t.get("subfield_id") in needles
+    )
+    return in_sf / total
+
+
+def load_belonging_shares(
+    conn, source_ids: list[str], subfield_id: str
+) -> dict[str, float]:
+    """Share del subfield por revista desde openalex_sources.topics."""
+    sfid = (
+        subfield_id
+        if subfield_id.startswith("subfields/")
+        else f"subfields/{subfield_id}"
+    )
+    shares: dict[str, float] = {}
+    if not source_ids:
+        return shares
+    with conn.cursor() as cur:
+        cur.execute(
+            """
+            SELECT source_id, topics, works_count
+            FROM openalex_sources WHERE source_id = ANY(%s)
+            """,
+            (source_ids,),
+        )
+        for sid, topics, _wc in cur.fetchall():
+            if not topics:
+                continue
+            shares[sid] = belonging_share(topics, sfid)
+    return shares
 
 
 def subfield_name_lookup(conn, subfield_id: str) -> str | None:
@@ -444,6 +493,12 @@ def main() -> None:
         type=int,
         default=50,
         help="Mínimo de papers en la ventana para entrar al ranking",
+    )
+    ap.add_argument(
+        "--min-share",
+        type=float,
+        default=0.30,
+        help="Pertenencia mínima al subfield (topics) para entrar al ranking",
     )
     ap.add_argument(
         "--save",
@@ -501,10 +556,30 @@ def main() -> None:
         for sid, v in scores.items()
         if v["docs"] >= args.min_docs
     ]
-    print(f"   {len(universo)} revistas con >= {args.min_docs} papers\n")
+    print(f"   {len(universo)} revistas con >= {args.min_docs} papers")
 
     if not universo:
         print("Sin revistas tras el filtro. Baja --min-docs.")
+        return
+
+    import psycopg
+
+    conn = psycopg.connect(args.dsn)
+
+    # Antes de cuartiles: filtrar por pertenencia al subfield (excluye BMJ etc.)
+    shares = load_belonging_shares(conn, [r["source_id"] for r in universo], sid_num)
+    before = len(universo)
+    for r in universo:
+        r["share"] = shares.get(r["source_id"], 0.0)
+    universo = [r for r in universo if r["share"] >= args.min_share]
+    print(
+        f"   {len(universo)} revistas con share >= {args.min_share:.0%} "
+        f"(filtradas {before - len(universo)})\n"
+    )
+
+    if not universo:
+        print("Sin revistas tras el filtro de pertenencia. Baja --min-share.")
+        conn.close()
         return
 
     universo.sort(key=lambda x: x["score"], reverse=True)
@@ -526,13 +601,11 @@ def main() -> None:
     for r in universo[:5]:
         print(
             f"     {r['quartile']}  {r['score']:6.2f}  "
+            f"share={r['share']:.0%}  "
             f"({r['cites']:,}c/{r['docs']}d)  {r['name'][:40]}"
         )
     print()
 
-    import psycopg
-
-    conn = psycopg.connect(args.dsn)
     sids = [r["source_id"] for r in universo]
     with conn.cursor() as cur:
         cur.execute(
