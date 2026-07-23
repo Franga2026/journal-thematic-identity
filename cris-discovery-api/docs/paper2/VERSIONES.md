@@ -185,8 +185,11 @@ Pendientes de depósito si existen fuera del árbol: `teorema_marco.md` · `spec
 |---|---|---|
 | `docs/jia/spec_JIA_v2.md` | `ba17d1d00338fb64` | Especificación v2 (+ enlace DDL v2.1). Fase 1 del plan JIA. |
 | `docs/jia/jia_schema_v2.1.sql` | `4ecc0adc3dd6eec9` | DDL v2.1 (review): `config_uid`, estabilidad↔run, `chk_comparison_state`, `v_passport`, `parity_check`. Fase 2 (días 8–12). |
+| `docs/jia/nota_diseno_journal_intelligence_v1.md` | `5d5cea257bfce234` | **Arquitectura aprobada** del módulo operativo (`journal-intelligence`). Extiende JIA a dinámica/alertas/frontera; **no implementa**. Subordinada al pipeline del paper. Completo: `5d5cea257bfce234478b07660398e4e840feb925a65b31b2750cb95ed78fd464`. |
+| `docs/jia/spec_JIA_funcional_v1.0.md` | `b607eb9394729447` | Especificación funcional v1.0 (**supersedida** por v1.0.1). Completo: `b607eb93947294470e5a129f15e388084b1ce764b8009651bc922b8915b9d5c1`. |
+| `docs/jia/spec_JIA_funcional_v1.0.1.md` | `e2982c2e65018916` | **NORMATIVA — APROBADA PARA IMPLEMENTACIÓN** (delta C1–C12: unidad revista/panel, núcleo≥τ verificado, topic_change, article_fit fuera del mínimo). Completo: `e2982c2e65018916bf8c1348b3f6e29f9c9534860f427eb7300cb7caecb2e847`. |
 
-Prioridad cede ante el envío del paper si compiten.
+Prioridad cede ante el envío del paper si compiten. Implementación JIA **después** de: v1.2.1 → réplica `p_doc` → traducción → envío.
 
 ---
 
