@@ -4,6 +4,17 @@ Registro de versiones del texto científico. Los hashes canónicos viven en `VER
 
 ---
 
+## v1.2.1-es-final (2026-07-23)
+
+Refinamiento epistemológico de la interpretación de A′. Retira el lenguaje de "macro/microestructura" y "arquitectura jerárquica" como afirmación (§5.10, §6, §7, Apéndice C); reformula la asimetría como **hipótesis emergente**, sujeta al confound `p_cit` y a una única réplica. La organización jerárquica queda como implicación **condicionada** a réplicas que controlen la maduración citacional. La localización en la "frontera del núcleo" se declara **predicción motivada**, no observación. §7 prioriza la réplica `p_doc` (discriminador primario) y ventanas maduras (corroboración, con salvedad de época de cobertura). **Retira** la caracterización "hallazgo destacado" de la entrada de v1.2: pasa a "observación de respuesta no uniforme entre componentes; hipótesis emergente". Veredicto DEBILITA, estatus, umbrales, números y §8 **sin cambios**. v1.2-es-final permanece inalterada.
+
+**Nota atestada (2026-07-23):** se reduce el nivel ontológico de la interpretación del hallazgo de A′: se retira el lenguaje de "macro/microestructura" y "arquitectura jerárquica" como afirmación; la asimetría observada se reformula como **hipótesis emergente**, explícitamente **sujeta al confound de maduración citacional** (métrica `p_cit`) y derivada de **una única réplica**.
+
+Archivo: `docs/paper2/manuscrito_identidad_tematica_v1.2.1-es-final.md`  
+SHA256: `7251c63817af2d83db9b06512a650dbf2b1bc1795370b31ac01a52fedd5c38d2`
+
+---
+
 ## v1.2-es-final (2026-07-23)
 
 Integra la Prueba A′ (réplica temporal prospectiva 2022–2025) como §5.10. Veredicto de la rejilla congelada: **DEBILITA** (`¬estruct_ok ∧ ¬forma_techo`). Estatus de la hipótesis estructura/dinámica degradado a **evidencia mixta entre réplicas**. Sin cambios de protocolo, umbrales ni rejilla.

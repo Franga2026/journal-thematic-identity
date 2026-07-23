@@ -14,6 +14,7 @@ Texto fuente: **español**. La traducción al inglés se hace sobre una versión
 > - v1.0-es-freeze-preC: `8c184f8aba95f7a08a2cf9faf47181924967ad2591d41498e619d41dd5032740`
 > - v1.1-es-final: `9ef46d28e6f815ffe6dd78680bead44109b4db59ab64149341e76599c0e95d70`
 > - v1.2-es-final: `7ab6a4366214e9056c0656f416c831a247bcdc64fd7dbc915485cc12cb984bcc`
+> - v1.2.1-es-final: `7251c63817af2d83db9b06512a650dbf2b1bc1795370b31ac01a52fedd5c38d2`
 >
 > Referencias del desarrollo (no canónicas): `3f1529123412dd993854827f4a8099ce52576d434bf573372467b8240195c769` (v1.0), `21ace3b22c6c5ff823072f9eaa3a18eeb86b1584261186a111a1f9ea61e2e829` (v1.1).  
 > Script: `docs/paper2/verificar_fase1.sh`
@@ -22,8 +23,10 @@ Texto fuente: **español**. La traducción al inglés se hace sobre una versión
 |---|---|---|---|---|
 | **v1.0-es-freeze-preC** | 2026-07-22 | 🔒 **canónica en repo, verificada** | `8c184f8aba95f7a0` | `docs/paper2/manuscrito_identidad_tematica_v1.0-es-freeze-preC.md` — fuente estable **antes** de la Prueba C. Canónico = archivo del repo. |
 | **v1.1-es-final** | 2026-07-22 | 🔒 **canónica en repo, verificada** | `9ef46d28e6f815ff` | `docs/paper2/manuscrito_identidad_tematica_v1.1-es-final.md` — **Prueba C / C0** como §5.9 (reproducibilidad operacional). **Inalterada** tras A′. |
-| **v1.2-es-final** | 2026-07-23 | 🔒 **canónica en repo** | `7ab6a4366214e905` | `docs/paper2/manuscrito_identidad_tematica_v1.2-es-final.md` — A′ integrada (§5.10), Rama 3 **DEBILITA**; estatus estructura/dinámica → evidencia mixta. SHA256 autoritativo completo arriba. Fuente para traducir → v1.2-en. |
-| v1.2-en | *(pendiente)* | — | — | Traducción al inglés de v1.2-es-final. |
+| **v1.2-es-final** | 2026-07-23 | 🔒 **canónica en repo** | `7ab6a4366214e905` | `docs/paper2/manuscrito_identidad_tematica_v1.2-es-final.md` — A′ integrada (§5.10), Rama 3 **DEBILITA**; estatus → evidencia mixta. **Inalterada** tras v1.2.1. |
+| **v1.2.1-es-final** | 2026-07-23 | 🔒 **canónica en repo** | `7251c63817af2d83` | `docs/paper2/manuscrito_identidad_tematica_v1.2.1-es-final.md` — Refinamiento epistemológico (hipótesis emergente; confound `p_cit` explícito); veredicto/números sin cambio. Fuente para traducir → v1.2.1-en. |
+| v1.2.1-en | *(pendiente)* | — | — | Traducción al inglés de v1.2.1-es-final. |
+| v1.2-en | *(pendiente)* | — | — | Traducción al inglés de v1.2-es-final (histórico; preferir v1.2.1-en). |
 | v1.1-en | *(pendiente)* | — | — | Traducción al inglés de v1.1-es-final (histórico; preferir v1.2-en). |
 
 ---
@@ -74,8 +77,9 @@ Ejemplos ya registrados:
 | Universo y cohortes (marco muestral / 521 / 522) | Cerrado |
 | **C0 — snapshot 1 día (reproducibilidad operacional)** | **Cerrado** (§5.9, integrado en v1.1; JSD med=0.000) |
 | **A′ — réplica temporal prospectiva (2022–2025)** | **Ejecutada e integrada (DEBILITA)** — §5.10 en v1.2; panel común 506; masa `p_cit`; forma estable, microestructura reorganizada. |
-| **Réplica temporal sobre `p_doc`** | **Prioridad** — dirimente de la lectura estructural de A′ (consistente con la corrección de S). |
-| **C-meses — maduración de datos (snapshot meses)** | **Prioridad** — eje genuinamente distinto; re-medir 2022–2025 tras acumulación de citas. |
+| **Réplica `p_doc` (mismas ventanas)** | **Pendiente prioritaria** — discriminador primario del confound `p_cit` (misma cohorte temporal; cambia solo la ponderación). |
+| **Ventanas citacionalmente maduras** | **Corroboración futura** — secundaria; salvedad de época de cobertura OpenAlex. |
+| **C-meses — maduración de datos (snapshot meses)** | **Corroboración futura** — eje genuinamente distinto; re-medir tras acumulación de citas. |
 
 ---
 
@@ -90,6 +94,7 @@ Ejemplos ya registrados:
 | 2026-07-23 | **Enmienda 2** A′ (texto autoritativo) | Alineación técnica; rejilla `estruct_ok×forma_techo`; sin cambio de umbrales/lecturas. | Paquete A′ = `91503f91ae7d27e0` (completo abajo). |
 | 2026-07-23 | A′ (W0 vs W+1, panel común 506) | **DEBILITA**; perturbación real (JSD `p_cit` med 0.071, 2.6% ≤0.01); forma estable, microestructura reorganizada | **Integrado en v1.2 §5.10**; estatus → evidencia mixta. Ajuste de redacción Rama 3 atestado (CHANGELOG). |
 | 2026-07-23 | Congelamiento **v1.2-es-final** | Rama 3 (DEBILITA); métrica masa `p_cit`; §8 intacto; v1.1 inalterada | SHA256 `7ab6a4366214e905…` · `CHANGELOG.md` |
+| 2026-07-23 | **v1.2.1** refinamiento epistemológico | Interpretación degradada a **hipótesis emergente**; confound `p_cit` explícito; retira macro/micro como afirmación | Sin cambio de veredicto/estatus/números; SHA256 `7251c63817af2d83…` |
 
 ---
 
@@ -190,6 +195,6 @@ Prioridad cede ante el envío del paper si compiten.
 1. ~~Cierre Fase 1~~ ✅
 2. ~~Playbook A′ → v1.2~~ ✅ (`playbook_A_prima_v1.2.md`)
 3. ~~Poblar `W+1_2022_2025` → ejecutar A′ → rama → **v1.2-es-final**~~ ✅ (2026-07-23, DEBILITA)
-4. Traducción → **v1.2-en**.
-5. Prioridad científica: réplica temporal sobre `p_doc` · C-meses.
+4. Traducción → **v1.2.1-en** (desde v1.2.1-es-final).
+5. Prioridad científica: **réplica `p_doc`** (discriminador primario) · ventanas maduras · C-meses.
 6. *(Paralelo, cede ante 4–5)* JIA: aplicar `docs/jia/jia_schema_v2.1.sql` → job de materialización + paridad con paper.
