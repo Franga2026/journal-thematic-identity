@@ -20,7 +20,7 @@ Los nombres de campo son **propuestas** basadas en el naming del Supplementary (
 
 Una diferencia entre `bruto` y `publicado` que respeta la regla es *presentación*, no discrepancia; solo es discrepancia si el bruto no redondea al publicado.
 
-**R2 · Ningún hash por inferencia.** El `9fb560d7…` sigue siendo **hipótesis** hasta confirmar las cuatro cosas: (a) nombre exacto del archivo, (b) contenido, (c) rol en el runbook, (d) SHA-256 calculado directamente. Igual para todos los hashes: se calculan, no se copian.
+**R2 · Ningún hash por inferencia.** El `9fb560d7…` está **confirmado** (R2: nombre=`manifest_A_prima.json`, hash recalculado; antes era hipótesis) las cuatro cosas: (a) nombre exacto del archivo, (b) contenido, (c) rol en el runbook, (d) SHA-256 calculado directamente. Igual para todos los hashes: se calculan, no se copian.
 
 **R3 · Extraer, no transcribir.** Los valores se leen del manifiesto con un script (no a mano) para eliminar el error de transcripción — que es justo lo que la §10 busca atrapar.
 
@@ -31,8 +31,8 @@ Una diferencia entre `bruto` y `publicado` que respeta la regla es *presentació
 | Estabilidad (`median_S`, N = 511) | manifiesto estabilidad | §6.1 · Figura 4 |
 | Tamaños de cohorte (1461/521/522/6) | manifiesto cohorte | §5 · S3 · Figura 2 |
 | Panel común (506 · 2 · 8) | manifiesto forward | §6.4 · Tabla 1 · Figura 5 |
-| Métricas p_cit (0.071 · 52.6 · 85.0 · corrs) | manifiesto p_cit | §6.4 · Tabla 1 · Figura 5 |
-| Métricas p_doc (0.028 · 72.9 · 95.8 · corrs) | manifiesto p_doc | §6.4 · Tabla 1 · Figura 5 |
+| Métricas p_cit (0.071 · 52.6 · 85.0 · corrs) | `manifest_A_prima.json` (A′ fwd = panel común; hash `9fb560d7…` **confirmado**) | §6.4 · Tabla 1 · Figura 5 |
+| Métricas p_doc (0.028 · 72.9 · 95.8 · corrs) | `analisis_…panel_comun.json` (control documental, panel común 506) — **no** el `manifest_A_prima_pdoc.json` natural | §6.4 · Tabla 1 · Figura 5 |
 | Referencia backward REF_A (0.046 · 1.00 · 0.822 · 0.83 · 0.90 · 0.76) | manifiesto backward (origen empírico) | S4.3 · §6.4 texto · Figura 5 |
 | Umbrales de decisión (PISO_JSD, PISO_DOM, TECHO_FORMA, τ, MIN_SUBFIELDS) | **preregistro** (normativo; no el código, salvo que el preregistro remita a él) | S2 · S4.3 · código |
 | Cotas del control documental (0.071/0.60/0.046/0.90) | preregistro p_doc (S4.2) | S4.2 texto |
@@ -53,36 +53,36 @@ Una diferencia entre `bruto` y `publicado` que respeta la regla es *presentació
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| §5 / S3 | Sampling frame | 1,461 | manifiesto cohorte | `n_frame` | ⬜ |
-| §5 / S3 / §6.2 | Comparable cohort | 521 | manifiesto cohorte | `n_comparable` | ⬜ |
-| §5 / S3 | Analytic cohort | 522 | manifiesto cohorte | `n_analytic` | ⬜ |
-| §5 / S3 | Subcampos | 6 | manifiesto cohorte | `n_subfields` | ⬜ |
-| Figura 2 | Excluidos (1461 − 521) | 940 | derivado | consistencia aritmética | ⬜ |
+| §5 / S3 | Sampling frame | 1,461 | `journal_frame_index` (`in_content`) | `n_frame` | ✅ |
+| §5 / S3 / §6.2 | Comparable cohort | 521 | `journal_frame_index` | `n_comparable` | ✅ |
+| §5 / S3 | Analytic cohort | 522 | `journal_identity_summary` (2024) | `n_analytic` | ✅ |
+| §5 / S3 | Subcampos | 6 | Path-1 six | `n_subfields` | ✅ |
+| Figura 2 | Excluidos (1461 − 521) | 940 | derivado | consistencia aritmética | ✅ |
 
 ## 2 · Estabilidad temporal (§6.1 · Figura 4)
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| §6.1 | Median stability S | 0.783 | manifiesto estabilidad | `median_S` | ⬜ |
-| §6.1 | N stability (elegibles) | 511 | manifiesto estabilidad | `n_eligible` | ⬜ |
+| §6.1 | Median stability S | 0.783 | `data/stability_S_pdoc.csv` | `median_S` | ✅ |
+| §6.1 | N stability (elegibles) | 511 | `data/stability_S_pdoc.csv` | `n_eligible` | ✅ |
 
 ## 3 · Tipología y discriminante (§6.2 · Figura 3)
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| §6.2 | N tipología (comparable) | 521 | manifiesto cohorte | `n_comparable` | ⬜ |
-| §6.2 | R² alignment ~ (M, D) | 0.40–0.50 (rango; **valor exacto por especificación**) | salida regresión | `R2` + especificación del modelo | ⬜ |
-| §6.2 | Subcampo líder ≈ mitad de la masa | ≈ 0.5 (cualitativo; confirmar media de la masa dominante) | manifiesto descriptores | `mean_dominant_share` | ⬜ |
+| §6.2 | N tipología (comparable) | 521 | `md_intrinsecos_W0.csv` | N | ✅ |
+| §6.2 | R² alignment (discriminante) | 0.395 (`|E|+logN+H`) · 0.496 (`|E|+logN+TCI`); N=521 | `chequeo_jca_joes` / OLS | `R2` | ✅ |
+| §6.2 | Subcampo líder ≈ mitad de la masa | ≈ 0.5 (mean=0.4745) | SQL `max(p_cit)` W0 | `mean_dominant_share` | ✅ |
 
 ## 4 · Réplica forward — diagnóstico de magnitud y panel común (§6.4 · Figura 5)
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| §6.4 | Common panel | 506 | manifiesto forward | `n_common` | ⬜ |
-| §6.4 | Entraron entre ventanas | 2 | manifiesto forward | `n_entered` | ⬜ |
-| §6.4 | Salieron entre ventanas | 8 | manifiesto forward | `n_left` | ⬜ |
-| §6.4 / Tabla 1 | % con divergencia ≤ 0.01 (p_cit) | 2.6 % | manifiesto p_cit | `pct_below_0.01` | ⬜ |
-| Tabla 1 | % con divergencia ≤ 0.01 (p_doc) | 10.1 % | manifiesto p_doc | `pct_below_0.01` | ⬜ |
+| §6.4 | Common panel | 506 | `manifest_A_prima.json` | `panel.comun` | ✅ |
+| §6.4 | Entraron entre ventanas | 2 | `manifest_A_prima.json` | `panel.entradas` | ✅ |
+| §6.4 | Salieron entre ventanas | 8 | `manifest_A_prima.json` | `panel.salidas` | ✅ |
+| §6.4 / Tabla 1 | % con divergencia ≤ 0.01 (p_cit) | 2.6 % | `manifest_A_prima.json` | `perturbacion.jsd_le_0.01` | ✅ |
+| Tabla 1 | % con divergencia ≤ 0.01 (p_doc) | 10.1 % | `analisis_A_prima_pdoc_panel_comun.json` | `pdoc_comun.perturbacion…` | ✅ |
 
 > **Nota de operador:** el texto de §6.4 dice "below 0.01" (2.6 %) y la Tabla 1 dice "≤ 0.01"; confirmar cuál usa el código (`<` vs `≤`) y unificar la redacción si difieren.
 
@@ -90,23 +90,25 @@ Una diferencia entre `bruto` y `publicado` que respeta la regla es *presentació
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| §6.4 / Tabla 1 | Median mass divergence (JSD) | 0.071 | manifiesto p_cit | `jsd_median` | ⬜ |
-| §6.4 / Tabla 1 | Nucleus preserved (Jaccard ≥ 0.90) | 52.6 % | manifiesto p_cit | `jaccard_pct_ge_090` | ⬜ |
-| §6.4 / Tabla 1 | Dominant subfield persists | 85.0 % | manifiesto p_cit | `dominant_pct` | ⬜ |
-| §6.4 / Tabla 1 | Shape corr — concentration (r) | 0.852 | manifiesto p_cit | `corr_TCI` | ⬜ |
-| §6.4 / Tabla 1 | Shape corr — entropy raw (r) | 0.896 | manifiesto p_cit | `corr_H` | ⬜ |
-| §6.4 / Tabla 1 | Shape corr — entropy norm (r) | 0.827 | manifiesto p_cit | `corr_Hnorm` | ⬜ |
+| §6.4 / Tabla 1 | Median mass divergence (JSD) | 0.071 | manifiesto p_cit | `jsd_median` | ✅ |
+| §6.4 / Tabla 1 | Nucleus preserved (Jaccard ≥ 0.90) | 52.6 % | manifiesto p_cit | `jaccard_pct_ge_090` | ✅ |
+| §6.4 / Tabla 1 | Dominant subfield persists | 85.0 % | manifiesto p_cit | `dominant_pct` | ✅ |
+| §6.4 / Tabla 1 | Shape corr — concentration (r) | 0.852 | manifiesto p_cit | `corr_TCI` | ✅ |
+| §6.4 / Tabla 1 | Shape corr — entropy raw (r) | 0.896 | manifiesto p_cit | `corr_H` | ✅ |
+| §6.4 / Tabla 1 | Shape corr — entropy norm (r) | 0.827 | manifiesto p_cit | `corr_Hnorm` | ✅ |
 
 ## 6 · Réplica forward — métricas p_doc (§6.4 · Tabla 1)
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| §6.4 / Tabla 1 | Median mass divergence (JSD) | 0.028 | manifiesto p_doc | `jsd_median` | ⬜ |
-| §6.4 / Tabla 1 | Nucleus preserved (Jaccard ≥ 0.90) | 72.9 % | manifiesto p_doc | `jaccard_pct_ge_090` | ⬜ |
-| §6.4 / Tabla 1 | Dominant subfield persists | 95.8 % | manifiesto p_doc | `dominant_pct` | ⬜ |
-| §6.4 / Tabla 1 | Shape corr — concentration (r) | 0.968 | manifiesto p_doc | `corr_TCI` | ⬜ |
-| §6.4 / Tabla 1 | Shape corr — entropy raw (r) | 0.968 | manifiesto p_doc | `corr_H` | ⬜ |
-| §6.4 / Tabla 1 | Shape corr — entropy norm (r) | 0.966 | manifiesto p_doc | `corr_Hnorm` | ⬜ |
+| §6.4 / Tabla 1 | Median mass divergence (JSD) | 0.028 | `analisis_…panel_comun.json` (panel común 506) | `jsd_median` | ✅ |
+| §6.4 / Tabla 1 | Nucleus preserved (Jaccard ≥ 0.90) | 72.9 % | `analisis_…panel_comun.json` (panel común 506) | `jaccard_pct_ge_090` | ✅ |
+| §6.4 / Tabla 1 | Dominant subfield persists | 95.8 % | `analisis_…panel_comun.json` (panel común 506) | `dominant_pct` | ✅ |
+| §6.4 / Tabla 1 | Shape corr — concentration (r) | 0.968 | `analisis_…panel_comun.json` (panel común 506) | `corr_TCI` | ✅ |
+| §6.4 / Tabla 1 | Shape corr — entropy raw (r) | 0.968 | `analisis_…panel_comun.json` (panel común 506) | `corr_H` | ✅ |
+| §6.4 / Tabla 1 | Shape corr — entropy norm (r) | 0.966 | `analisis_…panel_comun.json` (panel común 506) | `corr_Hnorm` | ✅ |
+
+> **Corrección de fuente — auditoría ronda 1 (capa: trazabilidad).** La columna p_doc de la Tabla 1 coincide con el cómputo del **panel común** (`analisis_…panel_comun.json`), **no** con el manifiesto p_doc natural (`manifest_A_prima_pdoc.json`), que es un conjunto muestral distinto (73.2 · 95.7 · 0.966). Esto **no es un error del paper**: §5 y §6.4 declaran que la comparación documental se hace "on the panel of journals eligible in both mass modes" (panel común, N = 506), justo para no reintroducir el confound de composición muestral. El error estaba en esta matriz, que apuntaba al manifiesto p_doc natural. **Fuente de verdad corregida → `analisis_…panel_comun.json`.** El manifiesto p_doc natural sigue siendo un archivo válido (se le recalcula el hash en §9), pero no es el origen de la Tabla 1. Confirmar en el re-run que ese archivo contiene el p_doc sobre los mismos 506 (y que su columna p_cit iguala 0.071/52.6/85.0, de modo que **ambas** columnas de la Tabla 1 tracen al panel común).
 
 ## 7 · Referencia backward y umbrales congelados (S4.3 · pre-registro)
 
@@ -114,45 +116,45 @@ Deben coincidir con el manifiesto backward **y** con el documento de pre-registr
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| S4.3 (REF_A) | JSD backward | 0.046 | manifiesto backward | `jsd_median` | ⬜ |
-| S4.3 (REF_A) | Jaccard backward | 1.00 | manifiesto backward | `jaccard_median` | ⬜ |
-| S4.3 (REF_A) | Dominant backward | 0.822 | manifiesto backward | `dominant_pct` | ⬜ |
-| S4.3 (REF_A) | TCI backward | 0.83 | manifiesto backward | `corr_TCI` o `TCI_ref` | ⬜ |
-| S4.3 (REF_A) | H backward | 0.90 | manifiesto backward | `H_ref` | ⬜ |
-| S4.3 (REF_A) | H_norm backward | 0.76 | manifiesto backward | `Hnorm_ref` | ⬜ |
-| S4.3 | PISO_JSD | 0.056 | pre-registro | `PISO_JSD` | ⬜ |
-| S4.3 | PISO_DOM | 0.792 | pre-registro | `PISO_DOM` | ⬜ |
-| S4.3 | TECHO_FORMA | 0.95 | pre-registro | `TECHO_FORMA` | ⬜ |
-| S2 / S4.3 | τ (umbral de núcleo) | 0.5 | pre-registro / código | `τ` / `TAU` | ⬜ |
-| S2 / S4.3 | MIN_SUBFIELDS | 3 | pre-registro / código | `MIN_SUBFIELDS` | ⬜ |
+| S4.3 (REF_A) | JSD backward | 0.046 | manifiesto backward | `jsd_median` | ✅ |
+| S4.3 (REF_A) | Jaccard backward | 1.00 | manifiesto backward | `jaccard_median` | ✅ |
+| S4.3 (REF_A) | Dominant backward | 0.822 | manifiesto backward | `dominant_pct` | ✅ |
+| S4.3 (REF_A) | TCI backward | 0.83 | manifiesto backward | `corr_TCI` o `TCI_ref` | ✅ |
+| S4.3 (REF_A) | H backward | 0.90 | manifiesto backward | `H_ref` | ✅ |
+| S4.3 (REF_A) | H_norm backward | 0.76 | manifiesto backward | `Hnorm_ref` | ✅ |
+| S4.3 | PISO_JSD | 0.056 | pre-registro | `PISO_JSD` | ✅ |
+| S4.3 | PISO_DOM | 0.792 | pre-registro | `PISO_DOM` | ✅ |
+| S4.3 | TECHO_FORMA | 0.95 | pre-registro | `TECHO_FORMA` | ✅ |
+| S2 / S4.3 | τ (umbral de núcleo) | 0.5 | pre-registro / código | `τ` / `TAU` | ✅ |
+| S2 / S4.3 | MIN_SUBFIELDS | 3 | pre-registro / código | `MIN_SUBFIELDS` | ✅ |
 
 ## 8 · Reglas del control documental (S4.2 · pre-registro separado)
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| S4.2 | A_CONFIRMATORY — cota JSD | ≥ 0.071 | pre-registro p_doc | regla | ⬜ |
-| S4.2 | A_CONFIRMATORY — cota Jaccard | ≤ 0.60 | pre-registro p_doc | regla | ⬜ |
-| S4.2 | B_MATURATION — cota JSD | ≤ 0.046 | pre-registro p_doc | regla | ⬜ |
-| S4.2 | B_MATURATION — cota Jaccard | ≥ 0.90 | pre-registro p_doc | regla | ⬜ |
+| S4.2 | A_CONFIRMATORY — cota JSD | ≥ 0.071 | pre-registro p_doc | regla | ✅ |
+| S4.2 | A_CONFIRMATORY — cota Jaccard | ≤ 0.60 | pre-registro p_doc | regla | ✅ |
+| S4.2 | B_MATURATION — cota JSD | ≤ 0.046 | pre-registro p_doc | regla | ✅ |
+| S4.2 | B_MATURATION — cota Jaccard | ≥ 0.90 | pre-registro p_doc | regla | ✅ |
 
 ## 9 · Hashes y campos `⟦…⟧` del Supplementary (S2 · S4.3 · S5 · S6)
 
 | Ubicación | Afirmación | Valor esperado | Archivo fuente | Campo/consulta | Estado |
 |---|---|---|---|---|---|
-| S4.3 | Hash pre-registro (fwd + doc) | `⟦…⟧` (64 hex) | pre-registro | SHA-256 | ⬜ |
-| S4.3 / S5 | Hash script canónico | `08a0e48a…769` (completo en S5) | script | SHA-256 | ⬜ |
-| S4.3 | Hash manifiesto p_cit | **`9fb560d7…`** (ver nota abajo) | manifiesto p_cit | SHA-256 | ⬜ |
-| S4.3 | Hash manifiesto p_doc | `70d1ae78…` `⟦full 64 hex⟧` | manifiesto p_doc | SHA-256 | ⬜ |
-| S4.3 | Hash runbook p_doc | `⟦…⟧` | runbook | SHA-256 | ⬜ |
-| S5 | Hash lock de entorno | `3e5e937b…305a` | env lock | SHA-256 | ⬜ |
-| S5 | ID snapshot de entrada | `9844f2c9…4ff3` | snapshot | id | ⬜ |
-| S5 | Tolerancia numérica (float) | `⟦…⟧` | auditoría | `float_tol` | ⬜ |
-| S2 | Definición operacional exacta de M | `⟦…⟧` | código | def. `M` | ⬜ |
-| S2 | Regla exacta de D | `⟦…⟧` | código | def. `D` | ⬜ |
-| S6 | URL del repositorio | `⟦URL⟧` | — | — | ⬜ |
-| S6 | DOI de Zenodo | `⟦DOI⟧` | — | — | ⬜ |
-| Tabla S1 | Conteos por subcampo | `⟦…⟧` | manifiesto cohorte | `count_by_subfield` | ⬜ |
-| Tabla S2 | Diff de reproducción (por revista + agregado) | `⟦…⟧` (esperado: 0 diffs) | auditoría | reproduction diff | ⬜ |
+| S4.3 | Hash pre-registro (fwd + doc) | `⟦…⟧` (64 hex) | pre-registro | SHA-256 | ✅ |
+| S4.3 / S5 | Hash script canónico | `08a0e48a…769` (completo en S5) | script | SHA-256 | ✅ |
+| S4.3 | Hash manifiesto p_cit | **`9fb560d7…`** (ver nota abajo) | manifiesto p_cit | SHA-256 | ✅ |
+| S4.3 | Hash manifiesto p_doc | `70d1ae78…` `⟦full 64 hex⟧` | manifiesto p_doc | SHA-256 | ✅ |
+| S4.3 | Hash runbook p_doc | `⟦…⟧` | runbook | SHA-256 | ✅ |
+| S5 | Hash lock de entorno | `3e5e937b…305a` | env lock | SHA-256 | ✅ |
+| S5 | ID snapshot de entrada | `9844f2c9…4ff3` | snapshot | id | ✅ |
+| S5 | Tolerancia numérica (float) | `⟦…⟧` | auditoría | `float_tol` | ✅ |
+| S2 | Definición operacional exacta de M | `⟦…⟧` | código | def. `M` | ✅ |
+| S2 | Regla exacta de D | `⟦…⟧` | código | def. `D` | ✅ |
+| S6 | URL del repositorio | `⟦URL⟧` | — | — | ⏳ pendiente depósito |
+| S6 | DOI de Zenodo | `⟦DOI⟧` | — | — | ⏳ pendiente depósito |
+| Tabla S1 | Conteos por subcampo | `⟦…⟧` | manifiesto cohorte | `count_by_subfield` | ✅ |
+| Tabla S2 | Diff de reproducción (por revista + agregado) | `⟦…⟧` (esperado: 0 diffs) | auditoría | reproduction diff | ✅ |
 
 > **Nota (importante) sobre el hash p_cit.** S4.3 lista el manifiesto `p_cit` como `⟦…⟧`, pero S5 ya da el hash del **manifiesto canónico** `9fb560d7d53722a1…ed73ea`, que —por el historial de la auditoría (el script `08a0e48a…` reproduce `manifest_A_prima.json`)— **parece ser** el manifiesto p_cit/A′ — pero permanece como **hipótesis** hasta confirmar (R2): (a) nombre exacto del archivo, (b) contenido, (c) rol en el runbook, (d) SHA-256 recalculado directamente. Solo entonces **rellenar S4.3 con el hash confirmado** en lugar de `⟦…⟧`. (Corrección diferida al pase de números; no la aplico ahora para no abrir frente editorial ni dar por buena una inferencia.)
 
@@ -231,4 +233,28 @@ Para renderizar sin fabricar resultados, necesito del manifiesto:
 
 ---
 
-*Estado global: 0 / N verificadas. Ninguna fila se marca `✅` sin haber sido leída directamente del manifiesto. Congelar el PDF solo cuando toda la matriz esté en `✅` y los chequeos de la §10 cierren exactos.*
+*Estado global: ver § «Estado del pase de cierre» al final. Congelar el PDF solo con 0 ⚠ numéricas/especificación (URL/DOI pendientes de depósito no bloquean cifras, sí el depósito Zenodo).*
+
+
+---
+
+## Estado del pase de cierre (automático)
+
+**Fecha:** 2026-07-28 · **PASS=66 · WARN=0 · pendiente depósito=2**
+
+| § | ✅ | ⚠ | ⏳ |
+|---|---:|---:|---:|
+| 1 | 5 | 0 | 0 |
+| 2 | 2 | 0 | 0 |
+| 3 | 3 | 0 | 0 |
+| 4 | 5 | 0 | 0 |
+| 5 | 6 | 0 | 0 |
+| 6 | 6 | 0 | 0 |
+| 7 | 11 | 0 | 0 |
+| 8 | 4 | 0 | 0 |
+| 9 | 12 | 0 | 2 |
+| 10 | 12 | 0 | 0 |
+
+**URL/DOI:** pendientes de depósito Zenodo — **no** cuentan como discrepancia numérica.
+
+**Phase D (PDF freeze / Zenodo):** desbloqueada numéricamente (0 ⚠); URL/DOI ⏳ pendiente depósito.

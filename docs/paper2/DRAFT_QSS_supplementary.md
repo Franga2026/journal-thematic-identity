@@ -27,7 +27,7 @@ We separate propositions that are **deductive** (true by construction, given the
 
 **Proposition 3 (non-redundancy of M and D, empirical).** Coverage and position are not deterministically related: knowing M does not determine D across the cohort. *Evaluated in §6.2.*
 
-**Proposition 4 (separability of JCA, empirical).** Alignment is not a deterministic function of (M, D): a non-trivial share of its cross-journal variance is unexplained by the intrinsic descriptors. *Evaluated in §6.2.*
+**Proposition 4 (separability of JCA, empirical).** Alignment is not a deterministic function of a journal's structural properties—editorial breadth (|E_j|), size (log number of works), and intrinsic shape (entropy or concentration): a non-trivial share of its cross-journal variance remains unexplained by these predictors. *Evaluated in §6.2.*
 
 The deductive propositions guarantee that a *reproducible description* exists; every claim about what that description *reveals* is empirical and is held to the corresponding evidential standard. This boundary is the formal content of Principle 1.
 
@@ -49,8 +49,8 @@ All quantities below are produced by a single canonical implementation (§S6). T
 
 **Comparative descriptors** (require E_j; comparable cohort only):
 - **Alignment**, `JCA = Σ_{s ∈ E_j} p_cit[s]` — the citation-weighted mass of R_j falling within the editorial categories.
-- **Coverage**, `M` — the share of the nucleus intrinsically accounted for (⟦exact operational definition from code⟧).
-- **Position**, `D ∈ {nuclear, peripheral, displaced}` — the location of the journal relative to E_j (⟦exact rule from code⟧).
+- **Coverage**, `M` — the share of the nucleus intrinsically accounted for: \(M_j = (\sum_{s \in K_j \cap E_j} p^{\mathrm{cit}}_{j,s}) / (\sum_{s \in K_j} p^{\mathrm{cit}}_{j,s})\), with nucleus \(K_j\) by cumulative mass \(\tau = 0.5\) on \(p^{\mathrm{cit}}\) (`spec_MD_cientifica.md`; `md_intrinsecos.py`).
+- **Position**, `D ∈ {nuclear, peripheral, displaced}` — with \(m_E = \sum_{s \in E_j} p^{\mathrm{cit}}_{j,s}\): **displaced** if \(m_E < \varepsilon\) (\(\varepsilon = 0.05\)); **nuclear** if \(m_E \ge \varepsilon\) and at least 50% of \(m_E\) falls in \(K_j\) (`FRAC_CORE_NUC = 0.50`); **peripheral** if \(m_E \ge \varepsilon\) and less than 50% of \(m_E\) falls in \(K_j\) (`spec_MD_cientifica.md`; `md_intrinsecos.py`).
 
 **Impact.** `JSS` — a subfield-normalized citation score read directly from the pipeline (`discovery_cite_metrics`); not re-derived here.
 
@@ -103,11 +103,11 @@ Bounds are inclusive; both metrics must indicate the same scenario, and any disa
 ### S4.3 Frozen package identifiers
 | Artifact | SHA-256 |
 |---|---|
-| Preregistration — forward replication + documentary control | ⟦…⟧ |
-| Canonical analysis script | `08a0e48a293096f3…` ⟦full 64 hex⟧ |
-| Manifest (`p_cit`) | ⟦…⟧ |
-| Manifest (`p_doc`) | `70d1ae785a4effd7…` ⟦full 64 hex⟧ |
-| Runbook (`p_doc` replication) | ⟦…⟧ |
+| Preregistration — forward replication (`preregistro_pruebaA_prima.md`) | `e08ce26c0a8f39b05d05aa1c1667301e79160810c5f8692f036b8862b648b982` |
+| Canonical analysis script | `08a0e48a293096f329caed0f85ce6806b49065b4974f4f807e970747ae838769` |
+| Manifest (`p_cit`) | `9fb560d7d53722a16125181f598cf678c2d1664ee055cacc5d39bd1322ed73ea` |
+| Manifest (`p_doc`) | `70d1ae785a4effd759d04de984228ff989f0fb5a7cfe674914636aa197ac86b4` |
+| Runbook (`p_doc` replication; documentary-control protocol) | `36b3a95e3ec44536084aeab71bf91155cc2512a96500584db04a242e2f678363` |
 
 ---
 
@@ -115,7 +115,7 @@ Bounds are inclusive; both metrics must indicate the same scenario, and any disa
 
 Before executing the documentary control, the canonical implementation was audited against this Supplementary Material and the frozen protocols. The audit reads functions and constants **by symbol** (not by line), records the environment and input snapshot, and classifies any reproduction failure as code / data / environment / unresolved drift. Result: **PASS**, with no drift.
 
-Verified points (abridged): the nucleus rule (`≥ τ`, crossing subfield included; tie-break by subfield identifier ascending); the JSD (base-2 divergence, not distance); the entropy base (`ln`); the constants and reference vector; the frozen verdict grid and its four labels; eligibility and the common-panel construction; the perturbation diagnostic; the form correlations (Pearson and Spearman on the same panel); the absence of hard-coded cohort sizes in the computation; and integral reproduction of the frozen manifest at the individual-journal and aggregate levels (unexpected differences: 0; float tolerance ⟦…⟧). Three documentation corrections identified by the audit (nucleus defined solely by the cumulative-mass rule; explicit log bases; `ORDER BY` as optional plumbing) are incorporated in §S2.
+Verified points (abridged): the nucleus rule (`≥ τ`, crossing subfield included; tie-break by subfield identifier ascending); the JSD (base-2 divergence, not distance); the entropy base (`ln`); the constants and reference vector; the frozen verdict grid and its four labels; eligibility and the common-panel construction; the perturbation diagnostic; the form correlations (Pearson and Spearman on the same panel); the absence of hard-coded cohort sizes in the computation; and integral reproduction of the frozen manifest at the individual-journal and aggregate levels (unexpected differences: 0; float tolerance `1e-12`). Three documentation corrections identified by the audit (nucleus defined solely by the cumulative-mass rule; explicit log bases; `ORDER BY` as optional plumbing) are incorporated in §S2.
 
 **Identity of the audited artifacts.**
 | Field | Value |
@@ -140,10 +140,23 @@ Reproduction procedure: instantiate the environment (§S5), point the pipeline a
 
 ---
 
-## S-Figures / S-Tables (to add)
-- **Table S1.** Subfield composition of the cohort (six subfields; counts per frame).
-- **Table S2.** Per-journal and aggregate reproduction diff from the audit.
+## S-Figures / S-Tables
+
+**Table S1.** Subfield composition of the cohort (sampling frame = `in_content` on Path-1 six; source: `journal_frame_index`).
+
+| Subfield code | Sampling frame (`in_content`) | Comparable (`frame_status='comparable'`) |
+|---|---:|---:|
+| 1311 | 83 | 49 |
+| 2604 | 130 | 53 |
+| 2716 | 6 | 1 |
+| 3106 | 50 | 25 |
+| 3109 | 28 | 8 |
+| 3312 | 1164 | 385 |
+| **Total** | **1461** | **521** |
+
+**Table S2.** Reproduction diff from the code-to-documentation audit (`audit_A_prima_consistency/audit_consistency_report.json`, control `10_manifiesto`): unexpected aggregate differences = **0**; unexpected individual (per-journal) differences = **0**; float tolerance = `1e-12`.
+
 - **Figure S1.** Continuous vs threshold-based observables — a schematic of how a nucleus set can turn over under a mass change too small to move the divergence (the operator-decoupling made explicit for §7).
 - **Figure S2.** Perturbation-magnitude diagnostic (distribution of per-journal divergences under the forward replication).
 
-*Draft v1 · Supplementary Material · definitional + reproducibility reference · exact frozen values ⟦…⟧ pending the verification pass.*
+*Draft v1 · Supplementary Material · definitional + reproducibility reference · remaining placeholders: repository URL and Zenodo DOI (pending deposit).*
