@@ -3,12 +3,12 @@
 
 **Author:** Francisco Garrido Valdés · RosFlo Limitada, Santiago, Chile · ORCID [0000-0002-6512-8924](https://orcid.org/0000-0002-6512-8924)
 
-**Preprint v1.0 — submitted to *Quantitative Science Studies* (under peer review).**
-**Archived reproducible package (Zenodo):** [https://doi.org/10.5281/zenodo.21659764](https://doi.org/10.5281/zenodo.21659764)
+**Preprint v1.0 — prepared for submission to *Quantitative Science Studies*. This manuscript has not yet been peer reviewed.**
+**Reproducibility package (Zenodo):** a DOI has been reserved — [https://doi.org/10.5281/zenodo.21659764](https://doi.org/10.5281/zenodo.21659764). The public record will become available upon publication of the deposit.
 
 ---
 
-This repository is the curated scientific package for the manuscript above. It is a public mirror of the Zenodo deposit: the manuscript, the canonical analysis code, the frozen analysis outputs, the data manifests, the preregistration documents, and the audit artifacts used to verify the reported results. It contains **only** the material needed to understand and verify the article — no application code, deployment configuration, or credentials.
+This repository is the curated scientific package for the manuscript above: the manuscript, the canonical analysis code, the frozen analysis outputs, the data manifests, the preregistration documents, and the audit artifacts used to verify the reported results. It contains **only** the material needed to understand and verify the article — no application code, deployment configuration, or credentials. The same package will be archived at Zenodo once the deposit is published.
 
 ## What this work is
 A methodological framework for reconstructing a journal's thematic identity from the topics of its articles, organized around a single principle — **a representation is observed; an identity is inferred** (the *observation–inference separation principle*). The framework is submitted to a preregistered temporal replication and a documentary control, with all thresholds fixed in advance and the outcome reported exactly as the preregistered rule returns it, including where it is inconclusive.
@@ -39,7 +39,7 @@ The repository provides the canonical analysis code, the frozen analysis outputs
 
 **Full re-execution from the source database is an additional level**, conditional on having an equivalent PostgreSQL materialization of the underlying OpenAlex data: the analysis scripts read their input from a PostgreSQL database whose DSN is supplied through the `CRIS_DB_DSN` environment variable. Cloning this repository is therefore sufficient to *verify* every reported quantity against the frozen artifacts, but not, on its own, to *recompute* them from raw data without that materialization.
 
-Every reported quantity traces to the exact implementation that produced it through a SHA-256 version identifier. Because the public code was sanitized (credentials removed, DSN read from the environment), `VERSION.md` records, for each file, both the **frozen** source hash (as executed for the paper, matching the audit catalog) and the **public** sanitized hash, together with the transformation applied and a confirmation that no analytical logic was modified.
+The same package will be archived at Zenodo under the reserved DOI once the deposit is published. Every reported quantity traces to the exact implementation that produced it through a SHA-256 version identifier. Because the public code was sanitized (credentials removed, DSN read from the environment), `VERSION.md` records, for each file, both the **frozen** source hash (as executed for the paper, verified against the audit catalog where the file is registered there) and the **public** sanitized hash, together with the transformation applied and a confirmation that no analytical logic was modified.
 
 ## How to cite
 See `CITATION.cff`. In brief:
@@ -50,4 +50,4 @@ See `CITATION.cff`. In brief:
 The manuscript, figures, and data in this repository are released under **CC BY 4.0** (`LICENSE`). The analysis code under `code/` is released under the **MIT License** (`code/LICENSE`).
 
 ## Status
-Submitted to *Quantitative Science Studies*; under peer review. This preprint is not peer-reviewed.
+Preprint v1.0 — prepared for submission to *Quantitative Science Studies*. This manuscript has not yet been peer reviewed.

@@ -1,7 +1,8 @@
 # VERSION register
 
 **Package:** Reconstructing Journal Thematic Identity from Article-Level Topics — Preprint v1.0 (2026-07-29)  
-**Zenodo (reserved DOI):** https://doi.org/10.5281/zenodo.21659764
+**Status:** Preprint, prepared for submission to *Quantitative Science Studies* (not yet peer reviewed).  
+**Zenodo (reserved DOI):** https://doi.org/10.5281/zenodo.21659764 — public record available upon publication of the deposit.
 
 This register distinguishes the frozen scientific record from the public distributed copy, so that sanitization never overwrites the historical hashes.
 
@@ -44,10 +45,10 @@ Only absolute local filesystem paths were removed; **no data value was changed**
 
 | File | SHA-256 |
 |---|---|
-| `CHANGELOG.md` | `83ce9bb0d3eecba0e6755f62c3f898118fe6f028432bb7dd983c005247ce1778` |
-| `CITATION.cff` | `b0ce87fc5e3c4bf921d77610c07e8015bdae798b879cff482a97a64309558ffe` |
+| `CHANGELOG.md` | `feec55d4caba053ebf1c026a78cb0702e44a7816d602f20b3ae941bf6601aeb6` |
+| `CITATION.cff` | `1ad519226f65bf2c11b4270773ffecd17df5038c9fbf8f41664d774081a20b79` |
 | `LICENSE` | `366e8b5a61c069cc327bb7685854c76565c1af372e42332f7b9522415752320e` |
-| `README.md` | `6c163679bf2bc0ff1c579c8f678388eb53b09747a2cb8191eeb96490ef3c143b` |
+| `README.md` | `a2c2486f29e839d93d13f9181163f3c2beefeda5b280d87b8663f92d69af8ba9` |
 | `code/01_compute_descriptors.py` | `4e85013dc371fedfe036b5cb019bc676a82da2494df8a6ca5a2d6935d3852023` |
 | `code/02_discriminant_analysis.py` | `8e9eb539d12624b8606d416330afe0140aa78ee41c155277be80e9852c2c5b41` |
 | `code/03_temporal_replication.py` | `c4b3e2e531a74413ab62dfa3119d798dba11cb2bad12371c490726d17fd0e76d` |
@@ -96,7 +97,7 @@ Only absolute local filesystem paths were removed; **no data value was changed**
 | `figures/figure3.pdf` | `ea6865b387288c3cfe975c6ac8547add00bd803a9a0f37aa8216bb8d6f6ad1ee` |
 | `figures/figure4.pdf` | `062c278c1acad54f5e2c5eabe81fb4968e0cab0d4b3ecb92e0393af0da1a7de2` |
 | `figures/figure5.pdf` | `f3f8e47f0ad1ed9da4b46ce6a87286864e71e9653f62cdea75a9e7a10ec9b261` |
-| `manuscript/preprint.md` | `d0f2543451428f6134290b211e40d1f36fb20455e69b85e35cbfa1be87201de5` |
-| `manuscript/preprint.pdf` | `9b93308f2aba82cfcf0510ba8df1a2616f24ed72c6a9d9d08fd5974a32cc3cb7` |
+| `manuscript/preprint.md` | `3ea06b6e3fc8aac23c7ddb3fd5486e10218842a584c7eb15976cc5fabd7bef63` |
+| `manuscript/preprint.pdf` | `db5dfb4944b1852ce98727a5b9d8d4c6a767fe3c58b8d2f22c01b8485476f065` |
 | `manuscript/supplementary.md` | `0af25cbc7322e31a8baada504b1e5801515a9d6fb6eccfb01e2557cb56c3df5f` |
-| `manuscript/supplementary.pdf` | `e97d38f47a5ca27a6b53f9b22512410f8290f68333eec05e927627611c377498` |
+| `manuscript/supplementary.pdf` | `23e3ca0d90c570607a3dc37802ba093b8b1cfdff7e899047d776518d603a7df3` |

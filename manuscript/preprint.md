@@ -181,7 +181,7 @@ Formal statements and proofs of the propositions · exact metric definitions aga
 
 **Funding.** This research received no external funding. It was supported by RosFlo Limitada.
 
-**Data and code availability.** All code, data manifests, preregistration documents, and the code-to-documentation audit report supporting this study are openly available, archived at Zenodo (https://doi.org/10.5281/zenodo.21659764). Each released artifact—including the canonical implementation, the analysis outputs, the preregistration documents, and the audit report—carries a SHA-256 version identifier, and the version register links every reported quantity to the exact implementation and execution that produced it.
+**Data and code availability.** A reproducibility package supporting this study—comprising all code, data manifests, preregistration documents, and the code-to-documentation audit report—accompanies the manuscript. A Zenodo DOI has been reserved for this package (https://doi.org/10.5281/zenodo.21659764); the public record will become available upon publication of the deposit. Each released artifact—including the canonical implementation, the analysis outputs, the preregistration documents, and the audit report—carries a SHA-256 version identifier, and the version register links every reported quantity to the exact implementation and execution that produced it.
 
 ---
 
