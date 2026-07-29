@@ -1,0 +1,20 @@
+cris-discovery-api/scripts/robustez_perfil.py:72: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  return pd.read_sql(q, c)
+
+==============================================================================
+ CAPA 2 · ROBUSTEZ DEL PERFIL OBSERVADO (Nivel 1)  — umbrales PRE-REGISTRADOS
+ Éxito: mediana JSD ≤ 0.1  ·  núcleo preservado ≥ 90%  ·  corr descriptores ≥ 0.9
+ Fracaso: JSD > 0.2  ·  núcleo < 80%  ·  corr < 0.8
+ Valida SOLO el Nivel 1. La estabilidad es "reconocible", no "idéntico".
+==============================================================================
+
+[datos] 522 revistas · configs presentes: ['W+1_2022_2025', 'W-1_2020_2023', 'W0_2021_2024', 'W0_2021_2024_snap2']
+
+[A·temporal-adyacente]  n=522
+   JSD mediana=0.046  P90=0.132  | núcleo preservado=82.2%  top-K Jaccard(med)=1.00
+   corr TCI=0.826  corr entropía=0.763
+   -> FRACASO — configuración-dependiente fuerte (acotar el claim de identidad)
+   (revisar interpretabilidad de la cola alta de JSD: ['S2737587141', 'S46460922', 'S4306507480', 'S4306525367', 'S4306510024', 'S4210241156', 'S4306502127', 'S4210193457'])
+
+Congelar esta salida como evidencia de la Capa 2. Recordar: valida el Nivel 1,
+no la identidad (Nivel 2) ni los descriptores comparativos (Nivel 3).

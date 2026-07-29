@@ -1,0 +1,34 @@
+cris-discovery-api/scripts/validez_discriminante_jca.py:184: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  summ = pd.read_sql(q_summary, conn, params=(window_year,))
+cris-discovery-api/scripts/validez_discriminante_jca.py:185: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  frame = pd.read_sql(q_frame, conn)
+cris-discovery-api/scripts/validez_discriminante_jca.py:186: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  path1 = set(pd.read_sql(q_path1, conn)["field_code"].astype(str).tolist())
+cris-discovery-api/scripts/validez_discriminante_jca.py:152: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  return pd.read_sql(q, conn, params=(source_ids,))
+[load] n=522  dropped=0  path1=['1311', '2604', '2716', '3106', '3109', '3312']  d_kind=cuartiles only (|ΔQ| ∈ 0..3)
+[cohorte] N con JCA/|E|/N/H = 522  ·  JOES (S2898412997) presente: True
+  JOES: JCA=0.1196  |E|=3  N=340  H=0.5378  TCI_n=0.3119
+
+===== CON JOES (cohorte de perfil ~522)  (N=522) =====
+  H (entropía_norm)     R²=0.392  AIC=-383.9
+  TCI_n (HHI/100)       R²=0.492  AIC=-477.2
+  ambas (H+TCI_n)       R²=0.493  AIC=-475.9
+  VIF (modelo ambas): {'e_count': np.float64(1.02), 'log_n': np.float64(1.27), 'h': np.float64(5.37), 'tci_n': np.float64(5.6)}
+  → mejor por AIC: TCI_n (HHI/100)  ·  benchmark conservador (TCI): R²=0.492
+
+===== SIN JOES (cohorte comparable 521)  (N=521) =====
+  H (entropía_norm)     R²=0.395  AIC=-387.7
+  TCI_n (HHI/100)       R²=0.496  AIC=-482.6
+  ambas (H+TCI_n)       R²=0.496  AIC=-481.5
+  VIF (modelo ambas): {'e_count': np.float64(1.02), 'log_n': np.float64(1.27), 'h': np.float64(5.38), 'tci_n': np.float64(5.6)}
+  → mejor por AIC: TCI_n (HHI/100)  ·  benchmark conservador (TCI): R²=0.496
+
+===== ¿Cambia algo material al excluir JOES? =====
+  mejor-AIC con JOES = TCI_n (HHI/100)  ·  sin JOES = TCI_n (HHI/100)  → IGUAL
+  Δ R² modelo H     = 0.0024
+  Δ R² benchmark TCI = 0.0038  → solo redondeo: mantener narrativa, actualizar valores
+  N con JOES=522  sin JOES=521  (JOES INCLUIDO en corrida completa)
+
+Reportar en §5.5 los valores SIN JOES (N=521) si esa es la cohorte comparable.
+Si el orden por AIC y el benchmark TCI no cambian, la narrativa se mantiene.

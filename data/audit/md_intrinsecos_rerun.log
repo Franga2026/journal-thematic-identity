@@ -1,0 +1,60 @@
+cris-discovery-api/scripts/md_intrinsecos.py:58: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  prof = pd.read_sql(
+cris-discovery-api/scripts/md_intrinsecos.py:63: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  ej = pd.read_sql(
+
+==============================================================================
+ M/D INTRÍNSECOS — criterios PRE-REGISTRADOS (spec_MD_cientifica.md §4)
+ M = masa del núcleo cubierta por E_j / masa del núcleo    (0..1)
+ D = posición de E_j: 'núcleo' (≥50% de su masa en el núcleo) /
+     'periferia' (presente, fuera del núcleo) / 'desplazada' (masa < 0.05)
+ 2×2:  M alta ≥ 0.5 ;  D cerca = núcleo, lejos = periferia∪desplazada
+ Etapa 4 no interpreta; Etapa 5 reporta correlación y cuadrantes contra estos criterios.
+==============================================================================
+
+[datos] revistas=521  (sin E_j: 0)
+
+--- Distribución de M (cobertura estructural) ---
+  media=0.738  P50=0.798  IQR=[0.551,1.0]  %M<0.2=7.1%  %M>0.8=49.7%
+  (contraste JCA impacto-total: media=0.517; corr(M,JCA)=0.846)
+
+--- Distribución de D (categórica) ---
+  núcleo=485 (93.1%)  periferia=33 (6.3%)  desplazada=3 (0.6%)
+
+--- ¿M y D son independientes? (correlación observada) ---
+  corr(M, D_cont) Pearson=-0.491  Spearman=-0.393  (excluye desplazadas)
+  (se reporta la correlación; NO se colapsan en un índice compuesto — pre-registrado.)
+
+--- Matriz 2×2 (conteos) ---
+D_lvl   D-cerca  D-lejos
+M_lvl                   
+M-alta      415        0
+M-baja       70       36
+
+--- Ejemplares extremos por cuadrante ---
+[M-alta · D-cerca]  (etiqueta representa bien el núcleo) → mayor M:
+  source_id   M    JCA   D_cont  D_cat
+ S101267242 1.0 1.0000 0.000000 núcleo
+S4210200560 1.0 0.6585 0.000000 núcleo
+S4210194695 1.0 0.9189 0.004413 núcleo
+[M-baja · D-lejos]  (fuerte discrepancia; tipo JOES) → menor JCA:
+  source_id   M    JCA  D_cont      D_cat
+S4210198502 0.0 0.0000     NaN desplazada
+ S201345032 0.0 0.0435     NaN desplazada
+S4210210030 0.0 0.0480     NaN desplazada
+[M-baja · D-cerca]  (núcleo coincide, pero mucha diversidad fuera) → menor M con D=núcleo:
+ source_id        M    JCA   D_cont  D_cat
+S206553565 0.144505 0.1052 0.051887 núcleo
+S180943771 0.222205 0.2790 0.100000 núcleo
+S168777572 0.230799 0.1342 0.110656 núcleo
+[M-alta · D-lejos]  (cobertura amplia pero desplazada; puede ser raro) → mayor M con D=lejos:
+Empty DataFrame
+Columns: [source_id, M, JCA, D_cont, D_cat]
+Index: []
+
+Nota: la escasez del cuadrante M-alta/D-lejos, si aparece, es en sí un hallazgo
+(no se puede cubrir el núcleo estando desplazado). Reportar el conteo, no forzarlo.
+
+Guardar esta salida como Etapa 4/5 de M/D. Interpretar contra los criterios pre-registrados.
+
+[csv] → cris-discovery-api/data/md_intrinsecos_W0.csv

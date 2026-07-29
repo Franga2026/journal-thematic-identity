@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "Reconstructing Journal Thematic Identity from Article-Level Topics: A Reproducible Framework and a Preregistered Temporal Validation"
+abstract: "A methodological framework for reconstructing a journal's thematic identity from article-level topic distributions (OpenAlex subfields), organized around a strict separation between the observed thematic representation and any inferred thematic identity (the observation-inference separation principle). The framework is submitted to a preregistered prospective temporal replication and a documentary control, with all thresholds fixed in advance and the outcome reported as the preregistered rule returns it. This repository provides the manuscript, the canonical analysis code, frozen analysis outputs, data manifests, preregistration documents, and audit artifacts, released with SHA-256 version identifiers."
+type: article
+authors:
+  - family-names: "Garrido Valdés"
+    given-names: "Francisco"
+    orcid: "https://orcid.org/0000-0002-6512-8924"
+    affiliation: "RosFlo Limitada, Santiago, Chile"
+    email: "fgarrido@rosflo.com"
+version: "1.0"
+date-released: "2026-07-29"
+license: CC-BY-4.0
+repository-code: "https://github.com/Franga2026/journal-thematic-identity"
+doi: "10.5281/zenodo.21659764"
+keywords:
+  - thematic identity
+  - journal profiling
+  - article-level topics
+  - reproducibility
+  - preregistration
+notes: "Preprint v1.0. Submitted to Quantitative Science Studies for peer review. Manuscript, figures, and data under CC BY 4.0; analysis code under MIT."

@@ -1,0 +1,70 @@
+{
+  "stability": {
+    "n_eligible": 511,
+    "n_rows_total": 522,
+    "median_S_raw": 0.7830391698274216,
+    "median_S_published": 0.783,
+    "min": 0.30015169521280427,
+    "q1": 0.7130317254787409,
+    "mean": 0.7763642411244789,
+    "q3": 0.8605775587194546,
+    "max": 0.994280723856756,
+    "p10": 0.6305717536088555,
+    "p90": 0.9114027030829028,
+    "mass_mode": "p_doc",
+    "window": "within-window annual adjacency 2021–2024 (D_MIN=5)",
+    "vector_file": "figure4_stability.csv",
+    "source_file": "cris-discovery-api/data/stability_S_pdoc.csv",
+    "source_sha256": "f1aa1178ecfce9717716aa210ff3564ed33177542130c43824125dafc1458478"
+  },
+  "backward_shift": {
+    "n": 522,
+    "mass_mode": "p_cit",
+    "comparison": "W0_2021_2024 vs W-1_2020_2023",
+    "jsd_base": "natural_log_nats (robustez_perfil.jsd)",
+    "jsd_median_raw": 0.045861373324039556,
+    "jsd_median_published_3dec": 0.046,
+    "jaccard_median_raw": 1.0,
+    "jaccard_pct_ge_090_raw": 0.5191570881226054,
+    "dominant_pct_raw": 0.8218390804597702,
+    "dominant_pct_published_3dec": 0.822,
+    "corr_TCI_raw": 0.8257416714087514,
+    "corr_TCI_type": "Pearson",
+    "corr_H_raw": 0.8976906404539603,
+    "corr_H_type": "Pearson (diag_entropia_cola_A truncate cut=0)",
+    "corr_Hnorm_raw": 0.7631743023926657,
+    "corr_Hnorm_type": "Pearson (robustez_perfil entropy_norm)",
+    "source_file": "cris-discovery-api/scripts/robustez_perfil.py + diag_entropia_cola_A.py",
+    "source_sha256": {
+      "robustez_perfil.py": "dbb33dac1d07bb95cbc27ef1703ebc4764af4c41b74db849bd4e358f4b2c91f3",
+      "diag_entropia_cola_A.py": "2c5633a495421ec6e8e4fbb73f17512d1914be6e5a1eb080f7119fe301608b6c"
+    }
+  },
+  "taxonomic_coarsening": {
+    "n": 522,
+    "dominant_preservation_raw": 0.965,
+    "dominant_preservation_conservative_raw": 0.962,
+    "jaccard_median_raw": 1.0,
+    "jaccard_pct_ge_070_raw": 0.787,
+    "corr_TCI_raw": 0.683,
+    "corr_Hnorm_raw": 0.62,
+    "corr_H_raw": 0.772,
+    "correlation_type": "Spearman (B3 shape ordinal; as printed by pruebaB_taxonomica.py)",
+    "mass_mode": "p_cit (W0 profile rolled subfield→field)",
+    "comparison": "subfield-level profile vs field-level roll-up of same W0_2021_2024 window",
+    "additional_statistics": {
+      "sin_field_mapeado": 1,
+      "indeterminadas_empate_dominante": 4,
+      "log_excerpt_sha_of_this_run": "802ab667ed0e20274f4bce4e8cec4c6902d21703a6117605cd8642398e608da9"
+    },
+    "source_file": "cris-discovery-api/scripts/pruebaB_taxonomica.py (stdout this extraction)",
+    "source_sha256": "fe98a5d7ca51f674c52803b810379eb2c58116403bfec3efb8d41cbc229f6357",
+    "note": "Printed percentages for B2 %≥0.70 are already ×100 in log; stored here as fraction after /100"
+  },
+  "provenance": {
+    "extraction_command": "read-only extraction: stability_S_pdoc.csv; robustez_perfil.compare_pair; diag H_raw; pruebaB_taxonomica.py stdout",
+    "generated_at": "2026-07-28T14:25:08.438236+00:00",
+    "snapshot_id": "9844f2c9e1dedd7328b5299702591c7c26da6f29c39fc67bcb04b3b2e9814ff3",
+    "float_tol": 1e-12
+  }
+}

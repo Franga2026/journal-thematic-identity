@@ -1,0 +1,62 @@
+{
+  "disponible": true,
+  "manifiesto_json_depositado": false,
+  "preexistente": "cris-discovery-api/logs/robustez_perfil_A.log + diag_entropia_cola_A.log",
+  "regenerado": {
+    "comando_robustez": "python scripts/robustez_perfil.py",
+    "comando_diag": "python scripts/diag_entropia_cola_A.py",
+    "sha_log_rerun_robustez": null
+  },
+  "N": 522,
+  "jsd_median": 0.04586137332403956,
+  "jaccard_median": 1.0,
+  "dominant_pct": 0.8218390804597702,
+  "corr_TCI": 0.8257416714087514,
+  "corr_H_norm": 0.7631743023926657,
+  "corr_H_raw": 0.8976906404539603,
+  "nota": "JSD en robustez_perfil es en nats (ln); REF_A congela redondeos de esta salida + H_raw del diag",
+  "round_vs_REF_A": {
+    "jsd": {
+      "bruto": 0.04586137332403956,
+      "regla": "3dec",
+      "pub": 0.046,
+      "recomp": 0.046,
+      "ok": true
+    },
+    "jacc": {
+      "bruto": 1.0,
+      "regla": "2dec",
+      "pub": 1.0,
+      "recomp": 1.0,
+      "ok": true
+    },
+    "dom": {
+      "bruto": 0.8218390804597702,
+      "regla": "3dec",
+      "pub": 0.822,
+      "recomp": 0.822,
+      "ok": true
+    },
+    "tci": {
+      "bruto": 0.8257416714087514,
+      "regla": "2dec",
+      "pub": 0.83,
+      "recomp": 0.83,
+      "ok": true
+    },
+    "H": {
+      "bruto": 0.8976906404539603,
+      "regla": "2dec",
+      "pub": 0.9,
+      "recomp": 0.9,
+      "ok": true
+    },
+    "Hnorm": {
+      "bruto": 0.7631743023926657,
+      "regla": "2dec",
+      "pub": 0.76,
+      "recomp": 0.76,
+      "ok": true
+    }
+  }
+}

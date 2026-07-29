@@ -1,0 +1,19 @@
+{
+  "scientific_payload_equal": true,
+  "eligibility_payload_equal": true,
+  "allowed_metadata_differences": [
+    "run_date",
+    "path",
+    "filename",
+    "wrapper_hash",
+    "mass_mode"
+  ],
+  "float_tolerance": 1e-12,
+  "unexpected_differences_individual": 0,
+  "unexpected_differences_aggregate": 0,
+  "unexpected_individual_detail": [],
+  "unexpected_aggregate_detail": [],
+  "new_mass_mode": "p_cit",
+  "new_wrapper_hash": "11897876ccb20e78387f688dea57e851c190804390a23cbafb7b0c9e4a2d813c",
+  "new_computed_at": "2026-07-23T19:52:57"
+}

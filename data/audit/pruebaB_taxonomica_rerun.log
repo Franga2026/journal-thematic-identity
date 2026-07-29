@@ -1,0 +1,26 @@
+cris-discovery-api/scripts/pruebaB_taxonomica.py:73: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  return pd.read_sql(q, c)
+cris-discovery-api/scripts/pruebaB_taxonomica.py:80: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  m = pd.read_sql(
+
+[datos] revistas=522  sin field mapeado=1  indeterminadas (empate dominante)=4
+[mapa] MAP_MODE=table  entradas cargadas=252
+
+=== B1 · estructura dominante ===
+  coincidencia (excl. indeterminadas, n=517) = 0.965 → ÉXITO
+  variante conservadora (empate=no match)            = 0.962 → ÉXITO
+
+=== B2 · núcleo por roll-up (Jaccard) ===
+  mediana J = 1.000  · % con J≥0.70 = 78.7%  → ZONA GRIS
+
+=== B3 · preservación ordinal de la forma (Spearman entre niveles) ===
+  TCI      ρ=0.683 → FRACASO
+  H_norm   ρ=0.620 → FRACASO
+  H_raw    ρ=0.772 (referencia)
+
+=== VEREDICTOS (pre-registrados, separados) ===
+  ESTRUCTURAL: ÉXITO PARCIAL
+  FORMA · TCI: FRACASO   FORMA · entropía (H_norm): FRACASO
+
+  Hipótesis estructura/dinámica: mixto — reportar tal cual
+  (Junto con la Prueba A temporal: si hay apoyo, la distinción pasa a rasgo del marco.)

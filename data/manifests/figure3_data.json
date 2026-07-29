@@ -1,0 +1,186 @@
+{
+  "typology": {
+    "n_total": 521,
+    "M_axis": {
+      "definition": "M = (sum of p_cit over nucleus∩E_j) / (sum of p_cit over nucleus); nucleus K by cumulative mass τ=0.5 on p_cit. Source: docs/paper2/spec_MD_cientifica.md + scripts/md_intrinsecos.py",
+      "categories": [
+        {
+          "id": "M-alta",
+          "label": "M-alta (high coverage)",
+          "rule": "M ≥ 0.50 (M_ALTA)"
+        },
+        {
+          "id": "M-baja",
+          "label": "M-baja (low coverage)",
+          "rule": "M < 0.50"
+        }
+      ]
+    },
+    "D_axis": {
+      "definition": "Position of editorial set E_j relative to observed nucleus. Original D_cat from md_intrinsecos / spec_MD_cientifica.md §Definiciones.",
+      "original_categories": [
+        {
+          "id": "nuclear",
+          "label": "núcleo",
+          "rule": "ej_mass ≥ 0.05 AND (mass of E_j in nucleus)/ej_mass ≥ 0.50 (FRAC_CORE_NUC)"
+        },
+        {
+          "id": "peripheral",
+          "label": "periferia",
+          "rule": "ej_mass ≥ 0.05 AND (mass of E_j in nucleus)/ej_mass < 0.50"
+        },
+        {
+          "id": "displaced",
+          "label": "desplazada",
+          "rule": "ej_mass < 0.05 (EPS_DESPL)"
+        }
+      ],
+      "figure_grouping": [
+        {
+          "id": "D-cerca",
+          "label": "D-cerca (near)",
+          "includes": [
+            "nuclear"
+          ],
+          "rule_frozen": "D_cat == 'núcleo'  (spec_MD_cientifica.md §Matriz 2×2; md_intrinsecos.py)"
+        },
+        {
+          "id": "D-lejos",
+          "label": "D-lejos (far)",
+          "includes": [
+            "peripheral",
+            "displaced"
+          ],
+          "rule_frozen": "D_cat ∈ {periferia, desplazada}  (spec_MD_cientifica.md §Matriz 2×2)"
+        }
+      ],
+      "grouping_status": "DISPONIBLE — dichotomization pre-registered in spec_MD_cientifica.md (2026-07-22) and implemented in md_intrinsecos.py"
+    },
+    "cells": [
+      {
+        "M_category": "M-alta",
+        "D_category": "D-cerca",
+        "count": 415
+      },
+      {
+        "M_category": "M-alta",
+        "D_category": "D-lejos",
+        "count": 0
+      },
+      {
+        "M_category": "M-baja",
+        "D_category": "D-cerca",
+        "count": 70
+      },
+      {
+        "M_category": "M-baja",
+        "D_category": "D-lejos",
+        "count": 36
+      }
+    ],
+    "cell_mapping_explicit": [
+      {
+        "M_category": "M-alta",
+        "D_category": "D-cerca",
+        "count": 415,
+        "means": "M≥0.50 AND D_cat=núcleo"
+      },
+      {
+        "M_category": "M-alta",
+        "D_category": "D-lejos",
+        "count": 0,
+        "means": "M≥0.50 AND D_cat∈{periferia,desplazada}"
+      },
+      {
+        "M_category": "M-baja",
+        "D_category": "D-cerca",
+        "count": 70,
+        "means": "M<0.50 AND D_cat=núcleo"
+      },
+      {
+        "M_category": "M-baja",
+        "D_category": "D-lejos",
+        "count": 36,
+        "means": "M<0.50 AND D_cat∈{periferia,desplazada}"
+      }
+    ],
+    "cell_count_sum": 521,
+    "D_cat_counts": {
+      "núcleo": 485,
+      "periferia": 33,
+      "desplazada": 3
+    },
+    "mean_dominant_share": 0.47450747126436793,
+    "mean_dominant_share_N": 522,
+    "mean_dominant_share_definition": "avg(max(p_cit)) over journals in W0_2021_2024"
+  },
+  "discriminant": [
+    {
+      "specification": "JCA ~ |E| + logN + H",
+      "dependent": "JCA",
+      "predictors": [
+        "|E|",
+        "logN",
+        "H"
+      ],
+      "predictor_columns": [
+        "e_count",
+        "log_n",
+        "h"
+      ],
+      "n": 521,
+      "model": "OLS (statsmodels)",
+      "r2_type": "ordinary_rsquared",
+      "r2_raw": 0.3948093615605516,
+      "r2_published_3dec": 0.395,
+      "r2_published_2dec": 0.39,
+      "r2_equals_0_40_under_R1_2dec": false,
+      "r2_equals_0_395_under_R1_3dec": true,
+      "r2_published": 0.395
+    },
+    {
+      "specification": "JCA ~ |E| + logN + TCI_n",
+      "dependent": "JCA",
+      "predictors": [
+        "|E|",
+        "logN",
+        "TCI"
+      ],
+      "predictor_columns": [
+        "e_count",
+        "log_n",
+        "tci_n"
+      ],
+      "note_TCI": "TCI_n = TCI/100 (HHI/100) as in chequeo_jca_joes.py",
+      "n": 521,
+      "model": "OLS (statsmodels)",
+      "r2_type": "ordinary_rsquared",
+      "r2_raw": 0.49567606126023833,
+      "r2_published_3dec": 0.496,
+      "r2_published_2dec": 0.5,
+      "r2_equals_0_50_under_R1_2dec": true,
+      "r2_equals_0_496_under_R1_3dec": true,
+      "r2_published": 0.496
+    }
+  ],
+  "provenance": {
+    "source_files": [
+      "cris-discovery-api/data/md_intrinsecos_W0.csv",
+      "cris-discovery-api/docs/paper2/spec_MD_cientifica.md",
+      "cris-discovery-api/scripts/md_intrinsecos.py",
+      "cris-discovery-api/scripts/chequeo_jca_joes.py",
+      "cris-discovery-api/scripts/validez_discriminante_jca.py",
+      "cris-discovery-api/data/jca_discriminant_2024.json"
+    ],
+    "source_sha256": {
+      "cris-discovery-api/data/md_intrinsecos_W0.csv": "fd489fcda3cdfc89b4ba790ac4c19b88487c3d47042a7638ba26d3c1b26f4f20",
+      "cris-discovery-api/docs/paper2/spec_MD_cientifica.md": "4e574f2457f319a548f823067490273bd550f4dcaed630680715ae285c93deec",
+      "cris-discovery-api/scripts/md_intrinsecos.py": "0e819dc45410093939129ae992b2d767b47d154a263643c29efe74f7635b0f48",
+      "cris-discovery-api/scripts/chequeo_jca_joes.py": "554575ddc7fab9cdf3ece876fadde647f47a722b1ca8e172d18764177f8226ca",
+      "cris-discovery-api/scripts/validez_discriminante_jca.py": "f05565723bd733f3aa247de6c8072da28dcb04d528b1365d595a3c7e7fdaf768",
+      "cris-discovery-api/data/jca_discriminant_2024.json": "52ad51c19896537a9008b535ab438858d5b020f93c95a48d4f7958cd1a81fbaa"
+    },
+    "extraction_command": "read-only Python extraction against md_intrinsecos_W0.csv + load_data(2024) OLS N=521 sin JOES + SQL max(p_cit)",
+    "generated_at": "2026-07-28T14:25:06.830938+00:00"
+  }
+}

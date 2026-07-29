@@ -1,0 +1,26 @@
+{
+  "script_robustez": "scripts/robustez_perfil.py",
+  "pair": "W0_2021_2024 vs W-1_2020_2023",
+  "N": 522,
+  "from_robustez_perfil_rerun": {
+    "jsd_median": 0.046,
+    "jaccard_median_topk": 1.0,
+    "dominant_pct": 0.822,
+    "corr_TCI": 0.826,
+    "corr_entropy_as_printed": 0.763
+  },
+  "from_diag_entropia_cut0": {
+    "corr_H_raw": 0.898,
+    "corr_H_norm": 0.763,
+    "corr_TCI": 0.826
+  },
+  "REF_A_frozen_in_code": {
+    "jsd": 0.046,
+    "jacc": 1.0,
+    "dom": 0.822,
+    "tci": 0.83,
+    "hcrudo": 0.9,
+    "hnorm": 0.76
+  },
+  "note": "No JSON manifest_backward deposited; empirical trail = robustez log + diag_entropia + REF_A dict in prueba_A_prima.py"
+}

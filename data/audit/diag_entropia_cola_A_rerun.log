@@ -1,0 +1,20 @@
+cris-discovery-api/scripts/diag_entropia_cola_A.py:39: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  return pd.read_sql(q, c)
+[datos] revistas comunes W0_2021_2024 ∩ W-1_2020_2023: 522
+
+Correlación de descriptores entre ventanas, por umbral de truncado de cola:
+   cut  corr H_norm  corr H_raw  corr TCI  k_med_A  k_med_B
+ 0.000        0.763       0.898     0.826       16       16
+ 0.005        0.732       0.885     0.825       12       12
+ 0.010        0.720       0.860     0.815       10       10
+ 0.020        0.724       0.810     0.795        7        7
+ 0.050        0.717       0.712     0.735        4        4
+
+[cola→divergencia]  Spearman( nº subcampos marginales (<0.02) , |Δentropy_norm| ) = -0.364
+  ρ positivo y alto ⇒ la divergencia de entropía la impulsa la cola marginal.
+
+Lectura:
+  · Si corr H_norm sube y cruza 0.80 al truncar la cola  → FRACASO = artefacto de cola.
+    Fix: reportar entropía sobre distribución truncada, o apoyar la identidad en masa/núcleo/TCI.
+  · Si corr H_norm sigue < 0.80 aun truncando            → la forma del perfil sí se mueve;
+    acotar más fuerte el claim de Nivel 1. (No se tocan los umbrales pre-registrados en ningún caso.)

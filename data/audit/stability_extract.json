@@ -1,0 +1,14 @@
+{
+  "source": "data/stability_S_pdoc.csv",
+  "preexistente_o_regenerado": "preexistente",
+  "n_rows": 522,
+  "n_eligible": 511,
+  "median_S": 0.7830391698274216,
+  "mean_S": 0.7763642411244789,
+  "iqr": [
+    0.7130317254787409,
+    0.8605775587194546
+  ],
+  "p10": 0.6305717536088555,
+  "p90": 0.9114027030829028
+}

@@ -1,0 +1,55 @@
+{
+  "comando": "psycopg SELECT \u2026 (release_audit_r3 evidence script)",
+  "count_by_subfield": {
+    "1311": {
+      "n_comparable": 49,
+      "n_frame": 83
+    },
+    "2604": {
+      "n_comparable": 53,
+      "n_frame": 130
+    },
+    "2716": {
+      "n_comparable": 1,
+      "n_frame": 6
+    },
+    "3106": {
+      "n_comparable": 25,
+      "n_frame": 50
+    },
+    "3109": {
+      "n_comparable": 8,
+      "n_frame": 28
+    },
+    "3312": {
+      "n_comparable": 385,
+      "n_frame": 1164
+    }
+  },
+  "dominant_share_W0_pcit": {
+    "N": 522,
+    "mean": 0.47450747126436793,
+    "median": 0.4488
+  },
+  "n_analytic": 522,
+  "n_comparable": 521,
+  "n_frame": 1461,
+  "n_subfields": 6,
+  "operational_defs": {
+    "mean_dominant_share": "avg(max(p_cit)) over journals in W0_2021_2024",
+    "n_analytic": "count(*) FROM journal_identity_summary WHERE window_year=2024",
+    "n_comparable": "count(*) WHERE frame_status='comparable'",
+    "n_frame": "count(*) WHERE field_code IN path1_six AND in_content",
+    "n_subfields": "distinct field_code in path1 six"
+  },
+  "path1_six": [
+    "1311",
+    "2604",
+    "2716",
+    "3106",
+    "3109",
+    "3312"
+  ],
+  "preexistente_o_regenerado": "regenerado (consulta SQL; no hab\u00eda manifiesto JSON depositado)",
+  "source": "live SQL against journal_frame_index / journal_identity_summary / journal_identity_profile"
+}

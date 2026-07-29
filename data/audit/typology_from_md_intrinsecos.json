@@ -1,0 +1,17 @@
+{
+  "source": "data/md_intrinsecos_W0.csv",
+  "preexistente_o_regenerado": "CSV preexistente; regenerado en ronda 3 via scripts/md_intrinsecos.py (mismos conteos)",
+  "comando": "python scripts/md_intrinsecos.py",
+  "N": 521,
+  "cells_2x2": {
+    "M-alta|D-cerca": 415,
+    "M-baja|D-cerca": 70,
+    "M-baja|D-lejos": 36
+  },
+  "D_cat": {
+    "n\u00facleo": 485,
+    "periferia": 33,
+    "desplazada": 3
+  },
+  "mean_M": 0.7375353016104245
+}
