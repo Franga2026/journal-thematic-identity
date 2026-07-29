@@ -2,6 +2,14 @@
 
 All notable changes to this scientific package are documented here. Versioning is manuscript-level (not semantic).
 
+## [1.0.1] — 2026-07-29
+### Editorial correction (package artifact only; no scientific change)
+- Supplementary §S6: changed "Archived deposit (Zenodo)" to "Reserved Zenodo deposit (DOI reserved; record becomes public upon publication)", consistent with the deposit not yet being published.
+- Removed a stale internal draft footer from the Supplementary ("Draft v1 … remaining placeholders … pending deposit").
+- Fixed a filename reference in the Supplementary: `VERSIONS.md` → `VERSION.md`.
+- Supplementary §S6 reproduction procedure: "archived snapshot" → "frozen input snapshot", consistent with the not-yet-published deposit.
+- No change to any number, figure, code, datum, or the manuscript text. The manuscript version is unchanged (v1.0); this release corrects the public package artifact only.
+
 ## [1.0] — 2026-07-29
 ### Preprint v1.0 — prepared for submission to Quantitative Science Studies
 - First public release of the curated scientific package, corresponding to the preprint manuscript (not yet peer reviewed).

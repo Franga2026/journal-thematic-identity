@@ -1,6 +1,7 @@
 # VERSION register
 
 **Package:** Reconstructing Journal Thematic Identity from Article-Level Topics — Preprint v1.0 (2026-07-29)  
+**Release:** v1.0.1 — editorial correction of the Supplementary (see `CHANGELOG.md`); manuscript content unchanged (v1.0).  
 **Status:** Preprint, prepared for submission to *Quantitative Science Studies* (not yet peer reviewed).  
 **Zenodo (reserved DOI):** https://doi.org/10.5281/zenodo.21659764 — public record available upon publication of the deposit.
 
@@ -45,7 +46,7 @@ Only absolute local filesystem paths were removed; **no data value was changed**
 
 | File | SHA-256 |
 |---|---|
-| `CHANGELOG.md` | `feec55d4caba053ebf1c026a78cb0702e44a7816d602f20b3ae941bf6601aeb6` |
+| `CHANGELOG.md` | `b3ee4befd8f667c0a529145dc7676a19470eeb2d74fd6768a777625ec1df5658` |
 | `CITATION.cff` | `1ad519226f65bf2c11b4270773ffecd17df5038c9fbf8f41664d774081a20b79` |
 | `LICENSE` | `366e8b5a61c069cc327bb7685854c76565c1af372e42332f7b9522415752320e` |
 | `README.md` | `a2c2486f29e839d93d13f9181163f3c2beefeda5b280d87b8663f92d69af8ba9` |
@@ -99,5 +100,5 @@ Only absolute local filesystem paths were removed; **no data value was changed**
 | `figures/figure5.pdf` | `f3f8e47f0ad1ed9da4b46ce6a87286864e71e9653f62cdea75a9e7a10ec9b261` |
 | `manuscript/preprint.md` | `3ea06b6e3fc8aac23c7ddb3fd5486e10218842a584c7eb15976cc5fabd7bef63` |
 | `manuscript/preprint.pdf` | `db5dfb4944b1852ce98727a5b9d8d4c6a767fe3c58b8d2f22c01b8485476f065` |
-| `manuscript/supplementary.md` | `84cf2d4e16ba6cec7cd38176f8a423eb18293c4ae8c4821125a7eae4789804be` |
-| `manuscript/supplementary.pdf` | `9e8f033a9a35c605dd759fe196b5d1e1e8edb5a0244e4becd4c2ccf8712fb9cd` |
+| `manuscript/supplementary.md` | `35c3b53e73077012db1e0515c24096d77d434ac1f051e008baf11064ba106fbb` |
+| `manuscript/supplementary.pdf` | `723ff0f2970df562b69175e3be98b69c49a2ce57ae2c55ac0b506130ad19807f` |

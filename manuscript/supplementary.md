@@ -136,7 +136,7 @@ The analysis is released as a versioned, reproducible unit. Every reported numbe
 - **Reserved Zenodo deposit (DOI reserved; record becomes public upon publication):** https://doi.org/10.5281/zenodo.21659764 — code, data manifests, preregistration documents, the audit report, and the SHA-256 identifier table.
 - **Version identifiers:** the frozen manuscript, the preregistrations, the canonical script, the manifests, and the audit each carry a SHA-256 hash (tables in §S4.3 and §S5); the manuscript version register (`VERSION.md`) records them and the outcome of each execution.
 
-Reproduction procedure: instantiate the environment (§S5), point the pipeline at the archived snapshot, and re-run the canonical script; the regression gate reproduces the frozen manifest before any new analysis is permitted.
+Reproduction procedure: instantiate the environment (§S5), point the pipeline at the frozen input snapshot, and re-run the canonical script; the regression gate reproduces the frozen manifest before any new analysis is permitted.
 
 ---
 
