@@ -99,5 +99,5 @@ Only absolute local filesystem paths were removed; **no data value was changed**
 | `figures/figure5.pdf` | `f3f8e47f0ad1ed9da4b46ce6a87286864e71e9653f62cdea75a9e7a10ec9b261` |
 | `manuscript/preprint.md` | `3ea06b6e3fc8aac23c7ddb3fd5486e10218842a584c7eb15976cc5fabd7bef63` |
 | `manuscript/preprint.pdf` | `db5dfb4944b1852ce98727a5b9d8d4c6a767fe3c58b8d2f22c01b8485476f065` |
-| `manuscript/supplementary.md` | `0af25cbc7322e31a8baada504b1e5801515a9d6fb6eccfb01e2557cb56c3df5f` |
-| `manuscript/supplementary.pdf` | `23e3ca0d90c570607a3dc37802ba093b8b1cfdff7e899047d776518d603a7df3` |
+| `manuscript/supplementary.md` | `84cf2d4e16ba6cec7cd38176f8a423eb18293c4ae8c4821125a7eae4789804be` |
+| `manuscript/supplementary.pdf` | `9e8f033a9a35c605dd759fe196b5d1e1e8edb5a0244e4becd4c2ccf8712fb9cd` |

@@ -133,8 +133,8 @@ Verified points (abridged): the nucleus rule (`≥ τ`, crossing subfield includ
 The analysis is released as a versioned, reproducible unit. Every reported number is traceable to the run that produced it through the identifiers below.
 
 - **Repository:** https://github.com/Franga2026/journal-thematic-identity — canonical implementation, materialization scripts, protocols, audit runner.
-- **Archived deposit (Zenodo):** https://doi.org/10.5281/zenodo.21659764 — code, data manifests, preregistration documents, the audit report, and the SHA-256 identifier table.
-- **Version identifiers:** the frozen manuscript, the preregistrations, the canonical script, the manifests, and the audit each carry a SHA-256 hash (tables in §S4.3 and §S5); the manuscript version register (`VERSIONS.md`) records them and the outcome of each execution.
+- **Reserved Zenodo deposit (DOI reserved; record becomes public upon publication):** https://doi.org/10.5281/zenodo.21659764 — code, data manifests, preregistration documents, the audit report, and the SHA-256 identifier table.
+- **Version identifiers:** the frozen manuscript, the preregistrations, the canonical script, the manifests, and the audit each carry a SHA-256 hash (tables in §S4.3 and §S5); the manuscript version register (`VERSION.md`) records them and the outcome of each execution.
 
 Reproduction procedure: instantiate the environment (§S5), point the pipeline at the archived snapshot, and re-run the canonical script; the regression gate reproduces the frozen manifest before any new analysis is permitted.
 
@@ -159,4 +159,4 @@ Reproduction procedure: instantiate the environment (§S5), point the pipeline a
 - **Figure S1.** Continuous vs threshold-based observables — a schematic of how a nucleus set can turn over under a mass change too small to move the divergence (the operator-decoupling made explicit for §7).
 - **Figure S2.** Perturbation-magnitude diagnostic (distribution of per-journal divergences under the forward replication).
 
-*Draft v1 · Supplementary Material · definitional + reproducibility reference · remaining placeholders: repository URL and Zenodo DOI (pending deposit).*
+*Supplementary Material · definitional and reproducibility reference for the manuscript.*
