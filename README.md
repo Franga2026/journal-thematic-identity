@@ -1,10 +1,10 @@
 # Reconstructing Journal Thematic Identity from Article-Level Topics
 ### A Reproducible Framework and a Preregistered Temporal Validation
 
-**Author:** Francisco Garrido Valdés · RosFlo Limitada, Santiago, Chile · ORCID [0000-0002-6512-8924](https://orcid.org/0000-0002-6512-8924)
+**Author:** Francisco Javier Garrido Valdés · RosFlo Limitada, Santiago, Chile · ORCID [0000-0002-6512-8924](https://orcid.org/0000-0002-6512-8924)
 
-**Preprint v1.0 — prepared for submission to *Quantitative Science Studies*. This manuscript has not yet been peer reviewed.**
-**Reproducibility package (Zenodo):** a DOI has been reserved — [https://doi.org/10.5281/zenodo.21659764](https://doi.org/10.5281/zenodo.21659764). The public record will become available upon publication of the deposit.
+**Preprint:** Zenodo v1.0.1 — [https://doi.org/10.5281/zenodo.21659764](https://doi.org/10.5281/zenodo.21659764) (immutable; GitHub tag `preprint-v1.0.1`).  
+**Journal submission:** *Quantitative Science Studies* (MIT Press / ScholarOne) — Manuscript ID `QSS-2026-0145`, submitted 2026-07-31. Exact submitted files: `submission-qss/` (git tag `submitted-qss`). Peer review pending.
 
 ---
 
@@ -21,11 +21,16 @@ journal-thematic-identity/
 ├── CITATION.cff
 ├── CHANGELOG.md
 ├── VERSION.md                  version register: frozen vs public SHA-256, derivations
-├── manuscript/
+├── manuscript/                 immutable preprint package (Zenodo v1.0.1)
 │   ├── preprint.pdf
 │   ├── supplementary.pdf
 │   ├── preprint.md
 │   └── supplementary.md
+├── submission-qss/             exact QSS ScholarOne upload (2026-07-31)
+│   ├── README.md               milestone record (QSS-2026-0145)
+│   ├── manuscript.pdf
+│   ├── supplementary.pdf
+│   └── cover_letter.pdf
 ├── code/                       canonical analysis (sanitized) + MIT LICENSE + README
 ├── data/
 │   ├── manifests/              run manifests + frozen result tables
@@ -50,4 +55,5 @@ See `CITATION.cff`. In brief:
 The manuscript, figures, and data in this repository are released under **CC BY 4.0** (`LICENSE`). The analysis code under `code/` is released under the **MIT License** (`code/LICENSE`).
 
 ## Status
-Preprint v1.0 — prepared for submission to *Quantitative Science Studies*. This manuscript has not yet been peer reviewed.
+- Preprint package: Zenodo v1.0.1 (immutable).
+- Journal: submitted to *Quantitative Science Studies* as `QSS-2026-0145` on 2026-07-31 (see `submission-qss/`). Peer review pending.

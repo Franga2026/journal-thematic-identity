@@ -1,9 +1,9 @@
 # VERSION register
 
-**Package:** Reconstructing Journal Thematic Identity from Article-Level Topics — Preprint v1.0 (2026-07-29)  
-**Release:** v1.0.1 — editorial correction of the Supplementary (see `CHANGELOG.md`); manuscript content unchanged (v1.0).  
-**Status:** Preprint, prepared for submission to *Quantitative Science Studies* (not yet peer reviewed).  
-**Zenodo (reserved DOI):** https://doi.org/10.5281/zenodo.21659764 — public record available upon publication of the deposit.
+**Package:** Reconstructing Journal Thematic Identity from Article-Level Topics — Preprint v1.0 / package v1.0.1  
+**Release:** `submitted-qss` — ScholarOne Manuscript ID `QSS-2026-0145` (2026-07-31); exact submitted PDFs under `submission-qss/`.  
+**Status:** Preprint published (Zenodo v1.0.1, DOI 10.5281/zenodo.21659764, immutable). Journal manuscript submitted to *Quantitative Science Studies*; peer review pending.  
+**Zenodo:** https://doi.org/10.5281/zenodo.21659764 (concept DOI 10.5281/zenodo.21659763).
 
 This register distinguishes the frozen scientific record from the public distributed copy, so that sanitization never overwrites the historical hashes.
 

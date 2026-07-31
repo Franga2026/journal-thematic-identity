@@ -2,6 +2,13 @@
 
 All notable changes to this scientific package are documented here. Versioning is manuscript-level (not semantic).
 
+## [submitted-qss] — 2026-07-31
+### QSS journal submission (ScholarOne `QSS-2026-0145`)
+- Added `submission-qss/` with the exact byte-identical PDFs uploaded to ScholarOne on 2026-07-31 (`manuscript.pdf`, `supplementary.pdf`, `cover_letter.pdf`) and the milestone record as `README.md`.
+- SHA-256 verified: manuscript `5d60e353…`, supplementary `56b0d92c…`, cover letter `81efa2c8…`.
+- Preprint package under `manuscript/` and tags `preprint-v1.0` / `preprint-v1.0.1` remain **immutable**; the submitted version differs by editorial author revisions documented in `submission-qss/README.md` (not a scientific re-analysis).
+- Git tag `submitted-qss` marks this commit.
+
 ## [1.0.1] — 2026-07-29
 ### Editorial correction (package artifact only; no scientific change)
 - Supplementary §S6: changed "Archived deposit (Zenodo)" to "Reserved Zenodo deposit (DOI reserved; record becomes public upon publication)", consistent with the deposit not yet being published.
