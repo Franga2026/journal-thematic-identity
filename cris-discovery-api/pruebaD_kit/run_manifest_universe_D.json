@@ -1,0 +1,94 @@
+{
+  "run": "canonical_D_documental",
+  "run_iso_utc": "2026-08-04T08:59:09Z",
+  "prereg_D_sha256": "b7facbe3bc4ce70b8f958e76ec2dd003dbd955cd5c9d962ada8a7e8c5d09b30d",
+  "canonical_operator_sha256": "a8157be9e97d85b957199a8e96e9a055b08dd6b2eadb276973584d543f3f2a94",
+  "D_runner_sha256": "e2978661258cce4cf7fb493f96bb9de3fd1e565d3c4b10c3e7262c03f7995590",
+  "D_ops_sha256": "2826e3f0727d96cadf3eeae35c6b959c19df282ed7f51619b7a4c571043c51f4",
+  "D_tests_sha256": "7e6bd59ece52cdcb8f7d5f6cf99ad6edc4bf1c9cc9e0707cf3d2cf9773e913f8",
+  "input_combined_sha256": "ca9dc8942f79844c2320af86161ea413062809b20915edcbb20b2fb2f4a59f66",
+  "git_commit": null,
+  "windows": {
+    "W0": "W0_2021_2024",
+    "W1": "W+1_2022_2025",
+    "weighting": "p_doc"
+  },
+  "params": {
+    "TAU": 0.5,
+    "B": 2000,
+    "ALPHA": 0.05,
+    "JACC": 0.9,
+    "NULL_PCTL": 95,
+    "MIN_SUBFIELDS": 3,
+    "SEED": 20260731
+  },
+  "panel": 515,
+  "environment": {
+    "python": "3.11.15",
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "scipy": "1.17.1"
+  },
+  "null_npy_columns": [
+    "F",
+    "T",
+    "Ent",
+    "MaxNet",
+    "JSD"
+  ],
+  "observed": {
+    "F_obs": 0.26601941747572816,
+    "T_obs": 0.1198651564185545,
+    "jsd_median": 0.028007115129448923,
+    "direccion": {
+      "entropia_norm_flips": 0.8988781982962641,
+      "max_abs_net": 7,
+      "n_subcampos_flip": 63
+    }
+  },
+  "null": {
+    "F_mean": 0.36803009708737866,
+    "F_P95": 0.39427184466019405,
+    "p_F": 1.0,
+    "F_excede": false,
+    "T_mean": 0.17808108599329472,
+    "T_P95": 0.19238411157343197,
+    "p_T": 1.0,
+    "T_excede": false,
+    "ent_P5": 0.84512620715305,
+    "conc_excede": false,
+    "maxnet_P95": 14.0,
+    "drift_excede": false,
+    "jsd_null_mean": 0.062021249261427686
+  },
+  "regla_veredicto": "§7 tres celdas: ARTEFACTO=(mag dentro nulo Y dir dentro nulo); REAL=(mag excede Y dir sistematica); si no, MIXTO. Magnitud primaria=F (Jaccard<0.90); dentro del nulo = obs<=P95.",
+  "magnitud_dentro_nulo": true,
+  "direccionalidad_sistematica": false,
+  "veredicto": "ARTEFACTO (H0): magnitud dentro del nulo Y direccionalidad dentro del nulo.",
+  "veredicto_prudente": "Bajo el nulo preregistrado y sus controles de robustez, no se encuentra evidencia de reorganizacion documental real; el residuo observado es compatible con inestabilidad de frontera del operador de nucleo. La identidad tematica documental permanece estable.",
+  "nota_calibracion_nulo": "El nulo multinomial produce divergencia de masa sintetica media (jsd_null_mean) MAYOR que la observada (0.028): trata las dos ventanas como muestreos independientes, pero las ventanas reales (2021-2024 y 2022-2025) se solapan y provienen de un proceso estable. Por §5 se REPORTA sin mover umbrales; hace la conclusion ARTEFACTO conservadora (observado por debajo de un piso de ruido sobre-dispersado). Robustez a tau y coarsening a campo confirman ARTEFACTO con independencia de la calibracion del nulo.",
+  "robustez": {
+    "F_tau_0.48": 0.2796116504854369,
+    "F_tau_0.52": 0.312621359223301,
+    "F_jacc_0.95": 0.26601941747572816,
+    "F_campo_coarsening": 0.019417475728155338,
+    "dirichlet_F_p95": 0.3864077669902913,
+    "dirichlet_F_excede": false
+  },
+  "tests": {
+    "resultado": {
+      "T2_multinomial_null": true,
+      "T3_nucleo_boundaries": true,
+      "T4_directionality": true,
+      "T5_robustness": true
+    },
+    "PASS": true
+  },
+  "outputs_sha256": {
+    "canonical_D_observed.csv": "25bf0673f45b3257c3f0eb28ffa42339ab4337595eb784a1981bd2c82be9cc6d",
+    "canonical_D_null.npy": "dd254dcaf84f41a95bf4f05da0066f023ca74d2a6cee30f4572e949e62da4089",
+    "canonical_D_directionality.csv": "6ef89ac10d8c53974699bc7e3f0a589702e27b20b8a34803a78cf68e34d6591d",
+    "canonical_D_robustness.csv": "fbf87092b77ca80224dc22d52dd3ebdff851b776ceda8083296f0e425ee9b265"
+  },
+  "nota": "Estudio independiente de QSS-2026-0145; discrimina el residuo nuclear. No modifica A/B/C'."
+}

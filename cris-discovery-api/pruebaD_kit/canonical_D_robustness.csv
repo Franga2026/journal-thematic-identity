@@ -1,0 +1,7 @@
+metric,value
+F_tau_0.48,0.2796116504854369
+F_tau_0.52,0.312621359223301
+F_jacc_0.95,0.26601941747572816
+F_campo_coarsening,0.019417475728155338
+dirichlet_F_p95,0.3864077669902913
+dirichlet_F_excede,False

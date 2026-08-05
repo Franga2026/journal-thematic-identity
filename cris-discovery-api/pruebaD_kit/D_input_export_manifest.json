@@ -1,0 +1,56 @@
+{
+  "export": "Prueba D input (via b) — snapshot empirico congelado",
+  "utc": "2026-08-04T06:53:34Z",
+  "db": "cris_victoria (Docker cris-db)",
+  "prereg_D_sha256": "b7facbe3bc4ce70b8f958e76ec2dd003dbd955cd5c9d962ada8a7e8c5d09b30d",
+  "sql_columns": "source_id, config, subfield_id, d, p_doc",
+  "sql_order": "source_id, config, subfield_id",
+  "sql_filter": "config IN ('W0_2021_2024','W+1_2022_2025')",
+  "configs": [
+    "W0_2021_2024",
+    "W+1_2022_2025"
+  ],
+  "files": {
+    "D_W0_2021_2024_pdoc.csv": {
+      "rows": 13747,
+      "sha256": "86bb7fb4f76179478c5e0fe919edda557df37283b4b91697d2a9bc8edcd9ffa5"
+    },
+    "D_W1_2022_2025_pdoc.csv": {
+      "rows": 14037,
+      "sha256": "fd37ca54f684e6273e4ee193409bd4bfa9869ada64cb4e8b56dcf69e45e23845"
+    },
+    "D_panel_input_combined.csv": {
+      "rows": 27784,
+      "sha256": "ca9dc8942f79844c2320af86161ea413062809b20915edcbb20b2fb2f4a59f66"
+    }
+  },
+  "per_window": [
+    {
+      "config": "W0_2021_2024",
+      "revistas": 522,
+      "filas": 13747,
+      "d_nulos": 0,
+      "p_doc_nulos": 0
+    },
+    {
+      "config": "W+1_2022_2025",
+      "revistas": 515,
+      "filas": 14037,
+      "d_nulos": 0,
+      "p_doc_nulos": 0
+    }
+  ],
+  "journals_ge3_subfields": [
+    {
+      "config": "W0_2021_2024",
+      "n": 522
+    },
+    {
+      "config": "W+1_2022_2025",
+      "n": 515
+    }
+  ],
+  "panel_comun": 515,
+  "git_commit": null,
+  "nota": "p_doc sin redondeo (precision round-trippable de PostgreSQL). Esperado: d_nulos=0, p_doc_nulos=0, panel_comun=515."
+}
