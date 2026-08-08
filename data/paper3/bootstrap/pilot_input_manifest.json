@@ -1,0 +1,41 @@
+{
+  "PILOT_INFRASTRUCTURE_ONLY": true,
+  "authorizing_protocol_sha256": "871b75fe47dd45d4a7249681996e178f4cf51acbcb8d345433fdfb729a53fdb8",
+  "official_source": {
+    "bucket": "s3://openalex",
+    "docs": [
+      "https://developers.openalex.org/download/snapshot-format",
+      "https://developers.openalex.org/download/download-to-machine"
+    ],
+    "entity": "works",
+    "format": "parquet"
+  },
+  "phase": "feasibility_pilot_v0.2",
+  "prohibited_outcomes_computed": false,
+  "project": "paper3",
+  "release_notes_tag": "2026-06-25",
+  "retrieved_at": "2026-08-08T01:46:05Z",
+  "run_id": 2,
+  "selected_object_local": "data/paper3/bootstrap/selected_object.raw.parquet",
+  "selected_object_s3_metadata": {
+    "content_type": "binary/octet-stream",
+    "last_modified": "2026-06-27T03:00:01Z",
+    "s3_content_length": 3628657,
+    "s3_etag": "1886de12677064a1d1c98c87f58fe48d",
+    "s3_etag_is_not_sha256": true
+  },
+  "selected_object_sha256": "a283c0280a2a8d581cd852d4c4ff6736285a0d5586c40c2df30e2d77794d8569",
+  "selection": {
+    "selected_object_key": "s3://openalex/data/parquet/works/updated_date=2016-06-24/part_0000.parquet",
+    "selected_object_size": 3628657,
+    "selected_record_count_meta": 2439,
+    "selection_index": 0,
+    "selection_rule": "lexicographic_sort_of_manifest_file_urls; first readable parquet object"
+  },
+  "snapshot_date": "2026-06-26",
+  "source": "OpenAlex",
+  "works_manifest_content_length": 724970323127,
+  "works_manifest_local": "data/paper3/bootstrap/works_manifest.pinned.json",
+  "works_manifest_record_count": 510372821,
+  "works_manifest_sha256": "4b5142cb47f22fb5f6e91fc330ed800e355e8bb9421b10d812394780b9a1443d"
+}

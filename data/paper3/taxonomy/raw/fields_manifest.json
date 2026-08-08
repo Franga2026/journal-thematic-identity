@@ -1,0 +1,16 @@
+{
+  "date": "2026-06-26",
+  "format": "parquet",
+  "entity": "fields",
+  "record_count": 26,
+  "content_length": 19238,
+  "files": [
+    {
+      "url": "s3://openalex/data/parquet/fields/updated_date=2026-06-26/part_0000.parquet",
+      "meta": {
+        "content_length": 19238,
+        "record_count": 26
+      }
+    }
+  ]
+}

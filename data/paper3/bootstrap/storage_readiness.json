@@ -1,0 +1,20 @@
+{
+  "archive_layer_a_gib": 1024,
+  "cloud_target_spec": {
+    "compute": "x86_64 or arm64 VM with Docker",
+    "disk_free_gib_min": 250,
+    "disk_free_gib_recommended": 400,
+    "image": "paper3-acquisition:0.2.0",
+    "image_digest": "sha256:3a7dbe684a28d1ccb4659ffe5138384960eb234ed8d2f1a03580f3b31cf5e76b",
+    "mount": "/data/paper3",
+    "network": "same-region egress to s3://openalex preferred"
+  },
+  "docker_compatible_local": true,
+  "external_volumes_mounted": [],
+  "filesystem": "apfs",
+  "planning_floor_streaming_gib": 250,
+  "primary_volume": "/System/Volumes/Data",
+  "primary_volume_free_gib": 129.44,
+  "recommended_target": "cloud_vm_near_s3",
+  "status": "LOCAL_INSUFFICIENT_CLOUD_TARGET_DOCUMENTED"
+}

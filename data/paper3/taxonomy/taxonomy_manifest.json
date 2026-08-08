@@ -1,0 +1,57 @@
+{
+  "binding_status": "VERIFIED_TAXONOMY_BINDING",
+  "byte_reproducible": true,
+  "canonical_path": "data/paper3/taxonomy/canonical_topic_taxonomy.json",
+  "canonical_schema_sha256": "d76b82327fad01e88fed22c79b1c41f5aee15bb13359e084ab8ebd6cbcf36690",
+  "canonical_taxonomy_sha256": "272d16dab98d6456a0069bb1b82e6ddfd12b60a853d464384f148f6804dadf0f",
+  "canonical_taxonomy_sha256_run2": "272d16dab98d6456a0069bb1b82e6ddfd12b60a853d464384f148f6804dadf0f",
+  "counts": {
+    "domains": 4,
+    "fields": 26,
+    "subfields": 252,
+    "topics": 4516
+  },
+  "created_by_code_sha256": "2a89bf21a040141dcf30542201339109e93aea163ac3ac84089d10285ecc6df0",
+  "domains_source": {
+    "content_length": 9079,
+    "manifest_date": "2026-06-26",
+    "manifest_path": "data/paper3/taxonomy/raw/domains_manifest.json",
+    "manifest_sha256": "a857778dd73645164ef1b389f0a430745c51a7b0ed44fe66467cda44656a53f8",
+    "n_files": 1,
+    "record_count": 4
+  },
+  "fields_source": {
+    "content_length": 19238,
+    "manifest_date": "2026-06-26",
+    "manifest_path": "data/paper3/taxonomy/raw/fields_manifest.json",
+    "manifest_sha256": "3cd32e7078f9dac6be279288af58bb77f7dd55b14143fc5bd959e912bff226d3",
+    "n_files": 1,
+    "record_count": 26
+  },
+  "git_commit": null,
+  "manifest_date": "2026-06-26",
+  "reasons": [
+    "hierarchy_ids_resolve",
+    "no_duplicate_topic_ids",
+    "canonical_byte_reproducible",
+    "release_family_matched"
+  ],
+  "release_notes_date": "2026-06-25",
+  "source_release": "openalex_parquet",
+  "subfields_source": {
+    "content_length": 174417,
+    "manifest_date": "2026-06-26",
+    "manifest_path": "data/paper3/taxonomy/raw/subfields_manifest.json",
+    "manifest_sha256": "87ea7ee00da8a04d6e15fc27c6e92128d0d63cc00e2506a300c3380fa1a7b034",
+    "n_files": 1,
+    "record_count": 252
+  },
+  "topics_source": {
+    "content_length": 2589362,
+    "manifest_date": "2026-06-26",
+    "manifest_path": "data/paper3/taxonomy/raw/topics_manifest.json",
+    "manifest_sha256": "232e920b3d30cbb3b11a148aec4ab1de996e6784f09e41db420c08f8644b9750",
+    "n_files": 6,
+    "record_count": 4516
+  }
+}

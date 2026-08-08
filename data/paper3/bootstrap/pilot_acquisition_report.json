@@ -1,0 +1,128 @@
+{
+  "PILOT_INFRASTRUCTURE_ONLY": true,
+  "byte_reproducible": true,
+  "docker_build": {
+    "dockerfile_sha256": "b57a5b659a8b8a3b8fe34a47573adeda373fd806ce1e3c203a5716204658e39d",
+    "image_digest": "paper3-acquisition@sha256:3a7dbe684a28d1ccb4659ffe5138384960eb234ed8d2f1a03580f3b31cf5e76b",
+    "image_id": "sha256:3a7dbe684a28d1ccb4659ffe5138384960eb234ed8d2f1a03580f3b31cf5e76b",
+    "image_tag": "paper3-acquisition:0.2.0",
+    "requirements_sha256": "171a63fe6e77381a166ece995468a603f40fa96a57a5cf4b8518b290c7cb3c6e"
+  },
+  "firewall_pass": true,
+  "full_scan_estimate_from_pilot_only": {
+    "est_persistent_layer_b_gib_if_same_ratio": 2.17,
+    "est_temp_gib_for_one_object_buffer": 0.007,
+    "est_transfer_bytes_from_manifest": 724970323127,
+    "est_transfer_gib_from_manifest": 675.18,
+    "est_wall_clock_hours_linear_from_pilot": 2.36,
+    "n_objects": 2446,
+    "pilot_object_bytes": 3628657,
+    "pilot_output_bytes": 11644,
+    "pilot_slim_byte_ratio": 0.003209,
+    "warning": "Single partition may not be representative of all 2446 objects. Transfer uses manifest content_length; Layer-B/time scale the pilot ratio only."
+  },
+  "full_works_scan_started": false,
+  "output_sha256_run1": "7d952e5418e76cbced41042c0e3ce645fd63d652aa611d9289b04842abc92f8d",
+  "output_sha256_run2": "7d952e5418e76cbced41042c0e3ce645fd63d652aa611d9289b04842abc92f8d",
+  "prohibited_outcomes_computed": false,
+  "q1_vertical_slice_pass": true,
+  "run_1": {
+    "PILOT_INFRASTRUCTURE_ONLY": true,
+    "compression_reduction_ratio": 311.6332,
+    "docker": {
+      "boto3_version": "1.36.16",
+      "image_digest": "paper3-acquisition@sha256:3a7dbe684a28d1ccb4659ffe5138384960eb234ed8d2f1a03580f3b31cf5e76b",
+      "image_id": "sha256:3a7dbe684a28d1ccb4659ffe5138384960eb234ed8d2f1a03580f3b31cf5e76b",
+      "image_tag": "paper3-acquisition:0.2.0",
+      "pyarrow_version": "19.0.1",
+      "python_version": "3.12.8"
+    },
+    "extractor": {
+      "module": "feasibility.src.bootstrap_pilot",
+      "run_id": 1
+    },
+    "full_works_scan_started": false,
+    "input_rows": 2439,
+    "manifest_sha256": "4b5142cb47f22fb5f6e91fc330ed800e355e8bb9421b10d812394780b9a1443d",
+    "object_bytes": 3628657,
+    "object_checksum_metadata": {
+      "sha256_of_downloaded_bytes": "a283c0280a2a8d581cd852d4c4ff6736285a0d5586c40c2df30e2d77794d8569"
+    },
+    "openalex_release": {
+      "manifest_date": "2026-06-26",
+      "release_notes_tag": "2026-06-25"
+    },
+    "output_bytes": 11644,
+    "output_rows": 735,
+    "output_sha256": "7d952e5418e76cbced41042c0e3ce645fd63d652aa611d9289b04842abc92f8d",
+    "peak_memory": {
+      "note": "macOS bytes; Linux kilobytes",
+      "platform": "Linux",
+      "ru_maxrss_raw": 231280
+    },
+    "prohibited_outcomes_computed": false,
+    "q1": {
+      "PILOT_INFRASTRUCTURE_ONLY": true,
+      "q1_path": "feasibility/out/q1_coverage_by_year.csv",
+      "q1_rows": 21,
+      "q1_sha256": "9ace029b9f5715767b6c5eeeea36106de0b80c9851839b2c7b532d2a94531f41",
+      "restricted_purged": []
+    },
+    "rows_with_publication_year_2000_2026": 735,
+    "selected_object_key": "s3://openalex/data/parquet/works/updated_date=2016-06-24/part_0000.parquet",
+    "selection_rule": "lexicographic_sort_of_manifest_file_urls; first readable parquet object",
+    "used_cris_victoria_works": false,
+    "wall_clock_seconds": 3.471
+  },
+  "run_2": {
+    "PILOT_INFRASTRUCTURE_ONLY": true,
+    "compression_reduction_ratio": 311.6332,
+    "docker": {
+      "boto3_version": "1.36.16",
+      "image_digest": "paper3-acquisition@sha256:3a7dbe684a28d1ccb4659ffe5138384960eb234ed8d2f1a03580f3b31cf5e76b",
+      "image_id": "sha256:3a7dbe684a28d1ccb4659ffe5138384960eb234ed8d2f1a03580f3b31cf5e76b",
+      "image_tag": "paper3-acquisition:0.2.0",
+      "pyarrow_version": "19.0.1",
+      "python_version": "3.12.8"
+    },
+    "extractor": {
+      "module": "feasibility.src.bootstrap_pilot",
+      "run_id": 2
+    },
+    "full_works_scan_started": false,
+    "input_rows": 2439,
+    "manifest_sha256": "4b5142cb47f22fb5f6e91fc330ed800e355e8bb9421b10d812394780b9a1443d",
+    "object_bytes": 3628657,
+    "object_checksum_metadata": {
+      "sha256_of_downloaded_bytes": "a283c0280a2a8d581cd852d4c4ff6736285a0d5586c40c2df30e2d77794d8569"
+    },
+    "openalex_release": {
+      "manifest_date": "2026-06-26",
+      "release_notes_tag": "2026-06-25"
+    },
+    "output_bytes": 11644,
+    "output_rows": 735,
+    "output_sha256": "7d952e5418e76cbced41042c0e3ce645fd63d652aa611d9289b04842abc92f8d",
+    "peak_memory": {
+      "note": "macOS bytes; Linux kilobytes",
+      "platform": "Linux",
+      "ru_maxrss_raw": 224988
+    },
+    "prohibited_outcomes_computed": false,
+    "q1": {
+      "PILOT_INFRASTRUCTURE_ONLY": true,
+      "q1_path": "feasibility/out/q1_coverage_by_year.csv",
+      "q1_rows": 21,
+      "q1_sha256": "9ace029b9f5715767b6c5eeeea36106de0b80c9851839b2c7b532d2a94531f41",
+      "restricted_purged": []
+    },
+    "rows_with_publication_year_2000_2026": 735,
+    "selected_object_key": "s3://openalex/data/parquet/works/updated_date=2016-06-24/part_0000.parquet",
+    "selection_rule": "lexicographic_sort_of_manifest_file_urls; first readable parquet object",
+    "used_cris_victoria_works": false,
+    "wall_clock_seconds": 2.393
+  },
+  "tmp_restricted_empty": true,
+  "tmp_restricted_leftover": [],
+  "used_cris_victoria_works": false
+}

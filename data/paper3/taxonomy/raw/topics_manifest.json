@@ -1,0 +1,51 @@
+{
+  "date": "2026-06-26",
+  "format": "parquet",
+  "entity": "topics",
+  "record_count": 4516,
+  "content_length": 2589362,
+  "files": [
+    {
+      "url": "s3://openalex/data/parquet/topics/updated_date=2026-06-18/part_0000.parquet",
+      "meta": {
+        "content_length": 18623,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/topics/updated_date=2026-06-20/part_0000.parquet",
+      "meta": {
+        "content_length": 12315,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/topics/updated_date=2026-06-21/part_0000.parquet",
+      "meta": {
+        "content_length": 12663,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/topics/updated_date=2026-06-24/part_0000.parquet",
+      "meta": {
+        "content_length": 14229,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/topics/updated_date=2026-06-25/part_0000.parquet",
+      "meta": {
+        "content_length": 56006,
+        "record_count": 30
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/topics/updated_date=2026-06-26/part_0000.parquet",
+      "meta": {
+        "content_length": 2475526,
+        "record_count": 4482
+      }
+    }
+  ]
+}

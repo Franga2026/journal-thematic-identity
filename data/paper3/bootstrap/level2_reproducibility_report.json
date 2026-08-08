@@ -1,0 +1,203 @@
+{
+  "all_byte_identical": true,
+  "budget": {
+    "indexes": [
+      0,
+      1,
+      2,
+      1222,
+      1223,
+      2443,
+      2444,
+      2445
+    ],
+    "n_objects": 8,
+    "objects": [
+      {
+        "content_length": 3628657,
+        "object_index": 0,
+        "s3_key": "data/parquet/works/updated_date=2016-06-24/part_0000.parquet"
+      },
+      {
+        "content_length": 243805,
+        "object_index": 1,
+        "s3_key": "data/parquet/works/updated_date=2016-07-22/part_0000.parquet"
+      },
+      {
+        "content_length": 260078,
+        "object_index": 2,
+        "s3_key": "data/parquet/works/updated_date=2016-08-23/part_0000.parquet"
+      },
+      {
+        "content_length": 180694137,
+        "object_index": 1222,
+        "s3_key": "data/parquet/works/updated_date=2025-11-06/part_0803.parquet"
+      },
+      {
+        "content_length": 179683854,
+        "object_index": 1223,
+        "s3_key": "data/parquet/works/updated_date=2025-11-06/part_0804.parquet"
+      },
+      {
+        "content_length": 497531783,
+        "object_index": 2443,
+        "s3_key": "data/parquet/works/updated_date=2026-06-26/part_0157.parquet"
+      },
+      {
+        "content_length": 489241042,
+        "object_index": 2444,
+        "s3_key": "data/parquet/works/updated_date=2026-06-26/part_0158.parquet"
+      },
+      {
+        "content_length": 508488736,
+        "object_index": 2445,
+        "s3_key": "data/parquet/works/updated_date=2026-06-26/part_0159.parquet"
+      }
+    ],
+    "total_bytes": 1859772092,
+    "total_gib": 1.732
+  },
+  "docker_image": "paper3-acquisition:0.2.0",
+  "full_works_scan_started": false,
+  "n_objects_tested": 8,
+  "objects": [
+    {
+      "byte_identical": true,
+      "fetched": {
+        "cached": true,
+        "etag": null,
+        "local_bytes": 3628657
+      },
+      "input_size": 3628657,
+      "object_index": 0,
+      "object_key": "data/parquet/works/updated_date=2016-06-24/part_0000.parquet",
+      "output_bytes": 26158,
+      "rows_retained": 735,
+      "run_a_sha256": "67d6bfdd29503ae55769392f0a437d81c179421131090eb77826888501569ea1",
+      "run_b_sha256": "67d6bfdd29503ae55769392f0a437d81c179421131090eb77826888501569ea1",
+      "runtime_a": 0.486,
+      "runtime_b": 0.099
+    },
+    {
+      "byte_identical": true,
+      "fetched": {
+        "cached": true,
+        "etag": null,
+        "local_bytes": 243805
+      },
+      "input_size": 243805,
+      "object_index": 1,
+      "object_key": "data/parquet/works/updated_date=2016-07-22/part_0000.parquet",
+      "output_bytes": 5706,
+      "rows_retained": 64,
+      "run_a_sha256": "50e6dcc96efc801b872a8d95783ee4f3f328b37bb566610191a981bd3b674303",
+      "run_b_sha256": "50e6dcc96efc801b872a8d95783ee4f3f328b37bb566610191a981bd3b674303",
+      "runtime_a": 0.018,
+      "runtime_b": 0.018
+    },
+    {
+      "byte_identical": true,
+      "fetched": {
+        "cached": true,
+        "etag": null,
+        "local_bytes": 260078
+      },
+      "input_size": 260078,
+      "object_index": 2,
+      "object_key": "data/parquet/works/updated_date=2016-08-23/part_0000.parquet",
+      "output_bytes": 6206,
+      "rows_retained": 88,
+      "run_a_sha256": "f99b55145cbfb5c2fd447a6f2d184ccffb971f9780cba5217f7bb4423f1e2291",
+      "run_b_sha256": "f99b55145cbfb5c2fd447a6f2d184ccffb971f9780cba5217f7bb4423f1e2291",
+      "runtime_a": 0.024,
+      "runtime_b": 0.021
+    },
+    {
+      "byte_identical": true,
+      "fetched": {
+        "cached": true,
+        "etag": null,
+        "local_bytes": 180694137
+      },
+      "input_size": 180694137,
+      "object_index": 1222,
+      "object_key": "data/parquet/works/updated_date=2025-11-06/part_0803.parquet",
+      "output_bytes": 2727368,
+      "rows_retained": 107386,
+      "run_a_sha256": "5cd4bb3f3574a4e851f9ac2846253d524439b3db64afec4c7d7a7d1bd1d3fade",
+      "run_b_sha256": "5cd4bb3f3574a4e851f9ac2846253d524439b3db64afec4c7d7a7d1bd1d3fade",
+      "runtime_a": 9.642,
+      "runtime_b": 9.229
+    },
+    {
+      "byte_identical": true,
+      "fetched": {
+        "cached": true,
+        "etag": null,
+        "local_bytes": 179683854
+      },
+      "input_size": 179683854,
+      "object_index": 1223,
+      "object_key": "data/parquet/works/updated_date=2025-11-06/part_0804.parquet",
+      "output_bytes": 2716958,
+      "rows_retained": 107056,
+      "run_a_sha256": "880eb23ca08f8965a45fb275976eaf12838af8f766be30f6e26d38a4a5cd0f9c",
+      "run_b_sha256": "880eb23ca08f8965a45fb275976eaf12838af8f766be30f6e26d38a4a5cd0f9c",
+      "runtime_a": 9.094,
+      "runtime_b": 9.092
+    },
+    {
+      "byte_identical": true,
+      "fetched": {
+        "cached": true,
+        "etag": null,
+        "local_bytes": 497531783
+      },
+      "input_size": 497531783,
+      "object_index": 2443,
+      "object_key": "data/parquet/works/updated_date=2026-06-26/part_0157.parquet",
+      "output_bytes": 6217416,
+      "rows_retained": 321450,
+      "run_a_sha256": "ba5f04b2954d20ce194e32ea4f1fcf05ac262eacf1895a3032401fe30a590371",
+      "run_b_sha256": "ba5f04b2954d20ce194e32ea4f1fcf05ac262eacf1895a3032401fe30a590371",
+      "runtime_a": 26.652,
+      "runtime_b": 26.222
+    },
+    {
+      "byte_identical": true,
+      "fetched": {
+        "cached": true,
+        "etag": null,
+        "local_bytes": 489241042
+      },
+      "input_size": 489241042,
+      "object_index": 2444,
+      "object_key": "data/parquet/works/updated_date=2026-06-26/part_0158.parquet",
+      "output_bytes": 6197161,
+      "rows_retained": 320559,
+      "run_a_sha256": "390cf60bb1ee6c7b0d2a4b996bd4056d93292b14168c87c73ef469f469e09d87",
+      "run_b_sha256": "390cf60bb1ee6c7b0d2a4b996bd4056d93292b14168c87c73ef469f469e09d87",
+      "runtime_a": 26.176,
+      "runtime_b": 26.196
+    },
+    {
+      "byte_identical": true,
+      "fetched": {
+        "etag": "\"3ae1eccdb740c4e3dc3894051a20b5fa-8\"",
+        "local_bytes": 508488736,
+        "sha256_note": "compute separately if needed; ETag is not SHA-256"
+      },
+      "input_size": 508488736,
+      "object_index": 2445,
+      "object_key": "data/parquet/works/updated_date=2026-06-26/part_0159.parquet",
+      "output_bytes": 6208672,
+      "rows_retained": 320918,
+      "run_a_sha256": "71b3f6360519a8758682736ee75196cdce9cd3b43f9dbe4d2b310057c6472b79",
+      "run_b_sha256": "71b3f6360519a8758682736ee75196cdce9cd3b43f9dbe4d2b310057c6472b79",
+      "runtime_a": 28.55,
+      "runtime_b": 27.974
+    }
+  ],
+  "prohibited_outcomes_computed": false,
+  "status": "LEVEL2_PASS"
+}

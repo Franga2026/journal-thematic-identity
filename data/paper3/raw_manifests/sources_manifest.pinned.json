@@ -1,0 +1,849 @@
+{
+  "date": "2026-06-26",
+  "format": "parquet",
+  "entity": "sources",
+  "record_count": 283287,
+  "content_length": 170336587,
+  "files": [
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-09/part_0000.parquet",
+      "meta": {
+        "content_length": 1132843,
+        "record_count": 14442
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-10/part_0000.parquet",
+      "meta": {
+        "content_length": 70178,
+        "record_count": 555
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-11/part_0000.parquet",
+      "meta": {
+        "content_length": 19417,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-14/part_0000.parquet",
+      "meta": {
+        "content_length": 18943,
+        "record_count": 2
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-18/part_0000.parquet",
+      "meta": {
+        "content_length": 18894,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-23/part_0000.parquet",
+      "meta": {
+        "content_length": 19607,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-26/part_0000.parquet",
+      "meta": {
+        "content_length": 616606,
+        "record_count": 5507
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-28/part_0000.parquet",
+      "meta": {
+        "content_length": 20989,
+        "record_count": 8
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-01/part_0000.parquet",
+      "meta": {
+        "content_length": 20159,
+        "record_count": 5
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-02/part_0000.parquet",
+      "meta": {
+        "content_length": 10232342,
+        "record_count": 28032
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-03/part_0000.parquet",
+      "meta": {
+        "content_length": 17354744,
+        "record_count": 39343
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-04/part_0000.parquet",
+      "meta": {
+        "content_length": 189505,
+        "record_count": 150
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-05/part_0000.parquet",
+      "meta": {
+        "content_length": 147596,
+        "record_count": 95
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-06/part_0000.parquet",
+      "meta": {
+        "content_length": 28341,
+        "record_count": 2
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-07/part_0000.parquet",
+      "meta": {
+        "content_length": 152103,
+        "record_count": 109
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-08/part_0000.parquet",
+      "meta": {
+        "content_length": 177868,
+        "record_count": 132
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-09/part_0000.parquet",
+      "meta": {
+        "content_length": 159558,
+        "record_count": 103
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-11/part_0000.parquet",
+      "meta": {
+        "content_length": 264383,
+        "record_count": 257
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-12/part_0000.parquet",
+      "meta": {
+        "content_length": 326147,
+        "record_count": 328
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-14/part_0000.parquet",
+      "meta": {
+        "content_length": 343661,
+        "record_count": 347
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-15/part_0000.parquet",
+      "meta": {
+        "content_length": 278764,
+        "record_count": 272
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-16/part_0000.parquet",
+      "meta": {
+        "content_length": 94540,
+        "record_count": 46
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-17/part_0000.parquet",
+      "meta": {
+        "content_length": 219402,
+        "record_count": 196
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-18/part_0000.parquet",
+      "meta": {
+        "content_length": 166054,
+        "record_count": 124
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-19/part_0000.parquet",
+      "meta": {
+        "content_length": 171580,
+        "record_count": 112
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-21/part_0000.parquet",
+      "meta": {
+        "content_length": 1122593,
+        "record_count": 2140
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-22/part_0000.parquet",
+      "meta": {
+        "content_length": 108768,
+        "record_count": 53
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-23/part_0000.parquet",
+      "meta": {
+        "content_length": 75680,
+        "record_count": 27
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-24/part_0000.parquet",
+      "meta": {
+        "content_length": 114264,
+        "record_count": 59
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-25/part_0000.parquet",
+      "meta": {
+        "content_length": 25844,
+        "record_count": 2
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-26/part_0000.parquet",
+      "meta": {
+        "content_length": 183966,
+        "record_count": 130
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-27/part_0000.parquet",
+      "meta": {
+        "content_length": 121456,
+        "record_count": 65
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-28/part_0000.parquet",
+      "meta": {
+        "content_length": 283691,
+        "record_count": 249
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-29/part_0000.parquet",
+      "meta": {
+        "content_length": 108270,
+        "record_count": 60
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-30/part_0000.parquet",
+      "meta": {
+        "content_length": 90525,
+        "record_count": 39
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-31/part_0000.parquet",
+      "meta": {
+        "content_length": 168016,
+        "record_count": 115
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-02/part_0000.parquet",
+      "meta": {
+        "content_length": 1220221,
+        "record_count": 2073
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-03/part_0000.parquet",
+      "meta": {
+        "content_length": 413600,
+        "record_count": 420
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-04/part_0000.parquet",
+      "meta": {
+        "content_length": 19985293,
+        "record_count": 37213
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-05/part_0000.parquet",
+      "meta": {
+        "content_length": 4049264,
+        "record_count": 6732
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-06/part_0000.parquet",
+      "meta": {
+        "content_length": 468646,
+        "record_count": 440
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-07/part_0000.parquet",
+      "meta": {
+        "content_length": 26756,
+        "record_count": 2
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-08/part_0000.parquet",
+      "meta": {
+        "content_length": 484285,
+        "record_count": 476
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-09/part_0000.parquet",
+      "meta": {
+        "content_length": 323724,
+        "record_count": 262
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-10/part_0000.parquet",
+      "meta": {
+        "content_length": 20481,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-11/part_0000.parquet",
+      "meta": {
+        "content_length": 650883,
+        "record_count": 759
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-12/part_0000.parquet",
+      "meta": {
+        "content_length": 234525,
+        "record_count": 167
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-13/part_0000.parquet",
+      "meta": {
+        "content_length": 221201,
+        "record_count": 156
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-14/part_0000.parquet",
+      "meta": {
+        "content_length": 381248,
+        "record_count": 323
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-15/part_0000.parquet",
+      "meta": {
+        "content_length": 364339,
+        "record_count": 307
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-16/part_0000.parquet",
+      "meta": {
+        "content_length": 404307,
+        "record_count": 360
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-18/part_0000.parquet",
+      "meta": {
+        "content_length": 642525,
+        "record_count": 718
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-19/part_0000.parquet",
+      "meta": {
+        "content_length": 241300,
+        "record_count": 157
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-20/part_0000.parquet",
+      "meta": {
+        "content_length": 274946,
+        "record_count": 241
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-21/part_0000.parquet",
+      "meta": {
+        "content_length": 367679,
+        "record_count": 309
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-22/part_0000.parquet",
+      "meta": {
+        "content_length": 465823,
+        "record_count": 436
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-23/part_0000.parquet",
+      "meta": {
+        "content_length": 491974,
+        "record_count": 491
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-24/part_0000.parquet",
+      "meta": {
+        "content_length": 411028,
+        "record_count": 376
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-25/part_0000.parquet",
+      "meta": {
+        "content_length": 407963,
+        "record_count": 377
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-26/part_0000.parquet",
+      "meta": {
+        "content_length": 349104,
+        "record_count": 303
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-27/part_0000.parquet",
+      "meta": {
+        "content_length": 288033,
+        "record_count": 227
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-28/part_0000.parquet",
+      "meta": {
+        "content_length": 417859,
+        "record_count": 380
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-29/part_0000.parquet",
+      "meta": {
+        "content_length": 420980,
+        "record_count": 389
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-30/part_0000.parquet",
+      "meta": {
+        "content_length": 188864,
+        "record_count": 121
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-01/part_0000.parquet",
+      "meta": {
+        "content_length": 157125,
+        "record_count": 85
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-02/part_0000.parquet",
+      "meta": {
+        "content_length": 357078,
+        "record_count": 299
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-03/part_0000.parquet",
+      "meta": {
+        "content_length": 284645,
+        "record_count": 200
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-04/part_0000.parquet",
+      "meta": {
+        "content_length": 176209,
+        "record_count": 98
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-05/part_0000.parquet",
+      "meta": {
+        "content_length": 1020429,
+        "record_count": 1321
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-06/part_0000.parquet",
+      "meta": {
+        "content_length": 912185,
+        "record_count": 1135
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-07/part_0000.parquet",
+      "meta": {
+        "content_length": 642975,
+        "record_count": 707
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-08/part_0000.parquet",
+      "meta": {
+        "content_length": 42579,
+        "record_count": 11
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-09/part_0000.parquet",
+      "meta": {
+        "content_length": 578037,
+        "record_count": 601
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-10/part_0000.parquet",
+      "meta": {
+        "content_length": 565418,
+        "record_count": 578
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-11/part_0000.parquet",
+      "meta": {
+        "content_length": 305845,
+        "record_count": 240
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-12/part_0000.parquet",
+      "meta": {
+        "content_length": 543568,
+        "record_count": 557
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-13/part_0000.parquet",
+      "meta": {
+        "content_length": 506778,
+        "record_count": 505
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-14/part_0000.parquet",
+      "meta": {
+        "content_length": 650894,
+        "record_count": 688
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-15/part_0000.parquet",
+      "meta": {
+        "content_length": 578703,
+        "record_count": 599
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-16/part_0000.parquet",
+      "meta": {
+        "content_length": 559661,
+        "record_count": 567
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-17/part_0000.parquet",
+      "meta": {
+        "content_length": 339328,
+        "record_count": 289
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-18/part_0000.parquet",
+      "meta": {
+        "content_length": 357590,
+        "record_count": 303
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-19/part_0000.parquet",
+      "meta": {
+        "content_length": 550686,
+        "record_count": 552
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-20/part_0000.parquet",
+      "meta": {
+        "content_length": 639162,
+        "record_count": 676
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-21/part_0000.parquet",
+      "meta": {
+        "content_length": 1105971,
+        "record_count": 1450
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-22/part_0000.parquet",
+      "meta": {
+        "content_length": 733555,
+        "record_count": 822
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-23/part_0000.parquet",
+      "meta": {
+        "content_length": 718836,
+        "record_count": 801
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-24/part_0000.parquet",
+      "meta": {
+        "content_length": 451127,
+        "record_count": 397
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-25/part_0000.parquet",
+      "meta": {
+        "content_length": 413515,
+        "record_count": 378
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-26/part_0000.parquet",
+      "meta": {
+        "content_length": 33017,
+        "record_count": 3
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-27/part_0000.parquet",
+      "meta": {
+        "content_length": 1228170,
+        "record_count": 1655
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-28/part_0000.parquet",
+      "meta": {
+        "content_length": 945619,
+        "record_count": 1177
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-29/part_0000.parquet",
+      "meta": {
+        "content_length": 924140,
+        "record_count": 1160
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-30/part_0000.parquet",
+      "meta": {
+        "content_length": 885125,
+        "record_count": 1058
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-31/part_0000.parquet",
+      "meta": {
+        "content_length": 555665,
+        "record_count": 566
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-01/part_0000.parquet",
+      "meta": {
+        "content_length": 509085,
+        "record_count": 494
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-02/part_0000.parquet",
+      "meta": {
+        "content_length": 1007124,
+        "record_count": 1261
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-03/part_0000.parquet",
+      "meta": {
+        "content_length": 968927,
+        "record_count": 1207
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-04/part_0000.parquet",
+      "meta": {
+        "content_length": 1143909,
+        "record_count": 1477
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-05/part_0000.parquet",
+      "meta": {
+        "content_length": 1107377,
+        "record_count": 1393
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-06/part_0000.parquet",
+      "meta": {
+        "content_length": 1209745,
+        "record_count": 1576
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-07/part_0000.parquet",
+      "meta": {
+        "content_length": 604294,
+        "record_count": 619
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-08/part_0000.parquet",
+      "meta": {
+        "content_length": 674029,
+        "record_count": 760
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-09/part_0000.parquet",
+      "meta": {
+        "content_length": 27027,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-10/part_0000.parquet",
+      "meta": {
+        "content_length": 1187735,
+        "record_count": 1516
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-11/part_0000.parquet",
+      "meta": {
+        "content_length": 2744282,
+        "record_count": 4102
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-12/part_0000.parquet",
+      "meta": {
+        "content_length": 1474677,
+        "record_count": 1978
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-13/part_0000.parquet",
+      "meta": {
+        "content_length": 1488213,
+        "record_count": 1986
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-14/part_0000.parquet",
+      "meta": {
+        "content_length": 871924,
+        "record_count": 1053
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-15/part_0000.parquet",
+      "meta": {
+        "content_length": 853280,
+        "record_count": 988
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-16/part_0000.parquet",
+      "meta": {
+        "content_length": 1903860,
+        "record_count": 2649
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-17/part_0000.parquet",
+      "meta": {
+        "content_length": 1731523,
+        "record_count": 2374
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-18/part_0000.parquet",
+      "meta": {
+        "content_length": 2483259,
+        "record_count": 3601
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-20/part_0000.parquet",
+      "meta": {
+        "content_length": 11878244,
+        "record_count": 19805
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-21/part_0000.parquet",
+      "meta": {
+        "content_length": 3011808,
+        "record_count": 4329
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-22/part_0000.parquet",
+      "meta": {
+        "content_length": 1352819,
+        "record_count": 1736
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-23/part_0000.parquet",
+      "meta": {
+        "content_length": 19419,
+        "record_count": 1
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-24/part_0000.parquet",
+      "meta": {
+        "content_length": 3692271,
+        "record_count": 5218
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-25/part_0000.parquet",
+      "meta": {
+        "content_length": 13836157,
+        "record_count": 20794
+      }
+    },
+    {
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-26/part_0000.parquet",
+      "meta": {
+        "content_length": 27927816,
+        "record_count": 35566
+      }
+    }
+  ]
+}

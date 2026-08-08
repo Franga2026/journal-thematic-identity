@@ -1,0 +1,2062 @@
+{
+  "binding_status": "VERIFIED_SOURCE_BINDING",
+  "content_length_local_sum": 170336587,
+  "content_length_manifest": 170336587,
+  "entity": "sources",
+  "inventory_sha256": "497b0eb3639ffb1a2b02aca1b6112ce005638fc7331881a8a1295d81c4d2f879",
+  "inventory_version": "1.0",
+  "manifest_date": "2026-06-26",
+  "n_files_local_mapped": 120,
+  "n_files_manifest": 120,
+  "objects": [
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "6c02204a8cd2b399b92c4f37c01be84881ffdd09f5e05b4f61953184909b66dd"
+      },
+      "etag": null,
+      "local_bytes": 1132843,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-02-09__part_0000.parquet",
+      "manifest_content_length": 1132843,
+      "object_index": 0,
+      "record_count": 14442,
+      "s3_key": "data/parquet/sources/updated_date=2026-02-09/part_0000.parquet",
+      "sha256_local": "6c02204a8cd2b399b92c4f37c01be84881ffdd09f5e05b4f61953184909b66dd",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-09/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "ee619addedee6aa18c0d3780a841018414c22f5c655678138a05a16960b61bb0"
+      },
+      "etag": null,
+      "local_bytes": 70178,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-02-10__part_0000.parquet",
+      "manifest_content_length": 70178,
+      "object_index": 1,
+      "record_count": 555,
+      "s3_key": "data/parquet/sources/updated_date=2026-02-10/part_0000.parquet",
+      "sha256_local": "ee619addedee6aa18c0d3780a841018414c22f5c655678138a05a16960b61bb0",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-10/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "31dd7e3f57e06957cad0989fd2ed5f6452ee4985d7f0d360ce0e6205e541e028"
+      },
+      "etag": null,
+      "local_bytes": 19417,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-02-11__part_0000.parquet",
+      "manifest_content_length": 19417,
+      "object_index": 2,
+      "record_count": 1,
+      "s3_key": "data/parquet/sources/updated_date=2026-02-11/part_0000.parquet",
+      "sha256_local": "31dd7e3f57e06957cad0989fd2ed5f6452ee4985d7f0d360ce0e6205e541e028",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-11/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "7644b5802a704a1c626d1234b893fcfc83d93e6d49e0f8dab720d55dae4e392e"
+      },
+      "etag": null,
+      "local_bytes": 18943,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-02-14__part_0000.parquet",
+      "manifest_content_length": 18943,
+      "object_index": 3,
+      "record_count": 2,
+      "s3_key": "data/parquet/sources/updated_date=2026-02-14/part_0000.parquet",
+      "sha256_local": "7644b5802a704a1c626d1234b893fcfc83d93e6d49e0f8dab720d55dae4e392e",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-14/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "7685f5eb5f960a0ef61eb998130c9257386b186a74a512309c5ba5ef4be80fe5"
+      },
+      "etag": null,
+      "local_bytes": 18894,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-02-18__part_0000.parquet",
+      "manifest_content_length": 18894,
+      "object_index": 4,
+      "record_count": 1,
+      "s3_key": "data/parquet/sources/updated_date=2026-02-18/part_0000.parquet",
+      "sha256_local": "7685f5eb5f960a0ef61eb998130c9257386b186a74a512309c5ba5ef4be80fe5",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-18/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "3502006ef048132e867a64da47e44addaae50a485c9116dcd1540a3e3073b063"
+      },
+      "etag": null,
+      "local_bytes": 19607,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-02-23__part_0000.parquet",
+      "manifest_content_length": 19607,
+      "object_index": 5,
+      "record_count": 1,
+      "s3_key": "data/parquet/sources/updated_date=2026-02-23/part_0000.parquet",
+      "sha256_local": "3502006ef048132e867a64da47e44addaae50a485c9116dcd1540a3e3073b063",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-23/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "8f56adb53b53db8d0b316263bcb49cadcb0ae378261913158a0b46ae8a454b08"
+      },
+      "etag": null,
+      "local_bytes": 616606,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-02-26__part_0000.parquet",
+      "manifest_content_length": 616606,
+      "object_index": 6,
+      "record_count": 5507,
+      "s3_key": "data/parquet/sources/updated_date=2026-02-26/part_0000.parquet",
+      "sha256_local": "8f56adb53b53db8d0b316263bcb49cadcb0ae378261913158a0b46ae8a454b08",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-26/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "8cdcff35f465747c822dab9c65d08ec9e5969ead82019988e08a475435483c80"
+      },
+      "etag": null,
+      "local_bytes": 20989,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-02-28__part_0000.parquet",
+      "manifest_content_length": 20989,
+      "object_index": 7,
+      "record_count": 8,
+      "s3_key": "data/parquet/sources/updated_date=2026-02-28/part_0000.parquet",
+      "sha256_local": "8cdcff35f465747c822dab9c65d08ec9e5969ead82019988e08a475435483c80",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-02-28/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "9f699b3abc9cf71e26350aa7fa331d19bddcd95e4ca7c3b32254db7014c2ee05"
+      },
+      "etag": null,
+      "local_bytes": 20159,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-01__part_0000.parquet",
+      "manifest_content_length": 20159,
+      "object_index": 8,
+      "record_count": 5,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-01/part_0000.parquet",
+      "sha256_local": "9f699b3abc9cf71e26350aa7fa331d19bddcd95e4ca7c3b32254db7014c2ee05",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-01/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "2f5b99c8a0426dfb4e274e2595d64ab9f64a652f5c9cf2cc2398c9b9fe4bb980"
+      },
+      "etag": null,
+      "local_bytes": 10232342,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-02__part_0000.parquet",
+      "manifest_content_length": 10232342,
+      "object_index": 9,
+      "record_count": 28032,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-02/part_0000.parquet",
+      "sha256_local": "2f5b99c8a0426dfb4e274e2595d64ab9f64a652f5c9cf2cc2398c9b9fe4bb980",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-02/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "55f8c69f35e42210edecae9cb22233d2b4de833c7545cedd6d0fd67e3e060a79"
+      },
+      "etag": null,
+      "local_bytes": 17354744,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-03__part_0000.parquet",
+      "manifest_content_length": 17354744,
+      "object_index": 10,
+      "record_count": 39343,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-03/part_0000.parquet",
+      "sha256_local": "55f8c69f35e42210edecae9cb22233d2b4de833c7545cedd6d0fd67e3e060a79",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-03/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "95cae9827bcacbb80dc98d53898ce7b9ac2213c94b20877fdc2f64f68fd959e1"
+      },
+      "etag": null,
+      "local_bytes": 189505,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-04__part_0000.parquet",
+      "manifest_content_length": 189505,
+      "object_index": 11,
+      "record_count": 150,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-04/part_0000.parquet",
+      "sha256_local": "95cae9827bcacbb80dc98d53898ce7b9ac2213c94b20877fdc2f64f68fd959e1",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-04/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "51285dcb660c21c33f0ad125c412792a4250ea75ba28b96887718fb3a5905fc7"
+      },
+      "etag": null,
+      "local_bytes": 147596,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-05__part_0000.parquet",
+      "manifest_content_length": 147596,
+      "object_index": 12,
+      "record_count": 95,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-05/part_0000.parquet",
+      "sha256_local": "51285dcb660c21c33f0ad125c412792a4250ea75ba28b96887718fb3a5905fc7",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-05/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "0d0e5af9988bf97f7783a3f9c4294c3cb3ca7b27804dd1089348c8106b2076a1"
+      },
+      "etag": null,
+      "local_bytes": 28341,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-06__part_0000.parquet",
+      "manifest_content_length": 28341,
+      "object_index": 13,
+      "record_count": 2,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-06/part_0000.parquet",
+      "sha256_local": "0d0e5af9988bf97f7783a3f9c4294c3cb3ca7b27804dd1089348c8106b2076a1",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-06/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "4265784cfa05cebbbbb165af2165175b8f296ce289f3010349e3a201e87cbad7"
+      },
+      "etag": null,
+      "local_bytes": 152103,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-07__part_0000.parquet",
+      "manifest_content_length": 152103,
+      "object_index": 14,
+      "record_count": 109,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-07/part_0000.parquet",
+      "sha256_local": "4265784cfa05cebbbbb165af2165175b8f296ce289f3010349e3a201e87cbad7",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-07/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "fa41ad5a8ae6e2fb295f6858e846ef85c6016e0f15840c272e8c8cb957f3fc10"
+      },
+      "etag": null,
+      "local_bytes": 177868,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-08__part_0000.parquet",
+      "manifest_content_length": 177868,
+      "object_index": 15,
+      "record_count": 132,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-08/part_0000.parquet",
+      "sha256_local": "fa41ad5a8ae6e2fb295f6858e846ef85c6016e0f15840c272e8c8cb957f3fc10",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-08/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "c1086eb5e3ba804a15244434e81a76b000de237b13c3a5141d6cf37e74a4db94"
+      },
+      "etag": null,
+      "local_bytes": 159558,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-09__part_0000.parquet",
+      "manifest_content_length": 159558,
+      "object_index": 16,
+      "record_count": 103,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-09/part_0000.parquet",
+      "sha256_local": "c1086eb5e3ba804a15244434e81a76b000de237b13c3a5141d6cf37e74a4db94",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-09/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "d9df0d66dd3de18db3a444fd839a61ec58892911dd00671c7acdd3da74215e6d"
+      },
+      "etag": null,
+      "local_bytes": 264383,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-11__part_0000.parquet",
+      "manifest_content_length": 264383,
+      "object_index": 17,
+      "record_count": 257,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-11/part_0000.parquet",
+      "sha256_local": "d9df0d66dd3de18db3a444fd839a61ec58892911dd00671c7acdd3da74215e6d",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-11/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "f70430b2a1c5fb12c05f4e337e0f23e66cc8aeb9a0b6be392e160b1b8977b7cd"
+      },
+      "etag": null,
+      "local_bytes": 326147,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-12__part_0000.parquet",
+      "manifest_content_length": 326147,
+      "object_index": 18,
+      "record_count": 328,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-12/part_0000.parquet",
+      "sha256_local": "f70430b2a1c5fb12c05f4e337e0f23e66cc8aeb9a0b6be392e160b1b8977b7cd",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-12/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "5748977f7f8146837a373daf286597ab1b66ed67b639c556d7160c394cbf352f"
+      },
+      "etag": null,
+      "local_bytes": 343661,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-14__part_0000.parquet",
+      "manifest_content_length": 343661,
+      "object_index": 19,
+      "record_count": 347,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-14/part_0000.parquet",
+      "sha256_local": "5748977f7f8146837a373daf286597ab1b66ed67b639c556d7160c394cbf352f",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-14/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "328e1a2ed1f6fcfeb0a544b66a2ce1a0be72cc72b2fb85112bae6fd745bf80c6"
+      },
+      "etag": null,
+      "local_bytes": 278764,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-15__part_0000.parquet",
+      "manifest_content_length": 278764,
+      "object_index": 20,
+      "record_count": 272,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-15/part_0000.parquet",
+      "sha256_local": "328e1a2ed1f6fcfeb0a544b66a2ce1a0be72cc72b2fb85112bae6fd745bf80c6",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-15/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "b7e555eec41e90bfeabe89baa36a14eb0a9f3725069a12b66e8c487c0b324f6f"
+      },
+      "etag": null,
+      "local_bytes": 94540,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-16__part_0000.parquet",
+      "manifest_content_length": 94540,
+      "object_index": 21,
+      "record_count": 46,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-16/part_0000.parquet",
+      "sha256_local": "b7e555eec41e90bfeabe89baa36a14eb0a9f3725069a12b66e8c487c0b324f6f",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-16/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "86e61de76ca1f79b6dd850b32ca2e62a7863a5f7d3dd1618a654203699815d4f"
+      },
+      "etag": null,
+      "local_bytes": 219402,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-17__part_0000.parquet",
+      "manifest_content_length": 219402,
+      "object_index": 22,
+      "record_count": 196,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-17/part_0000.parquet",
+      "sha256_local": "86e61de76ca1f79b6dd850b32ca2e62a7863a5f7d3dd1618a654203699815d4f",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-17/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "5d0e9f531e6db49e2be662475bbce8d8a0e1524d57673772aa8516bbf990a6a4"
+      },
+      "etag": null,
+      "local_bytes": 166054,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-18__part_0000.parquet",
+      "manifest_content_length": 166054,
+      "object_index": 23,
+      "record_count": 124,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-18/part_0000.parquet",
+      "sha256_local": "5d0e9f531e6db49e2be662475bbce8d8a0e1524d57673772aa8516bbf990a6a4",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-18/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "161adf3c7259181828c44c4e6cc951c00ae2b216fb9a6f42b563dba6aa548999"
+      },
+      "etag": null,
+      "local_bytes": 171580,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-19__part_0000.parquet",
+      "manifest_content_length": 171580,
+      "object_index": 24,
+      "record_count": 112,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-19/part_0000.parquet",
+      "sha256_local": "161adf3c7259181828c44c4e6cc951c00ae2b216fb9a6f42b563dba6aa548999",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-19/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "6bad8cc7535446a08812303555a1f92c30427b44a39f135fbfd38ef3bc180d83"
+      },
+      "etag": null,
+      "local_bytes": 1122593,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-21__part_0000.parquet",
+      "manifest_content_length": 1122593,
+      "object_index": 25,
+      "record_count": 2140,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-21/part_0000.parquet",
+      "sha256_local": "6bad8cc7535446a08812303555a1f92c30427b44a39f135fbfd38ef3bc180d83",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-21/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "eb1c6b06ef6444afba82e3282e3d2e7881fe5373f9875ca03e2590e4be0e889b"
+      },
+      "etag": null,
+      "local_bytes": 108768,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-22__part_0000.parquet",
+      "manifest_content_length": 108768,
+      "object_index": 26,
+      "record_count": 53,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-22/part_0000.parquet",
+      "sha256_local": "eb1c6b06ef6444afba82e3282e3d2e7881fe5373f9875ca03e2590e4be0e889b",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-22/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "e7552a1d5001baa6ec68a2e054a3599e5faace771b6ba83b4e5b211bb1be31e1"
+      },
+      "etag": null,
+      "local_bytes": 75680,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-23__part_0000.parquet",
+      "manifest_content_length": 75680,
+      "object_index": 27,
+      "record_count": 27,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-23/part_0000.parquet",
+      "sha256_local": "e7552a1d5001baa6ec68a2e054a3599e5faace771b6ba83b4e5b211bb1be31e1",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-23/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "c5540d33b7e6f593958362ae73936985f169c9d5e568ebcb531d4580680da1ad"
+      },
+      "etag": null,
+      "local_bytes": 114264,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-24__part_0000.parquet",
+      "manifest_content_length": 114264,
+      "object_index": 28,
+      "record_count": 59,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-24/part_0000.parquet",
+      "sha256_local": "c5540d33b7e6f593958362ae73936985f169c9d5e568ebcb531d4580680da1ad",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-24/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "5c74103a644233d9d5945ca616d073bdf26206fc41c36d268cbb7cd823a2af83"
+      },
+      "etag": null,
+      "local_bytes": 25844,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-25__part_0000.parquet",
+      "manifest_content_length": 25844,
+      "object_index": 29,
+      "record_count": 2,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-25/part_0000.parquet",
+      "sha256_local": "5c74103a644233d9d5945ca616d073bdf26206fc41c36d268cbb7cd823a2af83",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-25/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "24b84f337ba6c39a25cea365dbf9f0063177c2ad077d95196a226efaaf8d6221"
+      },
+      "etag": null,
+      "local_bytes": 183966,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-26__part_0000.parquet",
+      "manifest_content_length": 183966,
+      "object_index": 30,
+      "record_count": 130,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-26/part_0000.parquet",
+      "sha256_local": "24b84f337ba6c39a25cea365dbf9f0063177c2ad077d95196a226efaaf8d6221",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-26/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "310e03290169baeb254a6044e0988b4fa82a10cbd56f51672aa62302f1f5a6a8"
+      },
+      "etag": null,
+      "local_bytes": 121456,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-27__part_0000.parquet",
+      "manifest_content_length": 121456,
+      "object_index": 31,
+      "record_count": 65,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-27/part_0000.parquet",
+      "sha256_local": "310e03290169baeb254a6044e0988b4fa82a10cbd56f51672aa62302f1f5a6a8",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-27/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "0b7db93b6185c2bff48eefe47f2a3c4bd0eff9ec80b207ab71b71bba6240d38c"
+      },
+      "etag": null,
+      "local_bytes": 283691,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-28__part_0000.parquet",
+      "manifest_content_length": 283691,
+      "object_index": 32,
+      "record_count": 249,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-28/part_0000.parquet",
+      "sha256_local": "0b7db93b6185c2bff48eefe47f2a3c4bd0eff9ec80b207ab71b71bba6240d38c",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-28/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "db6f7cbe2ec54a4725a2da382b75793a5bb2fc240d3fdc7448c5e15e627eb115"
+      },
+      "etag": null,
+      "local_bytes": 108270,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-29__part_0000.parquet",
+      "manifest_content_length": 108270,
+      "object_index": 33,
+      "record_count": 60,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-29/part_0000.parquet",
+      "sha256_local": "db6f7cbe2ec54a4725a2da382b75793a5bb2fc240d3fdc7448c5e15e627eb115",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-29/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "e74372a6e50ac8f8fae081e7a6937825487d2f469273502a0e0b785f8b629a03"
+      },
+      "etag": null,
+      "local_bytes": 90525,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-30__part_0000.parquet",
+      "manifest_content_length": 90525,
+      "object_index": 34,
+      "record_count": 39,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-30/part_0000.parquet",
+      "sha256_local": "e74372a6e50ac8f8fae081e7a6937825487d2f469273502a0e0b785f8b629a03",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-30/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "73488883657ee2b13737dacc83209ced0e7b0d6846b48a13a5d3b2b4be1b53a5"
+      },
+      "etag": null,
+      "local_bytes": 168016,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-03-31__part_0000.parquet",
+      "manifest_content_length": 168016,
+      "object_index": 35,
+      "record_count": 115,
+      "s3_key": "data/parquet/sources/updated_date=2026-03-31/part_0000.parquet",
+      "sha256_local": "73488883657ee2b13737dacc83209ced0e7b0d6846b48a13a5d3b2b4be1b53a5",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-03-31/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "a617a74534c322f3b0c3f496c9d025433d245bca956bc0436da782d80e148d93"
+      },
+      "etag": null,
+      "local_bytes": 1220221,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-02__part_0000.parquet",
+      "manifest_content_length": 1220221,
+      "object_index": 36,
+      "record_count": 2073,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-02/part_0000.parquet",
+      "sha256_local": "a617a74534c322f3b0c3f496c9d025433d245bca956bc0436da782d80e148d93",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-02/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "0215cfc1179c613bc04cc86d043897798b643c973b244f86c9329e4fbc825eac"
+      },
+      "etag": null,
+      "local_bytes": 413600,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-03__part_0000.parquet",
+      "manifest_content_length": 413600,
+      "object_index": 37,
+      "record_count": 420,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-03/part_0000.parquet",
+      "sha256_local": "0215cfc1179c613bc04cc86d043897798b643c973b244f86c9329e4fbc825eac",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-03/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "23f4a8d0d217c897a7400081b1953ece0d9507d43c74cb1f644d12f6c9452bee"
+      },
+      "etag": null,
+      "local_bytes": 19985293,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-04__part_0000.parquet",
+      "manifest_content_length": 19985293,
+      "object_index": 38,
+      "record_count": 37213,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-04/part_0000.parquet",
+      "sha256_local": "23f4a8d0d217c897a7400081b1953ece0d9507d43c74cb1f644d12f6c9452bee",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-04/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "0d7690f456ac24d2efb66862320dc3ebf7da7a794c21a551414e336dd80fa5ed"
+      },
+      "etag": null,
+      "local_bytes": 4049264,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-05__part_0000.parquet",
+      "manifest_content_length": 4049264,
+      "object_index": 39,
+      "record_count": 6732,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-05/part_0000.parquet",
+      "sha256_local": "0d7690f456ac24d2efb66862320dc3ebf7da7a794c21a551414e336dd80fa5ed",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-05/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "f827b6aaea34e035a5c3c0b979565efb979482f469d237d90b06a5098ed17909"
+      },
+      "etag": null,
+      "local_bytes": 468646,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-06__part_0000.parquet",
+      "manifest_content_length": 468646,
+      "object_index": 40,
+      "record_count": 440,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-06/part_0000.parquet",
+      "sha256_local": "f827b6aaea34e035a5c3c0b979565efb979482f469d237d90b06a5098ed17909",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-06/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "c47dcb5e61367979c1287ef66c7e8b2d41db8b2a2bafc4a4540ee39dc672b7d0"
+      },
+      "etag": null,
+      "local_bytes": 26756,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-07__part_0000.parquet",
+      "manifest_content_length": 26756,
+      "object_index": 41,
+      "record_count": 2,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-07/part_0000.parquet",
+      "sha256_local": "c47dcb5e61367979c1287ef66c7e8b2d41db8b2a2bafc4a4540ee39dc672b7d0",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-07/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "26d84c9ced9fc59a4b72802dad61c58ca5dd9f8ec8d75c047026d4732f7841c0"
+      },
+      "etag": null,
+      "local_bytes": 484285,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-08__part_0000.parquet",
+      "manifest_content_length": 484285,
+      "object_index": 42,
+      "record_count": 476,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-08/part_0000.parquet",
+      "sha256_local": "26d84c9ced9fc59a4b72802dad61c58ca5dd9f8ec8d75c047026d4732f7841c0",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-08/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "a040d0f7f402a7d2ae81301f3cacaa19ae3a8fec430f46cb5db43337a5f6019e"
+      },
+      "etag": null,
+      "local_bytes": 323724,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-09__part_0000.parquet",
+      "manifest_content_length": 323724,
+      "object_index": 43,
+      "record_count": 262,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-09/part_0000.parquet",
+      "sha256_local": "a040d0f7f402a7d2ae81301f3cacaa19ae3a8fec430f46cb5db43337a5f6019e",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-09/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "abd01db04c098f34d2a21e54782320dadfc6df15188f65541417fd6d427678b5"
+      },
+      "etag": null,
+      "local_bytes": 20481,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-10__part_0000.parquet",
+      "manifest_content_length": 20481,
+      "object_index": 44,
+      "record_count": 1,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-10/part_0000.parquet",
+      "sha256_local": "abd01db04c098f34d2a21e54782320dadfc6df15188f65541417fd6d427678b5",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-10/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "12b326c848d35c17545c6df6c1c3e9957bfd818097439a9b5a14baf6908c89e2"
+      },
+      "etag": null,
+      "local_bytes": 650883,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-11__part_0000.parquet",
+      "manifest_content_length": 650883,
+      "object_index": 45,
+      "record_count": 759,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-11/part_0000.parquet",
+      "sha256_local": "12b326c848d35c17545c6df6c1c3e9957bfd818097439a9b5a14baf6908c89e2",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-11/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "097a4ef2757634d5eb0108db96081ec255c9856a2841a25675aff652cbd45c3d"
+      },
+      "etag": null,
+      "local_bytes": 234525,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-12__part_0000.parquet",
+      "manifest_content_length": 234525,
+      "object_index": 46,
+      "record_count": 167,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-12/part_0000.parquet",
+      "sha256_local": "097a4ef2757634d5eb0108db96081ec255c9856a2841a25675aff652cbd45c3d",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-12/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "9bf629f22551ea4e160b383c5da6ff5e2d1b7c2801efbc97af9e50a4314f78c3"
+      },
+      "etag": null,
+      "local_bytes": 221201,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-13__part_0000.parquet",
+      "manifest_content_length": 221201,
+      "object_index": 47,
+      "record_count": 156,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-13/part_0000.parquet",
+      "sha256_local": "9bf629f22551ea4e160b383c5da6ff5e2d1b7c2801efbc97af9e50a4314f78c3",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-13/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "9d5b12450154c0276074cd6a720b675896e5f86d4b1a206259427bd70f8f217d"
+      },
+      "etag": null,
+      "local_bytes": 381248,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-14__part_0000.parquet",
+      "manifest_content_length": 381248,
+      "object_index": 48,
+      "record_count": 323,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-14/part_0000.parquet",
+      "sha256_local": "9d5b12450154c0276074cd6a720b675896e5f86d4b1a206259427bd70f8f217d",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-14/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "646cc0234c11d271653fd1a83616cbd0b29ab542be1bc3062fba16cea4f072bb"
+      },
+      "etag": null,
+      "local_bytes": 364339,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-15__part_0000.parquet",
+      "manifest_content_length": 364339,
+      "object_index": 49,
+      "record_count": 307,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-15/part_0000.parquet",
+      "sha256_local": "646cc0234c11d271653fd1a83616cbd0b29ab542be1bc3062fba16cea4f072bb",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-15/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "d6636c7b8c9fa6d19d93a8844b600638a1d14f5a01ca34b00c348132892a81bf"
+      },
+      "etag": null,
+      "local_bytes": 404307,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-16__part_0000.parquet",
+      "manifest_content_length": 404307,
+      "object_index": 50,
+      "record_count": 360,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-16/part_0000.parquet",
+      "sha256_local": "d6636c7b8c9fa6d19d93a8844b600638a1d14f5a01ca34b00c348132892a81bf",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-16/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "0c5e9a4f2355168ba195f8a698a75e92d24a591ea03f364fb4b7bd941c61fc47"
+      },
+      "etag": null,
+      "local_bytes": 642525,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-18__part_0000.parquet",
+      "manifest_content_length": 642525,
+      "object_index": 51,
+      "record_count": 718,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-18/part_0000.parquet",
+      "sha256_local": "0c5e9a4f2355168ba195f8a698a75e92d24a591ea03f364fb4b7bd941c61fc47",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-18/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "9b3c432037048b46a71925385e9998e343a5cf993eda179157007e58b57267ea"
+      },
+      "etag": null,
+      "local_bytes": 241300,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-19__part_0000.parquet",
+      "manifest_content_length": 241300,
+      "object_index": 52,
+      "record_count": 157,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-19/part_0000.parquet",
+      "sha256_local": "9b3c432037048b46a71925385e9998e343a5cf993eda179157007e58b57267ea",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-19/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "f71f5fddfb3353db7bf2d5e05096576f61f82e7f61b12be42ee6909f9ca81aed"
+      },
+      "etag": null,
+      "local_bytes": 274946,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-20__part_0000.parquet",
+      "manifest_content_length": 274946,
+      "object_index": 53,
+      "record_count": 241,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-20/part_0000.parquet",
+      "sha256_local": "f71f5fddfb3353db7bf2d5e05096576f61f82e7f61b12be42ee6909f9ca81aed",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-20/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "de071d93e6fa4c372cddfc0bc36230fe5ce8cce0ed33b410d1c2ab5da2f44413"
+      },
+      "etag": null,
+      "local_bytes": 367679,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-21__part_0000.parquet",
+      "manifest_content_length": 367679,
+      "object_index": 54,
+      "record_count": 309,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-21/part_0000.parquet",
+      "sha256_local": "de071d93e6fa4c372cddfc0bc36230fe5ce8cce0ed33b410d1c2ab5da2f44413",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-21/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "bc8dff8dbdd7eccc29b2c4ff2469e0cc4182062a95001ba5d532c0448e233c80"
+      },
+      "etag": null,
+      "local_bytes": 465823,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-22__part_0000.parquet",
+      "manifest_content_length": 465823,
+      "object_index": 55,
+      "record_count": 436,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-22/part_0000.parquet",
+      "sha256_local": "bc8dff8dbdd7eccc29b2c4ff2469e0cc4182062a95001ba5d532c0448e233c80",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-22/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "b21b4309dd004b77b4a59d52cd4f1213632ea2e788842bbf7378793348ed510c"
+      },
+      "etag": null,
+      "local_bytes": 491974,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-23__part_0000.parquet",
+      "manifest_content_length": 491974,
+      "object_index": 56,
+      "record_count": 491,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-23/part_0000.parquet",
+      "sha256_local": "b21b4309dd004b77b4a59d52cd4f1213632ea2e788842bbf7378793348ed510c",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-23/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "042561b4ee1352cf0b775e47502b200692338230c459d0a9680d19a1bbb05e5a"
+      },
+      "etag": null,
+      "local_bytes": 411028,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-24__part_0000.parquet",
+      "manifest_content_length": 411028,
+      "object_index": 57,
+      "record_count": 376,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-24/part_0000.parquet",
+      "sha256_local": "042561b4ee1352cf0b775e47502b200692338230c459d0a9680d19a1bbb05e5a",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-24/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "94d2f10609227a10266eb05ec855539d87f09447fe7328082335b991740b8d93"
+      },
+      "etag": null,
+      "local_bytes": 407963,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-25__part_0000.parquet",
+      "manifest_content_length": 407963,
+      "object_index": 58,
+      "record_count": 377,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-25/part_0000.parquet",
+      "sha256_local": "94d2f10609227a10266eb05ec855539d87f09447fe7328082335b991740b8d93",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-25/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "91d81b7b395c9209484f19616ba192817786766bdcbedd1d3ce19f9576c8ebe4"
+      },
+      "etag": null,
+      "local_bytes": 349104,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-26__part_0000.parquet",
+      "manifest_content_length": 349104,
+      "object_index": 59,
+      "record_count": 303,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-26/part_0000.parquet",
+      "sha256_local": "91d81b7b395c9209484f19616ba192817786766bdcbedd1d3ce19f9576c8ebe4",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-26/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "a25bb8a8ffbec813c6adb8e0e4327e6c8858315d943bb864129cc2f05e6c9599"
+      },
+      "etag": null,
+      "local_bytes": 288033,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-27__part_0000.parquet",
+      "manifest_content_length": 288033,
+      "object_index": 60,
+      "record_count": 227,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-27/part_0000.parquet",
+      "sha256_local": "a25bb8a8ffbec813c6adb8e0e4327e6c8858315d943bb864129cc2f05e6c9599",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-27/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "2d9982096ae7685173b35aeceac6ea3aaa3a1e1fd54f2db3ccf1a8bc4f539aba"
+      },
+      "etag": null,
+      "local_bytes": 417859,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-28__part_0000.parquet",
+      "manifest_content_length": 417859,
+      "object_index": 61,
+      "record_count": 380,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-28/part_0000.parquet",
+      "sha256_local": "2d9982096ae7685173b35aeceac6ea3aaa3a1e1fd54f2db3ccf1a8bc4f539aba",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-28/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "653d5267069f87bf134597ec0150fc5bcc8734e9db92f0dd13580622641360f1"
+      },
+      "etag": null,
+      "local_bytes": 420980,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-29__part_0000.parquet",
+      "manifest_content_length": 420980,
+      "object_index": 62,
+      "record_count": 389,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-29/part_0000.parquet",
+      "sha256_local": "653d5267069f87bf134597ec0150fc5bcc8734e9db92f0dd13580622641360f1",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-29/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "a63efa13663d2deb7d19daf5e09b0dcffcd2d4abb60626a20e322655b6c6b974"
+      },
+      "etag": null,
+      "local_bytes": 188864,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-04-30__part_0000.parquet",
+      "manifest_content_length": 188864,
+      "object_index": 63,
+      "record_count": 121,
+      "s3_key": "data/parquet/sources/updated_date=2026-04-30/part_0000.parquet",
+      "sha256_local": "a63efa13663d2deb7d19daf5e09b0dcffcd2d4abb60626a20e322655b6c6b974",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-04-30/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "6fbf40c13c197887c2b830e333260c96c2e1628e86a4c5f51e52e9552006f932"
+      },
+      "etag": null,
+      "local_bytes": 157125,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-01__part_0000.parquet",
+      "manifest_content_length": 157125,
+      "object_index": 64,
+      "record_count": 85,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-01/part_0000.parquet",
+      "sha256_local": "6fbf40c13c197887c2b830e333260c96c2e1628e86a4c5f51e52e9552006f932",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-01/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "80fcae739195a921b7a4c12243b0bcbbe199e59de8c8b4816f55377e5826bccb"
+      },
+      "etag": null,
+      "local_bytes": 357078,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-02__part_0000.parquet",
+      "manifest_content_length": 357078,
+      "object_index": 65,
+      "record_count": 299,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-02/part_0000.parquet",
+      "sha256_local": "80fcae739195a921b7a4c12243b0bcbbe199e59de8c8b4816f55377e5826bccb",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-02/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "f4e9431f800f20b0d42e32e45756565247a6497b1491644a35a2dd265cd1c2ac"
+      },
+      "etag": null,
+      "local_bytes": 284645,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-03__part_0000.parquet",
+      "manifest_content_length": 284645,
+      "object_index": 66,
+      "record_count": 200,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-03/part_0000.parquet",
+      "sha256_local": "f4e9431f800f20b0d42e32e45756565247a6497b1491644a35a2dd265cd1c2ac",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-03/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "cc9100454fad31b262debcc90c98ac297f2d29ef1a5ea15d2dab28dd5bc91b63"
+      },
+      "etag": null,
+      "local_bytes": 176209,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-04__part_0000.parquet",
+      "manifest_content_length": 176209,
+      "object_index": 67,
+      "record_count": 98,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-04/part_0000.parquet",
+      "sha256_local": "cc9100454fad31b262debcc90c98ac297f2d29ef1a5ea15d2dab28dd5bc91b63",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-04/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "228d10983165fc1fc3a5ecb1d0dba381d81b522d792b3cca6332b2011d2fceee"
+      },
+      "etag": null,
+      "local_bytes": 1020429,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-05__part_0000.parquet",
+      "manifest_content_length": 1020429,
+      "object_index": 68,
+      "record_count": 1321,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-05/part_0000.parquet",
+      "sha256_local": "228d10983165fc1fc3a5ecb1d0dba381d81b522d792b3cca6332b2011d2fceee",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-05/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "a530c8217c894e8e519c597ae90190dde1d4fac7bd89c15aba14f31791a6fe0d"
+      },
+      "etag": null,
+      "local_bytes": 912185,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-06__part_0000.parquet",
+      "manifest_content_length": 912185,
+      "object_index": 69,
+      "record_count": 1135,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-06/part_0000.parquet",
+      "sha256_local": "a530c8217c894e8e519c597ae90190dde1d4fac7bd89c15aba14f31791a6fe0d",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-06/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "e80c5a655f6a83e237d7d8a0f8a73ad39ad51092f83cc497facd66594d19189f"
+      },
+      "etag": null,
+      "local_bytes": 642975,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-07__part_0000.parquet",
+      "manifest_content_length": 642975,
+      "object_index": 70,
+      "record_count": 707,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-07/part_0000.parquet",
+      "sha256_local": "e80c5a655f6a83e237d7d8a0f8a73ad39ad51092f83cc497facd66594d19189f",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-07/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "358a4d6cf34e2c3954603d2f460b6d97c3477658c603231b0cebb242d4dd3889"
+      },
+      "etag": null,
+      "local_bytes": 42579,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-08__part_0000.parquet",
+      "manifest_content_length": 42579,
+      "object_index": 71,
+      "record_count": 11,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-08/part_0000.parquet",
+      "sha256_local": "358a4d6cf34e2c3954603d2f460b6d97c3477658c603231b0cebb242d4dd3889",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-08/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "ee8991d56498575ded6eb3a122a5baa6e05d1b6fd56eaee636f4e6f4b25b4ef3"
+      },
+      "etag": null,
+      "local_bytes": 578037,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-09__part_0000.parquet",
+      "manifest_content_length": 578037,
+      "object_index": 72,
+      "record_count": 601,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-09/part_0000.parquet",
+      "sha256_local": "ee8991d56498575ded6eb3a122a5baa6e05d1b6fd56eaee636f4e6f4b25b4ef3",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-09/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "95302197574c2f2807220709b4825bb37cfef3c585366a84300ecacf0a154c78"
+      },
+      "etag": null,
+      "local_bytes": 565418,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-10__part_0000.parquet",
+      "manifest_content_length": 565418,
+      "object_index": 73,
+      "record_count": 578,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-10/part_0000.parquet",
+      "sha256_local": "95302197574c2f2807220709b4825bb37cfef3c585366a84300ecacf0a154c78",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-10/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "8af27ac420e335fbb79244570b3d64ef28cbface2562194167137166132217ed"
+      },
+      "etag": null,
+      "local_bytes": 305845,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-11__part_0000.parquet",
+      "manifest_content_length": 305845,
+      "object_index": 74,
+      "record_count": 240,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-11/part_0000.parquet",
+      "sha256_local": "8af27ac420e335fbb79244570b3d64ef28cbface2562194167137166132217ed",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-11/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "6f33f9631bb24ab2c4763ba1b6736786ca990eb95ef04707305d6e4289056839"
+      },
+      "etag": null,
+      "local_bytes": 543568,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-12__part_0000.parquet",
+      "manifest_content_length": 543568,
+      "object_index": 75,
+      "record_count": 557,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-12/part_0000.parquet",
+      "sha256_local": "6f33f9631bb24ab2c4763ba1b6736786ca990eb95ef04707305d6e4289056839",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-12/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "efd2a2d1f3698f17a795b928a69335200a15759ec5a5552f803b1e30c0b06456"
+      },
+      "etag": null,
+      "local_bytes": 506778,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-13__part_0000.parquet",
+      "manifest_content_length": 506778,
+      "object_index": 76,
+      "record_count": 505,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-13/part_0000.parquet",
+      "sha256_local": "efd2a2d1f3698f17a795b928a69335200a15759ec5a5552f803b1e30c0b06456",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-13/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "e2163457c0f92fe992a0df80bb9906ee7d44217c2c0b44af9b7711054ea00dcd"
+      },
+      "etag": null,
+      "local_bytes": 650894,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-14__part_0000.parquet",
+      "manifest_content_length": 650894,
+      "object_index": 77,
+      "record_count": 688,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-14/part_0000.parquet",
+      "sha256_local": "e2163457c0f92fe992a0df80bb9906ee7d44217c2c0b44af9b7711054ea00dcd",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-14/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "86f130978bad855c2092c56a999eab6df68dc79d7886fece888fe5e3dba1e5bc"
+      },
+      "etag": null,
+      "local_bytes": 578703,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-15__part_0000.parquet",
+      "manifest_content_length": 578703,
+      "object_index": 78,
+      "record_count": 599,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-15/part_0000.parquet",
+      "sha256_local": "86f130978bad855c2092c56a999eab6df68dc79d7886fece888fe5e3dba1e5bc",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-15/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "24c609350137561b4112e8313502f4097fd5e29ee6a97eabee235698b4134a7c"
+      },
+      "etag": null,
+      "local_bytes": 559661,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-16__part_0000.parquet",
+      "manifest_content_length": 559661,
+      "object_index": 79,
+      "record_count": 567,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-16/part_0000.parquet",
+      "sha256_local": "24c609350137561b4112e8313502f4097fd5e29ee6a97eabee235698b4134a7c",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-16/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "f789604d4b7e4f9bc4a65368e0c5e5863e4e667d9452d69de7876a6c340b127d"
+      },
+      "etag": null,
+      "local_bytes": 339328,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-17__part_0000.parquet",
+      "manifest_content_length": 339328,
+      "object_index": 80,
+      "record_count": 289,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-17/part_0000.parquet",
+      "sha256_local": "f789604d4b7e4f9bc4a65368e0c5e5863e4e667d9452d69de7876a6c340b127d",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-17/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "a4b6e210df2d2c1d4e68ab5ef4b85d79d79bfd19026528a2fd6c1d257f0c0e5c"
+      },
+      "etag": null,
+      "local_bytes": 357590,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-18__part_0000.parquet",
+      "manifest_content_length": 357590,
+      "object_index": 81,
+      "record_count": 303,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-18/part_0000.parquet",
+      "sha256_local": "a4b6e210df2d2c1d4e68ab5ef4b85d79d79bfd19026528a2fd6c1d257f0c0e5c",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-18/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "52fa8ec56f37ddaea4d3e17ecb3bf5804ad4b50dc04c9920d798f105125a716b"
+      },
+      "etag": null,
+      "local_bytes": 550686,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-19__part_0000.parquet",
+      "manifest_content_length": 550686,
+      "object_index": 82,
+      "record_count": 552,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-19/part_0000.parquet",
+      "sha256_local": "52fa8ec56f37ddaea4d3e17ecb3bf5804ad4b50dc04c9920d798f105125a716b",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-19/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "1538e3143ebb82ed413052f09f5f4ce0fe4924827bfc777b1ba329c16443d064"
+      },
+      "etag": null,
+      "local_bytes": 639162,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-20__part_0000.parquet",
+      "manifest_content_length": 639162,
+      "object_index": 83,
+      "record_count": 676,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-20/part_0000.parquet",
+      "sha256_local": "1538e3143ebb82ed413052f09f5f4ce0fe4924827bfc777b1ba329c16443d064",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-20/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "82fe345121b462e0c55a3c8264313d5278b59e8b2983c25486d01dc84a175e3c"
+      },
+      "etag": null,
+      "local_bytes": 1105971,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-21__part_0000.parquet",
+      "manifest_content_length": 1105971,
+      "object_index": 84,
+      "record_count": 1450,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-21/part_0000.parquet",
+      "sha256_local": "82fe345121b462e0c55a3c8264313d5278b59e8b2983c25486d01dc84a175e3c",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-21/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "b38c220c8964d742fab12e4666bc79b307d55d97247a5f9807666815c640a56f"
+      },
+      "etag": null,
+      "local_bytes": 733555,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-22__part_0000.parquet",
+      "manifest_content_length": 733555,
+      "object_index": 85,
+      "record_count": 822,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-22/part_0000.parquet",
+      "sha256_local": "b38c220c8964d742fab12e4666bc79b307d55d97247a5f9807666815c640a56f",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-22/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "f352a0bf45025f3c7d5f63856b23569a0b1abe9bf76f32d484b2eac2e1abb011"
+      },
+      "etag": null,
+      "local_bytes": 718836,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-23__part_0000.parquet",
+      "manifest_content_length": 718836,
+      "object_index": 86,
+      "record_count": 801,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-23/part_0000.parquet",
+      "sha256_local": "f352a0bf45025f3c7d5f63856b23569a0b1abe9bf76f32d484b2eac2e1abb011",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-23/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "076d8acef842b4e23a63d16c2a83c7f7062d6286485a29288c39f24ecc9c116c"
+      },
+      "etag": null,
+      "local_bytes": 451127,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-24__part_0000.parquet",
+      "manifest_content_length": 451127,
+      "object_index": 87,
+      "record_count": 397,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-24/part_0000.parquet",
+      "sha256_local": "076d8acef842b4e23a63d16c2a83c7f7062d6286485a29288c39f24ecc9c116c",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-24/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "b8e07caad922bcf1d0a35d7defe5319dd86ea3ab339c19945bf78e60ab5eecad"
+      },
+      "etag": null,
+      "local_bytes": 413515,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-25__part_0000.parquet",
+      "manifest_content_length": 413515,
+      "object_index": 88,
+      "record_count": 378,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-25/part_0000.parquet",
+      "sha256_local": "b8e07caad922bcf1d0a35d7defe5319dd86ea3ab339c19945bf78e60ab5eecad",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-25/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "b4a1eeacbfc7caab1df93a0fa61b42ab5002a16f3e3478adec02a3d79d84f65d"
+      },
+      "etag": null,
+      "local_bytes": 33017,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-26__part_0000.parquet",
+      "manifest_content_length": 33017,
+      "object_index": 89,
+      "record_count": 3,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-26/part_0000.parquet",
+      "sha256_local": "b4a1eeacbfc7caab1df93a0fa61b42ab5002a16f3e3478adec02a3d79d84f65d",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-26/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "e54fe5e9ade8798998ccffe4251d82620132108cbd1ed89fb484d42e1b5f9838"
+      },
+      "etag": null,
+      "local_bytes": 1228170,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-27__part_0000.parquet",
+      "manifest_content_length": 1228170,
+      "object_index": 90,
+      "record_count": 1655,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-27/part_0000.parquet",
+      "sha256_local": "e54fe5e9ade8798998ccffe4251d82620132108cbd1ed89fb484d42e1b5f9838",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-27/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "398919c3a5a5ba308ed4bb74d71b3a39d51e1c7e2d07730bb43c8d2dbaad25d5"
+      },
+      "etag": null,
+      "local_bytes": 945619,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-28__part_0000.parquet",
+      "manifest_content_length": 945619,
+      "object_index": 91,
+      "record_count": 1177,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-28/part_0000.parquet",
+      "sha256_local": "398919c3a5a5ba308ed4bb74d71b3a39d51e1c7e2d07730bb43c8d2dbaad25d5",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-28/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "993acc6968186b7327802430ed892e606638a9d3395f32d6d36552197e1b74b5"
+      },
+      "etag": null,
+      "local_bytes": 924140,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-29__part_0000.parquet",
+      "manifest_content_length": 924140,
+      "object_index": 92,
+      "record_count": 1160,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-29/part_0000.parquet",
+      "sha256_local": "993acc6968186b7327802430ed892e606638a9d3395f32d6d36552197e1b74b5",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-29/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "0b8753ed03410e540ab1eb315cf13f5c56b11dabcd28b31e8818e3f27d31a884"
+      },
+      "etag": null,
+      "local_bytes": 885125,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-30__part_0000.parquet",
+      "manifest_content_length": 885125,
+      "object_index": 93,
+      "record_count": 1058,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-30/part_0000.parquet",
+      "sha256_local": "0b8753ed03410e540ab1eb315cf13f5c56b11dabcd28b31e8818e3f27d31a884",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-30/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "eeb743a4f11a36670e9dc289dbf0a2a029a0dd2661e95835d396021004e531dc"
+      },
+      "etag": null,
+      "local_bytes": 555665,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-05-31__part_0000.parquet",
+      "manifest_content_length": 555665,
+      "object_index": 94,
+      "record_count": 566,
+      "s3_key": "data/parquet/sources/updated_date=2026-05-31/part_0000.parquet",
+      "sha256_local": "eeb743a4f11a36670e9dc289dbf0a2a029a0dd2661e95835d396021004e531dc",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-05-31/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "7912ce71bfa77a94d36885929d9e816f8ac1578ecacdd7f9baa9f845be1ca67b"
+      },
+      "etag": null,
+      "local_bytes": 509085,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-01__part_0000.parquet",
+      "manifest_content_length": 509085,
+      "object_index": 95,
+      "record_count": 494,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-01/part_0000.parquet",
+      "sha256_local": "7912ce71bfa77a94d36885929d9e816f8ac1578ecacdd7f9baa9f845be1ca67b",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-01/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "d551de8b0cca4ffea3f03b9d25b5b383532eb65e3ba0b425216deaa47e84fa6b"
+      },
+      "etag": null,
+      "local_bytes": 1007124,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-02__part_0000.parquet",
+      "manifest_content_length": 1007124,
+      "object_index": 96,
+      "record_count": 1261,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-02/part_0000.parquet",
+      "sha256_local": "d551de8b0cca4ffea3f03b9d25b5b383532eb65e3ba0b425216deaa47e84fa6b",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-02/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "ed566bcacd5bae13049afdefb8cabf034db297fb7e840793a2b61010f5e2d1c2"
+      },
+      "etag": null,
+      "local_bytes": 968927,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-03__part_0000.parquet",
+      "manifest_content_length": 968927,
+      "object_index": 97,
+      "record_count": 1207,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-03/part_0000.parquet",
+      "sha256_local": "ed566bcacd5bae13049afdefb8cabf034db297fb7e840793a2b61010f5e2d1c2",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-03/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "8b262de64f8d35e092e808e853b7c1b2b787eac1b188f09f20cfe196d3257fa7"
+      },
+      "etag": null,
+      "local_bytes": 1143909,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-04__part_0000.parquet",
+      "manifest_content_length": 1143909,
+      "object_index": 98,
+      "record_count": 1477,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-04/part_0000.parquet",
+      "sha256_local": "8b262de64f8d35e092e808e853b7c1b2b787eac1b188f09f20cfe196d3257fa7",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-04/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "d50a21b955d04706a2f7796f2b84bed2632a582679502d7489821a0e363a4e53"
+      },
+      "etag": null,
+      "local_bytes": 1107377,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-05__part_0000.parquet",
+      "manifest_content_length": 1107377,
+      "object_index": 99,
+      "record_count": 1393,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-05/part_0000.parquet",
+      "sha256_local": "d50a21b955d04706a2f7796f2b84bed2632a582679502d7489821a0e363a4e53",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-05/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "e0cae004c0ae78d4bfb6efa6b3944675204579addcaeb27d09776a8345dad1c3"
+      },
+      "etag": null,
+      "local_bytes": 1209745,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-06__part_0000.parquet",
+      "manifest_content_length": 1209745,
+      "object_index": 100,
+      "record_count": 1576,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-06/part_0000.parquet",
+      "sha256_local": "e0cae004c0ae78d4bfb6efa6b3944675204579addcaeb27d09776a8345dad1c3",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-06/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "f815d199a46fc83797d5177e2e039d8973a9457b6695d49c8c059136304b3ac9"
+      },
+      "etag": null,
+      "local_bytes": 604294,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-07__part_0000.parquet",
+      "manifest_content_length": 604294,
+      "object_index": 101,
+      "record_count": 619,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-07/part_0000.parquet",
+      "sha256_local": "f815d199a46fc83797d5177e2e039d8973a9457b6695d49c8c059136304b3ac9",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-07/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "279797158700529589e99a22e443b1b5fb0f3f2b992df2f034310cbfc7f7a898"
+      },
+      "etag": null,
+      "local_bytes": 674029,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-08__part_0000.parquet",
+      "manifest_content_length": 674029,
+      "object_index": 102,
+      "record_count": 760,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-08/part_0000.parquet",
+      "sha256_local": "279797158700529589e99a22e443b1b5fb0f3f2b992df2f034310cbfc7f7a898",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-08/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "da774218fe99b5de3c6b9d04d4e17fda86aa9b69d79f7995d458b28376c2033c"
+      },
+      "etag": null,
+      "local_bytes": 27027,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-09__part_0000.parquet",
+      "manifest_content_length": 27027,
+      "object_index": 103,
+      "record_count": 1,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-09/part_0000.parquet",
+      "sha256_local": "da774218fe99b5de3c6b9d04d4e17fda86aa9b69d79f7995d458b28376c2033c",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-09/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "db93f62a1ae2b2579411f95828250e691c315159417b10b0a071ef9bca404b13"
+      },
+      "etag": null,
+      "local_bytes": 1187735,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-10__part_0000.parquet",
+      "manifest_content_length": 1187735,
+      "object_index": 104,
+      "record_count": 1516,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-10/part_0000.parquet",
+      "sha256_local": "db93f62a1ae2b2579411f95828250e691c315159417b10b0a071ef9bca404b13",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-10/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "38a58095f2bd4d3eadb3a21f9634cd09240badecc981cb1e8cb0a8e0f6b55bc0"
+      },
+      "etag": null,
+      "local_bytes": 2744282,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-11__part_0000.parquet",
+      "manifest_content_length": 2744282,
+      "object_index": 105,
+      "record_count": 4102,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-11/part_0000.parquet",
+      "sha256_local": "38a58095f2bd4d3eadb3a21f9634cd09240badecc981cb1e8cb0a8e0f6b55bc0",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-11/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "521d9ff704ea4ebf9105c6ab1195a8e49966d331d3cd2a4aca2ba056fca50d3e"
+      },
+      "etag": null,
+      "local_bytes": 1474677,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-12__part_0000.parquet",
+      "manifest_content_length": 1474677,
+      "object_index": 106,
+      "record_count": 1978,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-12/part_0000.parquet",
+      "sha256_local": "521d9ff704ea4ebf9105c6ab1195a8e49966d331d3cd2a4aca2ba056fca50d3e",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-12/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "cd3913368a3abc92d6c8c7980ed216ae53fa6bf78704aab0649e59b6a3652d05"
+      },
+      "etag": null,
+      "local_bytes": 1488213,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-13__part_0000.parquet",
+      "manifest_content_length": 1488213,
+      "object_index": 107,
+      "record_count": 1986,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-13/part_0000.parquet",
+      "sha256_local": "cd3913368a3abc92d6c8c7980ed216ae53fa6bf78704aab0649e59b6a3652d05",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-13/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "51573f48e2f7917f1bbf9bba8fb4543f72b85fbf509cd98a90df8e283209fdbc"
+      },
+      "etag": null,
+      "local_bytes": 871924,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-14__part_0000.parquet",
+      "manifest_content_length": 871924,
+      "object_index": 108,
+      "record_count": 1053,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-14/part_0000.parquet",
+      "sha256_local": "51573f48e2f7917f1bbf9bba8fb4543f72b85fbf509cd98a90df8e283209fdbc",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-14/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "4718a893a7e3d104f3efcc59e3db105d3136e2b042e3c063c4983903a301321f"
+      },
+      "etag": null,
+      "local_bytes": 853280,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-15__part_0000.parquet",
+      "manifest_content_length": 853280,
+      "object_index": 109,
+      "record_count": 988,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-15/part_0000.parquet",
+      "sha256_local": "4718a893a7e3d104f3efcc59e3db105d3136e2b042e3c063c4983903a301321f",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-15/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "6bcd45f456776c128e342fda5d8ea333e64826d05258eb16889392ca4dfe954c"
+      },
+      "etag": null,
+      "local_bytes": 1903860,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-16__part_0000.parquet",
+      "manifest_content_length": 1903860,
+      "object_index": 110,
+      "record_count": 2649,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-16/part_0000.parquet",
+      "sha256_local": "6bcd45f456776c128e342fda5d8ea333e64826d05258eb16889392ca4dfe954c",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-16/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "163e7f17cd95434de76d0503ab152035e16ede3f1c92e3974d17afbd4f414f6b"
+      },
+      "etag": null,
+      "local_bytes": 1731523,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-17__part_0000.parquet",
+      "manifest_content_length": 1731523,
+      "object_index": 111,
+      "record_count": 2374,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-17/part_0000.parquet",
+      "sha256_local": "163e7f17cd95434de76d0503ab152035e16ede3f1c92e3974d17afbd4f414f6b",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-17/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "2cfb89b516b5280e05389afc33e0c15ff66091a7b15c937bafc2e91079b1a922"
+      },
+      "etag": null,
+      "local_bytes": 2483259,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-18__part_0000.parquet",
+      "manifest_content_length": 2483259,
+      "object_index": 112,
+      "record_count": 3601,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-18/part_0000.parquet",
+      "sha256_local": "2cfb89b516b5280e05389afc33e0c15ff66091a7b15c937bafc2e91079b1a922",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-18/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "9c859b730b93daf30c4afc2adb6bea0a162c30929480734e9261ff77bc4f042d"
+      },
+      "etag": null,
+      "local_bytes": 11878244,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-20__part_0000.parquet",
+      "manifest_content_length": 11878244,
+      "object_index": 113,
+      "record_count": 19805,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-20/part_0000.parquet",
+      "sha256_local": "9c859b730b93daf30c4afc2adb6bea0a162c30929480734e9261ff77bc4f042d",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-20/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "7cf5caa46bc77b80c3ba1eb47e90fc12432df7784d334de3a05f000207b2c420"
+      },
+      "etag": null,
+      "local_bytes": 3011808,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-21__part_0000.parquet",
+      "manifest_content_length": 3011808,
+      "object_index": 114,
+      "record_count": 4329,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-21/part_0000.parquet",
+      "sha256_local": "7cf5caa46bc77b80c3ba1eb47e90fc12432df7784d334de3a05f000207b2c420",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-21/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "baa438b8f9dd2be956fe3d45ac5ed2271ecefc2e79f0b3b3d05ac7f65c8304d7"
+      },
+      "etag": null,
+      "local_bytes": 1352819,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-22__part_0000.parquet",
+      "manifest_content_length": 1352819,
+      "object_index": 115,
+      "record_count": 1736,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-22/part_0000.parquet",
+      "sha256_local": "baa438b8f9dd2be956fe3d45ac5ed2271ecefc2e79f0b3b3d05ac7f65c8304d7",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-22/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "08eee05febc919b3eb5d4ac74108e6bde24104ead1e71c3c86cf50eefe455e57"
+      },
+      "etag": null,
+      "local_bytes": 19419,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-23__part_0000.parquet",
+      "manifest_content_length": 19419,
+      "object_index": 116,
+      "record_count": 1,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-23/part_0000.parquet",
+      "sha256_local": "08eee05febc919b3eb5d4ac74108e6bde24104ead1e71c3c86cf50eefe455e57",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-23/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "ce1d69b2da72ba28f96defda0a940d2425d08567863d108189b47664f478c712"
+      },
+      "etag": null,
+      "local_bytes": 3692271,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-24__part_0000.parquet",
+      "manifest_content_length": 3692271,
+      "object_index": 117,
+      "record_count": 5218,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-24/part_0000.parquet",
+      "sha256_local": "ce1d69b2da72ba28f96defda0a940d2425d08567863d108189b47664f478c712",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-24/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "4f26ac9a01a10578baba3678ddec801d51acaa6678bd2f5d9aacc31a1e89d91b"
+      },
+      "etag": null,
+      "local_bytes": 13836157,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-25__part_0000.parquet",
+      "manifest_content_length": 13836157,
+      "object_index": 118,
+      "record_count": 20794,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-25/part_0000.parquet",
+      "sha256_local": "4f26ac9a01a10578baba3678ddec801d51acaa6678bd2f5d9aacc31a1e89d91b",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-25/part_0000.parquet"
+    },
+    {
+      "checksum_metadata": {
+        "etag": null,
+        "note": "ETag is not SHA-256 of remote object",
+        "sha256_of_local_bytes": "bbb68f22bb3aebc3a506639dea3ddfc665c3b3da91ece58ade93b685bc56e395"
+      },
+      "etag": null,
+      "local_bytes": 27927816,
+      "local_path": "data/openalex-snapshot/sources/data__parquet__sources__updated_date=2026-06-26__part_0000.parquet",
+      "manifest_content_length": 27927816,
+      "object_index": 119,
+      "record_count": 35566,
+      "s3_key": "data/parquet/sources/updated_date=2026-06-26/part_0000.parquet",
+      "sha256_local": "bbb68f22bb3aebc3a506639dea3ddfc665c3b3da91ece58ade93b685bc56e395",
+      "size_match": true,
+      "url": "s3://openalex/data/parquet/sources/updated_date=2026-06-26/part_0000.parquet"
+    }
+  ],
+  "reasons": [
+    "per_file_local_sha256_recorded",
+    "sizes_match_manifest",
+    "keys_bijective"
+  ],
+  "release_notes_date": "2026-06-25",
+  "sources_dir": "data/openalex-snapshot/sources",
+  "sources_manifest_path": "data/paper3/raw_manifests/sources_manifest.pinned.json",
+  "sources_manifest_sha256": "47fc6357545f074d6f6d140703e3cfa0ca5b453d7b31bc3158e0f136f5133b1f"
+}
