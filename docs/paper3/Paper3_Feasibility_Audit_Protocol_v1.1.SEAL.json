@@ -1,0 +1,54 @@
+{
+  "seal_type": "phase0_feasibility_protocol",
+  "document": "Paper 3 — Longitudinal Feasibility Audit Protocol",
+  "version": "v1.1",
+  "status": "frozen",
+  "study_working_title": "Dynamic Coupling Between Journal Thematic Identity and Competitive Position: A Longitudinal Analysis",
+  "sealed_at_utc": "2026-08-07T23:57:55Z",
+  "author": {
+    "name": "Francisco Javier Garrido Valdés",
+    "affiliation": "RosFlo Limitada",
+    "orcid": "0000-0002-6512-8924"
+  },
+  "canonical_master": {
+    "filename": "Paper3_Feasibility_Audit_Protocol_v1.1.md",
+    "format": "Markdown (UTF-8)",
+    "role": "authoritative byte-stream; this is the hash that governs the seal",
+    "bytes": 18256,
+    "lines": 207,
+    "words": 2408,
+    "sha256": "871b75fe47dd45d4a7249681996e178f4cf51acbcb8d345433fdfb729a53fdb8"
+  },
+  "derived_views": [
+    {
+      "filename": "Paper3_Feasibility_Audit_Protocol_v1.1.docx",
+      "format": "OOXML",
+      "role": "derived view — informational only; NOT byte-reproducible (embeds build timestamps)",
+      "bytes": 19499,
+      "sha256_as_built": "20ec973161de0711dc7616ea1854afe1ee84d1579256ffea908aa71f4aaf4a55"
+    },
+    {
+      "filename": "Paper3_Feasibility_Audit_Protocol_v1.1.pdf",
+      "format": "PDF",
+      "role": "derived view — informational only; NOT byte-reproducible (embeds build timestamps)",
+      "bytes": 179609,
+      "sha256_as_built": "dbbeebdd5b3c8ea0abe0bb8effea42fa4e8d7f75a283aed70019d1116dd0e607"
+    }
+  ],
+  "provenance_chain": {
+    "1_authorizing_protocol": "this document (sha256 above) — recorded as first field of the future LDAM",
+    "2_executing_code": "Pipeline A /feasibility/src/ — script SHA-256s (recorded at LDAM build, not yet created)",
+    "3_source_snapshot": "single fixed bibliographic snapshot — date + taxonomy version + subfield-vocabulary hash (recorded at LDAM build, not yet fixed)",
+    "4_produced_outputs": "Q1–Q10 aggregate tables in the LDAM (not yet produced)",
+    "5_fed_decision": "longitudinal design selection from the §9 decision table (not yet made)"
+  },
+  "firewall_declaration": {
+    "outcome_blind": true,
+    "computes": "input availability + marginal, univariate data-quality distributions only",
+    "must_not_compute": "I(j,t) or P(j,t) as analysis objects; any I<->P relationship; any Test E-I statistic, lag, persistence contrast, or susceptibility stratification",
+    "contamination_rule": "protocol section 1.3 — any prohibited outcome-bearing output contaminates Phase 0 and requires a clean rerun from the sealed snapshot"
+  },
+  "git_commit": null,
+  "notes": "git_commit is null by design (avoids circularity: the seal cannot reference a commit that contains the seal). The user performs the commit/push; the committed object carries this seal file. Only the Markdown master is byte-reproducible and authoritative; the DOCX/PDF hashes are as-built snapshots of non-deterministic renderers and are recorded for reference, not as reproducibility anchors.",
+  "next_step_after_seal": "Implement Pipeline A (/feasibility/) with the firewall CI check; leave /analysis/ locked. No H1-H4, JSD, lags, persistence, or metrics are added before the LDAM is sealed and the design is selected."
+}
