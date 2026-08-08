@@ -1,0 +1,49 @@
+# Prohibited symbols in Pipeline A (Phase 0).
+# The firewall CI fails if any identifier/substring below appears in
+# feasibility/src/**.py, feasibility/run_phase0.py, or any output column name.
+# These are the outcome-bearing operations reserved for Pipeline B (post-preregistration).
+# One token per line; lines starting with '#' are comments; matching is case-insensitive.
+#
+# --- distributional distance / drift on identity ---
+jensen_shannon
+jensenshannon
+jsd
+kl_divergence
+kullback
+divergence
+drift
+# --- identity "nucleus" / turnover machinery (Paper 1/2 vocabulary) ---
+nucleus
+turnover
+# --- journal-level competitive position over time ---
+rank_to_quartile
+quartile_over_time
+position_trajectory
+p_of_j_t
+i_of_j_t
+identity_vector
+position_value
+# --- coupling / lagged relationships ---
+cross_correlation
+cross_lag
+crosslag
+lagged_coupling
+coupling
+granger
+# --- persistence / change-on-change ---
+persistence_classify
+persistence_effect
+change_on_change
+change_regression
+autocorrelation
+# --- hypothesis / test identifiers reserved for the preregistration ---
+test_e
+test_f
+test_g
+test_h
+test_i
+h1_
+h2_
+h3_
+h4_
+susceptibility

@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    name: Lint · Typecheck · Test · Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install dataset stubs for CI
+        run: VERIFY_CI_STUBS=1 node scripts/install-ci-stubs.mjs
+
+      - name: Verify dataset files exist
+        run: npm run verify:data:stubs
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Run tests
+        run: npx vitest run --reporter=verbose
+
+      - name: Build
+        run: npm run verify:data:stubs && vite build
+
+      - name: Check bundle size
+        run: |
+          echo "=== Bundle Size ==="
+          du -sh dist/assets/*.js | sort -rh | head -10
+          TOTAL=$(du -sh dist/ | cut -f1)
+          echo "Total: $TOTAL"
+
+  # Paper 3 Phase 0 — Pipeline A firewall (sealed protocol v1.1).
+  # Must pass before any Phase-0 execution; fails on prohibited symbols,
+  # unlocked analysis/ code, or non-allowlisted feasibility/out/ files.
+  paper3_firewall:
+    name: Paper3 · Phase-0 firewall
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Static firewall check (Pipeline A)
+        run: python feasibility/ci/firewall_check.py
+
+  paper3_acquisition:
+    name: Paper3 · Acquisition executor tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install acquisition test deps
+        run: pip install pyarrow==19.0.1 pytest pandas
+
+      - name: Acquisition firewall bundle
+        run: python feasibility/ci/check_acquisition_firewall.py
+
+      - name: Acquisition unit tests
+        run: pytest tests/paper3_acquisition -q
+
+  # Deploy to GitHub Pages (optional — enable by uncommenting)
+  # deploy:
+  #   name: Deploy to Pages
+  #   needs: quality
+  #   if: github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     pages: write
+  #     id-token: write
+  #   environment:
+  #     name: github-pages
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with: { node-version: 20, cache: npm }
+  #     - run: npm ci
+  #     - run: npm run build
+  #     - uses: actions/upload-pages-artifact@v3
+  #       with: { path: dist }
+  #     - uses: actions/deploy-pages@v4

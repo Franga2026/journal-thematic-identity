@@ -1,0 +1,4 @@
+# Granular journal x window intermediates live here transiently and are purged.
+# Never commit them (protocol section 8, restricted-artifact rule).
+*
+!.gitignore

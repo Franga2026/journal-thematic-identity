@@ -1,0 +1,7 @@
+# Pinned for Paper 3 Phase-0 one-partition acquisition pilot (v0.2).
+# Do not loosen without re-running the pilot and recording new digests.
+pyarrow==19.0.1
+boto3==1.36.16
+botocore==1.36.16
+pandas==2.2.3
+numpy==2.2.3

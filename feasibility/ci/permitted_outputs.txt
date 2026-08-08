@@ -1,0 +1,18 @@
+# Allowlist of permitted output filenames for Pipeline A (Phase 0), per protocol §8.
+# writers.write_permitted() refuses any name not on this list.
+# The firewall CI also asserts that feasibility/out/ contains only these names.
+# One filename per line; '#' comments allowed.
+ldam_manifest.json
+q1_coverage_by_year.csv
+q2_survival_balanced.csv
+q2_survival_unbalanced.csv
+q3_density.csv
+q4_identity_inputs_by_year.csv
+q5_position_inputs.csv
+q6_categories.csv
+q7_venue_integrity.csv
+q8_missingness.csv
+q10_observability_identity.csv
+q10_observability_competitive.csv
+q10_observability_joint_inputs.csv
+q9_feasibility_decision_table.csv

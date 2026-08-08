@@ -1,0 +1,8 @@
+Pipeline B (preregistered analysis) is LOCKED.
+
+No analysis code may exist in this directory until the Paper 3 preregistration
+(H1-H4 / Tests E-I) is written and sealed, which happens only AFTER the LDAM is
+produced and the longitudinal design is selected from the decision table.
+
+The firewall CI (feasibility/ci/firewall_check.py) fails if any .py file appears
+under analysis/ before that point.
