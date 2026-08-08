@@ -44,3 +44,38 @@ data/openalex-snapshot/
 cris-discovery-api/logs/
 cris-discovery-api/data/
 /load_openalex_sources.py
+
+# Empaquetado AWS (regenerable)
+deploy/aws/out/
+_to_delete/
+reports-out/
+
+# Paper 3 Phase 0 (Pipeline A) — runtime artifacts; keep scaffold + .gitkeep
+feasibility/**/__pycache__/
+feasibility/out/*
+!feasibility/out/.gitkeep
+# tmp_restricted/ is self-ignored via its own .gitignore
+
+# Paper 3 bootstrap — keep reports/manifests; ignore bulky raw/slim binaries if desired
+data/paper3/bootstrap/selected_object.raw.parquet
+data/paper3/bootstrap/_raw_part_probe.parquet
+data/paper3/bootstrap/_pin_works_manifest.json
+data/paper3/bootstrap/__pycache__/
+
+# Paper 3 Layer B — ignore runtime shards/checkpoints; keep manifests/templates
+data/paper3/layer_b/shards/
+data/paper3/layer_b/checksums/
+data/paper3/layer_b/manifests/acquisition_checkpoint.json
+data/paper3/layer_b/manifests/acquisition_checkpoint.tmp
+data/paper3/layer_b/manifests/*.tmp
+tests/paper3_acquisition/**/__pycache__/
+
+# Level-2 cached WORKS objects + run trees (regenerable; can be ~2 GiB)
+data/paper3/bootstrap/level2_objects/
+data/paper3/bootstrap/level2_runs/
+data/paper3/taxonomy/raw/**/*.parquet
+data/paper3/taxonomy/_canonical_topic_taxonomy.repro.json
+
+# Local credentials (never commit)
+**/.dsn_local
+cris-discovery-api/.dsn_local
